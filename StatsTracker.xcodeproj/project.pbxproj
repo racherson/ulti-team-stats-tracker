@@ -19,6 +19,7 @@
 		2910EB88243FA56A00BCF721 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB87243FA56A00BCF721 /* RootCoordinator.swift */; };
 		2910EB8A243FAC8600BCF721 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB89243FAC8600BCF721 /* CreateAccountViewController.swift */; };
 		2910EB8C243FAC9600BCF721 /* BuyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB8B243FAC9600BCF721 /* BuyViewController.swift */; };
+		2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		2910EB87243FA56A00BCF721 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		2910EB89243FAC8600BCF721 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		2910EB8B243FAC9600BCF721 /* BuyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyViewController.swift; sourceTree = "<group>"; };
+		2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				2910EB61243FA4C100BCF721 /* AppDelegate.swift */,
 				2910EB63243FA4C100BCF721 /* SceneDelegate.swift */,
 				2910EB65243FA4C100BCF721 /* ViewController.swift */,
+				2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */,
 				2910EB87243FA56A00BCF721 /* RootCoordinator.swift */,
 				2910EB67243FA4C100BCF721 /* Main.storyboard */,
 				2910EB83243FA53000BCF721 /* Coordinator.swift */,
@@ -217,6 +220,7 @@
 			files = (
 				2910EB8A243FAC8600BCF721 /* CreateAccountViewController.swift in Sources */,
 				2910EB8C243FAC9600BCF721 /* BuyViewController.swift in Sources */,
+				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* ViewController.swift in Sources */,
 				2910EB86243FA53D00BCF721 /* Storyboarded.swift in Sources */,

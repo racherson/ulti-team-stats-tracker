@@ -19,19 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             // create a basic UIWindow
             let window = UIWindow(windowScene: windowScene)
-            
-            // create the main navigation controller to be used for our app
-            let navController = UINavigationController()
-            
-            // send that into our coordinator so that it can display view controllers
-            coordinator = RootCoordinator(navigationController: navController)
-
-            // tell the coordinator to take over control
-            coordinator?.start()
-            
-            // activate UIWindow
-            window.rootViewController = navController
-            
+            window.rootViewController = MainTabBarController()
             self.window = window
             window.makeKeyAndVisible()
             

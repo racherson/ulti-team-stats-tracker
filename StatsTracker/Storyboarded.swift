@@ -9,6 +9,8 @@
 import UIKit
 
 protocol Storyboarded {
+    // Protocol from https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps
+    
     static func instantiate() -> Self
 }
 
