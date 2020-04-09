@@ -16,8 +16,10 @@ protocol Storyboarded {
 
 enum StoryboardType: String {
     // Input for the instantiate method for selecting correct storyboard
+    case team = "TeamProfile"
     case roster = "Roster"
-    case settings = "Settings"
+    case pull = "Pull"
+    case games = "Games"
 }
 
 extension Storyboarded where Self: UIViewController {

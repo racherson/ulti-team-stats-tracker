@@ -20,9 +20,15 @@
 		2910EB8A243FAC8600BCF721 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB89243FAC8600BCF721 /* CreateAccountViewController.swift */; };
 		2910EB8C243FAC9600BCF721 /* BuyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB8B243FAC9600BCF721 /* BuyViewController.swift */; };
 		2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */; };
-		2910EB92243FBFC400BCF721 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB91243FBFC400BCF721 /* SettingsCoordinator.swift */; };
-		2910EB94243FC03000BCF721 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2910EB93243FC03000BCF721 /* Settings.storyboard */; };
-		2910EB96243FC05F00BCF721 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* SettingsViewController.swift */; };
+		2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB91243FBFC400BCF721 /* PullCoordinator.swift */; };
+		2910EB94243FC03000BCF721 /* Pull.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2910EB93243FC03000BCF721 /* Pull.storyboard */; };
+		2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* PullViewController.swift */; };
+		29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */; };
+		29AD5202243FE38F0094DCDE /* TeamProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */; };
+		29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */; };
+		29AD5206243FE7110094DCDE /* Games.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5205243FE7110094DCDE /* Games.storyboard */; };
+		29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */; };
+		29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5209243FE7600094DCDE /* GamesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +59,15 @@
 		2910EB89243FAC8600BCF721 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		2910EB8B243FAC9600BCF721 /* BuyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyViewController.swift; sourceTree = "<group>"; };
 		2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		2910EB91243FBFC400BCF721 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
-		2910EB93243FC03000BCF721 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		2910EB95243FC05F00BCF721 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2910EB91243FBFC400BCF721 /* PullCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullCoordinator.swift; sourceTree = "<group>"; };
+		2910EB93243FC03000BCF721 /* Pull.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Pull.storyboard; sourceTree = "<group>"; };
+		2910EB95243FC05F00BCF721 /* PullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullViewController.swift; sourceTree = "<group>"; };
+		29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinator.swift; sourceTree = "<group>"; };
+		29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamProfile.storyboard; sourceTree = "<group>"; };
+		29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewController.swift; sourceTree = "<group>"; };
+		29AD5205243FE7110094DCDE /* Games.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Games.storyboard; sourceTree = "<group>"; };
+		29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesCoordinator.swift; sourceTree = "<group>"; };
+		29AD5209243FE7600094DCDE /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,11 +112,13 @@
 				2910EB61243FA4C100BCF721 /* AppDelegate.swift */,
 				2910EB63243FA4C100BCF721 /* SceneDelegate.swift */,
 				2910EB98243FC47500BCF721 /* Protocols */,
-				2910EB99243FC5C800BCF721 /* Settings */,
+				29AD51FA243FE2880094DCDE /* TeamProfile */,
 				2910EB9A243FC5FB00BCF721 /* Roster */,
+				2910EB99243FC5C800BCF721 /* Pull */,
+				29AD51FB243FE2AD0094DCDE /* Games */,
 				2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */,
-				2910EB6A243FA4C100BCF721 /* Assets.xcassets */,
 				2910EB6C243FA4C100BCF721 /* LaunchScreen.storyboard */,
+				2910EB6A243FA4C100BCF721 /* Assets.xcassets */,
 				2910EB6F243FA4C100BCF721 /* Info.plist */,
 			);
 			path = StatsTracker;
@@ -128,14 +142,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		2910EB99243FC5C800BCF721 /* Settings */ = {
+		2910EB99243FC5C800BCF721 /* Pull */ = {
 			isa = PBXGroup;
 			children = (
-				2910EB93243FC03000BCF721 /* Settings.storyboard */,
-				2910EB91243FBFC400BCF721 /* SettingsCoordinator.swift */,
-				2910EB95243FC05F00BCF721 /* SettingsViewController.swift */,
+				2910EB93243FC03000BCF721 /* Pull.storyboard */,
+				2910EB91243FBFC400BCF721 /* PullCoordinator.swift */,
+				2910EB95243FC05F00BCF721 /* PullViewController.swift */,
 			);
-			path = Settings;
+			path = Pull;
 			sourceTree = "<group>";
 		};
 		2910EB9A243FC5FB00BCF721 /* Roster */ = {
@@ -148,6 +162,26 @@
 				2910EB8B243FAC9600BCF721 /* BuyViewController.swift */,
 			);
 			path = Roster;
+			sourceTree = "<group>";
+		};
+		29AD51FA243FE2880094DCDE /* TeamProfile */ = {
+			isa = PBXGroup;
+			children = (
+				29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */,
+				29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */,
+				29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */,
+			);
+			path = TeamProfile;
+			sourceTree = "<group>";
+		};
+		29AD51FB243FE2AD0094DCDE /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				29AD5205243FE7110094DCDE /* Games.storyboard */,
+				29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */,
+				29AD5209243FE7600094DCDE /* GamesViewController.swift */,
+			);
+			path = Games;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,10 +265,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29AD5206243FE7110094DCDE /* Games.storyboard in Resources */,
 				2910EB6E243FA4C100BCF721 /* LaunchScreen.storyboard in Resources */,
 				2910EB6B243FA4C100BCF721 /* Assets.xcassets in Resources */,
 				2910EB69243FA4C100BCF721 /* Roster.storyboard in Resources */,
-				2910EB94243FC03000BCF721 /* Settings.storyboard in Resources */,
+				2910EB94243FC03000BCF721 /* Pull.storyboard in Resources */,
+				29AD5202243FE38F0094DCDE /* TeamProfile.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,12 +290,16 @@
 			files = (
 				2910EB8A243FAC8600BCF721 /* CreateAccountViewController.swift in Sources */,
 				2910EB8C243FAC9600BCF721 /* BuyViewController.swift in Sources */,
-				2910EB96243FC05F00BCF721 /* SettingsViewController.swift in Sources */,
+				2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */,
+				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
+				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
 				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
+				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
-				2910EB92243FBFC400BCF721 /* SettingsCoordinator.swift in Sources */,
+				2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */,
 				2910EB86243FA53D00BCF721 /* Storyboarded.swift in Sources */,
+				29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */,
 				2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */,
 				2910EB88243FA56A00BCF721 /* RosterCoordinator.swift in Sources */,
 				2910EB64243FA4C100BCF721 /* SceneDelegate.swift in Sources */,

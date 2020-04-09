@@ -11,15 +11,19 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     //MARK: Properties
+    let teamProfileCoordinator = TeamProfileCoordinator(navigationController: UINavigationController())
     let rosterCoordinator = RosterCoordinator(navigationController: UINavigationController())
-    let settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController())
+    let pullCoordinator = PullCoordinator(navigationController: UINavigationController())
+    let gamesCoordinator = GamesCoordinator(navigationController: UINavigationController())
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        teamProfileCoordinator.start()
         rosterCoordinator.start()
-        settingsCoordinator.start()
-        viewControllers = [rosterCoordinator.navigationController, settingsCoordinator.navigationController]
+        pullCoordinator.start()
+        gamesCoordinator.start()
+        viewControllers = [teamProfileCoordinator.navigationController, rosterCoordinator.navigationController, pullCoordinator.navigationController, gamesCoordinator.navigationController]
     }
     
 

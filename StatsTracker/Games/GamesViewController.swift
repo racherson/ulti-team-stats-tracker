@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  GamesViewController.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, Storyboarded {
+class GamesViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var coordinator: SettingsCoordinator?
+    weak var coordinator: GamesCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

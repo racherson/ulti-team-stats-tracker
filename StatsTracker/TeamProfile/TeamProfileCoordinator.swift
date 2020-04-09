@@ -1,5 +1,5 @@
 //
-//  SettingsCoordinator.swift
+//  TeamProfileCoordinator.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsCoordinator: Coordinator {
+class TeamProfileCoordinator: Coordinator {
     
     //MARK: Properties
     var childCoordinators = [Coordinator]()
@@ -19,9 +19,9 @@ class SettingsCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = SettingsViewController.instantiate(.settings)
+        let vc = TeamProfileViewController.instantiate(.team)
         vc.coordinator = self
-        vc.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 1)
+        vc.tabBarItem = UITabBarItem(title: "Team Profile", image: UIImage(systemName: "house"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }
 }
