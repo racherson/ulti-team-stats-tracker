@@ -15,19 +15,20 @@ protocol Storyboarded {
 }
 
 enum StoryboardType: String {
+    // Input for the instantiate method for selecting correct storyboard
     case main = "Main"
     case settings = "Settings"
 }
 
 extension Storyboarded where Self: UIViewController {
     static func instantiate(_ board: StoryboardType) -> Self {
-        // this pulls out "MyApp.MyViewController"
+        // this pulls out "StatsTracker.MyViewController"
         let fullName = NSStringFromClass(self)
 
         // this splits by the dot and uses everything after, giving "MyViewController"
         let className = fullName.components(separatedBy: ".")[1]
 
-        // load our storyboard
+        // load correct storyboard
         let storyboard = UIStoryboard(name: board.rawValue, bundle: Bundle.main)
 
         // instantiate a view controller with that identifier, and force cast as the type that was requested

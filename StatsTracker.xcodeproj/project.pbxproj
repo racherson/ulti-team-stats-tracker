@@ -99,19 +99,12 @@
 			children = (
 				2910EB61243FA4C100BCF721 /* AppDelegate.swift */,
 				2910EB63243FA4C100BCF721 /* SceneDelegate.swift */,
-				2910EB65243FA4C100BCF721 /* ViewController.swift */,
+				2910EB98243FC47500BCF721 /* Protocols */,
+				2910EB99243FC5C800BCF721 /* Settings */,
+				2910EB9A243FC5FB00BCF721 /* Root */,
 				2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */,
-				2910EB87243FA56A00BCF721 /* RootCoordinator.swift */,
-				2910EB91243FBFC400BCF721 /* SettingsCoordinator.swift */,
-				2910EB67243FA4C100BCF721 /* Main.storyboard */,
-				2910EB93243FC03000BCF721 /* Settings.storyboard */,
-				2910EB95243FC05F00BCF721 /* SettingsViewController.swift */,
-				2910EB83243FA53000BCF721 /* Coordinator.swift */,
-				2910EB85243FA53D00BCF721 /* Storyboarded.swift */,
 				2910EB6A243FA4C100BCF721 /* Assets.xcassets */,
 				2910EB6C243FA4C100BCF721 /* LaunchScreen.storyboard */,
-				2910EB89243FAC8600BCF721 /* CreateAccountViewController.swift */,
-				2910EB8B243FAC9600BCF721 /* BuyViewController.swift */,
 				2910EB6F243FA4C100BCF721 /* Info.plist */,
 			);
 			path = StatsTracker;
@@ -124,6 +117,37 @@
 				2910EB7A243FA4C100BCF721 /* Info.plist */,
 			);
 			path = StatsTrackerTests;
+			sourceTree = "<group>";
+		};
+		2910EB98243FC47500BCF721 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2910EB83243FA53000BCF721 /* Coordinator.swift */,
+				2910EB85243FA53D00BCF721 /* Storyboarded.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2910EB99243FC5C800BCF721 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2910EB93243FC03000BCF721 /* Settings.storyboard */,
+				2910EB91243FBFC400BCF721 /* SettingsCoordinator.swift */,
+				2910EB95243FC05F00BCF721 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2910EB9A243FC5FB00BCF721 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				2910EB67243FA4C100BCF721 /* Main.storyboard */,
+				2910EB87243FA56A00BCF721 /* RootCoordinator.swift */,
+				2910EB65243FA4C100BCF721 /* ViewController.swift */,
+				2910EB89243FAC8600BCF721 /* CreateAccountViewController.swift */,
+				2910EB8B243FAC9600BCF721 /* BuyViewController.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

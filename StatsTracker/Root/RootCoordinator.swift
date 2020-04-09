@@ -25,6 +25,7 @@ class RootCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
+    //MARK: Delegate
     func buySubscription() {
         let vc = BuyViewController.instantiate(.main)
         vc.coordinator = self
