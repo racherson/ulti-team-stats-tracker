@@ -19,20 +19,20 @@ class RootCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = ViewController.instantiate()
+        let vc = ViewController.instantiate(.main)
         vc.coordinator = self
         vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func buySubscription() {
-        let vc = BuyViewController.instantiate()
+        let vc = BuyViewController.instantiate(.main)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
 
     func createAccount() {
-        let vc = CreateAccountViewController.instantiate()
+        let vc = CreateAccountViewController.instantiate(.main)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }

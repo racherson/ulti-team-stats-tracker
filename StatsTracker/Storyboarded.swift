@@ -11,11 +11,16 @@ import UIKit
 protocol Storyboarded {
     // Protocol from https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps
     
-    static func instantiate() -> Self
+    static func instantiate(_ board: StoryboardType) -> Self
+}
+
+enum StoryboardType: String {
+    case main = "Main"
+    case settings = "Settings"
 }
 
 extension Storyboarded where Self: UIViewController {
-    static func instantiate() -> Self {
+    static func instantiate(_ board: StoryboardType) -> Self {
         // this pulls out "MyApp.MyViewController"
         let fullName = NSStringFromClass(self)
 
@@ -23,7 +28,7 @@ extension Storyboarded where Self: UIViewController {
         let className = fullName.components(separatedBy: ".")[1]
 
         // load our storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let storyboard = UIStoryboard(name: board.rawValue, bundle: Bundle.main)
 
         // instantiate a view controller with that identifier, and force cast as the type that was requested
         return storyboard.instantiateViewController(withIdentifier: className) as! Self

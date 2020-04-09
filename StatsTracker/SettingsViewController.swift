@@ -1,5 +1,5 @@
 //
-//  MainTabBarController.swift
+//  SettingsViewController.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,18 +8,15 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    let mainCoordinator = RootCoordinator(navigationController: UINavigationController())
-    let settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController())
+    weak var coordinator: SettingsCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mainCoordinator.start()
-        settingsCoordinator.start()
-        viewControllers = [mainCoordinator.navigationController, settingsCoordinator.navigationController]
+        // Do any additional setup after loading the view.
     }
     
 
