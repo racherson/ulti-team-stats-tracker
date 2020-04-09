@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RosterViewController.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController, Storyboarded {
+class RosterViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var coordinator: RootCoordinator?
+    weak var coordinator: RosterCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

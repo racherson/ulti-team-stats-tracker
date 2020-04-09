@@ -1,5 +1,5 @@
 //
-//  RootCoordinator.swift
+//  RosterCoordinator.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootCoordinator: Coordinator {
+class RosterCoordinator: Coordinator {
     
     //MARK: Properties
     var childCoordinators = [Coordinator]()
@@ -19,21 +19,21 @@ class RootCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = ViewController.instantiate(.main)
+        let vc = RosterViewController.instantiate(.roster)
         vc.coordinator = self
-        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        vc.tabBarItem = UITabBarItem(title: "Roster", image: UIImage(systemName: "person.3"), tag: 1)
         navigationController.pushViewController(vc, animated: false)
     }
     
     //MARK: Delegate
     func buySubscription() {
-        let vc = BuyViewController.instantiate(.main)
+        let vc = BuyViewController.instantiate(.roster)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
 
     func createAccount() {
-        let vc = CreateAccountViewController.instantiate(.main)
+        let vc = CreateAccountViewController.instantiate(.roster)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }

@@ -11,15 +11,15 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     //MARK: Properties
-    let mainCoordinator = RootCoordinator(navigationController: UINavigationController())
+    let rosterCoordinator = RosterCoordinator(navigationController: UINavigationController())
     let settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController())
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mainCoordinator.start()
+        rosterCoordinator.start()
         settingsCoordinator.start()
-        viewControllers = [mainCoordinator.navigationController, settingsCoordinator.navigationController]
+        viewControllers = [rosterCoordinator.navigationController, settingsCoordinator.navigationController]
     }
     
 
