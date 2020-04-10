@@ -29,9 +29,11 @@
 		29AD5206243FE7110094DCDE /* Games.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5205243FE7110094DCDE /* Games.storyboard */; };
 		29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */; };
 		29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5209243FE7600094DCDE /* GamesViewController.swift */; };
-		29D0E14124401238008E14F3 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E14024401238008E14F3 /* LoginCoordinator.swift */; };
-		29D0E1432440128B008E14F3 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D0E1422440128B008E14F3 /* Login.storyboard */; };
-		29D0E1452440129A008E14F3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E1442440129A008E14F3 /* LoginViewController.swift */; };
+		29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B3692440E13E0068B24D /* SignUpViewController.swift */; };
+		29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B36B2440E1690068B24D /* LoginViewController.swift */; };
+		29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E14024401238008E14F3 /* AuthCoordinator.swift */; };
+		29D0E1432440128B008E14F3 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D0E1422440128B008E14F3 /* Auth.storyboard */; };
+		29D0E1452440129A008E14F3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E1442440129A008E14F3 /* RootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,9 +73,11 @@
 		29AD5205243FE7110094DCDE /* Games.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Games.storyboard; sourceTree = "<group>"; };
 		29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesCoordinator.swift; sourceTree = "<group>"; };
 		29AD5209243FE7600094DCDE /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
-		29D0E14024401238008E14F3 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
-		29D0E1422440128B008E14F3 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		29D0E1442440129A008E14F3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		29B8B3692440E13E0068B24D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		29B8B36B2440E1690068B24D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		29D0E14024401238008E14F3 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		29D0E1422440128B008E14F3 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		29D0E1442440129A008E14F3 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +122,7 @@
 				2910EB61243FA4C100BCF721 /* AppDelegate.swift */,
 				2910EB63243FA4C100BCF721 /* SceneDelegate.swift */,
 				2910EB98243FC47500BCF721 /* Protocols */,
-				29D0E13F24401215008E14F3 /* Login */,
+				29D0E13F24401215008E14F3 /* Auth */,
 				29AD51FA243FE2880094DCDE /* TeamProfile */,
 				2910EB9A243FC5FB00BCF721 /* Roster */,
 				2910EB99243FC5C800BCF721 /* Pull */,
@@ -191,14 +195,16 @@
 			path = Games;
 			sourceTree = "<group>";
 		};
-		29D0E13F24401215008E14F3 /* Login */ = {
+		29D0E13F24401215008E14F3 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				29D0E1422440128B008E14F3 /* Login.storyboard */,
-				29D0E14024401238008E14F3 /* LoginCoordinator.swift */,
-				29D0E1442440129A008E14F3 /* LoginViewController.swift */,
+				29D0E1422440128B008E14F3 /* Auth.storyboard */,
+				29D0E14024401238008E14F3 /* AuthCoordinator.swift */,
+				29D0E1442440129A008E14F3 /* RootViewController.swift */,
+				29B8B3692440E13E0068B24D /* SignUpViewController.swift */,
+				29B8B36B2440E1690068B24D /* LoginViewController.swift */,
 			);
-			path = Login;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +290,7 @@
 			files = (
 				29AD5206243FE7110094DCDE /* Games.storyboard in Resources */,
 				2910EB6E243FA4C100BCF721 /* LaunchScreen.storyboard in Resources */,
-				29D0E1432440128B008E14F3 /* Login.storyboard in Resources */,
+				29D0E1432440128B008E14F3 /* Auth.storyboard in Resources */,
 				2910EB6B243FA4C100BCF721 /* Assets.xcassets in Resources */,
 				2910EB69243FA4C100BCF721 /* Roster.storyboard in Resources */,
 				2910EB94243FC03000BCF721 /* Pull.storyboard in Resources */,
@@ -310,8 +316,10 @@
 				2910EB8C243FAC9600BCF721 /* BuyViewController.swift in Sources */,
 				2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */,
 				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
+				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,
 				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
 				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
+				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
@@ -319,9 +327,9 @@
 				2910EB86243FA53D00BCF721 /* Storyboarded.swift in Sources */,
 				29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */,
 				2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */,
-				29D0E1452440129A008E14F3 /* LoginViewController.swift in Sources */,
+				29D0E1452440129A008E14F3 /* RootViewController.swift in Sources */,
 				2910EB88243FA56A00BCF721 /* RosterCoordinator.swift in Sources */,
-				29D0E14124401238008E14F3 /* LoginCoordinator.swift in Sources */,
+				29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */,
 				2910EB64243FA4C100BCF721 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

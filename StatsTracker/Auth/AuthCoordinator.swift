@@ -1,5 +1,5 @@
 //
-//  LoginCoordinator.swift
+//  AuthCoordinator.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginCoordinator: Coordinator {
+class AuthCoordinator: Coordinator {
     
     //MARK: Properties
     var childCoordinators = [Coordinator]()
@@ -19,7 +19,19 @@ class LoginCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = LoginViewController.instantiate(.login)
+        let vc = RootViewController.instantiate(.auth)
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func signUpPressed() {
+        let vc = SignUpViewController.instantiate(.auth)
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func loginPressed() {
+        let vc = LoginViewController.instantiate(.auth)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }

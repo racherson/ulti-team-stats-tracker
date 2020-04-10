@@ -20,7 +20,7 @@ enum StoryboardType: String {
     case roster = "Roster"
     case pull = "Pull"
     case games = "Games"
-    case login = "Login"
+    case auth = "Auth"
 }
 
 extension Storyboarded where Self: UIViewController {
