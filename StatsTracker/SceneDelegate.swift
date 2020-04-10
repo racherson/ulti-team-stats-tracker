@@ -11,7 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var coordinator: RosterCoordinator?
+    var coordinator: AuthCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,7 +19,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             // create a basic UIWindow
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = MainTabBarController()
+            
+//            window.rootViewController = MainTabBarController()
+            
+            let navController = UINavigationController()
+            navController.navigationBar.isHidden = true
+            
+            coordinator = AuthCoordinator(navigationController: navController)
+            coordinator?.start()
+            
+            window.rootViewController = navController
             self.window = window
             window.makeKeyAndVisible()
             

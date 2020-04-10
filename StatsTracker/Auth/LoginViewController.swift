@@ -7,27 +7,65 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: AuthCoordinator?
-
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Hide error label
+        errorLabel.alpha = 0
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    //MARK: Helpers
+    func showError(_ message: String) {
+        errorLabel.text = message
+        errorLabel.alpha = 1
     }
-    */
+    
+    func transitionToTabs() {
+        let tabVC = MainTabBarController()
+        view.window?.rootViewController = tabVC
+        view.window?.makeKeyAndVisible()
+    }
+    
+    
+    //MARK: Actions
+    @IBAction func loginPressed(_ sender: UIButton) {
+        
+        // Validate text fields
+        if emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            self.showError("Please fill in all fields.")
+        }
+        else {
+            // Created cleaned versions of text fields
+            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            // Sign in the user
+            Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+                if err != nil {
+                    // Coudn't sign in
+                    self.showError(err!.localizedDescription)
+                }
+                else {
+                    // Signed in successfully
+                    self.transitionToTabs()
+                }
+            }
+        }
+        
+    }
+    
 
 }

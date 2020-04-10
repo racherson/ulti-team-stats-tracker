@@ -1,0 +1,6 @@
+framework module Pods_StatsTracker {
+  umbrella header "Pods-StatsTracker-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -12,7 +12,9 @@ class RootViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: AuthCoordinator?
-
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
