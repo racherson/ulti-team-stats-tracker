@@ -19,10 +19,13 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Start all of the coordinators (for each tab)
         teamProfileCoordinator.start()
         rosterCoordinator.start()
         pullCoordinator.start()
         gamesCoordinator.start()
+        
+        // Give the navigation controllers to the tab bar controller
         viewControllers = [teamProfileCoordinator.navigationController, rosterCoordinator.navigationController, pullCoordinator.navigationController, gamesCoordinator.navigationController]
     }
     

@@ -14,13 +14,56 @@
                     <view key="view" contentMode="scaleToFill" id="BF9-7w-LZN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E5r-TE-PjW">
+                                <rect key="frame" x="20" y="293.5" width="374" height="319"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="2jR-1J-iGL">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="61"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Team Name">
+                                                <attributes>
+                                                    <font key="NSFont" size="48" name="Chalkduster"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="aiq-FZ-CJi">
+                                        <rect key="frame" x="62" y="69" width="250" height="250"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="250" id="40n-jh-UUK"/>
+                                            <constraint firstAttribute="width" constant="250" id="9dW-7n-8j4"/>
+                                            <constraint firstAttribute="width" secondItem="aiq-FZ-CJi" secondAttribute="height" multiplier="1:1" id="wGi-Is-e2l"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="2jR-1J-iGL" secondAttribute="trailing" id="glq-b6-W8i"/>
+                                    <constraint firstItem="2jR-1J-iGL" firstAttribute="leading" secondItem="E5r-TE-PjW" secondAttribute="leading" id="jXx-xr-yt9"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="E5r-TE-PjW" firstAttribute="centerY" secondItem="0vX-bD-sdl" secondAttribute="centerY" id="0CI-Bj-4yD"/>
+                            <constraint firstItem="0vX-bD-sdl" firstAttribute="trailing" secondItem="E5r-TE-PjW" secondAttribute="trailing" constant="20" id="3D9-bf-bfG"/>
+                            <constraint firstItem="E5r-TE-PjW" firstAttribute="leading" secondItem="0vX-bD-sdl" secondAttribute="leading" constant="20" id="Pxa-le-VY8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="0vX-bD-sdl"/>
                     </view>
+                    <connections>
+                        <outlet property="teamImage" destination="aiq-FZ-CJi" id="dbW-Zg-Aci"/>
+                        <outlet property="teamNameLabel" destination="2jR-1J-iGL" id="79w-JU-Hns"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgq-Hi-PTt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="125" y="96"/>
+            <point key="canvasLocation" x="124.6376811594203" y="95.758928571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="defaultPhoto" width="320" height="320"/>
+    </resources>
 </document>

@@ -12,6 +12,8 @@ class TeamProfileViewController: UIViewController, Storyboarded {
 
     //MARK: Properties
     weak var coordinator: TeamProfileCoordinator?
+    @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var teamImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

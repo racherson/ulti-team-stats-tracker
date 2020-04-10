@@ -9,8 +9,8 @@
 import UIKit
 
 protocol Storyboarded {
-    // Protocol from https://www.hackingwithswift.com/articles/71/how-to-use-the-coordinator-pattern-in-ios-apps
     
+    // Protocol to instantiate a view controller from the storyboard
     static func instantiate(_ board: StoryboardType) -> Self
 }
 
@@ -20,6 +20,7 @@ enum StoryboardType: String {
     case roster = "Roster"
     case pull = "Pull"
     case games = "Games"
+    case login = "Login"
 }
 
 extension Storyboarded where Self: UIViewController {
