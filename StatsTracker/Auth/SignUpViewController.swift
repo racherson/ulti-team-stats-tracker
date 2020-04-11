@@ -38,6 +38,11 @@ class SignUpViewController: UIViewController, Storyboarded {
         return passwordTest.evaluate(with: password)
     }
     
+    func isEmailValid(_ email : String) -> Bool {
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", "^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$")
+        return emailTest.evaluate(with: email)
+    }
+    
     // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
     func validateFields() -> String? {
         
@@ -55,17 +60,23 @@ class SignUpViewController: UIViewController, Storyboarded {
             return Constants.Errors.insecurePasswordError
         }
         
-        //TODO: Check if email format is valid
+        // Check if email format is valid
+        let cleanedEmail = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if isEmailValid(cleanedEmail) == false {
+            return Constants.Errors.invalidEmailError
+        }
         
         return nil
     }
     
     func showError(_ message: String) {
+        // Set label text and make label visible
         errorLabel.text = message
         errorLabel.alpha = 1
     }
     
     func transitionToTabs() {
+        // Make tab bar controller the root view
         let tabVC = MainTabBarController()
         view.window?.rootViewController = tabVC
         view.window?.makeKeyAndVisible()

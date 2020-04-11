@@ -192,22 +192,5 @@
             </objects>
             <point key="canvasLocation" x="1689.8550724637682" y="-179.46428571428569"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="RiO-7z-rDy">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="nfp-Ie-14n" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="u3H-Ga-n7t">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="6Nx-f4-T7K" kind="relationship" relationship="rootViewController" id="Y72-MS-e8k"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RpU-rF-PWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="89.855072463768124" y="91.741071428571431"/>
-        </scene>
     </scenes>
 </document>

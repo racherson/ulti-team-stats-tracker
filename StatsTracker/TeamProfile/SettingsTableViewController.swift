@@ -19,7 +19,7 @@ class SettingsTableViewController: UITableViewController, Storyboarded {
         self.title = Constants.Titles.settingsTitle
     }
 
-    // MARK: - Table view data source
+    // MARK: Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1

@@ -18,10 +18,12 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Add settings button
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(self.settingsPressed))
         self.navigationItem.rightBarButtonItem  = settingsButton
     }
     
+    //MARK: Actions
     @objc func settingsPressed() {
         coordinator?.settingsPressed()
     }

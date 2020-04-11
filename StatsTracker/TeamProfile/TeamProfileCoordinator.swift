@@ -14,6 +14,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
 
+    // MARK: Initialization
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -25,6 +26,7 @@ class TeamProfileCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    //MARK: Delegate
     func settingsPressed() {
         let vc = SettingsTableViewController.instantiate(.team)
         vc.coordinator = self

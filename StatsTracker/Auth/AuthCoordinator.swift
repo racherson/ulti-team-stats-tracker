@@ -14,6 +14,7 @@ class AuthCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
 
+    //MARK: Initialization
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -24,6 +25,7 @@ class AuthCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    //MARK: Delegate
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
         vc.coordinator = self

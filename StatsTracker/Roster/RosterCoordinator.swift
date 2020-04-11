@@ -14,6 +14,7 @@ class RosterCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
 
+    //MARK: Initialization
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }

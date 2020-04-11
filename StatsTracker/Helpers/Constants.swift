@@ -23,6 +23,7 @@ struct Constants {
         
         static let emptyFieldsError = "Please fill in all fields."
         static let insecurePasswordError = "Please make sure your password is at least 8 characters and contains both a special character and a number."
+        static let invalidEmailError = "Invalid email format."
         static let userCreationError = "Error creating user."
         static let userSavingError = "Error saving user data."
         
