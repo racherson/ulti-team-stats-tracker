@@ -25,6 +25,10 @@ class SignUpViewController: UIViewController, Storyboarded {
         
         // Hide error label
         errorLabel.alpha = 0
+        
+        // Add cancel button
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
+        self.navigationItem.leftBarButtonItem  = cancelButton
     }
 
     
@@ -69,6 +73,10 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     
     //MARK: Actions
+    @objc func cancelPressed() {
+        coordinator?.cancelPressed()
+    }
+    
     @IBAction func signUpPressed(_ sender: UIButton) {
         
         // Validate the fields

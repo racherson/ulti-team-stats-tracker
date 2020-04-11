@@ -22,7 +22,7 @@ class TeamProfileCoordinator: Coordinator {
         let vc = TeamProfileViewController.instantiate(.team)
         vc.coordinator = self
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
-        navigationController.pushViewController(vc, animated: false)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func settingsPressed() {

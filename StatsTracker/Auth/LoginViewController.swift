@@ -23,6 +23,10 @@ class LoginViewController: UIViewController, Storyboarded {
 
         // Hide error label
         errorLabel.alpha = 0
+        
+        // Add cancel button
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
+        self.navigationItem.leftBarButtonItem  = cancelButton
     }
     
     
@@ -40,6 +44,10 @@ class LoginViewController: UIViewController, Storyboarded {
     
     
     //MARK: Actions
+    @objc func cancelPressed() {
+        coordinator?.cancelPressed()
+    }
+    
     @IBAction func loginPressed(_ sender: UIButton) {
         
         // Validate text fields

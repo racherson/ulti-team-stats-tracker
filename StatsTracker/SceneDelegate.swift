@@ -20,10 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // create a basic UIWindow
             let window = UIWindow(windowScene: windowScene)
             
-//            window.rootViewController = MainTabBarController()
-            
             let navController = UINavigationController()
-            navController.navigationBar.isHidden = true
+            navController.setNavigationBarHidden(true, animated: true)
             
             coordinator = AuthCoordinator(navigationController: navController)
             coordinator?.start()

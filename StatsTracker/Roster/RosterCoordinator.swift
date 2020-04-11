@@ -22,7 +22,7 @@ class RosterCoordinator: Coordinator {
         let vc = RosterViewController.instantiate(.roster)
         vc.coordinator = self
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)
-        navigationController.pushViewController(vc, animated: false)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     //MARK: Delegate
