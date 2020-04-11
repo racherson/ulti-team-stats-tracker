@@ -45,7 +45,7 @@ class LoginViewController: UIViewController, Storyboarded {
         // Validate text fields
         if emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            self.showError("Please fill in all fields.")
+            self.showError(Constants.Errors.emptyFieldsError)
         }
         else {
             // Created cleaned versions of text fields

@@ -21,7 +21,7 @@ class GamesCoordinator: Coordinator {
     func start() {
         let vc = GamesViewController.instantiate(.games)
         vc.coordinator = self
-        vc.tabBarItem = UITabBarItem(title: "Games", image: UIImage(systemName: "chart.bar"), tag: 3)
+        vc.tabBarItem = UITabBarItem(title: Constants.Titles.gamesTitle, image: UIImage(systemName: "chart.bar"), tag: 3)
         navigationController.pushViewController(vc, animated: false)
     }
 }

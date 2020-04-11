@@ -21,7 +21,7 @@ class PullCoordinator: Coordinator {
     func start() {
         let vc = PullViewController.instantiate(.pull)
         vc.coordinator = self
-        vc.tabBarItem = UITabBarItem(title: "Pull", image: UIImage(systemName: "sportscourt"), tag: 2)
+        vc.tabBarItem = UITabBarItem(title: Constants.Titles.pullTitle, image: UIImage(systemName: "sportscourt"), tag: 2)
         navigationController.pushViewController(vc, animated: false)
     }
 }

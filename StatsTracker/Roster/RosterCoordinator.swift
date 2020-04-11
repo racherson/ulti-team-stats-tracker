@@ -21,7 +21,7 @@ class RosterCoordinator: Coordinator {
     func start() {
         let vc = RosterViewController.instantiate(.roster)
         vc.coordinator = self
-        vc.tabBarItem = UITabBarItem(title: "Roster", image: UIImage(systemName: "person.3"), tag: 1)
+        vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)
         navigationController.pushViewController(vc, animated: false)
     }
     

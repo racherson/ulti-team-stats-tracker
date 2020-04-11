@@ -41,14 +41,14 @@ class SignUpViewController: UIViewController, Storyboarded {
         if teamNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            return "Please fill in all fields."
+            return Constants.Errors.emptyFieldsError
         }
         
         // Check if the password is secure
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         if isPasswordValid(cleanedPassword) == false {
             // Password isn't secure enough
-            return "Please make sure your password is at least 8 characters and contains both a special character and a number."
+            return Constants.Errors.insecurePasswordError
         }
         
         //TODO: Check if email format is valid
@@ -90,7 +90,7 @@ class SignUpViewController: UIViewController, Storyboarded {
                 if err != nil {
                     // There was an error creating the user
                     // more detail found in err?.localizedDescription
-                    self.showError("Error creating user")
+                    self.showError(Constants.Errors.userCreationError)
                 }
                 else {
                     // User was created successfully, now store the team name
@@ -98,7 +98,7 @@ class SignUpViewController: UIViewController, Storyboarded {
                     db.collection("users").addDocument(data: ["teamname":teamName, "uid":result!.user.uid]) { (error) in
                         if error != nil {
                             // Show error message
-                            self.showError("Error saving user data.")
+                            self.showError(Constants.Errors.userSavingError)
                         }
                     }
                     // Transition to the tab bar controller
