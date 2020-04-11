@@ -71,13 +71,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dih-QM-cpp" customClass="SettingsTableViewCell" customModule="StatsTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsTableViewCell" rowHeight="106" id="dih-QM-cpp" customClass="SettingsTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dih-QM-cpp" id="jUa-9W-3xx">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="tVA-Fp-uCD">
+                                            <rect key="frame" x="90" y="35" width="91" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.turn.up.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kyT-HI-nL8">
+                                            <rect key="frame" x="30" y="32" width="30" height="41.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="kyT-HI-nL8" secondAttribute="height" multiplier="1:1" id="VmG-LF-0kx"/>
+                                                <constraint firstAttribute="width" constant="30" id="mHT-VE-LP8"/>
+                                                <constraint firstAttribute="height" constant="30" id="y0J-xj-lfn"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kyT-HI-nL8" firstAttribute="top" secondItem="jUa-9W-3xx" secondAttribute="top" constant="30" id="4Nj-k1-gRB"/>
+                                        <constraint firstItem="tVA-Fp-uCD" firstAttribute="centerY" secondItem="jUa-9W-3xx" secondAttribute="centerY" id="4i9-5H-TxH"/>
+                                        <constraint firstItem="tVA-Fp-uCD" firstAttribute="leading" secondItem="kyT-HI-nL8" secondAttribute="trailing" constant="30" id="M86-AX-eNW"/>
+                                        <constraint firstItem="kyT-HI-nL8" firstAttribute="leading" secondItem="jUa-9W-3xx" secondAttribute="leading" constant="30" id="MGV-LW-wvS"/>
+                                        <constraint firstAttribute="bottom" secondItem="kyT-HI-nL8" secondAttribute="bottom" constant="30" id="uW4-9p-ah2"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="logoutImage" destination="kyT-HI-nL8" id="FZp-gv-wdx"/>
+                                    <outlet property="logoutLabel" destination="tVA-Fp-uCD" id="QEC-EO-0eA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -88,10 +115,11 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYN-6h-Pmg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="792" y="94"/>
+            <point key="canvasLocation" x="791.304347826087" y="93.75"/>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.turn.up.left" catalog="system" width="128" height="99"/>
         <image name="defaultPhoto" width="320" height="320"/>
     </resources>
 </document>

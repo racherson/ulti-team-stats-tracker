@@ -30,21 +30,6 @@ class LoginViewController: UIViewController, Storyboarded {
     }
     
     
-    //MARK: Helpers
-    func showError(_ message: String) {
-        // Set label text and make label visible
-        errorLabel.text = message
-        errorLabel.alpha = 1
-    }
-    
-    func transitionToTabs() {
-        // Make tab bar controller the root view
-        let tabVC = MainTabBarController()
-        view.window?.rootViewController = tabVC
-        view.window?.makeKeyAndVisible()
-    }
-    
-    
     //MARK: Actions
     @objc func cancelPressed() {
         coordinator?.cancelPressed()
@@ -77,5 +62,19 @@ class LoginViewController: UIViewController, Storyboarded {
         
     }
     
-
+    
+    //MARK: Private Methods
+    private func showError(_ message: String) {
+        // Set label text and make label visible
+        errorLabel.text = message
+        errorLabel.alpha = 1
+    }
+    
+    private func transitionToTabs() {
+        // Make tab bar controller the root view
+        let tabVC = MainTabBarController()
+        view.window?.rootViewController = tabVC
+        view.window?.makeKeyAndVisible()
+    }
+    
 }

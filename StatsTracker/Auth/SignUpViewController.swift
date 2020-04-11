@@ -30,57 +30,6 @@ class SignUpViewController: UIViewController, Storyboarded {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
     }
-
-    
-    //MARK: Helpers
-    func isPasswordValid(_ password : String) -> Bool {
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?*])[A-Za-z\\d$@$#!%*?&]{8,}")
-        return passwordTest.evaluate(with: password)
-    }
-    
-    func isEmailValid(_ email : String) -> Bool {
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", "^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$")
-        return emailTest.evaluate(with: email)
-    }
-    
-    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
-    func validateFields() -> String? {
-        
-        // Check that all fields are filled in
-        if teamNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            return Constants.Errors.emptyFieldsError
-        }
-        
-        // Check if the password is secure
-        let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        if isPasswordValid(cleanedPassword) == false {
-            // Password isn't secure enough
-            return Constants.Errors.insecurePasswordError
-        }
-        
-        // Check if email format is valid
-        let cleanedEmail = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        if isEmailValid(cleanedEmail) == false {
-            return Constants.Errors.invalidEmailError
-        }
-        
-        return nil
-    }
-    
-    func showError(_ message: String) {
-        // Set label text and make label visible
-        errorLabel.text = message
-        errorLabel.alpha = 1
-    }
-    
-    func transitionToTabs() {
-        // Make tab bar controller the root view
-        let tabVC = MainTabBarController()
-        view.window?.rootViewController = tabVC
-        view.window?.makeKeyAndVisible()
-    }
     
     
     //MARK: Actions
@@ -127,5 +76,55 @@ class SignUpViewController: UIViewController, Storyboarded {
         }
     }
     
-
+    
+    //MARK: Private Methods
+    private func isPasswordValid(_ password : String) -> Bool {
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?*])[A-Za-z\\d$@$#!%*?&]{8,}")
+        return passwordTest.evaluate(with: password)
+    }
+    
+    private func isEmailValid(_ email : String) -> Bool {
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", "^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$")
+        return emailTest.evaluate(with: email)
+    }
+    
+    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
+    private func validateFields() -> String? {
+        
+        // Check that all fields are filled in
+        if teamNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            return Constants.Errors.emptyFieldsError
+        }
+        
+        // Check if the password is secure
+        let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if isPasswordValid(cleanedPassword) == false {
+            // Password isn't secure enough
+            return Constants.Errors.insecurePasswordError
+        }
+        
+        // Check if email format is valid
+        let cleanedEmail = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if isEmailValid(cleanedEmail) == false {
+            return Constants.Errors.invalidEmailError
+        }
+        
+        return nil
+    }
+    
+    private func showError(_ message: String) {
+        // Set label text and make label visible
+        errorLabel.text = message
+        errorLabel.alpha = 1
+    }
+    
+    private func transitionToTabs() {
+        // Make tab bar controller the root view
+        let tabVC = MainTabBarController()
+        view.window?.rootViewController = tabVC
+        view.window?.makeKeyAndVisible()
+    }
+    
 }

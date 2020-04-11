@@ -9,7 +9,11 @@
 import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
-
+    
+    //MARK: Properties
+    @IBOutlet weak var logoutImage: UIImageView!
+    @IBOutlet weak var logoutLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
