@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import FirebaseAuth
-import Firebase
 
 class SignUpViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: AuthCoordinator?
+    var viewModel = SignUpViewModel()
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -39,81 +38,35 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     @IBAction func signUpPressed(_ sender: UIButton) {
         
-        // Validate the fields
-        let error = validateFields()
+        // Create cleaned versions of the data (optionals still)
+        let teamName = teamNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if error != nil {
+        // Validate the fields
+        let validateError = viewModel.validateFields(teamName, email, password)
+        
+        if validateError != nil {
             // There's something wrong with the fields, show error message
-            showError(error!)
+            showError(validateError!)
         }
         else {
-            // Create cleaned versions of the data
-            let teamName = teamNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            // Create the user
-            Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
-                // Check for errors
-                if err != nil {
-                    // There was an error creating the user
-                    // more detail found in err?.localizedDescription
-                    self.showError(Constants.Errors.userCreationError)
-                }
-                else {
-                    // User was created successfully, now store the team name
-                    let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["teamname":teamName, "uid":result!.user.uid]) { (error) in
-                        if error != nil {
-                            // Show error message
-                            self.showError(Constants.Errors.userSavingError)
-                        }
-                    }
-                    // Transition to the tab bar controller
-                    self.transitionToTabs()
-                }
+            // Create user, can unwrap fields because email and password have been validated
+            let creationError = viewModel.createUser(teamName!, email!, password!)
+            
+            if creationError != nil {
+                showError(creationError!)
+            }
+            else {
+                // Transition to the tab bar controller
+                self.transitionToTabs()
             }
         }
     }
     
     
     //MARK: Private Methods
-    private func isPasswordValid(_ password : String) -> Bool {
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?*])[A-Za-z\\d$@$#!%*?&]{8,}")
-        return passwordTest.evaluate(with: password)
-    }
-    
-    private func isEmailValid(_ email : String) -> Bool {
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", "^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$")
-        return emailTest.evaluate(with: email)
-    }
-    
-    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
-    private func validateFields() -> String? {
-        
-        // Check that all fields are filled in
-        if teamNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            return Constants.Errors.emptyFieldsError
-        }
-        
-        // Check if the password is secure
-        let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        if isPasswordValid(cleanedPassword) == false {
-            // Password isn't secure enough
-            return Constants.Errors.insecurePasswordError
-        }
-        
-        // Check if email format is valid
-        let cleanedEmail = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        if isEmailValid(cleanedEmail) == false {
-            return Constants.Errors.invalidEmailError
-        }
-        
-        return nil
-    }
-    
     private func showError(_ message: String) {
         // Set label text and make label visible
         errorLabel.text = message

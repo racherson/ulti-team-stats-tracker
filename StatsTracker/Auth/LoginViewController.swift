@@ -13,6 +13,7 @@ class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: AuthCoordinator?
+    var viewModel = LoginViewModel()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -37,29 +38,25 @@ class LoginViewController: UIViewController, Storyboarded {
     
     @IBAction func loginPressed(_ sender: UIButton) {
         
+        let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         // Validate text fields
-        if emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            self.showError(Constants.Errors.emptyFieldsError)
+        let validateError = viewModel.validateFields(email: email, password: password)
+        if validateError != nil {
+            showError(validateError!)
         }
         else {
-            // Created cleaned versions of text fields
-            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            // Sign in the user
-            Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
-                if err != nil {
-                    // Coudn't sign in
-                    self.showError(err!.localizedDescription)
-                }
-                else {
-                    // Signed in successfully
-                    self.transitionToTabs()
-                }
+            // Sign in the user, unwrap fields because validated
+            let loginError = viewModel.signIn(email!, password!)
+            if loginError != nil {
+                showError(loginError!)
+            }
+            else {
+                // Signed in successfully
+                self.transitionToTabs()
             }
         }
-        
     }
     
     
@@ -76,5 +73,4 @@ class LoginViewController: UIViewController, Storyboarded {
         view.window?.rootViewController = tabVC
         view.window?.makeKeyAndVisible()
     }
-    
 }
