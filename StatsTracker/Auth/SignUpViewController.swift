@@ -12,7 +12,6 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: AuthCoordinator?
-    var viewModel = SignUpViewModel()
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -44,13 +43,13 @@ class SignUpViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Validate the fields
-        if let validateError = viewModel.validateFields(teamName, email, password) {
+        if let validateError = AuthManager.validateFields(teamName, email, password) {
             showError(validateError)
         }
         else {
             
             // Create user, can unwrap fields because email and password have been validated
-            if let creationError = viewModel.createUser(teamName!, email!, password!) {
+            if let creationError = AuthManager.createUser(teamName!, email!, password!) {
                 showError(creationError)
             }
             else {

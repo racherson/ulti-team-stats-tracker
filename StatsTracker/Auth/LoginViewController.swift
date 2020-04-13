@@ -12,7 +12,6 @@ class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: AuthCoordinator?
-    var viewModel = LoginViewModel()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -41,12 +40,12 @@ class LoginViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Validate text fields
-        if let validateError = viewModel.validateFields(email, password) {
+        if let validateError = AuthManager.validateFields(email, password) {
             showError(validateError)
         }
         else {
             // Sign in the user, unwrap fields because validated
-            if let loginError = viewModel.signIn(email!, password!) {
+            if let loginError = AuthManager.signIn(email!, password!) {
                 showError(loginError)
             }
             else {

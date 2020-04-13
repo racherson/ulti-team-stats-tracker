@@ -10,10 +10,20 @@ import Foundation
 import FirebaseAuth
 import Firebase
 
-class SignUpViewModel {
+class AuthManager {
     
-    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
-    func validateFields(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
+    // Check that fields are not empty (just email and password)
+    static func validateFields(_ email: String?, _ password: String?) -> String? {
+        // Validate text fields
+        if email == "" || password == "" {
+            return Constants.Errors.emptyFieldsError
+        }
+        // Fields aren't empty, thus valid
+        return nil
+    }
+    
+    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message. (team name, email, and password)
+    static func validateFields(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
         
         // Check that all fields are filled in
         if teamName == "" || email == "" || password == "" {
@@ -34,7 +44,7 @@ class SignUpViewModel {
         return nil
     }
     
-    func createUser(_ teamName: String, _ email: String, _ password: String) -> String? {
+    static func createUser(_ teamName: String, _ email: String, _ password: String) -> String? {
         
         var returnError: String? = nil
         
@@ -60,14 +70,29 @@ class SignUpViewModel {
         return returnError
     }
     
-    //MARK: Private methods
-    private func isPasswordValid(_ password : String) -> Bool {
+    static func signIn(_ email: String, _ password: String) -> String? {
+        
+        var returnError: String? = nil
+        
+        // Sign in the user
+        Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+            if err != nil {
+                // Coudn't sign in
+                returnError = err!.localizedDescription
+            }
+        }
+        // Return login error, if any, otherwise nil
+        return returnError
+    }
+    
+    //MARK: Private Methods
+    private static func isPasswordValid(_ password : String) -> Bool {
         let passwordRegEx = "^(?=.*[a-z])(?=.*[$@$#!%*?*])[A-Za-z\\d$@$#!%*?&]{8,}"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluate(with: password)
     }
     
-    private func isEmailValid(_ email : String) -> Bool {
+    private static func isEmailValid(_ email : String) -> Bool {
         let emailRegEx = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{1,4}$"
         let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
