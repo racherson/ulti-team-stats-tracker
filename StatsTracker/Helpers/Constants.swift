@@ -17,6 +17,8 @@ struct Constants {
         static let pullTitle = "Pull"
         static let gamesTitle = "Games"
         static let settingsTitle = "Settings"
+        static let logout = "Logout"
+        static let edit = "Edit"
     }
     
     struct Errors {

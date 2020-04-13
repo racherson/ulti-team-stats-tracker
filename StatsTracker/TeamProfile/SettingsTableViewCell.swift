@@ -21,10 +21,10 @@ class SettingsTableViewCell: UITableViewCell {
     func setup(type: Int) {
         switch type {
         case SettingCellType.logout.rawValue:
-            cellLabel.text = "Logout"
+            cellLabel.text = Constants.Titles.logout
             cellImage.image = UIImage(systemName: "arrow.turn.up.left")
         case SettingCellType.edit.rawValue:
-            cellLabel.text = "Edit"
+            cellLabel.text = Constants.Titles.edit
             cellImage.image = UIImage(systemName: "pencil")
         default:
             fatalError("Unknown settings cell type.")

@@ -26,16 +26,4 @@ class RosterCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    //MARK: Delegate
-    func buySubscription() {
-        let vc = BuyViewController.instantiate(.roster)
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
-    }
-
-    func createAccount() {
-        let vc = CreateAccountViewController.instantiate(.roster)
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
-    }
 }

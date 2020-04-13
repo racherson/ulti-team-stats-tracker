@@ -15,15 +15,8 @@ class RosterViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
 
-    //MARK: Actions
-    @IBAction func createAccount(_ sender: UIButton) {
-        coordinator?.createAccount()
-    }
-    
-    @IBAction func buyTapped(_ sender: UIButton) {
-        coordinator?.buySubscription()
-    }
 }

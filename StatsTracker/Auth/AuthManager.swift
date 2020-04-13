@@ -12,9 +12,10 @@ import Firebase
 
 class AuthManager {
     
-    // Check that fields are not empty (just email and password)
+    // Check that the fields aren't empty. If everything is correct, this method returns nil. Otherwise it returns the error message.
+    // Inputs: email, password
     static func validateFields(_ email: String?, _ password: String?) -> String? {
-        // Validate text fields
+        // Check that all fields are filled in
         if email == "" || password == "" {
             return Constants.Errors.emptyFieldsError
         }
@@ -22,7 +23,8 @@ class AuthManager {
         return nil
     }
     
-    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message. (team name, email, and password)
+    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
+    // Inputs: team name, email, password
     static func validateFields(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
         
         // Check that all fields are filled in
@@ -40,10 +42,11 @@ class AuthManager {
         if isEmailValid(email!) == false {
             return Constants.Errors.invalidEmailError
         }
-        
+        // Fields aren't empty, thus valid
         return nil
     }
     
+    // This method creates a new user account and stores in Firestore. If everything works, this method returns nil. Otherwise it returns the error message.
     static func createUser(_ teamName: String, _ email: String, _ password: String) -> String? {
         
         var returnError: String? = nil
@@ -70,6 +73,7 @@ class AuthManager {
         return returnError
     }
     
+    // This method signs in a user stored in Firebase. If everything works, this method returns nil. Otherwise it returns the error message.
     static func signIn(_ email: String, _ password: String) -> String? {
         
         var returnError: String? = nil
