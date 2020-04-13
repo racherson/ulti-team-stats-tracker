@@ -31,4 +31,9 @@ struct Constants {
         static let settingCellError = "Unknown settings cell type."
         
     }
+    
+    struct Alerts {
+        
+        static let logoutAlert = "Are you sure you want to log out?"
+    }
 }

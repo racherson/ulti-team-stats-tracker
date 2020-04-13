@@ -33,21 +33,16 @@ class SettingsViewController: UIViewController, Storyboarded {
     //MARK: Actions
     func logoutPressed() {
         
-        //TODO: Add an "are you sure?" alert
+        // Add confirmation alert
+        let logoutAlert = UIAlertController(title: "Log Out", message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
         
-        if let logoutError = AuthManager.logout() {
-            
-            // Error logging out, display alert
-            let alertController = UIAlertController(title: "Logout Error", message:
-                logoutError, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        // Cancel action and dismiss
+        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in logoutAlert.dismiss(animated: true, completion: nil) }))
 
-            self.present(alertController, animated: true, completion: nil)
-        }
-        else {
-            // Go back to root view controller
-            transitionToRootVC()
-        }
+        // Confirm action and logout
+        logoutAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action: UIAlertAction!) in self.logout() }))
+
+        present(logoutAlert, animated: true, completion: nil)
     }
     
     func editPressed() {
@@ -56,6 +51,22 @@ class SettingsViewController: UIViewController, Storyboarded {
     }
     
     //MARK: Private Methods
+    private func logout() {
+        if let logoutError = AuthManager.logout() {
+            
+            // Error logging out, display alert
+            let alertController = UIAlertController(title: "Logout Error", message:
+                logoutError, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+            present(alertController, animated: true, completion: nil)
+        }
+        else {
+            // Go back to root view controller
+            transitionToRootVC()
+        }
+    }
+    
     private func transitionToRootVC() {
         // Make root view controller the root view
         let navController = UINavigationController()
