@@ -28,7 +28,7 @@ class TeamProfileCoordinator: Coordinator {
     
     //MARK: Delegate
     func settingsPressed() {
-        let vc = SettingsTableViewController.instantiate(.team)
+        let vc = SettingsViewController.instantiate(.team)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }

@@ -1,45 +1,57 @@
 //
-//  SettingsTableViewController.swift
+//  SettingsViewController.swift
 //  StatsTracker
 //
-//  Created by Rachel Anderson on 4/10/20.
+//  Created by Rachel Anderson on 4/12/20.
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController, Storyboarded {
+class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Properties
     weak var coordinator: TeamProfileCoordinator?
+    @IBOutlet weak var tableView: UITableView!
+    
+    //MARK: Data Model
+    let cellLabels = ["Logout", "Edit"]
+    let cellImages = [UIImage(systemName: "arrow.turn.up.left"), UIImage(systemName: "pencil")]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Connect tableView to the View Controller
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        // Set the page title
         self.title = Constants.Titles.settingsTitle
     }
-
+    
     // MARK: Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cellLabels.count
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsTableViewCell", for: indexPath) as? SettingsTableViewCell else {
+            fatalError("Couldn't cast to settings cell.")
+        }
+        
+        // Configure the cell
+        let row = indexPath.row
+        cell.cellLabel.text = cellLabels[row]
+        cell.cellImage.image = cellImages[row]
+        
         return cell
     }
-    */
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -56,7 +68,7 @@ class SettingsTableViewController: UITableViewController, Storyboarded {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     */
 
@@ -74,15 +86,5 @@ class SettingsTableViewController: UITableViewController, Storyboarded {
         return true
     }
     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

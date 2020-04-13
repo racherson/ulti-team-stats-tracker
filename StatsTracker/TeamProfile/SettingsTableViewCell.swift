@@ -11,8 +11,8 @@ import UIKit
 class SettingsTableViewCell: UITableViewCell {
     
     //MARK: Properties
-    @IBOutlet weak var logoutImage: UIImageView!
-    @IBOutlet weak var logoutLabel: UILabel!
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var cellLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

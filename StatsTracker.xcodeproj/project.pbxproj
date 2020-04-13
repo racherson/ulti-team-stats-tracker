@@ -25,6 +25,7 @@
 		2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* PullViewController.swift */; };
 		2939469C2443E64F0021D07B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* SignUpViewModel.swift */; };
 		2939469E2443EDDD0021D07B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469D2443EDDD0021D07B /* LoginViewModel.swift */; };
+		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */; };
 		29AD5202243FE38F0094DCDE /* TeamProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */; };
 		29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */; };
@@ -34,7 +35,6 @@
 		29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B3692440E13E0068B24D /* SignUpViewController.swift */; };
 		29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B36B2440E1690068B24D /* LoginViewController.swift */; };
 		29B8B36E2440FE640068B24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29B8B36D2440FE640068B24D /* GoogleService-Info.plist */; };
-		29CCF52124414204003F201A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CCF52024414204003F201A /* SettingsTableViewController.swift */; };
 		29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CCF52224414233003F201A /* SettingsTableViewCell.swift */; };
 		29CCF52524414921003F201A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CCF52424414921003F201A /* Constants.swift */; };
 		29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E14024401238008E14F3 /* AuthCoordinator.swift */; };
@@ -77,6 +77,7 @@
 		2910EB95243FC05F00BCF721 /* PullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullViewController.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		2939469D2443EDDD0021D07B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinator.swift; sourceTree = "<group>"; };
 		29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamProfile.storyboard; sourceTree = "<group>"; };
 		29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewController.swift; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		29B8B3692440E13E0068B24D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		29B8B36B2440E1690068B24D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		29B8B36D2440FE640068B24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		29CCF52024414204003F201A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		29CCF52224414233003F201A /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		29CCF52424414921003F201A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		29D0E14024401238008E14F3 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -207,8 +207,8 @@
 				29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */,
 				29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */,
 				29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */,
-				29CCF52024414204003F201A /* SettingsTableViewController.swift */,
 				29CCF52224414233003F201A /* SettingsTableViewCell.swift */,
+				2939469F2443FD530021D07B /* SettingsViewController.swift */,
 			);
 			path = TeamProfile;
 			sourceTree = "<group>";
@@ -438,6 +438,7 @@
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
 				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
+				293946A02443FD530021D07B /* SettingsViewController.swift in Sources */,
 				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
@@ -453,7 +454,6 @@
 				2939469E2443EDDD0021D07B /* LoginViewModel.swift in Sources */,
 				29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */,
 				2910EB64243FA4C100BCF721 /* SceneDelegate.swift in Sources */,
-				29CCF52124414204003F201A /* SettingsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
