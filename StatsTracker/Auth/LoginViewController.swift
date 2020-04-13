@@ -42,15 +42,13 @@ class LoginViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Validate text fields
-        let validateError = viewModel.validateFields(email: email, password: password)
-        if validateError != nil {
-            showError(validateError!)
+        if let validateError = viewModel.validateFields(email, password) {
+            showError(validateError)
         }
         else {
             // Sign in the user, unwrap fields because validated
-            let loginError = viewModel.signIn(email!, password!)
-            if loginError != nil {
-                showError(loginError!)
+            if let loginError = viewModel.signIn(email!, password!) {
+                showError(loginError)
             }
             else {
                 // Signed in successfully

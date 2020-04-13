@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class LoginViewModel {
     
-    func validateFields(email: String?, password: String?) -> String? {
+    func validateFields(_ email: String?, _ password: String?) -> String? {
         // Validate text fields
         if email == "" || password == "" {
             return Constants.Errors.emptyFieldsError

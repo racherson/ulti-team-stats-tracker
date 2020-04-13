@@ -44,19 +44,14 @@ class SignUpViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Validate the fields
-        let validateError = viewModel.validateFields(teamName, email, password)
-        
-        if validateError != nil {
-            // There's something wrong with the fields, show error message
-            showError(validateError!)
+        if let validateError = viewModel.validateFields(teamName, email, password) {
+            showError(validateError)
         }
         else {
             
             // Create user, can unwrap fields because email and password have been validated
-            let creationError = viewModel.createUser(teamName!, email!, password!)
-            
-            if creationError != nil {
-                showError(creationError!)
+            if let creationError = viewModel.createUser(teamName!, email!, password!) {
+                showError(creationError)
             }
             else {
                 // Transition to the tab bar controller
