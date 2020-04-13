@@ -16,13 +16,23 @@ class SettingsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    }
+    
+    func setup(type: Int) {
+        switch type {
+        case SettingCellType.logout.rawValue:
+            cellLabel.text = "Logout"
+            cellImage.image = UIImage(systemName: "arrow.turn.up.left")
+        case SettingCellType.edit.rawValue:
+            cellLabel.text = "Edit"
+            cellImage.image = UIImage(systemName: "pencil")
+        default:
+            fatalError("Unknown settings cell type.")
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

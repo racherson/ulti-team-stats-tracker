@@ -13,7 +13,7 @@ enum SettingCellType: Int, CaseIterable {
     case edit
 }
 
-class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     weak var coordinator: TeamProfileCoordinator?
@@ -29,8 +29,12 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
         // Set the page title
         self.title = Constants.Titles.settingsTitle
     }
+}
+
+
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: Table view data source
+    // MARK: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -45,19 +49,7 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
         }
         
         // Configure the cell
-        let cellType = indexPath.row
-        
-        switch cellType {
-        case SettingCellType.logout.rawValue:
-            cell.cellLabel.text = "Logout"
-            cell.cellImage.image = UIImage(systemName: "arrow.turn.up.left")
-        case SettingCellType.edit.rawValue:
-            cell.cellLabel.text = "Edit"
-            cell.cellImage.image = UIImage(systemName: "pencil")
-        default:
-            fatalError("Unknown settings cell type.")
-        }
-        
+        cell.setup(type: indexPath.row)
         return cell
     }
     
