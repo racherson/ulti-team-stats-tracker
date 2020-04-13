@@ -94,7 +94,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsTableViewCell", for: indexPath) as? SettingsTableViewCell else {
-            fatalError("Couldn't cast to settings cell.")
+            fatalError("The dequeued cell is not an instance of SettingsTableViewCell.")
         }
         
         // Configure the cell
@@ -113,6 +113,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             fatalError(Constants.Errors.settingCellError)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
