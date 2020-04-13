@@ -21,15 +21,18 @@ class TeamProfileCoordinator: Coordinator {
 
     func start() {
         let vc = TeamProfileViewController.instantiate(.team)
-        vc.coordinator = self
+        vc.delegate = self
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
         navigationController.pushViewController(vc, animated: true)
     }
+}
+
+extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
     
-    //MARK: Delegate
+    //MARK: TeamProfileViewControllerDelegate
     func settingsPressed() {
         let vc = SettingsViewController.instantiate(.team)
-        vc.coordinator = self
+        vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
 }

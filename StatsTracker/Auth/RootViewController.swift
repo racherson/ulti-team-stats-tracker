@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol RootViewControllerDelegate {
+    func signUpPressed()
+    func loginPressed()
+}
+
 class RootViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var coordinator: AuthCoordinator?
+    var delegate: RootViewControllerDelegate?
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     
@@ -23,11 +28,11 @@ class RootViewController: UIViewController, Storyboarded {
     
     //MARK: Actions
     @IBAction func signUpPressed(_ sender: UIButton) {
-        coordinator?.signUpPressed()
+        delegate?.signUpPressed()
     }
     
     @IBAction func loginPressed(_ sender: UIButton) {
-        coordinator?.loginPressed()
+        delegate?.loginPressed()
     }
 
 }

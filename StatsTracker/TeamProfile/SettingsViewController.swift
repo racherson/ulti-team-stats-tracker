@@ -16,7 +16,7 @@ enum SettingCellType: Int, CaseIterable {
 class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var coordinator: TeamProfileCoordinator?
+    var delegate: TeamProfileCoordinator?
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {

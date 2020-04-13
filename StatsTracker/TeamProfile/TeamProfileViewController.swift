@@ -8,10 +8,14 @@
 
 import UIKit
 
+protocol TeamProfileViewControllerDelegate {
+    func settingsPressed()
+}
+
 class TeamProfileViewController: UIViewController, Storyboarded {
 
     //MARK: Properties
-    weak var coordinator: TeamProfileCoordinator?
+    var delegate: TeamProfileViewControllerDelegate?
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var teamImage: UIImageView!
     
@@ -25,7 +29,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     
     //MARK: Actions
     @objc func settingsPressed() {
-        coordinator?.settingsPressed()
+        delegate?.settingsPressed()
     }
     
 }

@@ -11,7 +11,7 @@ import UIKit
 class PullViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var coordinator: PullCoordinator?
+    var delegate: PullCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

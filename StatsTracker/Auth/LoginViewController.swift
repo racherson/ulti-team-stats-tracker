@@ -11,7 +11,7 @@ import UIKit
 class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var coordinator: AuthCoordinator?
+    var delegate: SignUpAndLoginViewControllerDelegate?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -31,7 +31,7 @@ class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Actions
     @objc func cancelPressed() {
-        coordinator?.cancelPressed()
+        delegate?.cancelPressed()
     }
     
     @IBAction func loginPressed(_ sender: UIButton) {

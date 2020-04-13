@@ -21,25 +21,32 @@ class AuthCoordinator: Coordinator {
 
     func start() {
         let vc = RootViewController.instantiate(.auth)
-        vc.coordinator = self
+        vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
+}
+
+extension AuthCoordinator: RootViewControllerDelegate {
     
-    //MARK: Delegate
+    //MARK: RootViewControllerDelegate
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
-        vc.coordinator = self
+        vc.delegate = self
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func loginPressed() {
         let vc = LoginViewController.instantiate(.auth)
-        vc.coordinator = self
+        vc.delegate = self
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
+}
+
+extension AuthCoordinator: SignUpAndLoginViewControllerDelegate {
     
+    //MARK: SignUpAndLoginViewControllerDelegate
     func cancelPressed() {
         navigationController.popViewController(animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
