@@ -8,11 +8,15 @@
 
 import UIKit
 
+enum SettingCellType: Int, CaseIterable {
+    case logout
+    case edit
+}
+
 class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Properties
     weak var coordinator: TeamProfileCoordinator?
-    var viewModel = SettingsViewModel()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -32,7 +36,7 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.cellLabels.count
+        return SettingCellType.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,9 +45,18 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
         }
         
         // Configure the cell
-        let row = indexPath.row
-        cell.cellLabel.text = viewModel.cellLabels[row]
-        cell.cellImage.image = viewModel.cellImages[row]
+        let cellType = indexPath.row
+        
+        switch cellType {
+        case SettingCellType.logout.rawValue:
+            cell.cellLabel.text = "Logout"
+            cell.cellImage.image = UIImage(systemName: "arrow.turn.up.left")
+        case SettingCellType.edit.rawValue:
+            cell.cellLabel.text = "Edit"
+            cell.cellImage.image = UIImage(systemName: "pencil")
+        default:
+            fatalError("Unknown settings cell type.")
+        }
         
         return cell
     }
