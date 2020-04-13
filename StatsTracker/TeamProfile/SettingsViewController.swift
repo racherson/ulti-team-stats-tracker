@@ -12,13 +12,9 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
     
     //MARK: Properties
     weak var coordinator: TeamProfileCoordinator?
+    var viewModel = SettingsViewModel()
     @IBOutlet weak var tableView: UITableView!
     
-    //MARK: Data Model
-    let cellLabels = ["Logout", "Edit"]
-    let cellImages = [UIImage(systemName: "arrow.turn.up.left"), UIImage(systemName: "pencil")]
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +32,7 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellLabels.count
+        return viewModel.cellLabels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,8 +42,8 @@ class SettingsViewController: UIViewController, Storyboarded, UITableViewDelegat
         
         // Configure the cell
         let row = indexPath.row
-        cell.cellLabel.text = cellLabels[row]
-        cell.cellImage.image = cellImages[row]
+        cell.cellLabel.text = viewModel.cellLabels[row]
+        cell.cellImage.image = viewModel.cellImages[row]
         
         return cell
     }
