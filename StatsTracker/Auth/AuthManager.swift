@@ -89,6 +89,23 @@ class AuthManager {
         return returnError
     }
     
+    // This method logs a user out of the app. If everything works, this method returns nil. Otherwise it returns the error message.
+    static func logout() -> String? {
+        var returnError: String? = nil
+        
+        let firebaseAuth = Auth.auth()
+        do {
+            // Attempt to logout
+            try firebaseAuth.signOut()
+        }
+        catch let signOutError as NSError {
+            // Unable to logout
+            returnError = signOutError.localizedDescription
+        }
+        // Return the error or nil
+        return returnError
+    }
+    
     //MARK: Private Methods
     private static func isPasswordValid(_ password : String) -> Bool {
         let passwordRegEx = "^(?=.*[a-z])(?=.*[$@$#!%*?*])[A-Za-z\\d$@$#!%*?&]{8,}"

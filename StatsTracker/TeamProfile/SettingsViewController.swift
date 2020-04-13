@@ -29,6 +29,44 @@ class SettingsViewController: UIViewController, Storyboarded {
         // Set the page title
         self.title = Constants.Titles.settingsTitle
     }
+    
+    //MARK: Actions
+    func logoutPressed() {
+        
+        //TODO: Add an "are you sure?" alert
+        
+        if let logoutError = AuthManager.logout() {
+            
+            // Error logging out, display alert
+            let alertController = UIAlertController(title: "Logout Error", message:
+                logoutError, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
+            // Go back to root view controller
+            transitionToRootVC()
+        }
+    }
+    
+    func editPressed() {
+        //TODO: implement editing screen
+        print("edit pressed")
+    }
+    
+    //MARK: Private Methods
+    private func transitionToRootVC() {
+        // Make root view controller the root view
+        let navController = UINavigationController()
+        navController.setNavigationBarHidden(true, animated: false)
+        
+        let coordinator = AuthCoordinator(navigationController: navController)
+        coordinator.start()
+        
+        view.window?.rootViewController = navController
+        view.window?.makeKeyAndVisible()
+    }
 }
 
 
@@ -53,39 +91,17 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Find the cell type from the row selected
+        switch indexPath.row {
+        case SettingCellType.logout.rawValue:
+            logoutPressed()
+        case SettingCellType.edit.rawValue:
+            editPressed()
+        default:
+            fatalError(Constants.Errors.settingCellError)
         }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
 }

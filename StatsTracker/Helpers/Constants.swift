@@ -28,6 +28,7 @@ struct Constants {
         static let invalidEmailError = "Invalid email format."
         static let userCreationError = "Error creating user."
         static let userSavingError = "Error saving user data."
+        static let settingCellError = "Unknown settings cell type."
         
     }
 }

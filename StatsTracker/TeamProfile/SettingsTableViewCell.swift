@@ -27,7 +27,7 @@ class SettingsTableViewCell: UITableViewCell {
             cellLabel.text = Constants.Titles.edit
             cellImage.image = UIImage(systemName: "pencil")
         default:
-            fatalError("Unknown settings cell type.")
+            fatalError(Constants.Errors.settingCellError)
         }
     }
 
