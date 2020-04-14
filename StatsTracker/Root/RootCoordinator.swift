@@ -32,7 +32,7 @@ class RootCoordinator: Coordinator {
         
         // Start auth coordinator for login flow
         let authCoordinator = AuthCoordinator(navigationController: navController)
-        authCoordinator.delegate = self
+        authCoordinator.coordinator = self
         authCoordinator.start()
         
         navigationController.present(navController, animated: true, completion: nil)
