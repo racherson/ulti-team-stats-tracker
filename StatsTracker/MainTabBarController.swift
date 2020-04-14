@@ -15,9 +15,13 @@ class MainTabBarController: UITabBarController {
     let rosterCoordinator = RosterCoordinator(navigationController: UINavigationController())
     let pullCoordinator = PullCoordinator(navigationController: UINavigationController())
     let gamesCoordinator = GamesCoordinator(navigationController: UINavigationController())
+    var coordinator: RootCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set delegate for team profile
+        teamProfileCoordinator.delegate = self
         
         // Start all of the coordinators (for each tab)
         teamProfileCoordinator.start()
@@ -27,5 +31,11 @@ class MainTabBarController: UITabBarController {
         
         // Give the navigation controllers to the tab bar controller
         viewControllers = [teamProfileCoordinator.navigationController, rosterCoordinator.navigationController, pullCoordinator.navigationController, gamesCoordinator.navigationController]
+    }
+}
+
+extension MainTabBarController: TeamProfileCoordinatorDelegate {
+    func transitionToHome() {
+        coordinator?.transitionToHome()
     }
 }

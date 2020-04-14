@@ -1,5 +1,5 @@
 //
-//  RootViewController.swift
+//  HomeViewController.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/9/20.
@@ -8,22 +8,20 @@
 
 import UIKit
 
-protocol RootViewControllerDelegate {
+protocol HomeViewControllerDelegate {
     func signUpPressed()
     func loginPressed()
 }
 
-class RootViewController: UIViewController, Storyboarded {
+class HomeViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: RootViewControllerDelegate?
+    var delegate: HomeViewControllerDelegate?
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     //MARK: Actions

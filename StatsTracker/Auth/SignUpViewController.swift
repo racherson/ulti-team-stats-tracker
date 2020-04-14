@@ -11,6 +11,7 @@ import FirebaseAuth
 
 protocol SignUpAndLoginViewControllerDelegate {
     func cancelPressed()
+    func transitionToTabs()
 }
 
 class SignUpViewController: UIViewController, Storyboarded {
@@ -43,7 +44,7 @@ class SignUpViewController: UIViewController, Storyboarded {
             self.passwordTextField.text = nil
             
             // Transition to MainTabBarController
-            self.transitionToTabs()
+            self.delegate?.transitionToTabs()
           }
         }
     }
@@ -81,12 +82,4 @@ class SignUpViewController: UIViewController, Storyboarded {
         errorLabel.text = message
         errorLabel.alpha = 1
     }
-    
-    private func transitionToTabs() {
-        // Make tab bar controller the root view
-        let tabVC = MainTabBarController()
-        view.window?.rootViewController = tabVC
-        view.window?.makeKeyAndVisible()
-    }
-    
 }

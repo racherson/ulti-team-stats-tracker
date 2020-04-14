@@ -13,6 +13,7 @@ class AuthCoordinator: Coordinator {
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var coordinator: RootCoordinator?
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -20,15 +21,15 @@ class AuthCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = RootViewController.instantiate(.auth)
+        let vc = HomeViewController.instantiate(.auth)
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
 }
 
-extension AuthCoordinator: RootViewControllerDelegate {
+extension AuthCoordinator: HomeViewControllerDelegate {
     
-    //MARK: RootViewControllerDelegate
+    //MARK: HomeViewControllerDelegate
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
         vc.delegate = self
@@ -50,5 +51,9 @@ extension AuthCoordinator: SignUpAndLoginViewControllerDelegate {
     func cancelPressed() {
         navigationController.popViewController(animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
+    }
+    
+    func transitionToTabs() {
+        coordinator?.transitionToTabs()
     }
 }

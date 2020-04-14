@@ -13,10 +13,14 @@ enum SettingCellType: Int, CaseIterable {
     case edit
 }
 
+protocol SettingsViewControllerDelegate {
+    func transitionToHome()
+}
+
 class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: TeamProfileCoordinator?
+    var delegate: SettingsViewControllerDelegate?
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -63,20 +67,8 @@ class SettingsViewController: UIViewController, Storyboarded {
         }
         else {
             // Go back to root view controller
-            transitionToRootVC()
+            delegate?.transitionToHome()
         }
-    }
-    
-    private func transitionToRootVC() {
-        // Make root view controller the root view
-        let navController = UINavigationController()
-        navController.setNavigationBarHidden(true, animated: false)
-        
-        let coordinator = AuthCoordinator(navigationController: navController)
-        coordinator.start()
-        
-        view.window?.rootViewController = navController
-        view.window?.makeKeyAndVisible()
     }
 }
 

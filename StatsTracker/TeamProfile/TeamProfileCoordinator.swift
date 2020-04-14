@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol TeamProfileCoordinatorDelegate {
+    func transitionToHome()
+}
+
 class TeamProfileCoordinator: Coordinator {
     
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var delegate: TeamProfileCoordinatorDelegate?
 
     // MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -34,5 +39,11 @@ extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
         let vc = SettingsViewController.instantiate(.team)
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension TeamProfileCoordinator: SettingsViewControllerDelegate {
+    func transitionToHome() {
+        delegate?.transitionToHome()
     }
 }

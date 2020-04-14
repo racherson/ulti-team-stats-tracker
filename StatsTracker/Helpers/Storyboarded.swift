@@ -16,6 +16,7 @@ protocol Storyboarded {
 
 enum StoryboardType: String {
     // Input for the instantiate method for selecting correct storyboard
+    case root = "Root"
     case team = "TeamProfile"
     case roster = "Roster"
     case pull = "Pull"

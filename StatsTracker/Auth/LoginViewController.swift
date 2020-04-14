@@ -38,7 +38,7 @@ class LoginViewController: UIViewController, Storyboarded {
             self.passwordTextField.text = nil
             
             // Transition to MainTabBarController
-            self.transitionToTabs()
+            self.delegate?.transitionToTabs()
           }
         }
     }
@@ -73,12 +73,5 @@ class LoginViewController: UIViewController, Storyboarded {
         // Set label text and make label visible
         errorLabel.text = message
         errorLabel.alpha = 1
-    }
-    
-    private func transitionToTabs() {
-        // Make tab bar controller the root view
-        let tabVC = MainTabBarController()
-        view.window?.rootViewController = tabVC
-        view.window?.makeKeyAndVisible()
     }
 }
