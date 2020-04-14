@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol SignUpAndLoginViewControllerDelegate {
     func cancelPressed()
@@ -16,6 +17,7 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var delegate: SignUpAndLoginViewControllerDelegate?
+    var handle: AuthStateDidChangeListenerHandle?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -24,13 +26,33 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Hide error label
         errorLabel.alpha = 0
         
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
+        
+        // Auth listener
+        handle = Auth.auth().addStateDidChangeListener() { auth, user in
+
+          if user != nil {
+            // User was authenticated
+            self.emailTextField.text = nil
+            self.passwordTextField.text = nil
+            
+            // Transition to MainTabBarController
+            self.transitionToTabs()
+          }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Remove auth listener
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     
@@ -46,20 +68,9 @@ class SignUpViewController: UIViewController, Storyboarded {
         let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // Validate the fields
-        if let validateError = AuthManager.validateFields(teamName, email, password) {
-            showError(validateError)
-        }
-        else {
-            
-            // Create user, can unwrap fields because email and password have been validated
-            if let creationError = AuthManager.createUser(teamName!, email!, password!) {
-                showError(creationError)
-            }
-            else {
-                // Transition to the tab bar controller
-                self.transitionToTabs()
-            }
+        // Create user, can unwrap fields because email and password have been validated
+        if let creationError = AuthManager.createUser(teamName!, email!, password!) {
+            showError(creationError)
         }
     }
     

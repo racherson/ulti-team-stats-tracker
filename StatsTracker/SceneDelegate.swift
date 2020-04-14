@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,17 +20,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             // create a basic UIWindow
             let window = UIWindow(windowScene: windowScene)
+
+            // Select the root view controller based on logged in status
+            let rootVC = self.setRootVC(window: window)
+            window.rootViewController = rootVC
             
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    private func setRootVC(window: UIWindow) -> UIViewController {
+
+        if Auth.auth().currentUser != nil {
+            // User is logged in, go to tab bar controller
+            return MainTabBarController()
+        } else {
+            // User is not logged in, go to root view
             let navController = UINavigationController()
             navController.setNavigationBarHidden(true, animated: false)
             
+            // Start auth coordinator to control navigation
             coordinator = AuthCoordinator(navigationController: navController)
             coordinator?.start()
             
-            window.rootViewController = navController
-            self.window = window
-            window.makeKeyAndVisible()
-            
+            return navController
         }
     }
 
@@ -38,6 +53,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+        // Log out session when app terminates
+        _ = AuthManager.logout()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

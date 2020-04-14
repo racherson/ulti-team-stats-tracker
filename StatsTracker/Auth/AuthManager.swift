@@ -12,44 +12,14 @@ import Firebase
 
 class AuthManager {
     
-    // Check that the fields aren't empty. If everything is correct, this method returns nil. Otherwise it returns the error message.
-    // Inputs: email, password
-    static func validateFields(_ email: String?, _ password: String?) -> String? {
-        // Check that all fields are filled in
-        if email == "" || password == "" {
-            return Constants.Errors.emptyFieldsError
-        }
-        // Fields aren't empty, thus valid
-        return nil
-    }
-    
-    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
-    // Inputs: team name, email, password
-    static func validateFields(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
-        
-        // Check that all fields are filled in
-        if teamName == "" || email == "" || password == "" {
-            return Constants.Errors.emptyFieldsError
-        }
-        
-        // Check if the password is secure
-        if isPasswordValid(password!) == false {
-            // Password isn't secure enough
-            return Constants.Errors.insecurePasswordError
-        }
-        
-        // Check if email format is valid
-        if isEmailValid(email!) == false {
-            return Constants.Errors.invalidEmailError
-        }
-        // Fields aren't empty, thus valid
-        return nil
-    }
-    
     // This method creates a new user account and stores in Firestore. If everything works, this method returns nil. Otherwise it returns the error message.
     static func createUser(_ teamName: String, _ email: String, _ password: String) -> String? {
         
         var returnError: String? = nil
+        
+        if let validateError = validateFields(teamName, email, password) {
+            return validateError
+        }
         
         // Create the user
         Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
@@ -78,6 +48,10 @@ class AuthManager {
         
         var returnError: String? = nil
         
+        if let validateError = validateFields(email, password) {
+            return validateError
+        }
+        
         // Sign in the user
         Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
             if err != nil {
@@ -93,10 +67,9 @@ class AuthManager {
     static func logout() -> String? {
         var returnError: String? = nil
         
-        let firebaseAuth = Auth.auth()
         do {
             // Attempt to logout
-            try firebaseAuth.signOut()
+            try Auth.auth().signOut()
         }
         catch let signOutError as NSError {
             // Unable to logout
@@ -117,5 +90,40 @@ class AuthManager {
         let emailRegEx = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{1,4}$"
         let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
+    }
+    
+    // Check that the fields aren't empty. If everything is correct, this method returns nil. Otherwise it returns the error message.
+    // Inputs: email, password
+    private static func validateFields(_ email: String?, _ password: String?) -> String? {
+        // Check that all fields are filled in
+        if email == "" || password == "" {
+            return Constants.Errors.emptyFieldsError
+        }
+        // Fields aren't empty, thus valid
+        return nil
+    }
+    
+    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
+    // Inputs: team name, email, password
+    private static func validateFields(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
+        
+        // Check that all fields are filled in
+        if teamName == "" || email == "" || password == "" {
+            return Constants.Errors.emptyFieldsError
+        }
+        
+        // Check if email format is valid
+        if isEmailValid(email!) == false {
+            return Constants.Errors.invalidEmailError
+        }
+        
+        // Check if the password is secure
+        if isPasswordValid(password!) == false {
+            // Password isn't secure enough
+            return Constants.Errors.insecurePasswordError
+        }
+        
+        // Fields aren't empty, thus valid
+        return nil
     }
 }
