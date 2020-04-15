@@ -64,12 +64,12 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
     
     func savePressed(newName: String) {
         // Get current user
-        let uid = Auth.auth().currentUser?.uid
-
-        // Update team name for user in Firestore
-        FirestoreReferenceManager.referenceForUserPublicData(uid: uid!).setData([FirebaseKeys.FieldName.teamName: newName], merge: true) { (error) in
-            if error != nil {
-                fatalError("Couldn't save team name.")
+        if let uid = Auth.auth().currentUser?.uid {
+            // Update team name for user in Firestore
+            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.FieldName.teamName: newName]) { (error) in
+                if error != nil {
+                    fatalError(Constants.Errors.userSavingError)
+                }
             }
         }
         

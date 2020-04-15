@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 protocol EditProfileViewControllerDelegate {
     func cancelPressed()
