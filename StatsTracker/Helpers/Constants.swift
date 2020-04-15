@@ -29,11 +29,14 @@ struct Constants {
         static let userCreationError = "Error creating user."
         static let userSavingError = "Error saving user data."
         static let settingCellError = "Unknown settings cell type."
+        static let dequeueError = "The dequeued cell is not an instance of SettingsTableViewCell."
         
     }
     
     struct Alerts {
         
         static let logoutAlert = "Are you sure you want to log out?"
+        static let logoutTitle = "Log Out"
+        static let logoutError = "Log Out Error"
     }
 }

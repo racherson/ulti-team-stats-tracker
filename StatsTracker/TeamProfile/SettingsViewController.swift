@@ -38,7 +38,7 @@ class SettingsViewController: UIViewController, Storyboarded {
     func logoutPressed() {
         
         // Add confirmation alert
-        let logoutAlert = UIAlertController(title: "Log Out", message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
+        let logoutAlert = UIAlertController(title: Constants.Alerts.logoutTitle, message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
         
         // Cancel action and dismiss
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in logoutAlert.dismiss(animated: true, completion: nil) }))
@@ -56,10 +56,10 @@ class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Private Methods
     private func logout() {
-        if let logoutError = AuthManager.logout() {
+        if let logoutError = FirebaseAuthManager.logout() {
             
             // Error logging out, display alert
-            let alertController = UIAlertController(title: "Logout Error", message:
+            let alertController = UIAlertController(title: Constants.Alerts.logoutError, message:
                 logoutError, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
@@ -86,7 +86,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsTableViewCell", for: indexPath) as? SettingsTableViewCell else {
-            fatalError("The dequeued cell is not an instance of SettingsTableViewCell.")
+            fatalError(Constants.Errors.dequeueError)
         }
         
         // Configure the cell

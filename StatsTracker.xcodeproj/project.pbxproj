@@ -21,11 +21,13 @@
 		2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB91243FBFC400BCF721 /* PullCoordinator.swift */; };
 		2910EB94243FC03000BCF721 /* Pull.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2910EB93243FC03000BCF721 /* Pull.storyboard */; };
 		2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* PullViewController.swift */; };
-		2939469C2443E64F0021D07B /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* AuthManager.swift */; };
+		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		294A874024466517003FC969 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A873F24466517003FC969 /* RootViewController.swift */; };
 		294A8743244666F6003FC969 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294A8742244666F6003FC969 /* Root.storyboard */; };
 		294A874524466889003FC969 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A874424466889003FC969 /* RootCoordinator.swift */; };
+		294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */; };
+		294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87492446ABFF003FC969 /* FirebaseKeys.swift */; };
 		29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */; };
 		29AD5202243FE38F0094DCDE /* TeamProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */; };
 		29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */; };
@@ -73,11 +75,13 @@
 		2910EB91243FBFC400BCF721 /* PullCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullCoordinator.swift; sourceTree = "<group>"; };
 		2910EB93243FC03000BCF721 /* Pull.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Pull.storyboard; sourceTree = "<group>"; };
 		2910EB95243FC05F00BCF721 /* PullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullViewController.swift; sourceTree = "<group>"; };
-		2939469B2443E64F0021D07B /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		294A873F24466517003FC969 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		294A8742244666F6003FC969 /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
 		294A874424466889003FC969 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
+		294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreReferenceManager.swift; sourceTree = "<group>"; };
+		294A87492446ABFF003FC969 /* FirebaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseKeys.swift; sourceTree = "<group>"; };
 		29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinator.swift; sourceTree = "<group>"; };
 		29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamProfile.storyboard; sourceTree = "<group>"; };
 		29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 		2910EB98243FC47500BCF721 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				294A87482446ABF0003FC969 /* Firebase */,
 				2910EB83243FA53000BCF721 /* Coordinator.swift */,
 				2910EB85243FA53D00BCF721 /* Storyboarded.swift */,
 				29CCF52424414921003F201A /* Constants.swift */,
@@ -210,6 +215,16 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		294A87482446ABF0003FC969 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */,
+				294A87492446ABFF003FC969 /* FirebaseKeys.swift */,
+				2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		29AD51FA243FE2880094DCDE /* TeamProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,7 +255,6 @@
 				29D0E1442440129A008E14F3 /* HomeViewController.swift */,
 				29B8B3692440E13E0068B24D /* SignUpViewController.swift */,
 				29B8B36B2440E1690068B24D /* LoginViewController.swift */,
-				2939469B2443E64F0021D07B /* AuthManager.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -446,14 +460,16 @@
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
 				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
+				294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */,
 				293946A02443FD530021D07B /* SettingsViewController.swift in Sources */,
 				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
-				2939469C2443E64F0021D07B /* AuthManager.swift in Sources */,
+				2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */,
 				2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */,
+				294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */,
 				294A874024466517003FC969 /* RootViewController.swift in Sources */,
 				2910EB86243FA53D00BCF721 /* Storyboarded.swift in Sources */,
 				29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */,

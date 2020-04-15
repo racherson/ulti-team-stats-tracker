@@ -70,7 +70,7 @@ class SignUpViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Create user, can unwrap fields because email and password have been validated
-        if let creationError = AuthManager.createUser(teamName!, email!, password!) {
+        if let creationError = FirebaseAuthManager.createUser(teamName!, email!, password!) {
             showError(creationError)
         }
     }

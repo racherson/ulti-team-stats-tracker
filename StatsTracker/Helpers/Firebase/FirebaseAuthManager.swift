@@ -1,5 +1,5 @@
 //
-//  SignUpViewModel.swift
+//  FirebaseAuthManager.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 4/12/20.
@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import Firebase
 
-class AuthManager {
+class FirebaseAuthManager {
     
     // This method creates a new user account and stores in Firestore. If everything works, this method returns nil. Otherwise it returns the error message.
     static func createUser(_ teamName: String, _ email: String, _ password: String) -> String? {
@@ -29,9 +29,13 @@ class AuthManager {
                 returnError = Constants.Errors.userCreationError
             }
             else {
-                // User was created successfully, now store the team name (validated as not empty)
-                let db = Firestore.firestore()
-                db.collection("users").addDocument(data: ["teamname": teamName, "uid": result!.user.uid]) { (error) in
+                // User was created successfully, now store the user data (validated as not empty)
+                let uid = result!.user.uid
+                let userData = [FirebaseKeys.Field.teamName: teamName,
+                                FirebaseKeys.Field.email: email,
+                                FirebaseKeys.Field.uid: uid ]
+                
+                FirestoreReferenceManager.referenceForUserPublicData(uid: uid).setData(userData) { (error) in
                     if error != nil {
                         // Show error message
                         returnError = Constants.Errors.userSavingError
