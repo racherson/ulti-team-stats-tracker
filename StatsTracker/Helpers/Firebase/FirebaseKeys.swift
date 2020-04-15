@@ -18,7 +18,7 @@ struct FirebaseKeys {
         static let users = "users"
     }
     
-    struct Field {
+    struct FieldName {
         
         static let teamName = "teamname"
         static let email = "email"

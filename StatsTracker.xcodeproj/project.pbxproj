@@ -23,6 +23,7 @@
 		2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* PullViewController.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
+		29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29431EB1244776BB00B1302A /* EditProfileViewController.swift */; };
 		294A874024466517003FC969 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A873F24466517003FC969 /* RootViewController.swift */; };
 		294A8743244666F6003FC969 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294A8742244666F6003FC969 /* Root.storyboard */; };
 		294A874524466889003FC969 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A874424466889003FC969 /* RootCoordinator.swift */; };
@@ -77,6 +78,7 @@
 		2910EB95243FC05F00BCF721 /* PullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullViewController.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		29431EB1244776BB00B1302A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		294A873F24466517003FC969 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		294A8742244666F6003FC969 /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
 		294A874424466889003FC969 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */,
 				2939469F2443FD530021D07B /* SettingsViewController.swift */,
 				29CCF52224414233003F201A /* SettingsTableViewCell.swift */,
+				29431EB1244776BB00B1302A /* EditProfileViewController.swift */,
 			);
 			path = TeamProfile;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */,
 				2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */,
 				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
 				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,

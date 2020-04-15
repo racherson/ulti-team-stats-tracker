@@ -15,6 +15,7 @@ enum SettingCellType: Int, CaseIterable {
 
 protocol SettingsViewControllerDelegate {
     func transitionToHome()
+    func editPressed()
 }
 
 class SettingsViewController: UIViewController, Storyboarded {
@@ -50,8 +51,7 @@ class SettingsViewController: UIViewController, Storyboarded {
     }
     
     func editPressed() {
-        //TODO: implement editing screen
-        print("edit pressed")
+        delegate?.editPressed()
     }
     
     //MARK: Private Methods

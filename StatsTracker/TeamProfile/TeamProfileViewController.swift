@@ -38,7 +38,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
                     print("Error fetching document: \(error!)")
                     return
                 }
-                teamName = document.get(FirebaseKeys.Field.teamName) as? String
+                teamName = document.get(FirebaseKeys.FieldName.teamName) as? String
                 self.teamNameLabel.text = teamName ?? "Team Name"
             }
         }

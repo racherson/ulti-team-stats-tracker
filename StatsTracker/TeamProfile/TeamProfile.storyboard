@@ -15,8 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E5r-TE-PjW">
-                                <rect key="frame" x="20" y="297" width="374" height="312"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="E5r-TE-PjW">
+                                <rect key="frame" x="20" y="291" width="374" height="324"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="2jR-1J-iGL">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="54"/>
@@ -31,7 +31,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="aiq-FZ-CJi">
-                                        <rect key="frame" x="62" y="62" width="250" height="250"/>
+                                        <rect key="frame" x="62" y="74" width="250" height="250"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="250" id="40n-jh-UUK"/>
                                             <constraint firstAttribute="width" constant="250" id="9dW-7n-8j4"/>
@@ -62,6 +62,61 @@
             </objects>
             <point key="canvasLocation" x="124.6376811594203" y="95.758928571428569"/>
         </scene>
+        <!--Edit Profile View Controller-->
+        <scene sceneID="plF-Mh-47p">
+            <objects>
+                <viewController storyboardIdentifier="EditProfileViewController" id="6Eh-WD-YY1" customClass="EditProfileViewController" customModule="StatsTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aey-qh-6lW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ROU-PL-rD5">
+                                <rect key="frame" x="20" y="64" width="374" height="428"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Team Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZJy-2T-QZZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="mt0-Y9-aLB">
+                                        <rect key="frame" x="0.0" y="54" width="374" height="374"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="mt0-Y9-aLB" secondAttribute="height" multiplier="1:1" id="QHl-Zz-iNz"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="RUu-f3-jcr" appends="YES" id="nwX-Du-6NH"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ZJy-2T-QZZ" secondAttribute="trailing" id="D0O-U2-RtI"/>
+                                    <constraint firstItem="ZJy-2T-QZZ" firstAttribute="leading" secondItem="ROU-PL-rD5" secondAttribute="leading" id="b56-Nh-LBp"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0uA-Ib-irx" firstAttribute="trailing" secondItem="ROU-PL-rD5" secondAttribute="trailing" constant="20" id="Pbd-bo-bKI"/>
+                            <constraint firstItem="ROU-PL-rD5" firstAttribute="top" secondItem="0uA-Ib-irx" secondAttribute="top" constant="20" id="UxR-eT-K0Y"/>
+                            <constraint firstItem="ROU-PL-rD5" firstAttribute="leading" secondItem="0uA-Ib-irx" secondAttribute="leading" constant="20" id="dhS-6n-TV3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0uA-Ib-irx"/>
+                    </view>
+                    <connections>
+                        <outlet property="teamNameTextField" destination="ZJy-2T-QZZ" id="Woi-pP-m49"/>
+                        <outlet property="teamPhotoImage" destination="mt0-Y9-aLB" id="lr8-ig-V5S"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="swM-fY-EkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RUu-f3-jcr">
+                    <connections>
+                        <action selector="selectImageFromPhotoLibrary:" destination="6Eh-WD-YY1" id="MBy-0V-0pk"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="807" y="503"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="GMJ-Wr-jAa">
             <objects>
@@ -71,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7co-sB-vE4">
-                                <rect key="frame" x="0.0" y="84" width="414" height="478"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="518"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SettingsTableViewCell" rowHeight="124" id="zGL-YV-0EU" customClass="SettingsTableViewCell" customModule="StatsTracker" customModuleProvider="target">
@@ -115,7 +170,7 @@
                         <constraints>
                             <constraint firstItem="7co-sB-vE4" firstAttribute="leading" secondItem="oYC-Nl-ZbF" secondAttribute="leading" id="0gP-K2-4oP"/>
                             <constraint firstItem="oYC-Nl-ZbF" firstAttribute="bottom" secondItem="7co-sB-vE4" secondAttribute="bottom" constant="300" id="aOe-OD-NO5"/>
-                            <constraint firstItem="7co-sB-vE4" firstAttribute="top" secondItem="oYC-Nl-ZbF" secondAttribute="top" constant="40" id="emB-H0-2pa"/>
+                            <constraint firstItem="7co-sB-vE4" firstAttribute="top" secondItem="oYC-Nl-ZbF" secondAttribute="top" id="emB-H0-2pa"/>
                             <constraint firstItem="oYC-Nl-ZbF" firstAttribute="trailing" secondItem="7co-sB-vE4" secondAttribute="trailing" id="iBH-A7-Vgz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oYC-Nl-ZbF"/>
@@ -126,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbW-8o-arM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="96"/>
+            <point key="canvasLocation" x="825" y="-157"/>
         </scene>
     </scenes>
     <resources>

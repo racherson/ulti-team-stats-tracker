@@ -46,11 +46,13 @@ class RootCoordinator: Coordinator {
         navigationController.present(vc, animated: true, completion: nil)
     }
     
+    //MARK: AuthCoordinatorDelegate
     func transitionToTabs() {
         navigationController.dismiss(animated: true, completion: nil)
         presentTabBars()
     }
     
+    //MARK: MainTabBarControllerDelegate
     func transitionToHome() {
         navigationController.dismiss(animated: true, completion: nil)
         presentHomeVC()
