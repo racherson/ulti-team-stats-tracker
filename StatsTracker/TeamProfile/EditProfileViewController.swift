@@ -18,6 +18,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     //MARK: Properties
     var delegate: EditProfileViewControllerDelegate?
     var teamName: String?
+    var saveButton: UIBarButtonItem?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
     
@@ -26,18 +27,39 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         
         // Handle the text field’s user input through delegate callbacks.
         teamNameTextField.delegate = self
-
+        
+        // Add bar button items to navigation
+        setUpButtons()
+    }
+    
+    func setUpButtons() {
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
         
         // Add save button
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
-        self.navigationItem.rightBarButtonItem = saveButton
+        saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
         
+        // Save button starts disabled until text field is populated
+        saveButton!.isEnabled = false
+        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .editingDidEnd)
+        
+        self.navigationItem.rightBarButtonItem = saveButton
     }
     
     //MARK: Actions
+    @objc func textFieldIsNotEmpty(sender: UITextField) {
+        sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+        
+        // Validate text field is not empty
+        guard let teamName = teamNameTextField.text, !teamName.isEmpty else {
+            self.saveButton!.isEnabled = false
+            return
+        }
+        // enable save button if conditions are met
+        saveButton!.isEnabled = true
+    }
+    
     @objc func cancelPressed() {
         delegate?.cancelPressed()
     }
