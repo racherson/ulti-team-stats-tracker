@@ -39,7 +39,7 @@ class SettingsViewController: UIViewController, Storyboarded {
     func logoutPressed() {
         
         // Add confirmation alert
-        let logoutAlert = UIAlertController(title: Constants.Alerts.logoutTitle, message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
+        let logoutAlert = UIAlertController(title: Constants.Titles.logout, message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
         
         // Cancel action and dismiss
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in logoutAlert.dismiss(animated: true, completion: nil) }))
@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController, Storyboarded {
         if let logoutError = FirebaseAuthManager.logout() {
             
             // Error logging out, display alert
-            let alertController = UIAlertController(title: Constants.Alerts.logoutError, message:
+            let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
                 logoutError, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
@@ -108,5 +108,4 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }

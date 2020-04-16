@@ -11,6 +11,7 @@ target 'StatsTracker' do
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
 
   target 'StatsTrackerTests' do
     inherit! :search_paths

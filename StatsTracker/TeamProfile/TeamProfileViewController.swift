@@ -38,7 +38,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
                     print("Error fetching document: \(error!)")
                     return
                 }
-                teamName = document.get(FirebaseKeys.FieldName.teamName) as? String
+                teamName = document.get(FirebaseKeys.Users.teamName) as? String
                 self.teamNameLabel.text = teamName ?? "Team Name"
             }
         }
@@ -48,6 +48,5 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     @objc func settingsPressed() {
         delegate?.settingsPressed()
     }
-    
 }
 

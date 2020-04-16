@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 protocol TeamProfileCoordinatorDelegate {
     func transitionToHome()
@@ -66,12 +67,20 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
         // Get current user
         if let uid = Auth.auth().currentUser?.uid {
             // Update team name for user in Firestore
-            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.FieldName.teamName: newName]) { (error) in
+            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
                 if error != nil {
                     fatalError(Constants.Errors.userSavingError)
                 }
             }
         }
+        
+        //TODO: Save image to storage
+//        guard let data = image.jpegData(compressionQuality: 1.0) else {
+//            fatalError("Unable to convert image to jpegData.")
+//        }
+//
+//        let imageName = UUID().uuidString
+//        let imageReference = Storage.storage()
         
         // Return to TeamProfileViewController
         navigationController.dismiss(animated: true, completion: nil)
