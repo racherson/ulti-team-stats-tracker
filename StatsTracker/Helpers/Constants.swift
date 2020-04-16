@@ -19,6 +19,7 @@ struct Constants {
         static let settingsTitle = "Settings"
         static let logout = "Log Out"
         static let edit = "Edit Team Profile"
+        static let defaultTeamName = "Team Name"
     }
     
     struct Errors {
@@ -31,6 +32,8 @@ struct Constants {
         static let settingCellError = "Unknown settings cell type."
         static let dequeueError = "The dequeued cell is not an instance of SettingsTableViewCell."
         static let logoutError = "Log Out Error"
+        static let documentError = "Document does not exist"
+        static let viewControllerError = "Current view controller is not instance of TeamProfileViewController"
         
     }
     

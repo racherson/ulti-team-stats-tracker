@@ -20,6 +20,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var delegate: TeamProfileCoordinatorDelegate?
+    var teamName: String?
 
     // MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -27,8 +28,21 @@ class TeamProfileCoordinator: Coordinator {
     }
 
     func start() {
+        // Get name from Firebase
+        if let uid = Auth.auth().currentUser?.uid {
+            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
+                if let document = document, document.exists {
+                    self.teamName = document.get(FirebaseKeys.Users.teamName) as? String
+                } else {
+                    fatalError(Constants.Errors.documentError)
+                }
+            }
+        }
+        
         let vc = TeamProfileViewController.instantiate(.team)
         vc.delegate = self
+        
+        // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -41,6 +55,13 @@ extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
         let vc = SettingsViewController.instantiate(.team)
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func viewWillAppear() {
+        guard let vc = navigationController.viewControllers[0] as? TeamProfileViewController else {
+            fatalError(Constants.Errors.viewControllerError)
+        }
+        vc.updateWithViewModel(vm: TeamProfileViewModel(teamName: teamName ?? Constants.Titles.defaultTeamName))
     }
 }
 
@@ -64,9 +85,8 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
     }
     
     func savePressed(newName: String) {
-        // Get current user
+        // Update team name for user in Firestore
         if let uid = Auth.auth().currentUser?.uid {
-            // Update team name for user in Firestore
             FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
                 if error != nil {
                     fatalError(Constants.Errors.userSavingError)
@@ -74,13 +94,8 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
             }
         }
         
-        //TODO: Save image to storage
-//        guard let data = image.jpegData(compressionQuality: 1.0) else {
-//            fatalError("Unable to convert image to jpegData.")
-//        }
-//
-//        let imageName = UUID().uuidString
-//        let imageReference = Storage.storage()
+        // Give new name to coordinator
+        teamName = newName
         
         // Return to TeamProfileViewController
         navigationController.dismiss(animated: true, completion: nil)

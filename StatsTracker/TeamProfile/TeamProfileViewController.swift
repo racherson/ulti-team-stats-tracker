@@ -11,6 +11,7 @@ import FirebaseAuth
 
 protocol TeamProfileViewControllerDelegate {
     func settingsPressed()
+    func viewWillAppear()
 }
 
 class TeamProfileViewController: UIViewController, Storyboarded {
@@ -30,18 +31,11 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        var teamName: String?
-        
-        if let uid = Auth.auth().currentUser?.uid {
-            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).addSnapshotListener { documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                teamName = document.get(FirebaseKeys.Users.teamName) as? String
-                self.teamNameLabel.text = teamName ?? "Team Name"
-            }
-        }
+        delegate?.viewWillAppear()
+    }
+    
+    func updateWithViewModel(vm: TeamProfileViewModel) {
+        teamNameLabel.text = vm.teamName
     }
     
     //MARK: Actions

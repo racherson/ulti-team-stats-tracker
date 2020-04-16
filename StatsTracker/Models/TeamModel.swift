@@ -22,6 +22,10 @@ struct MyValue {
     }
 }
 
+protocol DocumentSerializable {
+    init?(documentData: [String: Any])
+}
+
 struct TeamModel {
     private(set) var uid: String
     private(set) var teamName: String
