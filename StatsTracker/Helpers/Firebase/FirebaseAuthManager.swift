@@ -13,16 +13,16 @@ import Firebase
 class FirebaseAuthManager {
     
     // This method creates a new user account and stores in Firestore. If everything works, this method returns nil. Otherwise it returns the error message.
-    static func createUser(_ teamName: String, _ email: String, _ password: String) -> String? {
+    static func createUser(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
         
-        var returnError: String? = nil
+        var returnError: String?
         
         if let validateError = validateFields(teamName, email, password) {
             return validateError
         }
         
         // Create the user
-        Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+        Auth.auth().createUser(withEmail: email!, password: password!) { (result, err) in
             // Check for errors
             if err != nil {
                 // There was an error creating the user
@@ -32,8 +32,8 @@ class FirebaseAuthManager {
                 // User was created successfully, now store the user data (validated as not empty)
                 let uid = result!.user.uid
                 let userData = [
-                    FirebaseKeys.Users.teamName: teamName,
-                    FirebaseKeys.Users.email: email,
+                    FirebaseKeys.Users.teamName: teamName!,
+                    FirebaseKeys.Users.email: email!,
                     FirebaseKeys.Users.uid: uid
                 ]
                 
@@ -50,16 +50,16 @@ class FirebaseAuthManager {
     }
     
     // This method signs in a user stored in Firebase. If everything works, this method returns nil. Otherwise it returns the error message.
-    static func signIn(_ email: String, _ password: String) -> String? {
+    static func signIn(_ email: String?, _ password: String?) -> String? {
         
-        var returnError: String? = nil
+        var returnError: String?
         
         if let validateError = validateFields(email, password) {
             return validateError
         }
         
         // Sign in the user
-        Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+        Auth.auth().signIn(withEmail: email!, password: password!) { (result, err) in
             if err != nil {
                 // Coudn't sign in
                 returnError = err!.localizedDescription
@@ -71,7 +71,7 @@ class FirebaseAuthManager {
     
     // This method logs a user out of the app. If everything works, this method returns nil. Otherwise it returns the error message.
     static func logout() -> String? {
-        var returnError: String? = nil
+        var returnError: String?
         
         do {
             // Attempt to logout
