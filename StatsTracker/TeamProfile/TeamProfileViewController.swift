@@ -35,6 +35,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: TeamProfileViewModel) {
+        // Set label with team name from view model
         teamNameLabel.text = vm.teamName
     }
     

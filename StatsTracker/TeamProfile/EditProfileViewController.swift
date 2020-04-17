@@ -29,10 +29,10 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         teamNameTextField.delegate = self
         
         // Add bar button items to navigation
-        setUpButtons()
+        setUpBarButtons()
     }
     
-    func setUpButtons() {
+    func setUpBarButtons() {
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton

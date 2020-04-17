@@ -12,6 +12,8 @@ struct FirebaseKeys {
     
     struct CollectionPath {
         
+        static let environment = "dev"
+        
         static let publicData = "publicData"
         static let privateData = "privateData"
         

@@ -28,10 +28,12 @@ class TeamProfileCoordinator: Coordinator {
     }
 
     func start() {
+        
         // Get name from Firebase
         if let uid = Auth.auth().currentUser?.uid {
             FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
                 if let document = document, document.exists {
+                    // Give coordinator the fetched team name
                     self.teamName = document.get(FirebaseKeys.Users.teamName) as? String
                 } else {
                     fatalError(Constants.Errors.documentError)
@@ -39,6 +41,7 @@ class TeamProfileCoordinator: Coordinator {
             }
         }
         
+        // Create new view controller
         let vc = TeamProfileViewController.instantiate(.team)
         vc.delegate = self
         
@@ -58,9 +61,13 @@ extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
     }
     
     func onViewWillAppear() {
+        
+        // Get the current controller to update
         guard let vc = navigationController.viewControllers[0] as? TeamProfileViewController else {
             fatalError(Constants.Errors.viewControllerError("TeamProfileViewController"))
         }
+        
+        // Give view controller new view model
         vc.updateWithViewModel(vm: TeamProfileViewModel(teamName: teamName ?? Constants.Titles.defaultTeamName))
     }
 }
@@ -85,7 +92,8 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
     }
     
     func savePressed(newName: String) {
-        // Update team name for user in Firestore
+        
+        // Update team name for current user in Firestore
         if let uid = Auth.auth().currentUser?.uid {
             FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
                 if error != nil {

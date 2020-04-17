@@ -35,7 +35,7 @@ class SignUpViewController: UIViewController, Storyboarded {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
         
-        // Auth listener
+        // Listener for changes in authentication
         handle = Auth.auth().addStateDidChangeListener() { auth, user in
 
           if user != nil {
@@ -64,7 +64,7 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     @IBAction func signUpPressed(_ sender: UIButton) {
         
-        // Create cleaned versions of the data (optionals still)
+        // Create cleaned versions of the data
         let teamName = teamNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)

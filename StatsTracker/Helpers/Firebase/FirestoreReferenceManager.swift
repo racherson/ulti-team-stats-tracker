@@ -10,10 +10,8 @@ import Firebase
 
 struct FirestoreReferenceManager {
     
-    static let environment = "dev"
-    
     static let db = Firestore.firestore()
-    static let root = db.collection(environment).document(environment)
+    static let root = db.collection(FirebaseKeys.CollectionPath.environment).document(FirebaseKeys.CollectionPath.environment)
     
     static func referenceForUserPublicData(uid: String) -> DocumentReference {
         return root
