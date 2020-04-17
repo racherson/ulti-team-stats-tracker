@@ -8,12 +8,16 @@
 
 import UIKit
 
+protocol AuthCoordinatorDelegate {
+    func transitionToTabs()
+}
+
 class AuthCoordinator: Coordinator {
     
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    var coordinator: RootCoordinator?
+    var delegate: AuthCoordinatorDelegate?
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -54,6 +58,6 @@ extension AuthCoordinator: SignUpAndLoginViewControllerDelegate {
     }
     
     func transitionToTabs() {
-        coordinator?.transitionToTabs()
+        delegate?.transitionToTabs()
     }
 }

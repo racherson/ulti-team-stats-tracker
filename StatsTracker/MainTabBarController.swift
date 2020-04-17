@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MainTabBarControllerDelegate {
+    func transitionToHome()
+}
+
 class MainTabBarController: UITabBarController {
     
     //MARK: Properties
@@ -15,7 +19,7 @@ class MainTabBarController: UITabBarController {
     let rosterCoordinator = RosterCoordinator(navigationController: UINavigationController())
     let pullCoordinator = PullCoordinator(navigationController: UINavigationController())
     let gamesCoordinator = GamesCoordinator(navigationController: UINavigationController())
-    var coordinator: RootCoordinator?
+    var coordinator: MainTabBarControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

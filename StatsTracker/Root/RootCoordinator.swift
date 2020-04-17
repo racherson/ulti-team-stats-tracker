@@ -24,7 +24,11 @@ class RootCoordinator: Coordinator {
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
+}
+
+extension RootCoordinator {
     
+    //MARK: SceneDelegate
     func presentHomeVC() {
         let navController = UINavigationController()
         navController.setNavigationBarHidden(true, animated: false)
@@ -32,7 +36,7 @@ class RootCoordinator: Coordinator {
         
         // Start auth coordinator for login flow
         let authCoordinator = AuthCoordinator(navigationController: navController)
-        authCoordinator.coordinator = self
+        authCoordinator.delegate = self
         authCoordinator.start()
         
         navigationController.present(navController, animated: true, completion: nil)
@@ -45,12 +49,18 @@ class RootCoordinator: Coordinator {
         
         navigationController.present(vc, animated: true, completion: nil)
     }
+}
+
+extension RootCoordinator: AuthCoordinatorDelegate {
     
     //MARK: AuthCoordinatorDelegate
     func transitionToTabs() {
         navigationController.dismiss(animated: true, completion: nil)
         presentTabBars()
     }
+}
+
+extension RootCoordinator: MainTabBarControllerDelegate {
     
     //MARK: MainTabBarControllerDelegate
     func transitionToHome() {
