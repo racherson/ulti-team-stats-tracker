@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RootCoordinator: Coordinator {
     
@@ -24,30 +25,37 @@ class RootCoordinator: Coordinator {
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+        }
+    }
 }
 
 extension RootCoordinator {
     
     //MARK: SceneDelegate
     func presentHomeVC() {
-        let navController = UINavigationController()
-        navController.setNavigationBarHidden(true, animated: false)
-        navController.modalPresentationStyle = .fullScreen
-        
-        // Start auth coordinator for login flow
-        let authCoordinator = AuthCoordinator(navigationController: navController)
-        authCoordinator.delegate = self
-        authCoordinator.start()
-        
-        navigationController.present(navController, animated: true, completion: nil)
+        let childNavController = UINavigationController()
+        let child = AuthCoordinator(navigationController: childNavController)
+        child.delegate = self
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
+        childNavController.modalPresentationStyle = .fullScreen
+        navigationController.present(childNavController, animated: true, completion: nil)
     }
     
     func presentTabBars() {
-        let vc = MainTabBarController()
-        vc.modalPresentationStyle = .fullScreen
-        vc.coordinator = self
-        
-        navigationController.present(vc, animated: true, completion: nil)
+        let child = MainTabBarCoordinator(navigationController: navigationController)
+        child.delegate = self
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
 }
 
@@ -60,9 +68,7 @@ extension RootCoordinator: AuthCoordinatorDelegate {
     }
 }
 
-extension RootCoordinator: MainTabBarControllerDelegate {
-    
-    //MARK: MainTabBarControllerDelegate
+extension RootCoordinator: MainTabBarCoordinatorDelegate {
     func transitionToHome() {
         navigationController.dismiss(animated: true, completion: nil)
         presentHomeVC()
