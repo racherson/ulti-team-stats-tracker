@@ -61,8 +61,8 @@ class LoginViewController: UIViewController, Storyboarded {
         let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // Sign in the user, unwrap fields because validated
-        if let loginError = FirebaseAuthManager.signIn(email!, password!) {
+        // Attempt to sign in the user
+        if let loginError = FirebaseAuthManager.signIn(email, password) {
             showError(loginError)
         }
     }
