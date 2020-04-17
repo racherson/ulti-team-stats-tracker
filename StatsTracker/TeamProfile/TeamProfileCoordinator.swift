@@ -57,9 +57,9 @@ extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func viewWillAppear() {
+    func onViewWillAppear() {
         guard let vc = navigationController.viewControllers[0] as? TeamProfileViewController else {
-            fatalError(Constants.Errors.viewControllerError)
+            fatalError(Constants.Errors.viewControllerError("TeamProfileViewController"))
         }
         vc.updateWithViewModel(vm: TeamProfileViewModel(teamName: teamName ?? Constants.Titles.defaultTeamName))
     }

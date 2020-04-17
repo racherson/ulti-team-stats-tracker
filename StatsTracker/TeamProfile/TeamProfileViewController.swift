@@ -11,7 +11,7 @@ import FirebaseAuth
 
 protocol TeamProfileViewControllerDelegate {
     func settingsPressed()
-    func viewWillAppear()
+    func onViewWillAppear()
 }
 
 class TeamProfileViewController: UIViewController, Storyboarded {
@@ -31,7 +31,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        delegate?.viewWillAppear()
+        delegate?.onViewWillAppear()
     }
     
     func updateWithViewModel(vm: TeamProfileViewModel) {

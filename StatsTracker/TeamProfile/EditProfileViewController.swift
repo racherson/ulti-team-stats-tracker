@@ -96,7 +96,7 @@ extension EditProfileViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Check that input is not empty
         if textField.text == nil {
-            fatalError("New name can't be empty.")
+            fatalError(Constants.Errors.emptyFieldsError)
         }
         teamName = textField.text!
     }

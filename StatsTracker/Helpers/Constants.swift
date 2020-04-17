@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
     
@@ -30,11 +30,14 @@ struct Constants {
         static let userCreationError = "Error creating user."
         static let userSavingError = "Error saving user data."
         static let settingCellError = "Unknown settings cell type."
-        static let dequeueError = "The dequeued cell is not an instance of SettingsTableViewCell."
+        static func dequeueError(_ cell: String) -> String {
+            return "The dequeued cell is not an instance of " + cell
+        }
         static let logoutError = "Log Out Error"
         static let documentError = "Document does not exist"
-        static let viewControllerError = "Current view controller is not instance of TeamProfileViewController"
-        
+        static func viewControllerError(_ vc: String) -> String {
+            return "Current view controller is not an instance of " + vc
+        }
     }
     
     struct Alerts {

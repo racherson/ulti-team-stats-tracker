@@ -50,10 +50,6 @@ class SettingsViewController: UIViewController, Storyboarded {
         present(logoutAlert, animated: true, completion: nil)
     }
     
-    func editPressed() {
-        delegate?.editPressed()
-    }
-    
     //MARK: Private Methods
     private func logout() {
         if let logoutError = FirebaseAuthManager.logout() {
@@ -85,8 +81,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsTableViewCell", for: indexPath) as? SettingsTableViewCell else {
-            fatalError(Constants.Errors.dequeueError)
+        let cellIdentifier = "SettingsTableViewCell"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SettingsTableViewCell else {
+            fatalError(Constants.Errors.dequeueError(cellIdentifier))
         }
         
         // Configure the cell
@@ -101,7 +98,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case SettingCellType.logout.rawValue:
             logoutPressed()
         case SettingCellType.edit.rawValue:
-            editPressed()
+            delegate?.editPressed()
         default:
             fatalError(Constants.Errors.settingCellError)
         }

@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set delegate for team profile
+        // Set delegate for team profile (for logout flow)
         teamProfileCoordinator.delegate = self
         
         // Start all of the coordinators (for each tab)
