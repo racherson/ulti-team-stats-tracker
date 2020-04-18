@@ -70,6 +70,7 @@ extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
     func settingsPressed() {
         let vc = SettingsViewController.instantiate(.team)
         vc.delegate = self
+        vc.authManager = FirebaseAuthManager()
         navigationController.pushViewController(vc, animated: true)
     }
 }

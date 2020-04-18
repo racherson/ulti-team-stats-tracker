@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController, Storyboarded {
     //MARK: Properties
     var delegate: SignUpAndLoginViewControllerDelegate?
     var handle: AuthStateDidChangeListenerHandle?
+    var authManager: AuthenticationManager?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -70,8 +71,12 @@ class SignUpViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Attempt to create user
-        if let creationError = FirebaseAuthManager.createUser(teamName, email, password) {
-            showError(creationError)
+        do {
+            try authManager?.createUser(teamName, email, password)
+        } catch let err as AuthError {
+            showError(err.errorDescription!)
+        } catch {
+            showError(Constants.Errors.unknown)
         }
     }
     

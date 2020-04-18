@@ -39,6 +39,7 @@ extension AuthCoordinator: HomeViewControllerDelegate {
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
         vc.delegate = self
+        vc.authManager = FirebaseAuthManager()
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -46,6 +47,7 @@ extension AuthCoordinator: HomeViewControllerDelegate {
     func loginPressed() {
         let vc = LoginViewController.instantiate(.auth)
         vc.delegate = self
+        vc.authManager = FirebaseAuthManager()
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }

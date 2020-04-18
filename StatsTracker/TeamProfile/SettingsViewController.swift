@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var delegate: SettingsViewControllerDelegate?
+    var authManager: AuthenticationManager?
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -52,19 +53,25 @@ class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Private Methods
     private func logout() {
-        if let logoutError = FirebaseAuthManager.logout() {
-            
-            // Error logging out, display alert
-            let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
-                logoutError, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-
-            present(alertController, animated: true, completion: nil)
-        }
-        else {
-            // Go back to root view controller
+        
+        do {
+            try authManager?.logout()
+            // Return to the home view
             delegate?.transitionToHome()
+        } catch let err as AuthError {
+            showErrorAlert(error: err)
+        } catch {
+            showErrorAlert(error: AuthError.unknown)
         }
+    }
+    
+    private func showErrorAlert(error: AuthError) {
+        // Error logging out, display alert
+        let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
+            error.errorDescription, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+        present(alertController, animated: true, completion: nil)
     }
 }
 

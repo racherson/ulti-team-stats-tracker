@@ -38,6 +38,9 @@ struct Constants {
         static func viewControllerError(_ vc: String) -> String {
             return "Current view controller is not an instance of " + vc
         }
+        static let signInError = "Error signing in user."
+        static let signOutError = "Error signgin out user."
+        static let unknown = "An unknown error occurred."
     }
     
     struct Alerts {

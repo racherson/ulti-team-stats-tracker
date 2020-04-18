@@ -10,23 +10,27 @@ import Foundation
 import FirebaseAuth
 import Firebase
 
-class FirebaseAuthManager {
+class FirebaseAuthManager: AuthenticationManager {
     
-    // This method creates a new user account and stores in Firestore. If everything works, this method returns nil. Otherwise it returns the error message.
-    static func createUser(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
-        
-        var returnError: String?
-        
-        if let validateError = validateFields(teamName, email, password) {
-            return validateError
+    // This method creates a new user account and stores in Firestore. It throws an error if one occurs.
+    func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws {
+
+        do {
+            try validateFields(teamName, email, password)
+        } catch let error as AuthError {
+            throw error
+        } catch {
+            throw AuthError.unknown
         }
+        
+        var creationError: AuthError?
         
         // Create the user
         Auth.auth().createUser(withEmail: email!, password: password!) { (result, err) in
             // Check for errors
             if err != nil {
                 // There was an error creating the user
-                returnError = Constants.Errors.userCreationError
+                creationError = AuthError.userCreation
             }
             else {
                 // User was created successfully, now store the user data (validated as not empty)
@@ -40,96 +44,97 @@ class FirebaseAuthManager {
                 FirestoreReferenceManager.referenceForUserPublicData(uid: uid).setData(userData) { (error) in
                     if error != nil {
                         // Show error message
-                        returnError = Constants.Errors.userSavingError
+                        creationError = AuthError.userSaving
                     }
                 }
             }
         }
-        // Return creation/saving error, if any, otherwise nil
-        return returnError
+        
+        // If there was an error in the creation process, throw it
+        if creationError != nil {
+            throw creationError!
+        }
     }
     
-    // This method signs in a user stored in Firebase. If everything works, this method returns nil. Otherwise it returns the error message.
-    static func signIn(_ email: String?, _ password: String?) -> String? {
+    // This method signs in a user stored in Firebase. It throws an error if one occurs.
+    func signIn(_ email: String?, _ password: String?) throws {
         
-        var returnError: String?
-        
-        if let validateError = validateFields(email, password) {
-            return validateError
+        do {
+            try validateFields(email, password)
+        } catch let error as AuthError {
+            throw error
+        } catch {
+            throw AuthError.unknown
         }
+        
+        var creationError: AuthError?
         
         // Sign in the user
         Auth.auth().signIn(withEmail: email!, password: password!) { (result, err) in
             if err != nil {
                 // Coudn't sign in
-                returnError = err!.localizedDescription
+                creationError = AuthError.signIn
             }
         }
-        // Return login error, if any, otherwise nil
-        return returnError
+        
+        // If there was an error in the sign in process, throw it
+        if creationError != nil {
+            throw creationError!
+        }
     }
     
-    // This method logs a user out of the app. If everything works, this method returns nil. Otherwise it returns the error message.
-    static func logout() -> String? {
-        var returnError: String?
+    // This method logs a user out of the app. It throws an error if one occurs.
+    func logout() throws {
         
         do {
             // Attempt to logout
             try Auth.auth().signOut()
-        }
-        catch let signOutError as NSError {
+        } catch  {
             // Unable to logout
-            returnError = signOutError.localizedDescription
+            throw AuthError.signOut
         }
-        // Return the error or nil
-        return returnError
     }
     
     //MARK: Private Methods
-    private static func isPasswordValid(_ password : String) -> Bool {
+    private func isPasswordValid(_ password : String) -> Bool {
         let passwordRegEx = "^(?=.*[a-z])(?=.*[$@$#!%*?*])[A-Za-z\\d$@$#!%*?&]{8,}"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluate(with: password)
     }
     
-    private static func isEmailValid(_ email : String) -> Bool {
+    private func isEmailValid(_ email : String) -> Bool {
         let emailRegEx = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{1,4}$"
         let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
     
-    // Check that the fields aren't empty. If everything is correct, this method returns nil. Otherwise it returns the error message.
-    // Inputs: email, password
-    private static func validateFields(_ email: String?, _ password: String?) -> String? {
+    // Check that the fields aren't empty. It throws an error if one occurs.
+    // Inputs: email and password
+    private func validateFields(_ email: String?, _ password: String?) throws {
         // Check that all fields are filled in
         if email == "" || password == "" {
-            return Constants.Errors.emptyFieldsError
+            throw AuthError.emptyFields
         }
-        // Fields aren't empty, thus valid
-        return nil
     }
     
-    // Check the fields and validate for correctness. If everything is correct, this method returns nil. Otherwise it returns the error message.
+    // Check the fields and validate for correctness. It throws an error if one occurs.
     // Inputs: team name, email, password
-    private static func validateFields(_ teamName: String?, _ email: String?, _ password: String?) -> String? {
+    private func validateFields(_ teamName: String?, _ email: String?, _ password: String?) throws {
         
         // Check that all fields are filled in
         if teamName == "" || email == "" || password == "" {
-            return Constants.Errors.emptyFieldsError
+            throw AuthError.emptyFields
         }
         
         // Check if email format is valid
         if isEmailValid(email!) == false {
-            return Constants.Errors.invalidEmailError
+            throw AuthError.invalidEmail
         }
         
         // Check if the password is secure
         if isPasswordValid(password!) == false {
             // Password isn't secure enough
-            return Constants.Errors.insecurePasswordError
+            throw AuthError.insecurePassword
         }
-        
-        // Fields aren't empty, thus valid
-        return nil
     }
 }

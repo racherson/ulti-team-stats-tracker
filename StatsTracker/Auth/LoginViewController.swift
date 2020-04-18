@@ -14,6 +14,7 @@ class LoginViewController: UIViewController, Storyboarded {
     //MARK: Properties
     var delegate: SignUpAndLoginViewControllerDelegate?
     var handle: AuthStateDidChangeListenerHandle?
+    var authManager: AuthenticationManager?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -63,8 +64,12 @@ class LoginViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Attempt to sign in the user
-        if let loginError = FirebaseAuthManager.signIn(email, password) {
-            showError(loginError)
+        do {
+            try authManager?.signIn(email, password)
+        } catch let err as AuthError {
+            showError(err.errorDescription!)
+        } catch {
+            showError(Constants.Errors.unknown)
         }
     }
     
