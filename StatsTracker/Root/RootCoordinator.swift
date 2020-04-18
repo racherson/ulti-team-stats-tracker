@@ -36,9 +36,9 @@ class RootCoordinator: Coordinator {
     }
 }
 
+//MARK: SceneDelegate
 extension RootCoordinator {
     
-    //MARK: SceneDelegate
     func presentHomeVC() {
         let childNavController = UINavigationController()
         let child = AuthCoordinator(navigationController: childNavController)
@@ -59,9 +59,9 @@ extension RootCoordinator {
     }
 }
 
+//MARK: AuthCoordinatorDelegate
 extension RootCoordinator: AuthCoordinatorDelegate {
     
-    //MARK: AuthCoordinatorDelegate
     func transitionToTabs() {
         navigationController.dismiss(animated: true, completion: nil)
         presentTabBars()

@@ -20,7 +20,11 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var delegate: TeamProfileCoordinatorDelegate?
-    var teamName: String?
+    var teamName: String? {
+        didSet {
+            updateTPViewModel()
+        }
+    }
 
     // MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -48,30 +52,29 @@ class TeamProfileCoordinator: Coordinator {
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
         navigationController.pushViewController(vc, animated: true)
+        vc.viewModel = TeamProfileViewModel(team: teamName ?? "...")
+    }
+    
+    func updateTPViewModel() {
+        // Make sure bottom view controller is TeamProfileViewController
+        guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else { return }
+        
+        // Give the view controller a new view model
+        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!)
     }
 }
 
+//MARK: TeamProfileViewControllerDelegate
 extension TeamProfileCoordinator: TeamProfileViewControllerDelegate {
     
-    //MARK: TeamProfileViewControllerDelegate
     func settingsPressed() {
         let vc = SettingsViewController.instantiate(.team)
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    func onViewWillAppear() {
-        
-        // Get the current controller to update
-        guard let vc = navigationController.viewControllers[0] as? TeamProfileViewController else {
-            fatalError(Constants.Errors.viewControllerError("TeamProfileViewController"))
-        }
-        
-        // Give view controller new view model
-        vc.updateWithViewModel(vm: TeamProfileViewModel(teamName: teamName ?? Constants.Titles.defaultTeamName))
-    }
 }
 
+//MARK: SettingsViewControllerDelegate
 extension TeamProfileCoordinator: SettingsViewControllerDelegate {
     func transitionToHome() {
         delegate?.transitionToHome()
@@ -85,6 +88,7 @@ extension TeamProfileCoordinator: SettingsViewControllerDelegate {
     }
 }
 
+//MARK: EditProfileViewControllerDelegate
 extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
 
     func cancelPressed() {

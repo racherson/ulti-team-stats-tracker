@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct TeamProfileViewModel {
-    var teamName: String!
+class TeamProfileViewModel {
+    var teamName: String
     
-    init(teamName: String) {
-        self.teamName = teamName
+    required init(team: String) {
+        self.teamName = team
     }
 }

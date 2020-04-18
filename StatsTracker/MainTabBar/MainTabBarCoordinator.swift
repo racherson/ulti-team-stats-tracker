@@ -33,9 +33,9 @@ class MainTabBarCoordinator: Coordinator {
     }
 }
 
+//MARK: MainTabBarControllerDelegate
 extension MainTabBarCoordinator: MainTabBarControllerDelegate {
     
-    //MARK: MainTabBarControllerDelegate
     func transitionToHome() {
         parentCoordinator?.childDidFinish(self)
         delegate?.transitionToHome()

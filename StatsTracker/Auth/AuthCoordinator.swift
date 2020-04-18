@@ -33,9 +33,9 @@ class AuthCoordinator: Coordinator {
     }
 }
 
+//MARK: HomeViewControllerDelegate
 extension AuthCoordinator: HomeViewControllerDelegate {
     
-    //MARK: HomeViewControllerDelegate
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
         vc.delegate = self
@@ -51,9 +51,9 @@ extension AuthCoordinator: HomeViewControllerDelegate {
     }
 }
 
+//MARK: SignUpAndLoginViewControllerDelegate
 extension AuthCoordinator: SignUpAndLoginViewControllerDelegate {
-    
-    //MARK: SignUpAndLoginViewControllerDelegate
+
     func cancelPressed() {
         navigationController.popViewController(animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)

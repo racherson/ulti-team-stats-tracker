@@ -11,7 +11,6 @@ import FirebaseAuth
 
 protocol TeamProfileViewControllerDelegate {
     func settingsPressed()
-    func onViewWillAppear()
 }
 
 class TeamProfileViewController: UIViewController, Storyboarded {
@@ -20,6 +19,11 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     var delegate: TeamProfileViewControllerDelegate?
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var teamImage: UIImageView!
+    var viewModel: TeamProfileViewModel? {
+        didSet {
+            fillUI()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +35,20 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        delegate?.onViewWillAppear()
+        fillUI()
     }
     
-    func updateWithViewModel(vm: TeamProfileViewModel) {
-        // Set label with team name from view model
-        teamNameLabel.text = vm.teamName
+    fileprivate func fillUI() {
+        if !isViewLoaded {
+            return
+        }
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        // We are sure here that we have all the setup done
+        teamNameLabel.text = viewModel.teamName
     }
     
     //MARK: Actions
