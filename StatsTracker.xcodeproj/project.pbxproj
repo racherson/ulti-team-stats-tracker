@@ -248,8 +248,8 @@
 		2969BC5A244A4CCE00E95EBA /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */,
 				2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */,
+				2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */,
 			);
 			path = MainTabBar;
 			sourceTree = "<group>";

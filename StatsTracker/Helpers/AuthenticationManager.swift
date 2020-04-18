@@ -44,6 +44,8 @@ extension AuthError: LocalizedError {
 }
 
 protocol AuthenticationManager {
+    var currentUserUID: String? { get }
+    
     func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws
     func signIn(_ email: String?, _ password: String?) throws
     func logout() throws

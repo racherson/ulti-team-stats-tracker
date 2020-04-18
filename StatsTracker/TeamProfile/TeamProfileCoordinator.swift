@@ -20,6 +20,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var delegate: TeamProfileCoordinatorDelegate?
+    var authManager: AuthenticationManager?
     var teamName: String? {
         didSet {
             updateTPViewModel()
@@ -34,7 +35,7 @@ class TeamProfileCoordinator: Coordinator {
     func start() {
         
         // Get name from Firebase
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = authManager?.currentUserUID {
             FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
                 if let document = document, document.exists {
                     // Give coordinator the fetched team name
@@ -99,7 +100,7 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
     func savePressed(newName: String) {
         
         // Update team name for current user in Firestore
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = authManager?.currentUserUID {
             FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
                 if error != nil {
                     fatalError(Constants.Errors.userSavingError)
