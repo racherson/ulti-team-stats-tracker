@@ -38,6 +38,7 @@
 		29AD5206243FE7110094DCDE /* Games.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5205243FE7110094DCDE /* Games.storyboard */; };
 		29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */; };
 		29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5209243FE7600094DCDE /* GamesViewController.swift */; };
+		29B7FE3F244B675C009E067D /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B7FE3E244B675C009E067D /* Dynamic.swift */; };
 		29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B3692440E13E0068B24D /* SignUpViewController.swift */; };
 		29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B36B2440E1690068B24D /* LoginViewController.swift */; };
 		29B8B36E2440FE640068B24D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29B8B36D2440FE640068B24D /* GoogleService-Info.plist */; };
@@ -96,6 +97,7 @@
 		29AD5205243FE7110094DCDE /* Games.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Games.storyboard; sourceTree = "<group>"; };
 		29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesCoordinator.swift; sourceTree = "<group>"; };
 		29AD5209243FE7600094DCDE /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
+		29B7FE3E244B675C009E067D /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		29B8B3692440E13E0068B24D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		29B8B36B2440E1690068B24D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		29B8B36D2440FE640068B24D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				294A87482446ABF0003FC969 /* Firebase */,
 				2910EB83243FA53000BCF721 /* Coordinator.swift */,
 				2910EB85243FA53D00BCF721 /* Storyboarded.swift */,
+				29B7FE3E244B675C009E067D /* Dynamic.swift */,
 				29CCF52424414921003F201A /* Constants.swift */,
 			);
 			path = Helpers;
@@ -502,6 +505,7 @@
 				2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */,
 				2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */,
 				294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */,
+				29B7FE3F244B675C009E067D /* Dynamic.swift in Sources */,
 				294A874024466517003FC969 /* RootViewController.swift in Sources */,
 				2910EB86243FA53D00BCF721 /* Storyboarded.swift in Sources */,
 				29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */,

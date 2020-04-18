@@ -60,7 +60,8 @@ class TeamProfileCoordinator: Coordinator {
         guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else { return }
         
         // Give the view controller a new view model
-        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!)
+//        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!)
+        teamProfileVC.viewModel?.teamName.value = teamName!
     }
 }
 

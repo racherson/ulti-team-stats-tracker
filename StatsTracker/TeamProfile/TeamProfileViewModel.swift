@@ -9,9 +9,9 @@
 import Foundation
 
 class TeamProfileViewModel {
-    var teamName: String
+    var teamName: Dynamic<String>
     
     required init(team: String) {
-        self.teamName = team
+        self.teamName = Dynamic(team)
     }
 }
