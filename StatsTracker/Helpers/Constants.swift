@@ -6,12 +6,11 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
     
     struct Titles {
-        
         static let teamProfileTitle = "Team Profile"
         static let rosterTitle = "Roster"
         static let pullTitle = "Pull"
@@ -23,7 +22,6 @@ struct Constants {
     }
     
     struct Errors {
-        
         static let emptyFieldsError = "Please fill in all fields."
         static let insecurePasswordError = "Please make sure your password is at least 8 characters and contains both a special character and a number."
         static let invalidEmailError = "Invalid email format."
@@ -44,7 +42,16 @@ struct Constants {
     }
     
     struct Alerts {
-        
         static let logoutAlert = "Are you sure you want to log out?"
+    }
+    
+    struct Empty {
+        static let string = ""
+        static let int = 0
+    }
+    
+    struct Loading {
+        static let string = "..."
+        static let image = UIImage(named: "defaultPhoto")
     }
 }

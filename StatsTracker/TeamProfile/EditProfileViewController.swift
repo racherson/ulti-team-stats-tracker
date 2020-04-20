@@ -10,7 +10,7 @@ import UIKit
 
 protocol EditProfileViewControllerDelegate {
     func cancelPressed()
-    func savePressed(newName: String)
+    func savePressed(newName: String, newImage: UIImage)
 }
 
 class EditProfileViewController: UIViewController, Storyboarded, UINavigationControllerDelegate {
@@ -18,6 +18,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     //MARK: Properties
     var delegate: EditProfileViewControllerDelegate?
     var teamName: String?
+    var teamImage: UIImage?
     var saveButton: UIBarButtonItem?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
@@ -42,6 +43,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         self.navigationItem.rightBarButtonItem = saveButton
         
         teamNameTextField.text = teamName
+        teamPhotoImage.image = teamImage
         teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
     }
     
@@ -63,7 +65,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     }
     
     @objc func savePressed() {
-        delegate?.savePressed(newName: teamName!)
+        delegate?.savePressed(newName: teamName!, newImage: teamImage!)
     }
     
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
@@ -117,6 +119,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate {
         
         // Set photoImageView to display the selected image.
         teamPhotoImage.image = selectedImage
+        teamImage = selectedImage
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)

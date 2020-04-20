@@ -21,7 +21,12 @@ class TeamProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
     var delegate: TeamProfileCoordinatorDelegate?
     var authManager: AuthenticationManager?
-    var teamName: String? {
+    var teamImage: UIImage? = Constants.Loading.image! {
+        didSet {
+            updateTPViewModel()
+        }
+    }
+    var teamName: String? = Constants.Loading.string {
         didSet {
             updateTPViewModel()
         }
@@ -53,7 +58,7 @@ class TeamProfileCoordinator: Coordinator {
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
         navigationController.pushViewController(vc, animated: true)
-        vc.viewModel = TeamProfileViewModel(team: teamName ?? "...")
+        vc.viewModel = TeamProfileViewModel(team: teamName!, image: teamImage!)
     }
     
     func updateTPViewModel() {
@@ -61,7 +66,7 @@ class TeamProfileCoordinator: Coordinator {
         guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else { return }
         
         // Give the view controller a new view model
-        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!)
+        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!, image: teamImage!)
     }
 }
 
@@ -87,6 +92,7 @@ extension TeamProfileCoordinator: SettingsViewControllerDelegate {
         let navController = UINavigationController(rootViewController: vc)
         vc.delegate = self
         vc.teamName = teamName
+        vc.teamImage = teamImage
         navigationController.present(navController, animated: true, completion: nil)
     }
 }
@@ -98,7 +104,7 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
         navigationController.dismiss(animated: true, completion: nil)
     }
     
-    func savePressed(newName: String) {
+    func savePressed(newName: String, newImage: UIImage) {
         
         // Update team name for current user in Firestore
         if let uid = authManager?.currentUserUID {
@@ -109,8 +115,9 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
             }
         }
         
-        // Give new name to coordinator
+        // Give new name and image to coordinator
         teamName = newName
+        teamImage = newImage
         
         // Return to TeamProfileViewController
         navigationController.dismiss(animated: true, completion: nil)

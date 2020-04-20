@@ -6,12 +6,14 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class TeamProfileViewModel {
     var teamName: String
+    var teamImage: UIImage
     
-    required init(team: String) {
+    required init(team: String, image: UIImage) {
         self.teamName = team
+        self.teamImage = image
     }
 }
