@@ -29,22 +29,20 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         teamNameTextField.delegate = self
         
         // Add bar button items to navigation
-        setUpBarButtons()
+        setUpUI()
     }
     
-    func setUpBarButtons() {
+    func setUpUI() {
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
         
         // Add save button
         saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
-        
-        // Save button starts disabled until text field is populated
-        saveButton!.isEnabled = false
-        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .editingDidEnd)
-        
         self.navigationItem.rightBarButtonItem = saveButton
+        
+        teamNameTextField.text = teamName
+        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
     }
     
     //MARK: Actions

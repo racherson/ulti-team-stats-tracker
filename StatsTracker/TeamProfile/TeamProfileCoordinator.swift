@@ -86,6 +86,7 @@ extension TeamProfileCoordinator: SettingsViewControllerDelegate {
         let vc = EditProfileViewController.instantiate(.team)
         let navController = UINavigationController(rootViewController: vc)
         vc.delegate = self
+        vc.teamName = teamName
         navigationController.present(navController, animated: true, completion: nil)
     }
 }
