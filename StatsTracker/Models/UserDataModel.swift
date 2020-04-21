@@ -13,6 +13,7 @@ extension Constants {
         static let uid = "uid"
         static let teamName = "teamName"
         static let email = "email"
+        static let imageURL = "imageURL"
     }
 }
 
@@ -24,12 +25,14 @@ struct UserDataModel {
     private(set) var uid: String
     private(set) var teamName: String
     private(set) var email: String
+    private(set) var imageURL: String
     
     var dictionary: [String: Any] {
         return [
             Constants.UserDataModel.uid: uid,
             Constants.UserDataModel.teamName: teamName,
-            Constants.UserDataModel.email: email
+            Constants.UserDataModel.email: email,
+            Constants.UserDataModel.imageURL: imageURL
         ]
     }
 }
@@ -39,7 +42,8 @@ extension UserDataModel: DocumentSerializable {
         let uid = documentData[Constants.UserDataModel.uid] as? String ?? Constants.Empty.string
         let teamName = documentData[Constants.UserDataModel.teamName] as? String ?? Constants.Empty.string
         let email = documentData[Constants.UserDataModel.email] as? String ?? Constants.Empty.string
-        self.init(uid: uid, teamName: teamName, email: email)
+        let imageURL = documentData[Constants.UserDataModel.imageURL] as? String ?? Constants.Empty.string
+        self.init(uid: uid, teamName: teamName, email: email, imageURL: imageURL)
     }
 }
 

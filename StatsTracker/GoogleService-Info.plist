@@ -13,21 +13,21 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.Rachel.StatsTracker</string>
+	<string>com.Rachel.StatsTracker27</string>
 	<key>PROJECT_ID</key>
 	<string>statstracker-16560</string>
 	<key>STORAGE_BUCKET</key>
 	<string>statstracker-16560.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:634431559138:ios:9b9c82d689c46116b5d5bb</string>
 	<key>DATABASE_URL</key>

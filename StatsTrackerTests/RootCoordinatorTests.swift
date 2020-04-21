@@ -9,9 +9,6 @@
 import XCTest
 @testable import StatsTracker
 
-// TESTING PATTERN
-// GIVEN...WHEN...THEN
-
 class TeamProfileViewControllerTests: XCTestCase {
     
     var coordinator: RootCoordinator!
