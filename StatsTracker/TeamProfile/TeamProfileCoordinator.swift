@@ -64,7 +64,7 @@ class TeamProfileCoordinator: Coordinator {
     func setData() {
         // Get the current user uid
         guard let uid = authManager?.currentUserUID else {
-            fatalError("Something went wrong")
+            fatalError(Constants.Errors.userError)
         }
         FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
             if error != nil {
