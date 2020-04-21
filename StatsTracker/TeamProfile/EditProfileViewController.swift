@@ -30,10 +30,11 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         teamNameTextField.delegate = self
         
         // Add bar button items to navigation
-        setUpUI()
+        setUpButtons()
+        setUpData()
     }
     
-    func setUpUI() {
+    func setUpButtons() {
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
@@ -41,7 +42,9 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         // Add save button
         saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
         self.navigationItem.rightBarButtonItem = saveButton
-        
+    }
+    
+    func setUpData() {
         teamNameTextField.text = teamName
         teamPhotoImage.image = teamImage
         teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)

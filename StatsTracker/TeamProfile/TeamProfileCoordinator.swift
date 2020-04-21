@@ -23,12 +23,12 @@ class TeamProfileCoordinator: Coordinator {
     var navigationController: UINavigationController
     var delegate: TeamProfileCoordinatorDelegate?
     var authManager: AuthenticationManager?
-    var teamImage: UIImage? = Constants.Loading.image! {
+    var teamImage: UIImage = Constants.Loading.image {
         didSet {
             updateTPViewModel()
         }
     }
-    var teamName: String? = Constants.Loading.string {
+    var teamName: String = Constants.Loading.string {
         didSet {
             updateTPViewModel()
         }
@@ -50,7 +50,7 @@ class TeamProfileCoordinator: Coordinator {
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
         navigationController.pushViewController(vc, animated: true)
-        vc.viewModel = TeamProfileViewModel(team: teamName!, image: teamImage!)
+        vc.viewModel = TeamProfileViewModel(team: teamName, image: teamImage)
     }
     
     func updateTPViewModel() {
@@ -58,7 +58,7 @@ class TeamProfileCoordinator: Coordinator {
         guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else { return }
         
         // Give the view controller a new view model
-        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!, image: teamImage!)
+        teamProfileVC.viewModel = TeamProfileViewModel(team: teamName, image: teamImage)
     }
     
     func setData() {
@@ -85,6 +85,7 @@ class TeamProfileCoordinator: Coordinator {
     func downloadImage(`with` urlString: String) {
         // Use url string to get true url
         guard let url = URL(string: urlString) else {
+            self.teamImage = Constants.Empty.image
             return
         }
 
@@ -93,8 +94,8 @@ class TeamProfileCoordinator: Coordinator {
             switch result {
             case .success(let value):
                 self.teamImage = value.image
-            case .failure(let error):
-                fatalError(error.localizedDescription)
+            case .failure( _):
+                self.teamImage = Constants.Empty.image
             }
         }
     }
@@ -136,52 +137,48 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
     
     func savePressed(newName: String, newImage: UIImage) {
         
-        // Update team name for current user in Firestore
-        if let uid = authManager?.currentUserUID {
-            FirestoreReferenceManager.referenceForUserPublicData(uid: uid)
-                .updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
-                if error != nil {
-                    fatalError(Constants.Errors.userSavingError)
-                }
-            }
+        // Find the current uid
+        guard let uid = authManager?.currentUserUID else {
+            return
         }
         
-        // Update team image for current user in Firestore
+        // Convert image to data to store
         guard let data = newImage.jpegData(compressionQuality: 1.0) else {
             fatalError(Constants.Errors.userSavingError)
         }
         
         // Store image under the current user uid
-        if let imageName = authManager?.currentUserUID {
-            let imageReference = Storage.storage()
+        let imageReference = Storage.storage()
             .reference()
             .child(FirebaseKeys.CollectionPath.imagesFolder)
-            .child(imageName)
+            .child(uid)
+        
+        // Store the image data in storage
+        imageReference.putData(data, metadata: nil) { (metadata, err) in
+            if let err = err {
+                fatalError(err.localizedDescription)
+            }
             
-            // Store the image data in storage
-            imageReference.putData(data, metadata: nil) { (metadata, err) in
+            // Get the image url
+            imageReference.downloadURL { (url, err) in
                 if let err = err {
                     fatalError(err.localizedDescription)
                 }
+                guard let url = url else {
+                    fatalError("Something went wrong")
+                }
                 
-                // Get the image url
-                imageReference.downloadURL { (url, err) in
-                    if let err = err {
-                        fatalError(err.localizedDescription)
-                    }
-                    guard let url = url else {
-                        fatalError("Something went wrong")
-                    }
-                    
-                    let urlString = url.absoluteString
-                    
-                    // Update imageURL in Firestore
-                    FirestoreReferenceManager.referenceForUserPublicData(uid: imageName)
-                        .updateData([FirebaseKeys.Users.imageURL: urlString]) { (error) in
+                let urlString = url.absoluteString
+                
+                // Update team name and image url in Firestore
+                FirestoreReferenceManager.referenceForUserPublicData(uid: uid)
+                    .updateData([
+                        FirebaseKeys.Users.imageURL: urlString,
+                        FirebaseKeys.Users.teamName: newName
+                    ]) { (error) in
                         if error != nil {
                             fatalError(Constants.Errors.userSavingError)
                         }
-                    }
                 }
             }
         }

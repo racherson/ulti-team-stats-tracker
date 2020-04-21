@@ -48,10 +48,11 @@ struct Constants {
     struct Empty {
         static let string = ""
         static let int = 0
+        static let image = UIImage(named: "defaultPhoto")!
     }
     
     struct Loading {
         static let string = "..."
-        static let image = UIImage(named: "defaultPhoto")
+        static let image = UIImage(named: "loadingPhoto")!
     }
 }
