@@ -40,23 +40,8 @@ class TeamProfileCoordinator: Coordinator {
     }
 
     func start() {
-        
-        // Get data from Firebase
-        guard let uid = authManager?.currentUserUID else {
-            fatalError("Something went wrong")
-        }
-        FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
-            if error != nil {
-                fatalError(Constants.Errors.documentError)
-            }
-            guard let document = document,
-                let name = document.get(FirebaseKeys.Users.teamName) as? String,
-                let urlString = document.get(FirebaseKeys.Users.imageURL) as? String else {
-                    fatalError(Constants.Errors.documentError)
-            }
-            self.teamName = name
-            self.downloadImage(with: urlString)
-        }
+        // Set the coordinator team name and image
+        setData()
         
         // Create new view controller
         let vc = TeamProfileViewController.instantiate(.team)
@@ -76,13 +61,35 @@ class TeamProfileCoordinator: Coordinator {
         teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!, image: teamImage!)
     }
     
+    func setData() {
+        // Get the current user uid
+        guard let uid = authManager?.currentUserUID else {
+            fatalError("Something went wrong")
+        }
+        FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
+            if error != nil {
+                fatalError(Constants.Errors.documentError)
+            }
+            guard let document = document,
+                // grab the team name and image url
+                let name = document.get(FirebaseKeys.Users.teamName) as? String,
+                let urlString = document.get(FirebaseKeys.Users.imageURL) as? String else {
+                    fatalError(Constants.Errors.documentError)
+            }
+            // Give data to the coordinator
+            self.teamName = name
+            self.downloadImage(with: urlString)
+        }
+    }
+    
     func downloadImage(`with` urlString: String) {
+        // Use url string to get true url
         guard let url = URL(string: urlString) else {
             return
         }
-        let resource = ImageResource(downloadURL: url)
 
-        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+        // Retrieve the image from the url
+        KingfisherManager.shared.retrieveImage(with: ImageResource(downloadURL: url), options: nil, progressBlock: nil) { result in
             switch result {
             case .success(let value):
                 self.teamImage = value.image
@@ -131,7 +138,8 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
         
         // Update team name for current user in Firestore
         if let uid = authManager?.currentUserUID {
-            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
+            FirestoreReferenceManager.referenceForUserPublicData(uid: uid)
+                .updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
                 if error != nil {
                     fatalError(Constants.Errors.userSavingError)
                 }
