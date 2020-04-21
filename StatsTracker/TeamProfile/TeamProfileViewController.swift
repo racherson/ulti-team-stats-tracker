@@ -48,6 +48,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
         
         // We are sure here that we have all the setup done
         teamNameLabel.text = viewModel.teamName
+        teamImage.image = viewModel.teamImage
     }
     
     //MARK: Actions

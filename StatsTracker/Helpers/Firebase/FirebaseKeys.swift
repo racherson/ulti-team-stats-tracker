@@ -13,11 +13,11 @@ struct FirebaseKeys {
     struct CollectionPath {
         
         static let environment = "dev"
-        
         static let publicData = "publicData"
         static let privateData = "privateData"
-        
         static let users = "users"
+        
+        static let imagesFolder = "imagesFolder"
     }
     
     struct Users {
@@ -25,5 +25,6 @@ struct FirebaseKeys {
         static let teamName = "teamname"
         static let email = "email"
         static let uid = "uid"
+        static let imageURL = "imageURL"
     }
 }

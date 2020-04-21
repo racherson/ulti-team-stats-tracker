@@ -8,18 +8,11 @@
 
 import Foundation
 
-struct MyKey {
+extension Constants {
     struct UserDataModel {
         static let uid = "uid"
         static let teamName = "teamName"
         static let email = "email"
-    }
-}
-
-struct MyValue {
-    struct Empty {
-        static let string = ""
-        static let int = 0
     }
 }
 
@@ -34,18 +27,18 @@ struct UserDataModel {
     
     var dictionary: [String: Any] {
         return [
-            MyKey.UserDataModel.uid: uid,
-            MyKey.UserDataModel.teamName: teamName,
-            MyKey.UserDataModel.email: email
+            Constants.UserDataModel.uid: uid,
+            Constants.UserDataModel.teamName: teamName,
+            Constants.UserDataModel.email: email
         ]
     }
 }
 
 extension UserDataModel: DocumentSerializable {
     init?(documentData: [String : Any]) {
-        let uid = documentData[MyKey.UserDataModel.uid] as? String ?? MyValue.Empty.string
-        let teamName = documentData[MyKey.UserDataModel.teamName] as? String ?? MyValue.Empty.string
-        let email = documentData[MyKey.UserDataModel.email] as? String ?? MyValue.Empty.string
+        let uid = documentData[Constants.UserDataModel.uid] as? String ?? Constants.Empty.string
+        let teamName = documentData[Constants.UserDataModel.teamName] as? String ?? Constants.Empty.string
+        let email = documentData[Constants.UserDataModel.email] as? String ?? Constants.Empty.string
         self.init(uid: uid, teamName: teamName, email: email)
     }
 }
