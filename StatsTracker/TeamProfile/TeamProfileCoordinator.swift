@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
+import Kingfisher
 
 protocol TeamProfileCoordinatorDelegate {
     func transitionToHome()
@@ -39,16 +41,21 @@ class TeamProfileCoordinator: Coordinator {
 
     func start() {
         
-        // Get name from Firebase
-        if let uid = authManager?.currentUserUID {
-            FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
-                if let document = document, document.exists {
-                    // Give coordinator the fetched team name
-                    self.teamName = document.get(FirebaseKeys.Users.teamName) as? String
-                } else {
-                    fatalError(Constants.Errors.documentError)
-                }
+        // Get data from Firebase
+        guard let uid = authManager?.currentUserUID else {
+            fatalError("Something went wrong")
+        }
+        FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
+            if error != nil {
+                fatalError(Constants.Errors.documentError)
             }
+            guard let document = document,
+                let name = document.get(FirebaseKeys.Users.teamName) as? String,
+                let urlString = document.get(FirebaseKeys.Users.imageURL) as? String else {
+                    fatalError(Constants.Errors.documentError)
+            }
+            self.teamName = name
+            self.downloadImage(with: urlString)
         }
         
         // Create new view controller
@@ -67,6 +74,22 @@ class TeamProfileCoordinator: Coordinator {
         
         // Give the view controller a new view model
         teamProfileVC.viewModel = TeamProfileViewModel(team: teamName!, image: teamImage!)
+    }
+    
+    func downloadImage(`with` urlString: String) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        let resource = ImageResource(downloadURL: url)
+
+        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                self.teamImage = value.image
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -111,6 +134,46 @@ extension TeamProfileCoordinator: EditProfileViewControllerDelegate {
             FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData([FirebaseKeys.Users.teamName: newName]) { (error) in
                 if error != nil {
                     fatalError(Constants.Errors.userSavingError)
+                }
+            }
+        }
+        
+        // Update team image for current user in Firestore
+        guard let data = newImage.jpegData(compressionQuality: 1.0) else {
+            fatalError(Constants.Errors.userSavingError)
+        }
+        
+        // Store image under the current user uid
+        if let imageName = authManager?.currentUserUID {
+            let imageReference = Storage.storage()
+            .reference()
+            .child(FirebaseKeys.CollectionPath.imagesFolder)
+            .child(imageName)
+            
+            // Store the image data in storage
+            imageReference.putData(data, metadata: nil) { (metadata, err) in
+                if let err = err {
+                    fatalError(err.localizedDescription)
+                }
+                
+                // Get the image url
+                imageReference.downloadURL { (url, err) in
+                    if let err = err {
+                        fatalError(err.localizedDescription)
+                    }
+                    guard let url = url else {
+                        fatalError("Something went wrong")
+                    }
+                    
+                    let urlString = url.absoluteString
+                    
+                    // Update imageURL in Firestore
+                    FirestoreReferenceManager.referenceForUserPublicData(uid: imageName)
+                        .updateData([FirebaseKeys.Users.imageURL: urlString]) { (error) in
+                        if error != nil {
+                            fatalError(Constants.Errors.userSavingError)
+                        }
+                    }
                 }
             }
         }

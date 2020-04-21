@@ -16,6 +16,8 @@ struct FirebaseKeys {
         static let publicData = "publicData"
         static let privateData = "privateData"
         static let users = "users"
+        
+        static let imagesFolder = "imagesFolder"
     }
     
     struct Users {
@@ -23,13 +25,6 @@ struct FirebaseKeys {
         static let teamName = "teamname"
         static let email = "email"
         static let uid = "uid"
-    }
-    
-    struct Images {
-        
-        static let imagesFolder = "imagesFolder"
-        static let imagesCollection = "imagesCollection"
-        static let uid = "uid"
-        static let imageUrl = "imageUrl"
+        static let imageURL = "imageURL"
     }
 }
