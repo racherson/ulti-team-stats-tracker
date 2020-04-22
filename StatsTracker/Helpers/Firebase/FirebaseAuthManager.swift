@@ -8,12 +8,11 @@
 
 import Foundation
 import FirebaseAuth
-import Firebase
 
 class FirebaseAuthManager: AuthenticationManager {
     
     //MARK: Properties
-    var currentUserUID: String? = Auth.auth().currentUser?.uid
+    private(set) var currentUserUID: String? = Auth.auth().currentUser?.uid
     
     // This method creates a new user account and stores in Firestore. It throws an error if one occurs.
     func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws {

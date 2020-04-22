@@ -9,9 +9,6 @@
 import UIKit
 
 class RootViewController: UIViewController, Storyboarded {
-
-    //MARK: Properties
-    var delegate: RootCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()

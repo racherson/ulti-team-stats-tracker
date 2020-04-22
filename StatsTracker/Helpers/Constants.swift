@@ -37,7 +37,8 @@ struct Constants {
             return "Current view controller is not an instance of " + vc
         }
         static let signInError = "Error signing in user."
-        static let signOutError = "Error signgin out user."
+        static let signOutError = "Error signing out user."
+        static let userError = "Could not retreive user."
         static let unknown = "An unknown error occurred."
     }
     

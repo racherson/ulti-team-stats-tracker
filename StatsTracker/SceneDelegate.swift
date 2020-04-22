@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var window: UIWindow?
     var coordinator: RootCoordinator?
 
 
@@ -21,27 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // create a basic UIWindow
             let window = UIWindow(windowScene: windowScene)
             
-            // Set root view controller to be launch screen
-            let navController = UINavigationController()
-            navController.setNavigationBarHidden(true, animated: false)
-            
             // Start auth coordinator for login flow
-            coordinator = RootCoordinator(navigationController: navController)
+            coordinator = RootCoordinator(window: window)
             coordinator?.start()
-            
-            window.rootViewController = navController
-            self.window = window
-            window.makeKeyAndVisible()
-            
-            // Check log in status
-            if Auth.auth().currentUser == nil {
-                // No user is logged in
-                coordinator?.presentHomeVC()
-            }
-            else {
-                // User is logged in
-                coordinator?.presentTabBars()
-            }
         }
     }
 

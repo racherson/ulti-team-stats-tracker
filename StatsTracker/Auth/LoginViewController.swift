@@ -13,8 +13,8 @@ class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var delegate: SignUpAndLoginViewControllerDelegate?
-    var handle: AuthStateDidChangeListenerHandle?
     var authManager: AuthenticationManager?
+    private var handle: AuthStateDidChangeListenerHandle?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -30,18 +30,8 @@ class LoginViewController: UIViewController, Storyboarded {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
         
-        // Listener for changes in authentication
-        handle = Auth.auth().addStateDidChangeListener() { auth, user in
-
-          if user != nil {
-            // User was authenticated
-            self.emailTextField.text = nil
-            self.passwordTextField.text = nil
-            
-            // Transition to MainTabBarController
-            self.delegate?.transitionToTabs()
-          }
-        }
+        // Listen for changes in authentication
+        setAuthListener()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,5 +69,20 @@ class LoginViewController: UIViewController, Storyboarded {
         // Set label text and make label visible
         errorLabel.text = message
         errorLabel.alpha = 1
+    }
+    
+    private func setAuthListener() {
+        // Listener for changes in authentication
+        handle = Auth.auth().addStateDidChangeListener() { auth, user in
+
+          if user != nil {
+            // User was authenticated, reset text fields
+            self.emailTextField.text = nil
+            self.passwordTextField.text = nil
+            
+            // Transition to MainTabBarController
+            self.delegate?.transitionToTabs()
+          }
+        }
     }
 }
