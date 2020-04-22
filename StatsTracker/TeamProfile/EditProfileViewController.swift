@@ -29,6 +29,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         // Handle the text field’s user input through delegate callbacks.
         teamNameTextField.delegate = self
         teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
+        activityIndicator.hidesWhenStopped = true
         
         // Add bar button items to navigation
         setUpButtons()

@@ -18,6 +18,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var delegate: TeamProfileCoordinatorDelegate?
+    var rootVC: TeamProfileViewController!
     var viewModel: TeamProfileViewModel?
 
     // MARK: Initialization
@@ -32,6 +33,7 @@ class TeamProfileCoordinator: Coordinator {
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
+        rootVC = vc
         navigationController.pushViewController(vc, animated: true)
     }
 }
@@ -79,10 +81,7 @@ extension TeamProfileCoordinator: EditProfilePresenterDelegate {
         viewModel = TeamProfileViewModel(team: newName, image: newImage)
         
         // Give new view model to TeamProfilePresenter to update view
-        guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else {
-            fatalError("Unknown view controller.")
-        }
-        teamProfileVC.presenter.viewModel = viewModel
+        rootVC.presenter.viewModel = viewModel
         
         // Return to TeamProfileViewController
         navigationController.dismiss(animated: true, completion: nil)

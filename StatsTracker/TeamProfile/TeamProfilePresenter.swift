@@ -84,6 +84,6 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     }
     
     func settingsPressed() {
-        delegate?.settingsPressed(vm: viewModel)
+        delegate?.settingsPressed(vm: viewModel!)
     }
 }
