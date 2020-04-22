@@ -22,6 +22,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,8 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         teamNameTextField.delegate = self
         teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
         activityIndicator.hidesWhenStopped = true
+        visualEffectView.alpha = 0
+        visualEffectView.layer.cornerRadius = 15
         
         // Add bar button items to navigation
         setUpButtons()
@@ -77,6 +80,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     
     @objc func savePressed() {
         // Give presenter current text and image
+        visualEffectView.alpha = 1
         activityIndicator.startAnimating()
         presenter.savePressed(newName: teamNameTextField.text!, newImage: teamPhotoImage.image!)
     }

@@ -44,16 +44,22 @@
                                     <constraint firstItem="2jR-1J-iGL" firstAttribute="leading" secondItem="E5r-TE-PjW" secondAttribute="leading" id="jXx-xr-yt9"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2lO-P6-2VI">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="E5r-TE-PjW" firstAttribute="centerY" secondItem="0vX-bD-sdl" secondAttribute="centerY" id="0CI-Bj-4yD"/>
                             <constraint firstItem="0vX-bD-sdl" firstAttribute="trailing" secondItem="E5r-TE-PjW" secondAttribute="trailing" constant="20" id="3D9-bf-bfG"/>
                             <constraint firstItem="E5r-TE-PjW" firstAttribute="leading" secondItem="0vX-bD-sdl" secondAttribute="leading" constant="20" id="Pxa-le-VY8"/>
+                            <constraint firstItem="2lO-P6-2VI" firstAttribute="centerY" secondItem="0vX-bD-sdl" secondAttribute="centerY" id="TcS-ep-YKJ"/>
+                            <constraint firstItem="2lO-P6-2VI" firstAttribute="centerX" secondItem="0vX-bD-sdl" secondAttribute="centerX" id="k8v-TM-CcT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0vX-bD-sdl"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="2lO-P6-2VI" id="JAA-zo-QNg"/>
                         <outlet property="teamImage" destination="aiq-FZ-CJi" id="dbW-Zg-Aci"/>
                         <outlet property="teamNameLabel" destination="2jR-1J-iGL" id="79w-JU-Hns"/>
                     </connections>
@@ -94,25 +100,45 @@
                                     <constraint firstItem="ZJy-2T-QZZ" firstAttribute="leading" secondItem="ROU-PL-rD5" secondAttribute="leading" id="b56-Nh-LBp"/>
                                 </constraints>
                             </stackView>
-                            <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="M8e-nw-yEa">
-                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </activityIndicatorView>
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obz-9w-9oK">
+                                <rect key="frame" x="170" y="416" width="74" height="74"/>
+                                <view key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bVZ-Qi-7ci">
+                                    <rect key="frame" x="0.0" y="0.0" width="74" height="74"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="z9x-fP-Ikf">
+                                            <rect key="frame" x="18.5" y="18.5" width="37" height="37"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="37" id="ctR-r4-GmI"/>
+                                                <constraint firstAttribute="height" constant="37" id="juV-Qn-38r"/>
+                                            </constraints>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="z9x-fP-Ikf" firstAttribute="centerX" secondItem="bVZ-Qi-7ci" secondAttribute="centerX" id="8eg-Sl-bRa"/>
+                                        <constraint firstAttribute="height" secondItem="z9x-fP-Ikf" secondAttribute="height" multiplier="2" id="Ceb-mC-dBg"/>
+                                        <constraint firstAttribute="width" secondItem="z9x-fP-Ikf" secondAttribute="width" multiplier="2" id="Csg-hJ-fDk"/>
+                                        <constraint firstItem="z9x-fP-Ikf" firstAttribute="centerY" secondItem="bVZ-Qi-7ci" secondAttribute="centerY" id="P34-qx-7UP"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="prominent"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Obz-9w-9oK" firstAttribute="centerY" secondItem="0uA-Ib-irx" secondAttribute="centerY" id="8Pb-ch-6A9"/>
                             <constraint firstItem="0uA-Ib-irx" firstAttribute="trailing" secondItem="ROU-PL-rD5" secondAttribute="trailing" constant="20" id="Pbd-bo-bKI"/>
                             <constraint firstItem="ROU-PL-rD5" firstAttribute="top" secondItem="0uA-Ib-irx" secondAttribute="top" constant="20" id="UxR-eT-K0Y"/>
+                            <constraint firstItem="Obz-9w-9oK" firstAttribute="centerX" secondItem="0uA-Ib-irx" secondAttribute="centerX" id="Za1-jO-aMK"/>
                             <constraint firstItem="ROU-PL-rD5" firstAttribute="leading" secondItem="0uA-Ib-irx" secondAttribute="leading" constant="20" id="dhS-6n-TV3"/>
-                            <constraint firstItem="M8e-nw-yEa" firstAttribute="centerY" secondItem="0uA-Ib-irx" secondAttribute="centerY" id="r7r-et-kQf"/>
-                            <constraint firstItem="M8e-nw-yEa" firstAttribute="centerX" secondItem="0uA-Ib-irx" secondAttribute="centerX" id="yiv-mM-Z7G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0uA-Ib-irx"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="M8e-nw-yEa" id="hAA-bP-Oad"/>
+                        <outlet property="activityIndicator" destination="z9x-fP-Ikf" id="ePz-Ep-l9a"/>
                         <outlet property="teamNameTextField" destination="ZJy-2T-QZZ" id="Woi-pP-m49"/>
                         <outlet property="teamPhotoImage" destination="mt0-Y9-aLB" id="lr8-ig-V5S"/>
+                        <outlet property="visualEffectView" destination="Obz-9w-9oK" id="CCd-vz-val"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="swM-fY-EkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

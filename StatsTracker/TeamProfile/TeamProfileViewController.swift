@@ -19,6 +19,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     var presenter: TeamProfilePresenter!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var teamImage: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class TeamProfileViewController: UIViewController, Storyboarded {
         // Add settings button
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(self.settingsPressed))
         self.navigationItem.rightBarButtonItem  = settingsButton
+        activityIndicator.hidesWhenStopped = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,8 +39,23 @@ class TeamProfileViewController: UIViewController, Storyboarded {
         if !isViewLoaded {
             return
         }
+        
+        // Check if currently loading
+        if activityIndicator.isAnimating {
+            activityIndicator.stopAnimating()
+            teamNameLabel.alpha = 1
+            teamImage.alpha = 1
+        }
+        
         teamNameLabel.text = viewModel.teamName
         teamImage.image = viewModel.teamImage
+    }
+    
+    func loadingState() {
+        // Hide fields and start activity indicator
+        teamNameLabel.alpha = 0
+        teamImage.alpha = 0
+        activityIndicator.startAnimating()
     }
     
     //MARK: Actions

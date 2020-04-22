@@ -78,9 +78,14 @@ class TeamProfilePresenter {
 //MARK: TeamProfilePresenterProtocol
 extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     func onViewWillAppear() {
-        // Give view controller new view model
-        let loadingViewModel = TeamProfileViewModel(team: Constants.Loading.string, image: Constants.Loading.image)
-        vc.updateWithViewModel(viewModel: viewModel ?? loadingViewModel)
+        if viewModel == nil {
+            // Start loading state
+            vc.loadingState()
+        }
+        else {
+            // Give view controller new view model
+            vc.updateWithViewModel(viewModel: viewModel!)
+        }
     }
     
     func settingsPressed() {
