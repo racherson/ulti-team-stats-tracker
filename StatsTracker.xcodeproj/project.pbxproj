@@ -21,6 +21,9 @@
 		2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB91243FBFC400BCF721 /* PullCoordinator.swift */; };
 		2910EB94243FC03000BCF721 /* Pull.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2910EB93243FC03000BCF721 /* Pull.storyboard */; };
 		2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* PullViewController.swift */; };
+		291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184772450BF8D007C534F /* TeamProfilePresenter.swift */; };
+		2911847A2450CA16007C534F /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184792450CA16007C534F /* SettingsPresenter.swift */; };
+		2911847C2450CD60007C534F /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2911847B2450CD60007C534F /* EditProfilePresenter.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29431EB1244776BB00B1302A /* EditProfileViewController.swift */; };
@@ -30,7 +33,6 @@
 		294A874524466889003FC969 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A874424466889003FC969 /* RootCoordinator.swift */; };
 		294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */; };
 		294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87492446ABFF003FC969 /* FirebaseKeys.swift */; };
-		29578324244C06AF0070E0C0 /* TeamProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29578323244C06AF0070E0C0 /* TeamProfileDataModel.swift */; };
 		2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */; };
 		297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */; };
 		2989B7C9244906A90072FB34 /* TeamProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */; };
@@ -81,6 +83,9 @@
 		2910EB91243FBFC400BCF721 /* PullCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullCoordinator.swift; sourceTree = "<group>"; };
 		2910EB93243FC03000BCF721 /* Pull.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Pull.storyboard; sourceTree = "<group>"; };
 		2910EB95243FC05F00BCF721 /* PullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullViewController.swift; sourceTree = "<group>"; };
+		291184772450BF8D007C534F /* TeamProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfilePresenter.swift; sourceTree = "<group>"; };
+		291184792450CA16007C534F /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		2911847B2450CD60007C534F /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		29431EB1244776BB00B1302A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -90,7 +95,6 @@
 		294A874424466889003FC969 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreReferenceManager.swift; sourceTree = "<group>"; };
 		294A87492446ABFF003FC969 /* FirebaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseKeys.swift; sourceTree = "<group>"; };
-		29578323244C06AF0070E0C0 /* TeamProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileDataModel.swift; sourceTree = "<group>"; };
 		2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewModel.swift; sourceTree = "<group>"; };
@@ -223,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				29458D062447AA9900EC03AB /* UserDataModel.swift */,
-				29578323244C06AF0070E0C0 /* TeamProfileDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,6 +270,9 @@
 				29CCF52224414233003F201A /* SettingsTableViewCell.swift */,
 				29431EB1244776BB00B1302A /* EditProfileViewController.swift */,
 				2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */,
+				291184772450BF8D007C534F /* TeamProfilePresenter.swift */,
+				291184792450CA16007C534F /* SettingsPresenter.swift */,
+				2911847B2450CD60007C534F /* EditProfilePresenter.swift */,
 			);
 			path = TeamProfile;
 			sourceTree = "<group>";
@@ -492,6 +498,7 @@
 				297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */,
 				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
 				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,
+				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
@@ -504,17 +511,18 @@
 				29458D072447AA9900EC03AB /* UserDataModel.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
-				29578324244C06AF0070E0C0 /* TeamProfileDataModel.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
 				2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */,
 				2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */,
 				294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */,
+				2911847C2450CD60007C534F /* EditProfilePresenter.swift in Sources */,
 				294A874024466517003FC969 /* RootViewController.swift in Sources */,
 				2910EB86243FA53D00BCF721 /* Storyboarded.swift in Sources */,
 				29AD5208243FE71D0094DCDE /* GamesCoordinator.swift in Sources */,
 				2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */,
 				29D0E1452440129A008E14F3 /* HomeViewController.swift in Sources */,
+				2911847A2450CA16007C534F /* SettingsPresenter.swift in Sources */,
 				2910EB88243FA56A00BCF721 /* RosterCoordinator.swift in Sources */,
 				29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */,
 				2910EB64243FA4C100BCF721 /* SceneDelegate.swift in Sources */,

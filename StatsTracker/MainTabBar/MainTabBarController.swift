@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MainTabBarControllerDelegate {
+protocol MainTabBarControllerDelegate: class {
     func transitionToHome()
 }
 
@@ -19,14 +19,13 @@ class MainTabBarController: UITabBarController {
     let rosterCoordinator = RosterCoordinator(navigationController: UINavigationController())
     let pullCoordinator = PullCoordinator(navigationController: UINavigationController())
     let gamesCoordinator = GamesCoordinator(navigationController: UINavigationController())
-    var coordinator: MainTabBarControllerDelegate?
+    weak var coordinator: MainTabBarControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set delegate for team profile (for logout flow)
         teamProfileCoordinator.delegate = self
-        teamProfileCoordinator.authManager = FirebaseAuthManager()
         
         // Start all of the coordinators (for each tab)
         teamProfileCoordinator.start()

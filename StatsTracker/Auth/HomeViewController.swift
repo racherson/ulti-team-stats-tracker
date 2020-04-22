@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol HomeViewControllerDelegate {
+protocol HomeViewControllerDelegate: class {
     func signUpPressed()
     func loginPressed()
 }
@@ -16,7 +16,7 @@ protocol HomeViewControllerDelegate {
 class HomeViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: HomeViewControllerDelegate?
+    weak var delegate: HomeViewControllerDelegate?
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     

@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-protocol SignUpAndLoginViewControllerDelegate {
+protocol SignUpAndLoginViewControllerDelegate: class {
     func cancelPressed()
     func transitionToTabs()
 }
@@ -17,7 +17,7 @@ protocol SignUpAndLoginViewControllerDelegate {
 class SignUpViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: SignUpAndLoginViewControllerDelegate?
+    weak var delegate: SignUpAndLoginViewControllerDelegate?
     var authManager: AuthenticationManager?
     private var handle: AuthStateDidChangeListenerHandle?
     @IBOutlet weak var teamNameTextField: UITextField!

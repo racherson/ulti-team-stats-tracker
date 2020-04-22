@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MainTabBarCoordinatorDelegate {
+protocol MainTabBarCoordinatorDelegate: class {
     func transitionToHome()
 }
 
@@ -18,7 +18,7 @@ class MainTabBarCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var parentCoordinator: RootCoordinator?
-    var delegate: MainTabBarCoordinatorDelegate?
+    weak var delegate: MainTabBarCoordinatorDelegate?
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {

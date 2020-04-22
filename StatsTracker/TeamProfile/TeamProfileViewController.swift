@@ -8,21 +8,17 @@
 
 import UIKit
 
-protocol TeamProfileViewControllerDelegate {
+protocol TeamProfilePresenterProtocol {
+    func onViewWillAppear()
     func settingsPressed()
 }
 
 class TeamProfileViewController: UIViewController, Storyboarded {
 
     //MARK: Properties
-    var delegate: TeamProfileViewControllerDelegate?
+    var presenter: TeamProfilePresenter!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var teamImage: UIImageView!
-    var viewModel: TeamProfileViewModel? {
-        didSet {
-            fillUI()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,26 +30,19 @@ class TeamProfileViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fillUI()
+        presenter.onViewWillAppear()
     }
     
-    fileprivate func fillUI() {
+    func updateWithViewModel(viewModel: TeamProfileViewModel) {
         if !isViewLoaded {
             return
         }
-        
-        guard let viewModel = viewModel else {
-            return
-        }
-        
-        // We are sure here that we have all the setup done
         teamNameLabel.text = viewModel.teamName
         teamImage.image = viewModel.teamImage
     }
     
     //MARK: Actions
     @objc func settingsPressed() {
-        delegate?.settingsPressed()
+        presenter.settingsPressed()
     }
 }
-

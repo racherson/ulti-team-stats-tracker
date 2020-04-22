@@ -11,7 +11,7 @@ import UIKit
 class GamesViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: GamesCoordinator?
+    weak var delegate: GamesCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

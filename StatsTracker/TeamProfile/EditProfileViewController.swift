@@ -8,7 +8,8 @@
 
 import UIKit
 
-protocol EditProfileViewControllerDelegate {
+protocol EditProfilePresenterProtocol {
+    func onViewWillAppear()
     func cancelPressed()
     func savePressed(newName: String, newImage: UIImage)
 }
@@ -16,22 +17,26 @@ protocol EditProfileViewControllerDelegate {
 class EditProfileViewController: UIViewController, Storyboarded, UINavigationControllerDelegate {
     
     //MARK: Properties
-    var delegate: EditProfileViewControllerDelegate?
-    var teamName: String?
-    var teamImage: UIImage?
+    var presenter: EditProfilePresenter!
     var saveButton: UIBarButtonItem?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Handle the text field’s user input through delegate callbacks.
         teamNameTextField.delegate = self
+        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
         
         // Add bar button items to navigation
         setUpButtons()
-        setUpData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
     
     func setUpButtons() {
@@ -44,10 +49,12 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
-    func setUpData() {
-        teamNameTextField.text = teamName
-        teamPhotoImage.image = teamImage
-        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
+    func updateWithViewModel(vm: TeamProfileViewModel) {
+        if !isViewLoaded {
+            return
+        }
+        teamNameTextField.text = vm.teamName
+        teamPhotoImage.image = vm.teamImage
     }
     
     //MARK: Actions
@@ -64,11 +71,13 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     }
     
     @objc func cancelPressed() {
-        delegate?.cancelPressed()
+        presenter.cancelPressed()
     }
     
     @objc func savePressed() {
-        delegate?.savePressed(newName: teamName!, newImage: teamImage!)
+        // Give presenter current text and image
+        activityIndicator.startAnimating()
+        presenter.savePressed(newName: teamNameTextField.text!, newImage: teamPhotoImage.image!)
     }
     
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
@@ -95,14 +104,6 @@ extension EditProfileViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // Check that input is not empty
-        if textField.text == nil {
-            fatalError(Constants.Errors.emptyFieldsError)
-        }
-        teamName = textField.text!
-    }
 }
 
 extension EditProfileViewController: UIImagePickerControllerDelegate {
@@ -122,7 +123,6 @@ extension EditProfileViewController: UIImagePickerControllerDelegate {
         
         // Set photoImageView to display the selected image.
         teamPhotoImage.image = selectedImage
-        teamImage = selectedImage
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)

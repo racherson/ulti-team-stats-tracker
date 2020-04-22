@@ -13,16 +13,15 @@ enum SettingCellType: Int, CaseIterable {
     case edit
 }
 
-protocol SettingsViewControllerDelegate {
-    func transitionToHome()
+protocol SettingsPresenterProtocol {
     func editPressed()
+    func logoutPressed()
 }
 
 class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: SettingsViewControllerDelegate?
-    var authManager: AuthenticationManager?
+    var presenter: SettingsPresenter!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -34,44 +33,6 @@ class SettingsViewController: UIViewController, Storyboarded {
         
         // Set the page title
         self.title = Constants.Titles.settingsTitle
-    }
-    
-    //MARK: Actions
-    func logoutPressed() {
-        
-        // Add confirmation alert
-        let logoutAlert = UIAlertController(title: Constants.Titles.logout, message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
-        
-        // Cancel action and dismiss
-        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in logoutAlert.dismiss(animated: true, completion: nil) }))
-
-        // Confirm action and logout
-        logoutAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action: UIAlertAction!) in self.logout() }))
-
-        present(logoutAlert, animated: true, completion: nil)
-    }
-    
-    //MARK: Private Methods
-    private func logout() {
-        
-        do {
-            try authManager?.logout()
-            // Return to the home view
-            delegate?.transitionToHome()
-        } catch let err as AuthError {
-            showErrorAlert(error: err)
-        } catch {
-            showErrorAlert(error: AuthError.unknown)
-        }
-    }
-    
-    private func showErrorAlert(error: AuthError) {
-        // Error logging out, display alert
-        let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
-            error.errorDescription, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-
-        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -104,9 +65,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         // Find the cell type from the row selected
         switch indexPath.row {
         case SettingCellType.logout.rawValue:
-            logoutPressed()
+            presenter.logoutPressed()
         case SettingCellType.edit.rawValue:
-            delegate?.editPressed()
+            presenter.editPressed()
         default:
             fatalError(Constants.Errors.settingCellError)
         }

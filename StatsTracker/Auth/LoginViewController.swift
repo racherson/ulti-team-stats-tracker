@@ -12,7 +12,7 @@ import FirebaseAuth
 class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: SignUpAndLoginViewControllerDelegate?
+    weak var delegate: SignUpAndLoginViewControllerDelegate?
     var authManager: AuthenticationManager?
     private var handle: AuthStateDidChangeListenerHandle?
     @IBOutlet weak var emailTextField: UITextField!
