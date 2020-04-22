@@ -85,6 +85,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
                         if error != nil {
                             fatalError(Constants.Errors.userSavingError)
                         }
+                        self.vc.activityIndicator.stopAnimating()
                         self.delegate?.savePressed(newName: newName, newImage: newImage)
                 }
             }

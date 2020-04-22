@@ -80,7 +80,7 @@ extension TeamProfileCoordinator: EditProfilePresenterDelegate {
         
         // Give new view model to TeamProfilePresenter to update view
         guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else {
-            fatalError("Arg")
+            fatalError("Unknown view controller.")
         }
         teamProfileVC.presenter.viewModel = viewModel
         

@@ -21,6 +21,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     var saveButton: UIBarButtonItem?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     
     @objc func savePressed() {
         // Give presenter current text and image
+        activityIndicator.startAnimating()
         presenter.savePressed(newName: teamNameTextField.text!, newImage: teamPhotoImage.image!)
     }
     

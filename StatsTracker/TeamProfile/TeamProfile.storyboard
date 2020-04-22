@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -94,16 +94,22 @@
                                     <constraint firstItem="ZJy-2T-QZZ" firstAttribute="leading" secondItem="ROU-PL-rD5" secondAttribute="leading" id="b56-Nh-LBp"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="M8e-nw-yEa">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="0uA-Ib-irx" firstAttribute="trailing" secondItem="ROU-PL-rD5" secondAttribute="trailing" constant="20" id="Pbd-bo-bKI"/>
                             <constraint firstItem="ROU-PL-rD5" firstAttribute="top" secondItem="0uA-Ib-irx" secondAttribute="top" constant="20" id="UxR-eT-K0Y"/>
                             <constraint firstItem="ROU-PL-rD5" firstAttribute="leading" secondItem="0uA-Ib-irx" secondAttribute="leading" constant="20" id="dhS-6n-TV3"/>
+                            <constraint firstItem="M8e-nw-yEa" firstAttribute="centerY" secondItem="0uA-Ib-irx" secondAttribute="centerY" id="r7r-et-kQf"/>
+                            <constraint firstItem="M8e-nw-yEa" firstAttribute="centerX" secondItem="0uA-Ib-irx" secondAttribute="centerX" id="yiv-mM-Z7G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0uA-Ib-irx"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="M8e-nw-yEa" id="hAA-bP-Oad"/>
                         <outlet property="teamNameTextField" destination="ZJy-2T-QZZ" id="Woi-pP-m49"/>
                         <outlet property="teamPhotoImage" destination="mt0-Y9-aLB" id="lr8-ig-V5S"/>
                     </connections>
