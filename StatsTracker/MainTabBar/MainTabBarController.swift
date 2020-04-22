@@ -26,7 +26,6 @@ class MainTabBarController: UITabBarController {
         
         // Set delegate for team profile (for logout flow)
         teamProfileCoordinator.delegate = self
-        teamProfileCoordinator.authManager = FirebaseAuthManager()
         
         // Start all of the coordinators (for each tab)
         teamProfileCoordinator.start()

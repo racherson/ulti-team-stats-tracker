@@ -8,7 +8,8 @@
 
 import UIKit
 
-protocol EditProfileViewControllerDelegate: class {
+protocol EditProfilePresenterProtocol {
+    func onViewWillAppear()
     func cancelPressed()
     func savePressed(newName: String, newImage: UIImage)
 }
@@ -16,7 +17,7 @@ protocol EditProfileViewControllerDelegate: class {
 class EditProfileViewController: UIViewController, Storyboarded, UINavigationControllerDelegate {
     
     //MARK: Properties
-    weak var delegate: EditProfileViewControllerDelegate?
+    var presenter: EditProfilePresenter!
     var teamName: String?
     var teamImage: UIImage?
     var saveButton: UIBarButtonItem?
@@ -28,10 +29,15 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         
         // Handle the text field’s user input through delegate callbacks.
         teamNameTextField.delegate = self
+        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
         
         // Add bar button items to navigation
         setUpButtons()
-        setUpData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
     
     func setUpButtons() {
@@ -44,10 +50,12 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
-    func setUpData() {
-        teamNameTextField.text = teamName
-        teamPhotoImage.image = teamImage
-        teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
+    func updateWithViewModel(vm: TeamProfileViewModel) {
+        if !isViewLoaded {
+            return
+        }
+        teamNameTextField.text = vm.teamName
+        teamPhotoImage.image = vm.teamImage
     }
     
     //MARK: Actions
@@ -64,11 +72,11 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     }
     
     @objc func cancelPressed() {
-        delegate?.cancelPressed()
+        presenter.cancelPressed()
     }
     
     @objc func savePressed() {
-        delegate?.savePressed(newName: teamName!, newImage: teamImage!)
+        presenter.savePressed(newName: teamName!, newImage: teamImage!)
     }
     
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
