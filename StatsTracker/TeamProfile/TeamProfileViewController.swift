@@ -33,12 +33,12 @@ class TeamProfileViewController: UIViewController, Storyboarded {
         presenter.onViewWillAppear()
     }
     
-    func updateWithViewModel(vm: TeamProfileViewModel) {
+    func updateWithViewModel(viewModel: TeamProfileViewModel) {
         if !isViewLoaded {
             return
         }
-        teamNameLabel.text = vm.teamName
-        teamImage.image = vm.teamImage
+        teamNameLabel.text = viewModel.teamName
+        teamImage.image = viewModel.teamImage
     }
     
     //MARK: Actions

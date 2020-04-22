@@ -18,6 +18,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var delegate: TeamProfileCoordinatorDelegate?
+    var viewModel: TeamProfileViewModel?
 
     // MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -38,7 +39,11 @@ class TeamProfileCoordinator: Coordinator {
 //MARK: TeamProfileViewControllerDelegate
 extension TeamProfileCoordinator: TeamProfilePresenterDelegate {
     
-    func settingsPressed() {
+    func settingsPressed(vm: TeamProfileViewModel) {
+        // Give coordinator current view model
+        viewModel = vm
+        
+        // Push settings view
         let vc = SettingsViewController.instantiate(.team)
         vc.presenter = SettingsPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
         navigationController.pushViewController(vc, animated: true)
@@ -54,9 +59,9 @@ extension TeamProfileCoordinator: SettingsPresenterDelegate {
     func editPressed() {
         let vc = EditProfileViewController.instantiate(.team)
         let navController = UINavigationController(rootViewController: vc)
-        vc.presenter = EditProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
-//        vc.teamName = teamName
-//        vc.teamImage = teamImage
+        let presenter = EditProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
+        presenter.viewModel = viewModel
+        vc.presenter = presenter
         navigationController.present(navController, animated: true, completion: nil)
     }
 }
@@ -70,9 +75,14 @@ extension TeamProfileCoordinator: EditProfilePresenterDelegate {
     
     func savePressed(newName: String, newImage: UIImage) {
         
-        // Give new name and image to coordinator
-//        teamName = newName
-//        teamImage = newImage
+        // Give new view model to coordinator
+        viewModel = TeamProfileViewModel(team: newName, image: newImage)
+        
+        // Give new view model to TeamProfilePresenter to update view
+        guard let teamProfileVC = navigationController.viewControllers[0] as? TeamProfileViewController else {
+            fatalError("Arg")
+        }
+        teamProfileVC.presenter.viewModel = viewModel
         
         // Return to TeamProfileViewController
         navigationController.dismiss(animated: true, completion: nil)

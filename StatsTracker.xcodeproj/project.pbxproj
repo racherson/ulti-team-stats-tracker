@@ -33,7 +33,6 @@
 		294A874524466889003FC969 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A874424466889003FC969 /* RootCoordinator.swift */; };
 		294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */; };
 		294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87492446ABFF003FC969 /* FirebaseKeys.swift */; };
-		29578324244C06AF0070E0C0 /* TeamProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29578323244C06AF0070E0C0 /* TeamProfileDataModel.swift */; };
 		2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */; };
 		297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */; };
 		2989B7C9244906A90072FB34 /* TeamProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */; };
@@ -96,7 +95,6 @@
 		294A874424466889003FC969 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreReferenceManager.swift; sourceTree = "<group>"; };
 		294A87492446ABFF003FC969 /* FirebaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseKeys.swift; sourceTree = "<group>"; };
-		29578323244C06AF0070E0C0 /* TeamProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileDataModel.swift; sourceTree = "<group>"; };
 		2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewModel.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				29458D062447AA9900EC03AB /* UserDataModel.swift */,
-				29578323244C06AF0070E0C0 /* TeamProfileDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -514,7 +511,6 @@
 				29458D072447AA9900EC03AB /* UserDataModel.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
-				29578324244C06AF0070E0C0 /* TeamProfileDataModel.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
 				2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */,

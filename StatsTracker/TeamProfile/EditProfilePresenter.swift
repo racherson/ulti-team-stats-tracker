@@ -20,7 +20,7 @@ class EditProfilePresenter {
     weak var delegate: EditProfilePresenterDelegate?
     let vc: EditProfileViewController
     let authManager: AuthenticationManager
-    var viewModel: TeamProfileViewModel?
+    var viewModel: TeamProfileViewModel!
     
     //MARK: Initialization
     init(vc: EditProfileViewController, delegate: EditProfilePresenterDelegate?, authManager: AuthenticationManager) {
@@ -35,8 +35,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     
     func onViewWillAppear() {
         // Give view controller new view model
-        let loadingViewModel = TeamProfileViewModel(team: Constants.Loading.string, image: Constants.Loading.image)
-        vc.updateWithViewModel(vm: viewModel ?? loadingViewModel)
+        vc.updateWithViewModel(vm: viewModel)
     }
     
     func cancelPressed() {
@@ -86,6 +85,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
                         if error != nil {
                             fatalError(Constants.Errors.userSavingError)
                         }
+                        self.delegate?.savePressed(newName: newName, newImage: newImage)
                 }
             }
         }

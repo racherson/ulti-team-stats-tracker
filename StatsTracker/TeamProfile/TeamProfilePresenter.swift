@@ -10,7 +10,7 @@ import Foundation
 import Kingfisher
 
 protocol TeamProfilePresenterDelegate: class {
-    func settingsPressed()
+    func settingsPressed(vm: TeamProfileViewModel)
 }
 
 class TeamProfilePresenter {
@@ -80,10 +80,13 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     func onViewWillAppear() {
         // Give view controller new view model
         let loadingViewModel = TeamProfileViewModel(team: Constants.Loading.string, image: Constants.Loading.image)
-        vc.updateWithViewModel(vm: viewModel ?? loadingViewModel)
+        vc.updateWithViewModel(viewModel: viewModel ?? loadingViewModel)
     }
     
     func settingsPressed() {
-        delegate?.settingsPressed()
+        guard let viewModel = viewModel else {
+            fatalError("Agh")
+        }
+        delegate?.settingsPressed(vm: viewModel)
     }
 }

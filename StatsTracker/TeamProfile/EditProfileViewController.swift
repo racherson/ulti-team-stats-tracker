@@ -18,8 +18,6 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     
     //MARK: Properties
     var presenter: EditProfilePresenter!
-    var teamName: String?
-    var teamImage: UIImage?
     var saveButton: UIBarButtonItem?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
@@ -76,7 +74,8 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     }
     
     @objc func savePressed() {
-        presenter.savePressed(newName: teamName!, newImage: teamImage!)
+        // Give presenter current text and image
+        presenter.savePressed(newName: teamNameTextField.text!, newImage: teamPhotoImage.image!)
     }
     
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
@@ -103,14 +102,6 @@ extension EditProfileViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // Check that input is not empty
-        if textField.text == nil {
-            fatalError(Constants.Errors.emptyFieldsError)
-        }
-        teamName = textField.text!
-    }
 }
 
 extension EditProfileViewController: UIImagePickerControllerDelegate {
@@ -130,7 +121,6 @@ extension EditProfileViewController: UIImagePickerControllerDelegate {
         
         // Set photoImageView to display the selected image.
         teamPhotoImage.image = selectedImage
-        teamImage = selectedImage
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
