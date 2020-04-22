@@ -24,16 +24,11 @@ class RootCoordinator: Coordinator {
         self.window = window
         setupWindow()
     }
-    
-    func setupWindow() {
-        self.window.rootViewController = navigationController
-        self.window.makeKeyAndVisible()
-    }
 
     func start() {
         let vc = RootViewController.instantiate(.root)
         navigationController.pushViewController(vc, animated: true)
-        setupStarterCoordinator()
+        setupStarterChildCoordinator()
     }
     
     func childDidFinish(_ child: Coordinator?) {
@@ -44,23 +39,27 @@ class RootCoordinator: Coordinator {
             }
         }
     }
-    
-    func setupStarterCoordinator() {
-        // Check log in status
-        if authManager.currentUserUID == nil {
-            // No user is logged in
-            presentHomeVC()
-        }
-        else {
-            // User is logged in
-            presentTabBars()
-        }
-    }
 }
 
 extension RootCoordinator {
     
-    func presentHomeVC() {
+    func setupWindow() {
+        // Attach view to window
+        self.window.rootViewController = navigationController
+        self.window.makeKeyAndVisible()
+    }
+    
+    func setupStarterChildCoordinator() {
+        // Select child coordinator based on login status
+        if authManager.currentUserUID == nil {
+            startAuthCoordinator()
+        }
+        else {
+            startMainTabBarCoordinator()
+        }
+    }
+    
+    func startAuthCoordinator() {
         let childNavController = UINavigationController()
         childNavController.modalPresentationStyle = .fullScreen
         let child = AuthCoordinator(navigationController: childNavController)
@@ -71,7 +70,7 @@ extension RootCoordinator {
         navigationController.present(childNavController, animated: true, completion: nil)
     }
     
-    func presentTabBars() {
+    func startMainTabBarCoordinator() {
         let child = MainTabBarCoordinator(navigationController: navigationController)
         child.delegate = self
         child.parentCoordinator = self
@@ -82,16 +81,16 @@ extension RootCoordinator {
 
 //MARK: AuthCoordinatorDelegate
 extension RootCoordinator: AuthCoordinatorDelegate {
-    
     func transitionToTabs() {
         navigationController.dismiss(animated: true, completion: nil)
-        presentTabBars()
+        startMainTabBarCoordinator()
     }
 }
 
+//MARK: MainTabBarCoordinatorDelegate
 extension RootCoordinator: MainTabBarCoordinatorDelegate {
     func transitionToHome() {
         navigationController.dismiss(animated: true, completion: nil)
-        presentHomeVC()
+        startAuthCoordinator()
     }
 }

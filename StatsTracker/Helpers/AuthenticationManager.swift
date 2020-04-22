@@ -8,6 +8,14 @@
 
 import Foundation
 
+protocol AuthenticationManager {
+    var currentUserUID: String? { get }
+    
+    func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws
+    func signIn(_ email: String?, _ password: String?) throws
+    func logout() throws
+}
+
 enum AuthError: Error {
     case emptyFields
     case invalidEmail
@@ -39,14 +47,5 @@ extension AuthError: LocalizedError {
         case .unknown:
             return Constants.Errors.unknown
         }
-        
     }
-}
-
-protocol AuthenticationManager {
-    var currentUserUID: String? { get }
-    
-    func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws
-    func signIn(_ email: String?, _ password: String?) throws
-    func logout() throws
 }

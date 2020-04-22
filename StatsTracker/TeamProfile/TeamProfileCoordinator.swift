@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseAuth
 import FirebaseStorage
 import Kingfisher
 
