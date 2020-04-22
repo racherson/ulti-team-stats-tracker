@@ -21,6 +21,7 @@
 		2910EB92243FBFC400BCF721 /* PullCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB91243FBFC400BCF721 /* PullCoordinator.swift */; };
 		2910EB94243FC03000BCF721 /* Pull.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2910EB93243FC03000BCF721 /* Pull.storyboard */; };
 		2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB95243FC05F00BCF721 /* PullViewController.swift */; };
+		291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184772450BF8D007C534F /* TeamProfilePresenter.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29431EB1244776BB00B1302A /* EditProfileViewController.swift */; };
@@ -81,6 +82,7 @@
 		2910EB91243FBFC400BCF721 /* PullCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullCoordinator.swift; sourceTree = "<group>"; };
 		2910EB93243FC03000BCF721 /* Pull.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Pull.storyboard; sourceTree = "<group>"; };
 		2910EB95243FC05F00BCF721 /* PullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullViewController.swift; sourceTree = "<group>"; };
+		291184772450BF8D007C534F /* TeamProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfilePresenter.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		29431EB1244776BB00B1302A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				29CCF52224414233003F201A /* SettingsTableViewCell.swift */,
 				29431EB1244776BB00B1302A /* EditProfileViewController.swift */,
 				2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */,
+				291184772450BF8D007C534F /* TeamProfilePresenter.swift */,
 			);
 			path = TeamProfile;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */,
 				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
 				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,
+				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,

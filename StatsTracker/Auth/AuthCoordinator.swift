@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AuthCoordinatorDelegate {
+protocol AuthCoordinatorDelegate: class {
     func transitionToTabs()
 }
 
@@ -18,7 +18,7 @@ class AuthCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var parentCoordinator: RootCoordinator?
-    var delegate: AuthCoordinatorDelegate?
+    weak var delegate: AuthCoordinatorDelegate?
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {

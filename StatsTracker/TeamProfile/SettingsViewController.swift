@@ -13,7 +13,7 @@ enum SettingCellType: Int, CaseIterable {
     case edit
 }
 
-protocol SettingsViewControllerDelegate {
+protocol SettingsViewControllerDelegate: class {
     func transitionToHome()
     func editPressed()
 }
@@ -21,7 +21,7 @@ protocol SettingsViewControllerDelegate {
 class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: SettingsViewControllerDelegate?
+    weak var delegate: SettingsViewControllerDelegate?
     var authManager: AuthenticationManager?
     @IBOutlet weak var tableView: UITableView!
     

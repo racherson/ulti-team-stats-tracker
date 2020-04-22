@@ -10,7 +10,7 @@ import UIKit
 import FirebaseStorage
 import Kingfisher
 
-protocol TeamProfileCoordinatorDelegate {
+protocol TeamProfileCoordinatorDelegate: class {
     func transitionToHome()
 }
 
@@ -19,7 +19,7 @@ class TeamProfileCoordinator: Coordinator {
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    var delegate: TeamProfileCoordinatorDelegate?
+    weak var delegate: TeamProfileCoordinatorDelegate?
     var authManager: AuthenticationManager?
     var teamImage: UIImage = Constants.Loading.image {
         didSet {

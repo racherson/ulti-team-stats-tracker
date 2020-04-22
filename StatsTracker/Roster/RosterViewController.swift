@@ -11,7 +11,7 @@ import UIKit
 class RosterViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var delegate: RosterCoordinator?
+    weak var delegate: RosterCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

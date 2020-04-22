@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol EditProfileViewControllerDelegate {
+protocol EditProfileViewControllerDelegate: class {
     func cancelPressed()
     func savePressed(newName: String, newImage: UIImage)
 }
@@ -16,7 +16,7 @@ protocol EditProfileViewControllerDelegate {
 class EditProfileViewController: UIViewController, Storyboarded, UINavigationControllerDelegate {
     
     //MARK: Properties
-    var delegate: EditProfileViewControllerDelegate?
+    weak var delegate: EditProfileViewControllerDelegate?
     var teamName: String?
     var teamImage: UIImage?
     var saveButton: UIBarButtonItem?
