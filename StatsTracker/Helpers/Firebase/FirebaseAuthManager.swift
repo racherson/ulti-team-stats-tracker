@@ -13,6 +13,7 @@ class FirebaseAuthManager: AuthenticationManager {
     
     //MARK: Properties
     private(set) var currentUserUID: String? = Auth.auth().currentUser?.uid
+    private(set) var auth: Auth = Auth.auth()
     
     // This method creates a new user account and stores in Firestore. It throws an error if one occurs.
     func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws {
@@ -28,7 +29,7 @@ class FirebaseAuthManager: AuthenticationManager {
         var creationError: AuthError?
         
         // Create the user
-        Auth.auth().createUser(withEmail: email!, password: password!) { (result, err) in
+        auth.createUser(withEmail: email!, password: password!) { (result, err) in
             // Check for errors
             if err != nil {
                 // There was an error creating the user
@@ -73,7 +74,7 @@ class FirebaseAuthManager: AuthenticationManager {
         var signInError: AuthError?
         
         // Sign in the user
-        Auth.auth().signIn(withEmail: email!, password: password!) { (result, err) in
+        auth.signIn(withEmail: email!, password: password!) { (result, err) in
             if err != nil || result == nil {
                 // Coudn't sign in
                 signInError = AuthError.signIn
@@ -91,7 +92,7 @@ class FirebaseAuthManager: AuthenticationManager {
         
         do {
             // Attempt to logout
-            try Auth.auth().signOut()
+            try auth.signOut()
         } catch  {
             // Unable to logout
             throw AuthError.signOut

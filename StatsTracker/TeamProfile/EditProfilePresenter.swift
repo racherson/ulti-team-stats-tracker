@@ -14,7 +14,7 @@ protocol EditProfilePresenterDelegate: class {
     func savePressed(newName: String, newImage: UIImage)
 }
 
-class EditProfilePresenter {
+class EditProfilePresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: EditProfilePresenterDelegate?

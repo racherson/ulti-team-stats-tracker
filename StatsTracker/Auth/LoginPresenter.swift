@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseAuth
 
-class LoginPresenter {
+class LoginPresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
@@ -35,15 +35,15 @@ extension LoginPresenter: LoginPresenterProtocol {
         delegate?.transitionToTabs()
     }
     
-    func setAuthListener() {
+    func onViewWillAppear() {
         // Listener for changes in authentication
-        handle = Auth.auth().addStateDidChangeListener() { auth, user in
+        handle = authManager.auth.addStateDidChangeListener() { auth, user in
             self.vc.listenerResponse(user: user)
         }
     }
     
-    func removeListener() {
-        Auth.auth().removeStateDidChangeListener(handle!)
+    func onviewWillDisappear() {
+        authManager.auth.removeStateDidChangeListener(handle!)
     }
     
     func loginPressed(email: String?, password: String?) {

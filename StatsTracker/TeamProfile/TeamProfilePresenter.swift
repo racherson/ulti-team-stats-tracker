@@ -13,7 +13,7 @@ protocol TeamProfilePresenterDelegate: class {
     func settingsPressed(vm: TeamProfileViewModel)
 }
 
-class TeamProfilePresenter {
+class TeamProfilePresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: TeamProfilePresenterDelegate?

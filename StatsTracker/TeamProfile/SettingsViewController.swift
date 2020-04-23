@@ -16,6 +16,7 @@ enum SettingCellType: Int, CaseIterable {
 protocol SettingsPresenterProtocol {
     func editPressed()
     func logoutPressed()
+    func onViewWillAppear()
 }
 
 class SettingsViewController: UIViewController, Storyboarded {
@@ -30,9 +31,11 @@ class SettingsViewController: UIViewController, Storyboarded {
         // Connect tableView to the View Controller
         tableView.delegate = self
         tableView.dataSource = self
-        
-        // Set the page title
-        self.title = Constants.Titles.settingsTitle
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
 }
 

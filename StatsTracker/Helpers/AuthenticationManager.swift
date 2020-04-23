@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 protocol AuthenticationManager {
     var currentUserUID: String? { get }
+    var auth: Auth { get }
     
     func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws
     func signIn(_ email: String?, _ password: String?) throws

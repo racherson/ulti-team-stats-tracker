@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 protocol SignUpPresenterProtocol: class {
     func cancelPressed()
     func signUpPressed(name: String?, email: String?, password: String?)
     func transitionToTabs()
-    func setAuthListener()
-    func removeListener()
+    func onViewWillAppear()
+    func onviewWillDisappear()
 }
 
 class SignUpViewController: UIViewController, Storyboarded {
@@ -36,14 +35,16 @@ class SignUpViewController: UIViewController, Storyboarded {
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
         self.navigationItem.leftBarButtonItem  = cancelButton
-        
-        // Listen for changes in authentication
-        presenter.setAuthListener()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        presenter.removeListener()
+        presenter.onviewWillDisappear()
     }
     
     

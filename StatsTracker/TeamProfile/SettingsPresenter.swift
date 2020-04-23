@@ -13,7 +13,7 @@ protocol SettingsPresenterDelegate: class {
     func editPressed()
 }
 
-class SettingsPresenter {
+class SettingsPresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: SettingsPresenterDelegate?
@@ -34,6 +34,10 @@ class SettingsPresenter {
 
 //MARK: SettingsPresenterProtocol
 extension SettingsPresenter: SettingsPresenterProtocol {
+    
+    func onViewWillAppear() {
+        vc.title = Constants.Titles.settingsTitle
+    }
 
     func editPressed() {
         delegate?.editPressed()

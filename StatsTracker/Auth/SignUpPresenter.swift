@@ -14,8 +14,8 @@ protocol SignUpAndLoginPresenterDelegate: class {
     func transitionToTabs()
 }
 
-class SignUpPresenter {
-    
+class SignUpPresenter: Presenter {
+
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
     let vc: SignUpViewController
@@ -40,15 +40,15 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         delegate?.transitionToTabs()
     }
     
-    func setAuthListener() {
+    func onViewWillAppear() {
         // Listener for changes in authentication
-        handle = Auth.auth().addStateDidChangeListener() { auth, user in
+        handle = authManager.auth.addStateDidChangeListener() { auth, user in
             self.vc.listenerResponse(user: user)
         }
     }
     
-    func removeListener() {
-        Auth.auth().removeStateDidChangeListener(handle!)
+    func onviewWillDisappear() {
+        authManager.auth.removeStateDidChangeListener(handle!)
     }
     
     func signUpPressed(name: String?, email: String?, password: String?) {
