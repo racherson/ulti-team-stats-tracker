@@ -38,23 +38,21 @@ extension AuthCoordinator: HomeViewControllerDelegate {
     
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
-        vc.delegate = self
-        vc.authManager = FirebaseAuthManager()
+        vc.presenter = SignUpPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func loginPressed() {
         let vc = LoginViewController.instantiate(.auth)
-        vc.delegate = self
-        vc.authManager = FirebaseAuthManager()
+        vc.presenter = LoginPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
 }
 
 //MARK: SignUpAndLoginViewControllerDelegate
-extension AuthCoordinator: SignUpAndLoginViewControllerDelegate {
+extension AuthCoordinator: SignUpAndLoginPresenterDelegate {
 
     func cancelPressed() {
         navigationController.popViewController(animated: true)

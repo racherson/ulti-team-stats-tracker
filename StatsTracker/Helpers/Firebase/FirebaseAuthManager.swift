@@ -70,19 +70,19 @@ class FirebaseAuthManager: AuthenticationManager {
             throw AuthError.unknown
         }
         
-        var creationError: AuthError?
+        var signInError: AuthError?
         
         // Sign in the user
         Auth.auth().signIn(withEmail: email!, password: password!) { (result, err) in
-            if err != nil {
+            if err != nil || result == nil {
                 // Coudn't sign in
-                creationError = AuthError.signIn
+                signInError = AuthError.signIn
             }
         }
         
         // If there was an error in the sign in process, throw it
-        if creationError != nil {
-            throw creationError!
+        if signInError != nil {
+            throw signInError!
         }
     }
     

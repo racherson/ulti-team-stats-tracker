@@ -33,6 +33,8 @@
 		294A874524466889003FC969 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A874424466889003FC969 /* RootCoordinator.swift */; };
 		294A87472446A17D003FC969 /* FirestoreReferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */; };
 		294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87492446ABFF003FC969 /* FirebaseKeys.swift */; };
+		295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */; };
+		295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D80B7245128C600CD8CBF /* LoginPresenter.swift */; };
 		2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */; };
 		297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */; };
 		2989B7C9244906A90072FB34 /* TeamProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */; };
@@ -95,6 +97,8 @@
 		294A874424466889003FC969 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		294A87462446A17D003FC969 /* FirestoreReferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreReferenceManager.swift; sourceTree = "<group>"; };
 		294A87492446ABFF003FC969 /* FirebaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseKeys.swift; sourceTree = "<group>"; };
+		295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
+		295D80B7245128C600CD8CBF /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewModel.swift; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 				29D0E1442440129A008E14F3 /* HomeViewController.swift */,
 				29B8B3692440E13E0068B24D /* SignUpViewController.swift */,
 				29B8B36B2440E1690068B24D /* LoginViewController.swift */,
+				295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */,
+				295D80B7245128C600CD8CBF /* LoginPresenter.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
+				295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */,
 				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
 				2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */,
 				294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */,
@@ -511,6 +518,7 @@
 				29458D072447AA9900EC03AB /* UserDataModel.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
+				295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
 				2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */,
