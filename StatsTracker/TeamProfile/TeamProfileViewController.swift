@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TeamProfilePresenterProtocol {
+protocol TeamProfilePresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func settingsPressed()
 }

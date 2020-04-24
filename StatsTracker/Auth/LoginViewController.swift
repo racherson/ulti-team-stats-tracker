@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LoginPresenterProtocol: class {
+protocol LoginPresenterProtocol where Self: Presenter {
     func cancelPressed()
     func loginPressed(email: String?, password: String?)
     func transitionToTabs()

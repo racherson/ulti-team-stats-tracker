@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol EditProfilePresenterProtocol {
+protocol EditProfilePresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func cancelPressed()
     func savePressed(newName: String, newImage: UIImage)

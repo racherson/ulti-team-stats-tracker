@@ -13,7 +13,7 @@ enum SettingCellType: Int, CaseIterable {
     case edit
 }
 
-protocol SettingsPresenterProtocol {
+protocol SettingsPresenterProtocol where Self: Presenter {
     func editPressed()
     func logoutPressed()
     func onViewWillAppear()
