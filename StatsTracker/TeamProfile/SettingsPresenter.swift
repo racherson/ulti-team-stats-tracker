@@ -19,13 +19,13 @@ class SettingsPresenter: Presenter {
     weak var delegate: SettingsPresenterDelegate?
     let vc: SettingsViewController
     var authManager: AuthenticationManager = FirebaseAuthManager()
-    var logoutSuccessful: Bool = true
+    var logoutSuccessful: Bool? = true
     
     //MARK: Initialization
     init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?) {
         self.vc = vc
         self.delegate = delegate
-        self.authManager.logoutErrorHandler = self
+        self.authManager.delegate = self
     }
     
     func transitionToHome() {
@@ -58,7 +58,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     
     private func logout() {
         authManager.logout()
-        if logoutSuccessful {
+        if logoutSuccessful! {
             self.transitionToHome()
         }
     }
@@ -74,7 +74,8 @@ extension SettingsPresenter: SettingsPresenterProtocol {
 }
 
 //MARK: LogoutAuthDelegate
-extension SettingsPresenter: LogoutAuthDelegate {
+extension SettingsPresenter: AuthManagerDelegate {
+    func onAuthHandleChange() {}
     
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {

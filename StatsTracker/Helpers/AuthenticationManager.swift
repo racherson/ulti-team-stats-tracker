@@ -12,9 +12,7 @@ protocol AuthenticationManager {
     
     //MARK: Properties
     var currentUserUID: String? { get }
-    var loginErrorHandler: LoginAuthDelegate? { get set }
-    var createUserErrorHandler: CreateUserAuthDelegate? { get set }
-    var logoutErrorHandler: LogoutAuthDelegate? { get set }
+    var delegate: AuthManagerDelegate? { get set }
     
     //MARK: Methods
     func addAuthListener()
@@ -25,19 +23,10 @@ protocol AuthenticationManager {
 }
 
 //MARK: Error Handling Protocols
-protocol LoginAuthDelegate: class {
+protocol AuthManagerDelegate: class {
+    var logoutSuccessful: Bool? { get set }
     func displayError(with error: Error)
     func onAuthHandleChange()
-}
-
-protocol CreateUserAuthDelegate: class {
-    func displayError(with error: Error)
-    func onAuthHandleChange()
-}
-
-protocol LogoutAuthDelegate: class {
-    var logoutSuccessful: Bool { get set }
-    func displayError(with error: Error)
 }
 
 //MARK: AuthError

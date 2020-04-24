@@ -15,9 +15,7 @@ class FirebaseAuthManager: AuthenticationManager {
     private(set) var currentUserUID: String? = Auth.auth().currentUser?.uid
     private var auth: Auth = Auth.auth()
     private var handle: AuthStateDidChangeListenerHandle?
-    weak var loginErrorHandler: LoginAuthDelegate?
-    weak var createUserErrorHandler: CreateUserAuthDelegate?
-    weak var logoutErrorHandler: LogoutAuthDelegate?
+    weak var delegate: AuthManagerDelegate?
     
     // This method creates a new user account and stores in Firestore.
     func createUser(_ teamName: String?, _ email: String?, _ password: String?) {
@@ -25,9 +23,9 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             try validateFields(teamName, email, password)
         } catch let error as AuthError {
-            createUserErrorHandler?.displayError(with: error)
+            delegate?.displayError(with: error)
         } catch {
-            createUserErrorHandler?.displayError(with: AuthError.unknown)
+            delegate?.displayError(with: AuthError.unknown)
         }
         
         // Create the user
@@ -35,7 +33,7 @@ class FirebaseAuthManager: AuthenticationManager {
             // Check for errors
             if err != nil {
                 // There was an error creating the user
-                self.createUserErrorHandler?.displayError(with: err!)
+                self.delegate?.displayError(with: err!)
             }
             else {
                 // User was created successfully, now store the user data (validated as not empty)
@@ -50,7 +48,7 @@ class FirebaseAuthManager: AuthenticationManager {
                 FirestoreReferenceManager.referenceForUserPublicData(uid: uid).setData(userData) { (error) in
                     if error != nil {
                         // Show error message
-                        self.createUserErrorHandler?.displayError(with: error!)
+                        self.delegate?.displayError(with: error!)
                     }
                 }
             }
@@ -63,20 +61,20 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             try validateFields(email, password)
         } catch let error as AuthError {
-            loginErrorHandler?.displayError(with: error)
+            delegate?.displayError(with: error)
         } catch {
-            loginErrorHandler?.displayError(with: AuthError.unknown)
+            delegate?.displayError(with: AuthError.unknown)
         }
 
         // Sign in the user
         auth.signIn(withEmail: email!, password: password!) { (result, err) in
             if err != nil {
                 // Coudn't sign in
-                self.loginErrorHandler?.displayError(with: err!)
+                self.delegate?.displayError(with: err!)
             }
             
             if result == nil {
-                self.loginErrorHandler?.displayError(with: AuthError.signIn)
+                self.delegate?.displayError(with: AuthError.signIn)
             }
         }
     }
@@ -86,11 +84,11 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             // Attempt to logout
             try auth.signOut()
-            logoutErrorHandler?.logoutSuccessful = true
+            delegate?.logoutSuccessful = true
         } catch  {
             // Unable to logout
-            logoutErrorHandler?.logoutSuccessful = false
-            logoutErrorHandler?.displayError(with: AuthError.signOut)
+            delegate?.logoutSuccessful = false
+            delegate?.displayError(with: AuthError.signOut)
         }
     }
     
@@ -99,14 +97,7 @@ class FirebaseAuthManager: AuthenticationManager {
         handle = auth.addStateDidChangeListener() { auth, user in
             // A user was authenticated
             if user != nil {
-                // User is creating an account
-                if self.createUserErrorHandler != nil {
-                    self.createUserErrorHandler!.onAuthHandleChange()
-                }
-                // User is logging in
-                else if self.loginErrorHandler != nil {
-                    self.loginErrorHandler!.onAuthHandleChange()
-                }
+                self.delegate?.onAuthHandleChange()
             }
         }
     }

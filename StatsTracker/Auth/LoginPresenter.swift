@@ -14,12 +14,13 @@ class LoginPresenter: Presenter {
     weak var delegate: SignUpAndLoginPresenterDelegate?
     let vc: LoginViewController
     var authManager: AuthenticationManager = FirebaseAuthManager()
+    var logoutSuccessful: Bool? = nil
     
     //MARK: Initialization
     init(vc: LoginViewController, delegate: SignUpAndLoginPresenterDelegate?) {
         self.vc = vc
         self.delegate = delegate
-        self.authManager.loginErrorHandler = self
+        self.authManager.delegate = self
         
     }
 }
@@ -50,7 +51,7 @@ extension LoginPresenter: LoginPresenterProtocol {
 }
 
 //MARK: LoginAuthDelegate
-extension LoginPresenter: LoginAuthDelegate {
+extension LoginPresenter: AuthManagerDelegate {
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {
             // Not an AuthError specific type
