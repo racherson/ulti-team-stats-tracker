@@ -59,7 +59,7 @@ class TeamProfilePresenter: Presenter {
     private func setViewModel(urlString: String, name: String) {
         // Use url string to get true url
         guard let url = URL(string: urlString) else {
-            self.viewModel = TeamProfileViewModel(team: name, image: Constants.Empty.image)
+            self.viewModel = TeamProfileViewModel(team: name, image: UIImage(named: Constants.Empty.image)!)
             return
         }
 
@@ -69,7 +69,7 @@ class TeamProfilePresenter: Presenter {
             case .success(let value):
                 self.viewModel = TeamProfileViewModel(team: name, image: value.image)
             case .failure( _):
-                self.viewModel = TeamProfileViewModel(team: name, image: Constants.Empty.image)
+                self.viewModel = TeamProfileViewModel(team: name, image: UIImage(named: Constants.Empty.image)!)
             }
         }
     }

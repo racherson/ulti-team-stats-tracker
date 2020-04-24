@@ -21,7 +21,6 @@ class LoginPresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.authManager.delegate = self
-        
     }
 }
 

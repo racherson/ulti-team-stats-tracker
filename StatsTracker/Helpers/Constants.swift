@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct Constants {
     
@@ -38,7 +38,7 @@ struct Constants {
         static let signInError = "Incorrect email or password."
         static let signOutError = "Error signing out user."
         static let userError = "Could not retreive user."
-        static let unknown = "An unknown error occurred."
+        static let unknown = "Something went wrong."
     }
     
     struct Alerts {
@@ -48,6 +48,6 @@ struct Constants {
     struct Empty {
         static let string = ""
         static let int = 0
-        static let image = UIImage(named: "defaultPhoto")!
+        static let image = "defaultPhoto"
     }
 }

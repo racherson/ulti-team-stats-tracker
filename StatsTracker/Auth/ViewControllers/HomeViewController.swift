@@ -32,5 +32,4 @@ class HomeViewController: UIViewController, Storyboarded {
     @IBAction func loginPressed(_ sender: UIButton) {
         delegate?.loginPressed()
     }
-
 }
