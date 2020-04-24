@@ -7,23 +7,44 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 protocol AuthenticationManager {
-    var currentUserUID: String? { get }
-    var auth: Auth { get }
     
-    func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws
-    func signIn(_ email: String?, _ password: String?) throws
-    func logout() throws
+    //MARK: Properties
+    var currentUserUID: String? { get }
+    var loginErrorHandler: LoginAuthDelegate? { get set }
+    var createUserErrorHandler: CreateUserAuthDelegate? { get set }
+    var logoutErrorHandler: LogoutAuthDelegate? { get set }
+    
+    //MARK: Methods
+    func addAuthListener()
+    func removeAuthListener()
+    func createUser(_ teamName: String?, _ email: String?, _ password: String?)
+    func signIn(_ email: String?, _ password: String?)
+    func logout()
 }
 
+//MARK: Error Handling Protocols
+protocol LoginAuthDelegate: class {
+    func displayError(with error: Error)
+    func onAuthHandleChange()
+}
+
+protocol CreateUserAuthDelegate: class {
+    func displayError(with error: Error)
+    func onAuthHandleChange()
+}
+
+protocol LogoutAuthDelegate: class {
+    var logoutSuccessful: Bool { get set }
+    func displayError(with error: Error)
+}
+
+//MARK: AuthError
 enum AuthError: Error {
     case emptyFields
     case invalidEmail
     case insecurePassword
-    case userCreation
-    case userSaving
     case signOut
     case signIn
     case unknown
@@ -38,10 +59,6 @@ extension AuthError: LocalizedError {
             return Constants.Errors.invalidEmailError
         case .insecurePassword:
             return Constants.Errors.insecurePasswordError
-        case .userCreation:
-            return Constants.Errors.userCreationError
-        case .userSaving:
-            return Constants.Errors.userSavingError
         case .signOut:
             return Constants.Errors.signOutError
         case .signIn:

@@ -68,15 +68,4 @@ class SignUpViewController: UIViewController, Storyboarded {
         errorLabel.text = message
         errorLabel.alpha = 1
     }
-    
-    func listenerResponse(user: NSObject?) {
-        if user != nil {
-          // User was authenticated, reset text fields
-          self.emailTextField.text = nil
-          self.passwordTextField.text = nil
-          
-          // Transition to MainTabBarController
-          self.presenter.transitionToTabs()
-        }
-    }
 }

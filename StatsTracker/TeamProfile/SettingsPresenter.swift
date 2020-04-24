@@ -18,13 +18,14 @@ class SettingsPresenter: Presenter {
     //MARK: Properties
     weak var delegate: SettingsPresenterDelegate?
     let vc: SettingsViewController
-    let authManager: AuthenticationManager
+    var authManager: AuthenticationManager = FirebaseAuthManager()
+    var logoutSuccessful: Bool = true
     
     //MARK: Initialization
-    init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?, authManager: AuthenticationManager) {
+    init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?) {
         self.vc = vc
         self.delegate = delegate
-        self.authManager = authManager
+        self.authManager.logoutErrorHandler = self
     }
     
     func transitionToHome() {
@@ -56,22 +57,31 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     }
     
     private func logout() {
-        do {
-            try authManager.logout()
+        authManager.logout()
+        if logoutSuccessful {
             self.transitionToHome()
-        } catch let err as AuthError {
-            showErrorAlert(error: err)
-        } catch {
-            showErrorAlert(error: AuthError.unknown)
         }
     }
     
-    private func showErrorAlert(error: AuthError) {
+    private func showErrorAlert(error: String) {
         // Error logging out, display alert
         let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
-            error.errorDescription, preferredStyle: .alert)
+            error, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
         vc.present(alertController, animated: true, completion: nil)
+    }
+}
+
+//MARK: LogoutAuthDelegate
+extension SettingsPresenter: LogoutAuthDelegate {
+    
+    func displayError(with error: Error) {
+        guard let authError = error as? AuthError else {
+            // Not an AuthError specific type
+            self.showErrorAlert(error: error.localizedDescription)
+            return
+        }
+        self.showErrorAlert(error: authError.errorDescription!)
     }
 }

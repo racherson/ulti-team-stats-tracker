@@ -7,21 +7,20 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 class LoginPresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
     let vc: LoginViewController
-    let authManager: AuthenticationManager
-    private var handle: AuthStateDidChangeListenerHandle?
+    var authManager: AuthenticationManager = FirebaseAuthManager()
     
     //MARK: Initialization
-    init(vc: LoginViewController, delegate: SignUpAndLoginPresenterDelegate?, authManager: AuthenticationManager) {
+    init(vc: LoginViewController, delegate: SignUpAndLoginPresenterDelegate?) {
         self.vc = vc
         self.delegate = delegate
-        self.authManager = authManager
+        self.authManager.loginErrorHandler = self
+        
     }
 }
 
@@ -37,23 +36,31 @@ extension LoginPresenter: LoginPresenterProtocol {
     
     func onViewWillAppear() {
         // Listener for changes in authentication
-        handle = authManager.auth.addStateDidChangeListener() { auth, user in
-            self.vc.listenerResponse(user: user)
-        }
+        authManager.addAuthListener()
     }
     
     func onviewWillDisappear() {
-        authManager.auth.removeStateDidChangeListener(handle!)
+        authManager.removeAuthListener()
     }
     
     func loginPressed(email: String?, password: String?) {
         // Attempt to sign in the user
-        do {
-            try authManager.signIn(email, password)
-        } catch let err as AuthError {
-            self.vc.showError(err.errorDescription!)
-        } catch {
-            self.vc.showError(Constants.Errors.unknown)
+        authManager.signIn(email, password)
+    }
+}
+
+//MARK: LoginAuthDelegate
+extension LoginPresenter: LoginAuthDelegate {
+    func displayError(with error: Error) {
+        guard let authError = error as? AuthError else {
+            // Not an AuthError specific type
+            self.vc.showError(error.localizedDescription)
+            return
         }
+        self.vc.showError(authError.errorDescription!)
+    }
+    
+    func onAuthHandleChange() {
+        transitionToTabs()
     }
 }

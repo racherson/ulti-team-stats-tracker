@@ -47,7 +47,7 @@ extension TeamProfileCoordinator: TeamProfilePresenterDelegate {
         
         // Push settings view
         let vc = SettingsViewController.instantiate(.team)
-        vc.presenter = SettingsPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
+        vc.presenter = SettingsPresenter(vc: vc, delegate: self)
         navigationController.pushViewController(vc, animated: true)
     }
 }

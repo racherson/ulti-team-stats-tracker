@@ -13,27 +13,29 @@ class FirebaseAuthManager: AuthenticationManager {
     
     //MARK: Properties
     private(set) var currentUserUID: String? = Auth.auth().currentUser?.uid
-    private(set) var auth: Auth = Auth.auth()
+    private var auth: Auth = Auth.auth()
+    private var handle: AuthStateDidChangeListenerHandle?
+    weak var loginErrorHandler: LoginAuthDelegate?
+    weak var createUserErrorHandler: CreateUserAuthDelegate?
+    weak var logoutErrorHandler: LogoutAuthDelegate?
     
-    // This method creates a new user account and stores in Firestore. It throws an error if one occurs.
-    func createUser(_ teamName: String?, _ email: String?, _ password: String?) throws {
+    // This method creates a new user account and stores in Firestore.
+    func createUser(_ teamName: String?, _ email: String?, _ password: String?) {
 
         do {
             try validateFields(teamName, email, password)
         } catch let error as AuthError {
-            throw error
+            createUserErrorHandler?.displayError(with: error)
         } catch {
-            throw AuthError.unknown
+            createUserErrorHandler?.displayError(with: AuthError.unknown)
         }
-        
-        var creationError: AuthError?
         
         // Create the user
         auth.createUser(withEmail: email!, password: password!) { (result, err) in
             // Check for errors
             if err != nil {
                 // There was an error creating the user
-                creationError = AuthError.userCreation
+                self.createUserErrorHandler?.displayError(with: err!)
             }
             else {
                 // User was created successfully, now store the user data (validated as not empty)
@@ -48,56 +50,74 @@ class FirebaseAuthManager: AuthenticationManager {
                 FirestoreReferenceManager.referenceForUserPublicData(uid: uid).setData(userData) { (error) in
                     if error != nil {
                         // Show error message
-                        creationError = AuthError.userSaving
+                        self.createUserErrorHandler?.displayError(with: error!)
                     }
                 }
             }
         }
-        
-        // If there was an error in the creation process, throw it
-        if creationError != nil {
-            throw creationError!
-        }
     }
     
-    // This method signs in a user stored in Firebase. It throws an error if one occurs.
-    func signIn(_ email: String?, _ password: String?) throws {
+    // This method signs in a user stored in Firebase.
+    func signIn(_ email: String?, _ password: String?) {
         
         do {
             try validateFields(email, password)
         } catch let error as AuthError {
-            throw error
+            loginErrorHandler?.displayError(with: error)
         } catch {
-            throw AuthError.unknown
+            loginErrorHandler?.displayError(with: AuthError.unknown)
         }
-        
-        var signInError: AuthError?
-        
+
         // Sign in the user
         auth.signIn(withEmail: email!, password: password!) { (result, err) in
-            if err != nil || result == nil {
+            if err != nil {
                 // Coudn't sign in
-                signInError = AuthError.signIn
+                self.loginErrorHandler?.displayError(with: err!)
             }
-        }
-        
-        // If there was an error in the sign in process, throw it
-        if signInError != nil {
-            throw signInError!
+            
+            if result == nil {
+                self.loginErrorHandler?.displayError(with: AuthError.signIn)
+            }
         }
     }
     
-    // This method logs a user out of the app. It throws an error if one occurs.
-    func logout() throws {
-        
+    // This method logs a user out of the app.
+    func logout() {
         do {
             // Attempt to logout
             try auth.signOut()
+            logoutErrorHandler?.logoutSuccessful = true
         } catch  {
             // Unable to logout
-            throw AuthError.signOut
+            logoutErrorHandler?.logoutSuccessful = false
+            logoutErrorHandler?.displayError(with: AuthError.signOut)
         }
     }
+    
+    // This method adds a listener for changes in authentication from Firebase.
+    func addAuthListener() {
+        handle = auth.addStateDidChangeListener() { auth, user in
+            // A user was authenticated
+            if user != nil {
+                // User is creating an account
+                if self.createUserErrorHandler != nil {
+                    self.createUserErrorHandler!.onAuthHandleChange()
+                }
+                // User is logging in
+                else if self.loginErrorHandler != nil {
+                    self.loginErrorHandler!.onAuthHandleChange()
+                }
+            }
+        }
+    }
+    
+    // This method removes the authentication listener
+    func removeAuthListener() {
+        auth.removeStateDidChangeListener(handle!)
+    }
+}
+
+extension FirebaseAuthManager {
     
     //MARK: Private Methods
     private func isPasswordValid(_ password : String) -> Bool {

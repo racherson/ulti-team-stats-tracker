@@ -25,7 +25,6 @@ struct Constants {
         static let emptyFieldsError = "Please fill in all fields."
         static let insecurePasswordError = "Please make sure your password is at least 8 characters and contains both a special character and a number."
         static let invalidEmailError = "Invalid email format."
-        static let userCreationError = "Error creating user."
         static let userSavingError = "Error saving user data."
         static let settingCellError = "Unknown settings cell type."
         static func dequeueError(_ cell: String) -> String {
@@ -36,7 +35,7 @@ struct Constants {
         static func viewControllerError(_ vc: String) -> String {
             return "Current view controller is not an instance of " + vc
         }
-        static let signInError = "Error signing in user."
+        static let signInError = "Incorrect email or password."
         static let signOutError = "Error signing out user."
         static let userError = "Could not retreive user."
         static let unknown = "An unknown error occurred."
