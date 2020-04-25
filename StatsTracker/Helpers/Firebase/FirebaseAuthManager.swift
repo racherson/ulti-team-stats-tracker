@@ -41,7 +41,6 @@ class FirebaseAuthManager: AuthenticationManager {
                 let userData = [
                     FirebaseKeys.Users.teamName: teamName!,
                     FirebaseKeys.Users.email: email!,
-                    FirebaseKeys.Users.uid: uid,
                     FirebaseKeys.Users.imageURL: Constants.Empty.string
                 ]
                 

@@ -28,6 +28,16 @@ class EditProfilePresenter: Presenter {
         self.delegate = delegate
         self.authManager = authManager
     }
+    
+    //MARK: Private methods
+    private func showErrorAlert(error: String) {
+        // Error logging out, display alert
+        let alertController = UIAlertController(title: Constants.Errors.userSavingError, message:
+            error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+
+        vc.present(alertController, animated: true, completion: nil)
+    }
 }
 
 //MARK: EditProfilePresenterProtocol
@@ -50,7 +60,8 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
         
         // Convert image to data to store
         guard let data = newImage.jpegData(compressionQuality: 1.0) else {
-            fatalError(Constants.Errors.userSavingError)
+            self.showErrorAlert(error: Constants.Errors.unknown)
+            return
         }
         
         // Store image under the current user uid
@@ -62,29 +73,35 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
         // Store the image data in storage
         imageReference.putData(data, metadata: nil) { (metadata, err) in
             if let err = err {
-                fatalError(err.localizedDescription)
+                self.showErrorAlert(error: err.localizedDescription)
+                return
             }
             
             // Get the image url
             imageReference.downloadURL { (url, err) in
                 if let err = err {
-                    fatalError(err.localizedDescription)
+                    self.showErrorAlert(error: err.localizedDescription)
+                    return
                 }
                 guard let url = url else {
-                    fatalError("Something went wrong")
+                    self.showErrorAlert(error: Constants.Errors.unknown)
+                    return
                 }
                 
                 let urlString = url.absoluteString
+                let newData = [
+                    FirebaseKeys.Users.imageURL: urlString,
+                    FirebaseKeys.Users.teamName: newName
+                ]
                 
                 // Update team name and image url in Firestore
-                FirestoreReferenceManager.referenceForUserPublicData(uid: uid)
-                    .updateData([
-                        FirebaseKeys.Users.imageURL: urlString,
-                        FirebaseKeys.Users.teamName: newName
-                    ]) { (error) in
+                FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData(newData) { (error) in
                         if error != nil {
-                            fatalError(Constants.Errors.userSavingError)
+                            self.showErrorAlert(error: error!.localizedDescription)
+                            return
                         }
+                        
+                        // Hide activity indicator
                         self.vc.activityIndicator.stopAnimating()
                         self.vc.visualEffectView.alpha = 0
                         self.delegate?.savePressed(newName: newName, newImage: newImage)
