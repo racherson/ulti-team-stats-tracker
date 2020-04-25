@@ -22,11 +22,24 @@ protocol AuthenticationManager {
     func logout()
 }
 
-//MARK: Error Handling Protocols
-protocol AuthManagerDelegate: class {
+//MARK: AuthManagerDelegate
+protocol AuthManagerDelegate: AnyObject {
     var logoutSuccessful: Bool? { get set }
     func displayError(with error: Error)
     func onAuthHandleChange()
+}
+
+extension AuthManagerDelegate {
+    // Defaults
+    var logoutSuccessful: Bool? {
+        get {
+            return nil
+        }
+        set {
+            logoutSuccessful = nil
+        }
+    }
+    func onAuthHandleChange() {}
 }
 
 //MARK: AuthError

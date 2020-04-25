@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseStorage
 
-protocol EditProfilePresenterDelegate: class {
+protocol EditProfilePresenterDelegate: AnyObject {
     func cancelPressed()
     func savePressed(newName: String, newImage: UIImage)
 }

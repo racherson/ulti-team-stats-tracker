@@ -20,5 +20,4 @@ struct FirestoreReferenceManager {
             .collection(FirebaseKeys.CollectionPath.publicData)
             .document(FirebaseKeys.CollectionPath.publicData)
     }
-    
 }

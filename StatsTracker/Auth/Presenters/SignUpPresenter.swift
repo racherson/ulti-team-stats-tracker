@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SignUpAndLoginPresenterDelegate: class {
+protocol SignUpAndLoginPresenterDelegate: AnyObject {
     func cancelPressed()
     func transitionToTabs()
 }
@@ -55,7 +55,7 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
 }
 
-//MARK: CreateUserAuthDelegate
+//MARK: AuthManagerDelegate
 extension SignUpPresenter: AuthManagerDelegate {
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {

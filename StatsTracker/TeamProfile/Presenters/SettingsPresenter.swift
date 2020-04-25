@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SettingsPresenterDelegate: class {
+protocol SettingsPresenterDelegate: AnyObject {
     func transitionToHome()
     func editPressed()
 }
@@ -73,10 +73,8 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     }
 }
 
-//MARK: LogoutAuthDelegate
+//MARK: AuthManagerDelegate
 extension SettingsPresenter: AuthManagerDelegate {
-    func onAuthHandleChange() {}
-    
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {
             // Not an AuthError specific type

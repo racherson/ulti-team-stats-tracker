@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol HomeViewControllerDelegate: class {
+protocol HomeViewControllerDelegate: AnyObject {
     func signUpPressed()
     func loginPressed()
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AuthCoordinatorDelegate: class {
+protocol AuthCoordinatorDelegate: AnyObject {
     func transitionToTabs()
 }
 

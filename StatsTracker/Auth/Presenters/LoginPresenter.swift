@@ -24,8 +24,8 @@ class LoginPresenter: Presenter {
     }
 }
 
+//MARK: LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
-    
     func cancelPressed() {
         delegate?.cancelPressed()
     }
@@ -49,7 +49,7 @@ extension LoginPresenter: LoginPresenterProtocol {
     }
 }
 
-//MARK: LoginAuthDelegate
+//MARK: AuthManagerDelegate
 extension LoginPresenter: AuthManagerDelegate {
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {

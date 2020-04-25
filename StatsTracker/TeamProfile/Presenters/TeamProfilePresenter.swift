@@ -9,7 +9,7 @@
 import Foundation
 import Kingfisher
 
-protocol TeamProfilePresenterDelegate: class {
+protocol TeamProfilePresenterDelegate: AnyObject {
     func settingsPressed(vm: TeamProfileViewModel)
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TeamProfileCoordinatorDelegate: class {
+protocol TeamProfileCoordinatorDelegate: AnyObject {
     func transitionToHome()
 }
 

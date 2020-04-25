@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MainTabBarCoordinatorDelegate: class {
+protocol MainTabBarCoordinatorDelegate: AnyObject {
     func transitionToHome()
 }
 
