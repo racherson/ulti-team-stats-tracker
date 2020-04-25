@@ -176,10 +176,7 @@
 				294A8741244666D9003FC969 /* Root */,
 				29D0E13F24401215008E14F3 /* Auth */,
 				2969BC5A244A4CCE00E95EBA /* MainTabBar */,
-				29AD51FA243FE2880094DCDE /* TeamProfile */,
-				2910EB9A243FC5FB00BCF721 /* Roster */,
-				2910EB99243FC5C800BCF721 /* Pull */,
-				29AD51FB243FE2AD0094DCDE /* Games */,
+				294763B7245407CC002DC5AD /* Tabs */,
 				2910EB6C243FA4C100BCF721 /* LaunchScreen.storyboard */,
 				2910EB6A243FA4C100BCF721 /* Assets.xcassets */,
 				2910EB6F243FA4C100BCF721 /* Info.plist */,
@@ -233,6 +230,17 @@
 				29458D062447AA9900EC03AB /* UserDataModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		294763B7245407CC002DC5AD /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				29AD51FA243FE2880094DCDE /* TeamProfile */,
+				2910EB9A243FC5FB00BCF721 /* Roster */,
+				2910EB99243FC5C800BCF721 /* Pull */,
+				29AD51FB243FE2AD0094DCDE /* Games */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		294A8741244666D9003FC969 /* Root */ = {

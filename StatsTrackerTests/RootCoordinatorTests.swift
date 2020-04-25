@@ -11,20 +11,13 @@ import XCTest
 
 class TeamProfileViewControllerTests: XCTestCase {
     
-    var coordinator: RootCoordinator!
-    
     override func setUp() {
-        let navController = UINavigationController()
-        coordinator = RootCoordinator(navigationController: navController)
-        coordinator.start()
     }
     
     override func tearDown() {
-        coordinator = nil
     }
 
     func testStart() throws {
-        XCTAssertTrue(coordinator.navigationController.topViewController is RootViewController)
     }
     
 }
