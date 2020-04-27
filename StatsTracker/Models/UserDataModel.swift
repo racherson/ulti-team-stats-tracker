@@ -10,7 +10,7 @@ import Foundation
 
 extension Constants {
     struct UserDataModel {
-        static let teamName = "teamName"
+        static let teamName = "teamname"
         static let email = "email"
         static let imageURL = "imageURL"
     }

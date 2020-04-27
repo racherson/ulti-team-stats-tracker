@@ -39,9 +39,9 @@ class FirebaseAuthManager: AuthenticationManager {
                 // User was created successfully, now store the user data (validated as not empty)
                 let uid = result!.user.uid
                 let userData = [
-                    FirebaseKeys.Users.teamName: teamName!,
-                    FirebaseKeys.Users.email: email!,
-                    FirebaseKeys.Users.imageURL: Constants.Empty.string
+                    Constants.UserDataModel.teamName: teamName!,
+                    Constants.UserDataModel.email: email!,
+                    Constants.UserDataModel.imageURL: Constants.Empty.string
                 ]
                 
                 FirestoreReferenceManager.referenceForUserPublicData(uid: uid).setData(userData) { (error) in

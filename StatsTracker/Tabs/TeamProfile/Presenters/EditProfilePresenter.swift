@@ -90,8 +90,8 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
                 
                 let urlString = url.absoluteString
                 let newData = [
-                    FirebaseKeys.Users.imageURL: urlString,
-                    FirebaseKeys.Users.teamName: newName
+                    Constants.UserDataModel.imageURL: urlString,
+                    Constants.UserDataModel.teamName: newName
                 ]
                 
                 // Update team name and image url in Firestore

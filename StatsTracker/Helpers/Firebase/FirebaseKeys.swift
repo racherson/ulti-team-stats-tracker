@@ -19,12 +19,4 @@ struct FirebaseKeys {
         
         static let imagesFolder = "imagesFolder"
     }
-    
-    struct Users {
-        
-        static let teamName = "teamname"
-        static let email = "email"
-        static let uid = "uid"
-        static let imageURL = "imageURL"
-    }
 }

@@ -49,8 +49,8 @@ class TeamProfilePresenter: Presenter {
             }
             
             // grab the team name and image url
-            let name = document.get(FirebaseKeys.Users.teamName) as? String ?? Constants.Titles.defaultTeamName
-            let urlString = document.get(FirebaseKeys.Users.imageURL) as? String ?? Constants.Empty.string
+            let name = document.get(Constants.UserDataModel.teamName) as? String ?? Constants.Titles.defaultTeamName
+            let urlString = document.get(Constants.UserDataModel.imageURL) as? String ?? Constants.Empty.string
             
             self.setViewModel(urlString: urlString, name: name)
         }
