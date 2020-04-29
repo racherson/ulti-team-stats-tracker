@@ -17,7 +17,7 @@ class TeamProfilePresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: TeamProfilePresenterDelegate?
-    let vc: TeamProfileViewController
+    weak var vc: TeamProfileViewController?
     let authManager: AuthenticationManager
     var viewModel: TeamProfileViewModel? {
         didSet {
@@ -80,11 +80,11 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     func onViewWillAppear() {
         if viewModel == nil {
             // Start loading state
-            vc.loadingState()
+            vc?.loadingState()
         }
         else {
             // Give view controller new view model
-            vc.updateWithViewModel(viewModel: viewModel!)
+            vc?.updateWithViewModel(viewModel: viewModel!)
         }
     }
     

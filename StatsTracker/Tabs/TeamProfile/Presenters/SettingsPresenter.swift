@@ -17,7 +17,7 @@ class SettingsPresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: SettingsPresenterDelegate?
-    let vc: SettingsViewController
+    weak var vc: SettingsViewController?
     var authManager: AuthenticationManager = FirebaseAuthManager()
     var logoutSuccessful: Bool? = true
     
@@ -37,7 +37,7 @@ class SettingsPresenter: Presenter {
 extension SettingsPresenter: SettingsPresenterProtocol {
     
     func onViewWillAppear() {
-        vc.title = Constants.Titles.settingsTitle
+        vc?.title = Constants.Titles.settingsTitle
     }
 
     func editPressed() {
@@ -53,7 +53,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
         // Confirm action and logout
         logoutAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action: UIAlertAction!) in self.logout() }))
 
-        vc.present(logoutAlert, animated: true, completion: nil)
+        vc?.present(logoutAlert, animated: true, completion: nil)
     }
     
     private func logout() {
@@ -69,7 +69,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
             error, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
-        vc.present(alertController, animated: true, completion: nil)
+        vc?.present(alertController, animated: true, completion: nil)
     }
 }
 

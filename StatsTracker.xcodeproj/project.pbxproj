@@ -53,6 +53,8 @@
 		29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E14024401238008E14F3 /* AuthCoordinator.swift */; };
 		29D0E1432440128B008E14F3 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D0E1422440128B008E14F3 /* Auth.storyboard */; };
 		29D0E1452440129A008E14F3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E1442440129A008E14F3 /* HomeViewController.swift */; };
+		29E6C69C245902FC00E41586 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6C69B245902FC00E41586 /* MockNavigationController.swift */; };
+		29E6C69E2459030800E41586 /* MockAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6C69D2459030800E41586 /* MockAuthManager.swift */; };
 		7A4FDEB6AC2EA17757766A96 /* Pods_StatsTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92126AAE536C867113DE7343 /* Pods_StatsTrackerTests.framework */; };
 		FFFF87B7DBF2093BA043A989 /* Pods_StatsTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8BEBC8F5270F94EDCB9EF9E /* Pods_StatsTracker.framework */; };
 /* End PBXBuildFile section */
@@ -118,6 +120,8 @@
 		29D0E14024401238008E14F3 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		29D0E1422440128B008E14F3 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		29D0E1442440129A008E14F3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		29E6C69B245902FC00E41586 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
+		29E6C69D2459030800E41586 /* MockAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthManager.swift; sourceTree = "<group>"; };
 		2A94E478690B9B709EAC8527 /* Pods-StatsTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StatsTracker.release.xcconfig"; path = "Target Support Files/Pods-StatsTracker/Pods-StatsTracker.release.xcconfig"; sourceTree = "<group>"; };
 		7D0D2CF08AD586DE27CE5129 /* Pods-StatsTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StatsTracker.debug.xcconfig"; path = "Target Support Files/Pods-StatsTracker/Pods-StatsTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		92126AAE536C867113DE7343 /* Pods_StatsTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StatsTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +192,7 @@
 		2910EB77243FA4C100BCF721 /* StatsTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
+				29E6C69A245902E700E41586 /* MockClasses */,
 				2910EB78243FA4C100BCF721 /* RootCoordinatorTests.swift */,
 				2910EB7A243FA4C100BCF721 /* Info.plist */,
 			);
@@ -354,6 +359,15 @@
 				29D0E14024401238008E14F3 /* AuthCoordinator.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		29E6C69A245902E700E41586 /* MockClasses */ = {
+			isa = PBXGroup;
+			children = (
+				29E6C69B245902FC00E41586 /* MockNavigationController.swift */,
+				29E6C69D2459030800E41586 /* MockAuthManager.swift */,
+			);
+			path = MockClasses;
 			sourceTree = "<group>";
 		};
 		2A82467B46EBE53FA0A9B8B7 /* Pods */ = {
@@ -594,6 +608,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2910EB79243FA4C100BCF721 /* RootCoordinatorTests.swift in Sources */,
+				29E6C69E2459030800E41586 /* MockAuthManager.swift in Sources */,
+				29E6C69C245902FC00E41586 /* MockNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

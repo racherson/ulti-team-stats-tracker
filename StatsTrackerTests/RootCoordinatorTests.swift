@@ -9,15 +9,36 @@
 import XCTest
 @testable import StatsTracker
 
-class TeamProfileViewControllerTests: XCTestCase {
+class RootCoordinatorTests: XCTestCase {
+    
+    var rootCoordinator: RootCoordinator!
+    var navigationController: MockNavigationController!
     
     override func setUp() {
+        navigationController = MockNavigationController()
+        rootCoordinator = RootCoordinator(navigationController: navigationController, window: UIWindow())
+        super.setUp()
     }
     
     override func tearDown() {
+        rootCoordinator = nil
+        super.tearDown()
     }
 
-    func testStart() throws {
+    func testStartAuthCoordinator() throws {
+        XCTAssertEqual(0, navigationController.presentCalledCount)
+        rootCoordinator.authManager = MockSignedOutAuthManager()
+        rootCoordinator.start()
+        XCTAssertTrue(rootCoordinator.childCoordinators[0] is AuthCoordinator)
+        XCTAssertEqual(1, navigationController.presentCalledCount)
+    }
+    
+    func testStartMainTabBarCoordinator() throws {
+        XCTAssertEqual(0, navigationController.presentCalledCount)
+        rootCoordinator.authManager = MockSignedInAuthManager()
+        rootCoordinator.start()
+        XCTAssertTrue(rootCoordinator.childCoordinators[0] is MainTabBarCoordinator)
+        XCTAssertEqual(1, navigationController.presentCalledCount)
     }
     
 }

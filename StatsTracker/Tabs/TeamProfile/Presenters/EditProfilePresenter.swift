@@ -18,7 +18,7 @@ class EditProfilePresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: EditProfilePresenterDelegate?
-    let vc: EditProfileViewController
+    weak var vc: EditProfileViewController?
     let authManager: AuthenticationManager
     var viewModel: TeamProfileViewModel!
     
@@ -36,7 +36,7 @@ class EditProfilePresenter: Presenter {
             error, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
 
-        vc.present(alertController, animated: true, completion: nil)
+        vc?.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -45,7 +45,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     
     func onViewWillAppear() {
         // Give view controller new view model
-        vc.updateWithViewModel(vm: viewModel)
+        vc?.updateWithViewModel(vm: viewModel)
     }
     
     func cancelPressed() {
@@ -102,8 +102,8 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
                         }
                         
                         // Hide activity indicator
-                        self.vc.activityIndicator.stopAnimating()
-                        self.vc.visualEffectView.alpha = 0
+                        self.vc?.activityIndicator.stopAnimating()
+                        self.vc?.visualEffectView.alpha = 0
                         self.delegate?.savePressed(newName: newName, newImage: newImage)
                 }
             }

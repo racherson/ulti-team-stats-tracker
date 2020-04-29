@@ -14,7 +14,7 @@ class RootCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     private let window: UIWindow
-    private let authManager: AuthenticationManager = FirebaseAuthManager()
+    var authManager: AuthenticationManager = FirebaseAuthManager()
 
     //MARK: Initialization
     init(navigationController: UINavigationController = UINavigationController(), window: UIWindow) {
