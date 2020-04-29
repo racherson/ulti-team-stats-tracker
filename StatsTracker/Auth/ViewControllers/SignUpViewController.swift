@@ -13,7 +13,7 @@ protocol SignUpPresenterProtocol where Self: Presenter {
     func signUpPressed(name: String?, email: String?, password: String?)
     func transitionToTabs()
     func onViewWillAppear()
-    func onviewWillDisappear()
+    func onViewWillDisappear()
 }
 
 class SignUpViewController: UIViewController, Storyboarded {
@@ -44,7 +44,7 @@ class SignUpViewController: UIViewController, Storyboarded {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        presenter.onviewWillDisappear()
+        presenter.onViewWillDisappear()
     }
     
     

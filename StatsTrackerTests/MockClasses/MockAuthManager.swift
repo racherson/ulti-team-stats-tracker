@@ -9,6 +9,40 @@
 import Foundation
 @testable import StatsTracker
 
+class MockSignedInAuthManager: AuthenticationManager {
+    
+    //MARK: Properties
+    var currentUserUID: String? = "12345"
+    var delegate: AuthManagerDelegate?
+    
+    var addAuthListenerCalled: Int = 0
+    var removeAuthListenerCalled: Int = 0
+    var createUserCalled: Int = 0
+    var signInCalled: Int = 0
+    var logoutCalled: Int = 0
+    
+    //MARK: Methods
+    func addAuthListener() {
+        addAuthListenerCalled += 1
+    }
+    
+    func removeAuthListener() {
+        removeAuthListenerCalled += 1
+    }
+    
+    func createUser(_ teamName: String?, _ email: String?, _ password: String?) {
+        createUserCalled += 1
+    }
+    
+    func signIn(_ email: String?, _ password: String?) {
+        signInCalled += 1
+    }
+    
+    func logout() {
+        logoutCalled += 1
+    }
+}
+
 class MockSignedOutAuthManager: AuthenticationManager {
     var currentUserUID: String? = nil
     var delegate: AuthManagerDelegate?
@@ -16,34 +50,6 @@ class MockSignedOutAuthManager: AuthenticationManager {
 
 //MARK: MockSignedOutAuthManager Dummy
 extension MockSignedOutAuthManager {
-    func addAuthListener() {
-        return
-    }
-    
-    func removeAuthListener() {
-        return
-    }
-    
-    func createUser(_ teamName: String?, _ email: String?, _ password: String?) {
-        return
-    }
-    
-    func signIn(_ email: String?, _ password: String?) {
-        return
-    }
-    
-    func logout() {
-        return
-    }
-}
-
-class MockSignedInAuthManager: AuthenticationManager {
-    var currentUserUID: String? = "12345"
-    var delegate: AuthManagerDelegate?
-}
-
-//MARK: MockSignedInAuthManager Dummy
-extension MockSignedInAuthManager {
     func addAuthListener() {
         return
     }

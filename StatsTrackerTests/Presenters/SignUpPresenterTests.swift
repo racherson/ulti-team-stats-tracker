@@ -16,11 +16,17 @@ class SignUpPresenterTests: XCTestCase {
     var navigationController: MockNavigationController!
     var authManager: MockSignedInAuthManager!
     
+    var cancelPressedBool: Bool = false
+    var transitionCalled: Bool = false
+    
     override func setUp() {
         navigationController = MockNavigationController()
-        vc = SignUpViewController()
+        vc = SignUpViewController.instantiate(.auth)
+        let _ = navigationController.view
+        let _ = vc.view
+        authManager = MockSignedInAuthManager()
         sut = SignUpPresenter(vc: vc, delegate: self)
-        sut.authManager = MockSignedInAuthManager()
+        sut.authManager = authManager
         super.setUp()
     }
     
@@ -30,10 +36,54 @@ class SignUpPresenterTests: XCTestCase {
         vc = nil
         super.tearDown()
     }
+    
+    func testOnViewWillAppear() throws {
+        XCTAssertEqual(0, authManager.addAuthListenerCalled)
+        sut.onViewWillAppear()
+        XCTAssertEqual(1, authManager.addAuthListenerCalled)
+    }
+    
+    func testOnViewWillDisappear() throws {
+        XCTAssertEqual(0, authManager.removeAuthListenerCalled)
+        sut.onViewWillDisappear()
+        XCTAssertEqual(1, authManager.removeAuthListenerCalled)
+    }
+    
+    func testSignUpPressed() throws {
+        XCTAssertEqual(0, authManager.createUserCalled)
+        sut.signUpPressed(name: "", email: "", password: "")
+        XCTAssertEqual(1, authManager.createUserCalled)
+    }
+    
+    func testCancelCalled() throws {
+        XCTAssertFalse(cancelPressedBool)
+        sut.cancelPressed()
+        XCTAssertTrue(cancelPressedBool)
+    }
+    
+    func testOnAuthHandleChange() throws {
+        XCTAssertFalse(transitionCalled)
+        sut.onAuthHandleChange()
+        XCTAssertTrue(transitionCalled)
+    }
+    
+    func testDisplayError() throws {
+        let authError = AuthError.unknown
+        sut.displayError(with: authError)
+        XCTAssertEqual(sut.vc.errorLabel.text, authError.errorDescription)
+        
+        let unknownError = NSError(domain: "", code: 0, userInfo: nil)
+        sut.displayError(with: unknownError)
+        XCTAssertEqual(sut.vc.errorLabel.text, unknownError.localizedDescription)
+    }
 }
 
+//MARK: SignUpAndLoginPresenterDelegate Mock
 extension SignUpPresenterTests: SignUpAndLoginPresenterDelegate {
-    func cancelPressed() { }
-    
-    func transitionToTabs() { }
+    func cancelPressed() {
+        self.cancelPressedBool = true
+    }
+    func transitionToTabs() {
+        self.transitionCalled = true
+    }
 }
