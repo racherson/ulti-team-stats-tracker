@@ -41,4 +41,20 @@ class RootCoordinatorTests: XCTestCase {
         XCTAssertEqual(1, navigationController.presentCalledCount)
     }
     
+    func testTransitionToTabs() throws {
+        XCTAssertEqual(0, navigationController.dismissCallCount)
+        XCTAssertEqual(0, navigationController.presentCalledCount)
+        rootCoordinator.transitionToTabs()
+        XCTAssertEqual(1, navigationController.dismissCallCount)
+        XCTAssertEqual(1, navigationController.presentCalledCount)
+    }
+    
+    func testTransitionToHome() throws {
+        XCTAssertEqual(0, navigationController.dismissCallCount)
+        XCTAssertEqual(0, navigationController.presentCalledCount)
+        rootCoordinator.transitionToHome()
+        XCTAssertEqual(1, navigationController.dismissCallCount)
+        XCTAssertEqual(1, navigationController.presentCalledCount)
+    }
+    
 }

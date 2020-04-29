@@ -17,7 +17,7 @@ class SignUpPresenter: Presenter {
 
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
-    weak var vc: SignUpViewController?
+    weak var vc: SignUpViewController!
     var authManager: AuthenticationManager = FirebaseAuthManager()
     var logoutSuccessful: Bool? = nil
     
@@ -60,10 +60,10 @@ extension SignUpPresenter: AuthManagerDelegate {
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {
             // Not an AuthError specific type
-            self.vc?.showError(error.localizedDescription)
+            self.vc.showError(error.localizedDescription)
             return
         }
-        self.vc?.showError(authError.errorDescription!)
+        self.vc.showError(authError.errorDescription!)
     }
     
     func onAuthHandleChange() {

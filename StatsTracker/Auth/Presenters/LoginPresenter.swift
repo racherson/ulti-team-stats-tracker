@@ -12,7 +12,7 @@ class LoginPresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
-    weak var vc: LoginViewController?
+    weak var vc: LoginViewController!
     var authManager: AuthenticationManager = FirebaseAuthManager()
     var logoutSuccessful: Bool? = nil
     
@@ -39,7 +39,7 @@ extension LoginPresenter: LoginPresenterProtocol {
         authManager.addAuthListener()
     }
     
-    func onviewWillDisappear() {
+    func onViewWillDisappear() {
         authManager.removeAuthListener()
     }
     
@@ -54,10 +54,10 @@ extension LoginPresenter: AuthManagerDelegate {
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {
             // Not an AuthError specific type
-            self.vc?.showError(error.localizedDescription)
+            self.vc.showError(error.localizedDescription)
             return
         }
-        self.vc?.showError(authError.errorDescription!)
+        self.vc.showError(authError.errorDescription!)
     }
     
     func onAuthHandleChange() {

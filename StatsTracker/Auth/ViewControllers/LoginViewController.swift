@@ -13,7 +13,7 @@ protocol LoginPresenterProtocol where Self: Presenter {
     func loginPressed(email: String?, password: String?)
     func transitionToTabs()
     func onViewWillAppear()
-    func onviewWillDisappear()
+    func onViewWillDisappear()
 }
 
 class LoginViewController: UIViewController, Storyboarded {
@@ -43,7 +43,7 @@ class LoginViewController: UIViewController, Storyboarded {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        presenter.onviewWillDisappear()
+        presenter.onViewWillDisappear()
     }
     
     
