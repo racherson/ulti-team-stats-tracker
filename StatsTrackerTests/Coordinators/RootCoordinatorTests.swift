@@ -58,5 +58,4 @@ class RootCoordinatorTests: XCTestCase {
         XCTAssertEqual(1, navigationController.dismissCallCount)
         XCTAssertEqual(1, navigationController.presentCalledCount)
     }
-    
 }

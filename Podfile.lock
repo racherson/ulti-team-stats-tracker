@@ -286,6 +286,7 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - ViewControllerPresentationSpy (5.0.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -294,6 +295,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - Kingfisher
+  - ViewControllerPresentationSpy
 
 SPEC REPOS:
   trunk:
@@ -320,6 +322,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - ViewControllerPresentationSpy
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -345,7 +348,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  ViewControllerPresentationSpy: 7cfa8ef8ec9fa197ea58ee6e9ac72bbe5442281b
 
-PODFILE CHECKSUM: 05c72dbf64f447102b0d861db4caeb137950ab1f
+PODFILE CHECKSUM: f35386bd0d2bec7ed1dd15111a228b4029c9d7b2
 
 COCOAPODS: 1.9.1

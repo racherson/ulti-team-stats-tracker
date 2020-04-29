@@ -12,7 +12,7 @@ import Foundation
 class MockSignedInAuthManager: AuthenticationManager {
     
     //MARK: Properties
-    var currentUserUID: String? = "12345"
+    var currentUserUID: String? = TestConstants.currentUID
     var delegate: AuthManagerDelegate?
     
     var addAuthListenerCalled: Int = 0
@@ -40,6 +40,7 @@ class MockSignedInAuthManager: AuthenticationManager {
     
     func logout() {
         logoutCalled += 1
+        delegate?.logoutSuccessful = true
     }
 }
 

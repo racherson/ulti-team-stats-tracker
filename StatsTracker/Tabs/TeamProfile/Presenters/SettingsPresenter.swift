@@ -19,7 +19,7 @@ class SettingsPresenter: Presenter {
     weak var delegate: SettingsPresenterDelegate?
     weak var vc: SettingsViewController!
     var authManager: AuthenticationManager = FirebaseAuthManager()
-    var logoutSuccessful: Bool? = true
+    var logoutSuccessful: Bool? = false
     
     //MARK: Initialization
     init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?) {
@@ -30,6 +30,23 @@ class SettingsPresenter: Presenter {
     
     func transitionToHome() {
         delegate?.transitionToHome()
+    }
+    
+    //MARK: Private methods
+    private func logout() {
+        authManager.logout()
+        if logoutSuccessful! {
+            self.transitionToHome()
+        }
+    }
+    
+    private func showErrorAlert(error: String) {
+        // Error logging out, display alert
+        let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
+            error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
+
+        vc.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -48,28 +65,12 @@ extension SettingsPresenter: SettingsPresenterProtocol {
         let logoutAlert = UIAlertController(title: Constants.Titles.logout, message: Constants.Alerts.logoutAlert, preferredStyle: UIAlertController.Style.alert)
         
         // Cancel action and dismiss
-        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in logoutAlert.dismiss(animated: true, completion: nil) }))
+        logoutAlert.addAction(UIAlertAction(title: Constants.Alerts.cancel, style: .destructive, handler: { (action: UIAlertAction!) in logoutAlert.dismiss(animated: true, completion: nil) }))
 
         // Confirm action and logout
-        logoutAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action: UIAlertAction!) in self.logout() }))
+        logoutAlert.addAction(UIAlertAction(title: Constants.Alerts.confirm, style: .default, handler: { (action: UIAlertAction!) in self.logout() }))
 
         vc.present(logoutAlert, animated: true, completion: nil)
-    }
-    
-    private func logout() {
-        authManager.logout()
-        if logoutSuccessful! {
-            self.transitionToHome()
-        }
-    }
-    
-    private func showErrorAlert(error: String) {
-        // Error logging out, display alert
-        let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
-            error, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-
-        vc.present(alertController, animated: true, completion: nil)
     }
 }
 

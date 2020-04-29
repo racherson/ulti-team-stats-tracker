@@ -43,6 +43,9 @@ struct Constants {
     
     struct Alerts {
         static let logoutAlert = "Are you sure you want to log out?"
+        static let dismiss = "Dismiss"
+        static let cancel = "Cancel"
+        static let confirm = "Confirm"
     }
     
     struct Empty {

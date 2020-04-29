@@ -34,7 +34,7 @@ class EditProfilePresenter: Presenter {
         // Error logging out, display alert
         let alertController = UIAlertController(title: Constants.Errors.userSavingError, message:
             error, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
 
         vc.present(alertController, animated: true, completion: nil)
     }

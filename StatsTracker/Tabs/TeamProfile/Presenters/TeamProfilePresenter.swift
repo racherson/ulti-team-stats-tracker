@@ -18,7 +18,7 @@ class TeamProfilePresenter: Presenter {
     //MARK: Properties
     weak var delegate: TeamProfilePresenterDelegate?
     weak var vc: TeamProfileViewController!
-    let authManager: AuthenticationManager
+    var authManager: AuthenticationManager!
     var viewModel: TeamProfileViewModel? {
         didSet {
             self.onViewWillAppear()
