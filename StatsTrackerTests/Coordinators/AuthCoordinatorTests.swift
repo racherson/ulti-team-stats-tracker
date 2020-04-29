@@ -53,6 +53,7 @@ class AuthCoordinatorTests: XCTestCase {
         let parentCoordinator = RootCoordinator(navigationController: navigationController, window: UIWindow())
         parentCoordinator.childCoordinators.append(authCoordinator)
         authCoordinator.parentCoordinator = parentCoordinator
+        XCTAssertEqual(1, authCoordinator.parentCoordinator?.childCoordinators.count)
         authCoordinator.transitionToTabs()
         XCTAssertEqual(0, authCoordinator.parentCoordinator?.childCoordinators.count)
     }

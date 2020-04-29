@@ -10,6 +10,7 @@ import UIKit
 
 class MockNavigationController: UINavigationController {
     
+    var presentationStyle: UIModalPresentationStyle?
     var presentCalledCount: Int = 0
     var pushCallCount: Int = 0
     var dismissCallCount: Int = 0
@@ -17,6 +18,7 @@ class MockNavigationController: UINavigationController {
     
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         presentCalledCount += 1
+        presentationStyle = viewControllerToPresent.modalPresentationStyle
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {

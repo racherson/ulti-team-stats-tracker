@@ -39,6 +39,8 @@
 		2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */; };
 		297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */; };
 		2989B7C9244906A90072FB34 /* TeamProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */; };
+		299D32DD245910B4009A7E37 /* MainTabBarCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32DC245910B4009A7E37 /* MainTabBarCoordinatorTests.swift */; };
+		299D32DF2459122B009A7E37 /* TeamProfileCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32DE2459122B009A7E37 /* TeamProfileCoordinatorTests.swift */; };
 		29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */; };
 		29AD5202243FE38F0094DCDE /* TeamProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */; };
 		29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */; };
@@ -107,6 +109,8 @@
 		2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewModel.swift; sourceTree = "<group>"; };
+		299D32DC245910B4009A7E37 /* MainTabBarCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinatorTests.swift; sourceTree = "<group>"; };
+		299D32DE2459122B009A7E37 /* TeamProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinatorTests.swift; sourceTree = "<group>"; };
 		29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinator.swift; sourceTree = "<group>"; };
 		29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamProfile.storyboard; sourceTree = "<group>"; };
 		29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewController.swift; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 			children = (
 				2910EB78243FA4C100BCF721 /* RootCoordinatorTests.swift */,
 				29E6C69F2459074B00E41586 /* AuthCoordinatorTests.swift */,
+				299D32DC245910B4009A7E37 /* MainTabBarCoordinatorTests.swift */,
+				299D32DE2459122B009A7E37 /* TeamProfileCoordinatorTests.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -620,8 +626,10 @@
 			files = (
 				2910EB79243FA4C100BCF721 /* RootCoordinatorTests.swift in Sources */,
 				29E6C69E2459030800E41586 /* MockAuthManager.swift in Sources */,
+				299D32DD245910B4009A7E37 /* MainTabBarCoordinatorTests.swift in Sources */,
 				29E6C6A02459074B00E41586 /* AuthCoordinatorTests.swift in Sources */,
 				29E6C69C245902FC00E41586 /* MockNavigationController.swift in Sources */,
+				299D32DF2459122B009A7E37 /* TeamProfileCoordinatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

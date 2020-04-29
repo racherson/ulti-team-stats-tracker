@@ -31,6 +31,7 @@ class RootCoordinatorTests: XCTestCase {
         rootCoordinator.start()
         XCTAssertTrue(rootCoordinator.childCoordinators[0] is AuthCoordinator)
         XCTAssertEqual(1, navigationController.presentCalledCount)
+        XCTAssertEqual(.fullScreen, navigationController.presentationStyle)
     }
     
     func testStartMainTabBarCoordinator() throws {
