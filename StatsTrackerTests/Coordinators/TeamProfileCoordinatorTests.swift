@@ -22,6 +22,7 @@ class TeamProfileCoordinatorTests: XCTestCase {
     
     override func tearDown() {
         teamProfileCoordinator = nil
+        navigationController = nil
         super.tearDown()
     }
     

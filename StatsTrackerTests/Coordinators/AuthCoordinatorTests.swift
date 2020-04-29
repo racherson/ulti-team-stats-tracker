@@ -22,6 +22,7 @@ class AuthCoordinatorTests: XCTestCase {
     
     override func tearDown() {
         authCoordinator = nil
+        navigationController = nil
         super.tearDown()
     }
     

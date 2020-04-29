@@ -22,6 +22,7 @@ class MainTabBarCoordinatorTests: XCTestCase {
     
     override func tearDown() {
         tabBarCoordinator = nil
+        navigationController = nil
         super.tearDown()
     }
     

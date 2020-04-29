@@ -22,6 +22,7 @@ class RootCoordinatorTests: XCTestCase {
     
     override func tearDown() {
         rootCoordinator = nil
+        navigationController = nil
         super.tearDown()
     }
 
