@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol DatabaseManager {
     
@@ -18,17 +18,20 @@ protocol DatabaseManager {
     func setData(data: [String: Any])
     func getData()
     func updateData(data: [String: Any])
+    func storeImage(image: UIImage)
 }
 
 protocol DatabaseManagerDelegate: AnyObject {
     func displayError(with error: Error)
-    func newData(_ data: [String: Any])
+    func newData(_ data: [String: Any]?)
+    func storeImageURL(url: String)
 }
 
 extension DatabaseManagerDelegate {
     // Defaults
     func displayError(with error: Error) { }
-    func newData(_ data: [String: Any]) { }
+    func newData(_ data: [String: Any]?) { }
+    func storeImageURL(url: String) { }
 }
 
 //MARK: DBError

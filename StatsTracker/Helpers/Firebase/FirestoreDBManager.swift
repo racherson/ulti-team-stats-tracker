@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class FirestoreDBManager {
     
@@ -74,7 +75,44 @@ extension FirestoreDBManager: DatabaseManager {
                 self.delegate?.displayError(with: error!)
                 return
             }
-            self.delegate?.newData(data)
+            self.delegate?.newData(nil)
+        }
+    }
+    
+    func storeImage(image: UIImage) {
+        // Convert image to data to store
+        guard let data = image.jpegData(compressionQuality: 1.0) else {
+            self.delegate?.displayError(with: DBError.unknown)
+            return
+        }
+        
+        // Store image under the current user uid
+        let imageReference = Storage.storage()
+            .reference()
+            .child(FirebaseKeys.CollectionPath.imagesFolder)
+            .child(uid)
+        
+        // Store the image data in storage
+        imageReference.putData(data, metadata: nil) { (metadata, err) in
+            if let err = err {
+                self.delegate?.displayError(with: err)
+                return
+            }
+            
+            // Get the image url
+            imageReference.downloadURL { (url, err) in
+                if let err = err {
+                    self.delegate?.displayError(with: err)
+                    return
+                }
+                guard let url = url else {
+                    self.delegate?.displayError(with: DBError.unknown)
+                    return
+                }
+                
+                let urlString = url.absoluteString
+                self.delegate?.storeImageURL(url: urlString)
+            }
         }
     }
 }

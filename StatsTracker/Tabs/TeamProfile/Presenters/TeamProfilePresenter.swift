@@ -95,9 +95,9 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
 }
 
 extension TeamProfilePresenter: DatabaseManagerDelegate {
-    func newData(_ data: [String: Any]) {
-        let url = data[Constants.UserDataModel.imageURL] as! String
-        let name = data[Constants.UserDataModel.teamName] as! String
+    func newData(_ data: [String: Any]?) {
+        let url = data?[Constants.UserDataModel.imageURL] as! String
+        let name = data?[Constants.UserDataModel.teamName] as! String
         setViewModel(urlString: url, name: name)
     }
     
