@@ -19,6 +19,7 @@ class TeamProfilePresenter: Presenter {
     weak var delegate: TeamProfilePresenterDelegate?
     weak var vc: TeamProfileViewController!
     var authManager: AuthenticationManager!
+    var dbManager: DatabaseManager!
     var viewModel: TeamProfileViewModel? {
         didSet {
             self.onViewWillAppear()
@@ -38,22 +39,13 @@ class TeamProfilePresenter: Presenter {
     private func initializeViewModel() {
         // Get the current user uid
         guard let uid = authManager.currentUserUID else {
-            fatalError(Constants.Errors.userError)
+            displayError(with: AuthError.user)
+            return
         }
-        FirestoreReferenceManager.referenceForUserPublicData(uid: uid).getDocument { (document, error) in
-            if error != nil {
-                fatalError(Constants.Errors.documentError)
-            }
-            guard let document = document else {
-                fatalError(Constants.Errors.documentError)
-            }
-            
-            // grab the team name and image url
-            let name = document.get(Constants.UserDataModel.teamName) as? String ?? Constants.Titles.defaultTeamName
-            let urlString = document.get(Constants.UserDataModel.imageURL) as? String ?? Constants.Empty.string
-            
-            self.setViewModel(urlString: urlString, name: name)
-        }
+        
+        self.dbManager = FirestoreDBManager(uid: uid)
+        dbManager.delegate = self
+        dbManager.getData()
     }
     
     private func setViewModel(urlString: String, name: String) {
@@ -73,6 +65,15 @@ class TeamProfilePresenter: Presenter {
             }
         }
     }
+    
+    private func showErrorAlert(error: String) {
+        // Error logging out, display alert
+        let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
+            error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
+
+        vc.present(alertController, animated: true, completion: nil)
+    }
 }
 
 //MARK: TeamProfilePresenterProtocol
@@ -90,5 +91,22 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     
     func settingsPressed() {
         delegate?.settingsPressed(vm: viewModel!)
+    }
+}
+
+extension TeamProfilePresenter: DatabaseManagerDelegate {
+    func newData(_ data: [String: Any]) {
+        let url = data[Constants.UserDataModel.imageURL] as! String
+        let name = data[Constants.UserDataModel.teamName] as! String
+        setViewModel(urlString: url, name: name)
+    }
+    
+    func displayError(with error: Error) {
+        guard let dbError = error as? DBError else {
+            // Not an DBError specific type
+            self.showErrorAlert(error: error.localizedDescription)
+            return
+        }
+        self.showErrorAlert(error: dbError.errorDescription!)
     }
 }

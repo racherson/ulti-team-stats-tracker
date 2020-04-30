@@ -44,12 +44,9 @@ class FirebaseAuthManager: AuthenticationManager {
                     Constants.UserDataModel.imageURL: Constants.Empty.string
                 ]
                 
-                FirestoreReferenceManager.referenceForUserPublicData(uid: uid).setData(userData) { (error) in
-                    if error != nil {
-                        // Show error message
-                        self.delegate?.displayError(with: error!)
-                    }
-                }
+                let dbManager = FirestoreDBManager(uid: uid)
+                dbManager.delegate = self
+                dbManager.setData(data: userData)
             }
         }
     }
@@ -105,6 +102,13 @@ class FirebaseAuthManager: AuthenticationManager {
     func removeAuthListener() {
         auth.removeStateDidChangeListener(handle!)
     }
+}
+
+//MARK: DatabaseManagerDelegate
+extension FirebaseAuthManager: DatabaseManagerDelegate {
+    func displayError(_ error: Error) {
+        self.delegate?.displayError(with: error)
+    }  
 }
 
 extension FirebaseAuthManager {

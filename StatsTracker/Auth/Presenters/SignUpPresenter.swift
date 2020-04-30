@@ -19,7 +19,6 @@ class SignUpPresenter: Presenter {
     weak var delegate: SignUpAndLoginPresenterDelegate?
     weak var vc: SignUpViewController!
     var authManager: AuthenticationManager = FirebaseAuthManager()
-    var logoutSuccessful: Bool? = nil
     
     //MARK: Initialization
     init(vc: SignUpViewController, delegate: SignUpAndLoginPresenterDelegate?) {

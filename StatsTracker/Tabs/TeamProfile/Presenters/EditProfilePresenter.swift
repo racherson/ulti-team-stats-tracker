@@ -20,19 +20,31 @@ class EditProfilePresenter: Presenter {
     weak var delegate: EditProfilePresenterDelegate?
     weak var vc: EditProfileViewController!
     let authManager: AuthenticationManager
+    var dbManager: DatabaseManager!
     var viewModel: TeamProfileViewModel!
+    var newImage: UIImage?
     
     //MARK: Initialization
     init(vc: EditProfileViewController, delegate: EditProfilePresenterDelegate?, authManager: AuthenticationManager) {
         self.vc = vc
         self.delegate = delegate
         self.authManager = authManager
+        
+        setDBManager()
     }
     
     //MARK: Private methods
-    private func showErrorAlert(error: String) {
-        // Error logging out, display alert
-        let alertController = UIAlertController(title: Constants.Errors.userSavingError, message:
+    private func setDBManager() {
+        guard let uid = authManager.currentUserUID else {
+            self.showErrorAlert(error: Constants.Errors.userError, title: Constants.Errors.unknown)
+            return
+        }
+        dbManager = FirestoreDBManager(uid: uid)
+        dbManager.delegate = self
+    }
+    
+    private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
+        let alertController = UIAlertController(title: title, message:
             error, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
 
@@ -92,21 +104,39 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
                 let newData = [
                     Constants.UserDataModel.imageURL: urlString,
                     Constants.UserDataModel.teamName: newName
-                ]
-                
+                    ]
+                self.newImage = newImage
                 // Update team name and image url in Firestore
-                FirestoreReferenceManager.referenceForUserPublicData(uid: uid).updateData(newData) { (error) in
-                        if error != nil {
-                            self.showErrorAlert(error: error!.localizedDescription)
-                            return
-                        }
-                        
-                        // Hide activity indicator
-                        self.vc.activityIndicator.stopAnimating()
-                        self.vc.visualEffectView.alpha = 0
-                        self.delegate?.savePressed(newName: newName, newImage: newImage)
-                }
+                self.dbManager.updateData(data: newData)
             }
+        }
+    }
+}
+
+//MARK: DatabaseManagerDelegate
+extension EditProfilePresenter: DatabaseManagerDelegate {
+    
+    func displayError(with error: Error) {
+        guard let dbError = error as? DBError else {
+            // Not an DBError specific type
+            self.showErrorAlert(error: error.localizedDescription)
+            return
+        }
+        self.showErrorAlert(error: dbError.errorDescription!)
+    }
+    
+    func newData(_ data: [String : Any]) {
+        // Hide activity indicator
+        self.vc.activityIndicator.stopAnimating()
+        self.vc.visualEffectView.alpha = 0
+        
+        let newName = data[Constants.UserDataModel.teamName] as! String
+        if let image = newImage {
+            self.delegate?.savePressed(newName: newName, newImage: image)
+        }
+        else {
+            let emptyImage = UIImage(named: Constants.Empty.image)!
+            self.delegate?.savePressed(newName: newName, newImage: emptyImage)
         }
     }
 }

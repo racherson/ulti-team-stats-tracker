@@ -39,7 +39,7 @@ extension AuthManagerDelegate {
             logoutSuccessful = nil
         }
     }
-    func onAuthHandleChange() {}
+    func onAuthHandleChange() { }
 }
 
 //MARK: AuthError
@@ -50,6 +50,7 @@ enum AuthError: Error {
     case signOut
     case signIn
     case unknown
+    case user
 }
 
 extension AuthError: LocalizedError {
@@ -65,6 +66,8 @@ extension AuthError: LocalizedError {
             return Constants.Errors.signOutError
         case .signIn:
             return Constants.Errors.signInError
+        case .user:
+            return Constants.Errors.userError
         case .unknown:
             return Constants.Errors.unknown
         }
