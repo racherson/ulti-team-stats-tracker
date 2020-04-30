@@ -16,4 +16,18 @@ class TeamProfileViewModel {
         self.teamName = team
         self.teamImage = image
     }
+    
+    convenience init?(team: String, urlString: String) {
+        var image: UIImage?
+        let url = NSURL(string: urlString)! as URL
+        
+        if let imageData: NSData = NSData(contentsOf: url) {
+            image = UIImage(data: imageData as Data)
+        }
+        else {
+            image = UIImage(named: Constants.Empty.image)
+        }
+        
+        self.init(team: team, image: image!)
+    }
 }

@@ -33,20 +33,3 @@ extension DatabaseManagerDelegate {
     func newData(_ data: [String: Any]?) { }
     func storeImageURL(url: String) { }
 }
-
-//MARK: DBError
-enum DBError: Error {
-    case document
-    case unknown
-}
-
-extension DBError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .document:
-            return Constants.Errors.documentError
-        case .unknown:
-            return Constants.Errors.unknown
-        }
-    }
-}

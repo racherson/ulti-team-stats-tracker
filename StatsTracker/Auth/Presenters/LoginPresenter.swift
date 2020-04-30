@@ -39,6 +39,7 @@ extension LoginPresenter: LoginPresenterProtocol {
     }
     
     func onViewWillDisappear() {
+        // Remove the listener
         authManager.removeAuthListener()
     }
     

@@ -45,6 +45,7 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
     
     func onViewWillDisappear() {
+        // Remove the listener
         authManager.removeAuthListener()
     }
     

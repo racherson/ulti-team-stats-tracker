@@ -6,8 +6,7 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
-import Kingfisher
+import UIKit
 
 protocol TeamProfilePresenterDelegate: AnyObject {
     func settingsPressed(vm: TeamProfileViewModel)
@@ -49,21 +48,7 @@ class TeamProfilePresenter: Presenter {
     }
     
     private func setViewModel(urlString: String, name: String) {
-        // Use url string to get true url
-        guard let url = URL(string: urlString) else {
-            self.viewModel = TeamProfileViewModel(team: name, image: UIImage(named: Constants.Empty.image)!)
-            return
-        }
-
-        // Retrieve the image from the url
-        KingfisherManager.shared.retrieveImage(with: ImageResource(downloadURL: url), options: nil, progressBlock: nil) { result in
-            switch result {
-            case .success(let value):
-                self.viewModel = TeamProfileViewModel(team: name, image: value.image)
-            case .failure( _):
-                self.viewModel = TeamProfileViewModel(team: name, image: UIImage(named: Constants.Empty.image)!)
-            }
-        }
+        self.viewModel = TeamProfileViewModel(team: name, urlString: urlString)
     }
     
     private func showErrorAlert(error: String) {

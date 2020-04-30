@@ -60,6 +60,7 @@ extension RootCoordinator {
     }
     
     func startAuthCoordinator() {
+        // Start login flow
         let childNavController = UINavigationController()
         childNavController.modalPresentationStyle = .fullScreen
         let child = AuthCoordinator(navigationController: childNavController)
@@ -71,6 +72,7 @@ extension RootCoordinator {
     }
     
     func startMainTabBarCoordinator() {
+        // User logged in, go to tabs
         let child = MainTabBarCoordinator(navigationController: navigationController)
         child.delegate = self
         child.parentCoordinator = self

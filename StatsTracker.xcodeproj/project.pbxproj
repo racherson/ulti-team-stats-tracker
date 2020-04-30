@@ -39,6 +39,9 @@
 		295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D80B7245128C600CD8CBF /* LoginPresenter.swift */; };
 		2966446A2452412C0013D902 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296644692452412C0013D902 /* Presenter.swift */; };
 		2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */; };
+		2973A8D6245B5159002CD459 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973A8D5245B5159002CD459 /* AuthError.swift */; };
+		2973A8D8245B518E002CD459 /* DBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973A8D7245B518E002CD459 /* DBError.swift */; };
+		2973A8DB245B5209002CD459 /* UserConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973A8DA245B5209002CD459 /* UserConstants.swift */; };
 		297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */; };
 		298566292459F26200E0F77A /* TeamProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298566282459F26200E0F77A /* TeamProfilePresenterTests.swift */; };
 		2985662B2459F70E00E0F77A /* SettingsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985662A2459F70E00E0F77A /* SettingsPresenterTests.swift */; };
@@ -119,6 +122,9 @@
 		295D80B7245128C600CD8CBF /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		296644692452412C0013D902 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		2969BC58244A2C4400E95EBA /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
+		2973A8D5245B5159002CD459 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		2973A8D7245B518E002CD459 /* DBError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBError.swift; sourceTree = "<group>"; };
+		2973A8DA245B5209002CD459 /* UserConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConstants.swift; sourceTree = "<group>"; };
 		297B4E0A244B6FB4001233B9 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		298566282459F26200E0F77A /* TeamProfilePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfilePresenterTests.swift; sourceTree = "<group>"; };
 		2985662A2459F70E00E0F77A /* SettingsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterTests.swift; sourceTree = "<group>"; };
@@ -230,9 +236,10 @@
 		2910EB98243FC47500BCF721 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2973A8D9245B51EB002CD459 /* Constants */,
+				2973A8D4245B514D002CD459 /* Errors */,
 				297EB58D24536F4D008DE8C6 /* Protocols */,
 				294A87482446ABF0003FC969 /* Firebase */,
-				29CCF52424414921003F201A /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -289,7 +296,6 @@
 		294A87482446ABF0003FC969 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				294A87492446ABFF003FC969 /* FirebaseKeys.swift */,
 				2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */,
 				29C61B30245A17B600F00987 /* FirestoreDBManager.swift */,
 			);
@@ -303,6 +309,25 @@
 				2910EB8F243FB1D600BCF721 /* MainTabBarController.swift */,
 			);
 			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		2973A8D4245B514D002CD459 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				2973A8D5245B5159002CD459 /* AuthError.swift */,
+				2973A8D7245B518E002CD459 /* DBError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		2973A8D9245B51EB002CD459 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				29CCF52424414921003F201A /* Constants.swift */,
+				2973A8DA245B5209002CD459 /* UserConstants.swift */,
+				294A87492446ABFF003FC969 /* FirebaseKeys.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		297EB58D24536F4D008DE8C6 /* Protocols */ = {
@@ -622,6 +647,7 @@
 				29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */,
 				2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */,
 				297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */,
+				2973A8D8245B518E002CD459 /* DBError.swift in Sources */,
 				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
 				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,
 				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
@@ -652,7 +678,9 @@
 				2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */,
 				29D0E1452440129A008E14F3 /* HomeViewController.swift in Sources */,
 				29C61B31245A17B600F00987 /* FirestoreDBManager.swift in Sources */,
+				2973A8DB245B5209002CD459 /* UserConstants.swift in Sources */,
 				2911847A2450CA16007C534F /* SettingsPresenter.swift in Sources */,
+				2973A8D6245B5159002CD459 /* AuthError.swift in Sources */,
 				2910EB88243FA56A00BCF721 /* RosterCoordinator.swift in Sources */,
 				29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */,
 				2910EB64243FA4C100BCF721 /* SceneDelegate.swift in Sources */,
