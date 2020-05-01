@@ -71,7 +71,8 @@ extension SignUpPresenter: AuthManagerDelegate {
     }
     
     func onCreateUserCompletion(uid: String, data: [String : Any]) {
-        let dbManager = FirestoreDBManager(uid: uid)
+        // Store the new user data with current user uid
+        var dbManager: DatabaseManager = FirestoreDBManager(uid: uid)
         dbManager.delegate = self
         dbManager.setData(data: data)
     }

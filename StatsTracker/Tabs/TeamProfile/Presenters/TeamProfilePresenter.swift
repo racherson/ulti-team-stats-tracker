@@ -42,6 +42,7 @@ class TeamProfilePresenter: Presenter {
             return
         }
         
+        // Retrieve the data saved in DB for that user
         self.dbManager = FirestoreDBManager(uid: uid)
         dbManager.delegate = self
         dbManager.getData()
@@ -79,10 +80,15 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     }
 }
 
+//MARK: DatabaseManagerDelegate
 extension TeamProfilePresenter: DatabaseManagerDelegate {
+    
     func newData(_ data: [String: Any]?) {
+        // Pull url and name out of the data retrieved
         let url = data?[Constants.UserDataModel.imageURL] as! String
         let name = data?[Constants.UserDataModel.teamName] as! String
+        
+        // Set a new view model with the new data
         setViewModel(urlString: url, name: name)
     }
     

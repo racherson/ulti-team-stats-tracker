@@ -18,6 +18,7 @@ class EditProfilePresenterTests: XCTestCase {
     
     var cancelPressedCount: Int = 0
     var savePressedCount: Int = 0
+    var backToProfileCount: Int = 0
     
     override func setUp() {
         vc = EditProfileViewController.instantiate(.team)
@@ -54,6 +55,10 @@ class EditProfilePresenterTests: XCTestCase {
 
 //MARK: EditProfilePresenterDelegate Mock
 extension EditProfilePresenterTests: EditProfilePresenterDelegate {
+    func backToProfile() {
+        self.backToProfileCount += 1
+    }
+    
     func cancelPressed() {
         self.cancelPressedCount += 1
     }

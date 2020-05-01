@@ -29,7 +29,6 @@ protocol DatabaseManagerDelegate: AnyObject {
 
 extension DatabaseManagerDelegate {
     // Defaults
-    func displayError(with error: Error) { }
     func newData(_ data: [String: Any]?) { }
     func storeImageURL(url: String) { }
 }

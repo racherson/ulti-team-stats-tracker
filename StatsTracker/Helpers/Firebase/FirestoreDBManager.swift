@@ -37,6 +37,8 @@ class FirestoreDBManager {
 
 //MARK: DatabaseManager
 extension FirestoreDBManager: DatabaseManager {
+    
+    // This method adds new data to the current user's public data.
     func setData(data: [String : Any]) {
         referenceForUserPublicData().setData(data) { (error) in
             if error != nil {
@@ -46,39 +48,48 @@ extension FirestoreDBManager: DatabaseManager {
         }
     }
     
+    // This method retrieves the current user's public data and sends it to the delegate.
     func getData() {
         referenceForUserPublicData().getDocument { (document, error) in
             if error != nil {
+                // Show error message
                 self.delegate?.displayError(with: DBError.document)
                 return
             }
             guard let document = document else {
+                // Show error message
                 self.delegate?.displayError(with: DBError.document)
                 return
             }
             
-            // grab the team name and image url
+            // Grab the team name and image url
             let name = document.get(Constants.UserDataModel.teamName) as? String ?? Constants.Titles.defaultTeamName
             let urlString = document.get(Constants.UserDataModel.imageURL) as? String ?? Constants.Empty.string
+            
             let newData = [
                 Constants.UserDataModel.teamName: name,
                 Constants.UserDataModel.imageURL: urlString
             ]
             
+            // Send retrieved data to delegate
             self.delegate?.newData(newData)
         }
     }
     
+    // This method updates data in the database.
     func updateData(data: [String : Any]) {
         referenceForUserPublicData().updateData(data) { (error) in
             if error != nil {
+                // Show error message
                 self.delegate?.displayError(with: error!)
                 return
             }
+            // Don't need to send the data back as new data to delegate
             self.delegate?.newData(nil)
         }
     }
     
+    // This method store an image in the FirebaseStorage and returns a url to the delegate.
     func storeImage(image: UIImage) {
         // Convert image to data to store
         guard let data = image.jpegData(compressionQuality: 1.0) else {
@@ -95,6 +106,7 @@ extension FirestoreDBManager: DatabaseManager {
         // Store the image data in storage
         imageReference.putData(data, metadata: nil) { (metadata, err) in
             if let err = err {
+                // Show error message
                 self.delegate?.displayError(with: err)
                 return
             }
@@ -102,15 +114,19 @@ extension FirestoreDBManager: DatabaseManager {
             // Get the image url
             imageReference.downloadURL { (url, err) in
                 if let err = err {
+                    // Show error message
                     self.delegate?.displayError(with: err)
                     return
                 }
                 guard let url = url else {
+                    // Show error message
                     self.delegate?.displayError(with: DBError.unknown)
                     return
                 }
                 
                 let urlString = url.absoluteString
+                
+                // Send image url string to delegate
                 self.delegate?.storeImageURL(url: urlString)
             }
         }

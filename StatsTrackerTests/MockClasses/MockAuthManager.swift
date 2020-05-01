@@ -40,7 +40,7 @@ class MockSignedInAuthManager: AuthenticationManager {
     
     func logout() {
         logoutCalled += 1
-        delegate?.logoutSuccessful = true
+        delegate?.onSuccessfulLogout()
     }
 }
 

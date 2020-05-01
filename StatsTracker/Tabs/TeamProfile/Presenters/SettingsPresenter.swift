@@ -19,7 +19,6 @@ class SettingsPresenter: Presenter {
     weak var delegate: SettingsPresenterDelegate?
     weak var vc: SettingsViewController!
     var authManager: AuthenticationManager = FirebaseAuthManager()
-    var logoutSuccessful: Bool? = false
     
     //MARK: Initialization
     init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?) {
@@ -35,9 +34,6 @@ class SettingsPresenter: Presenter {
     //MARK: Private methods
     private func logout() {
         authManager.logout()
-        if logoutSuccessful! {
-            self.transitionToHome()
-        }
     }
     
     private func showErrorAlert(error: String) {
@@ -76,6 +72,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
 
 //MARK: AuthManagerDelegate
 extension SettingsPresenter: AuthManagerDelegate {
+    
     func displayError(with error: Error) {
         guard let authError = error as? AuthError else {
             // Not an AuthError specific type
@@ -83,5 +80,9 @@ extension SettingsPresenter: AuthManagerDelegate {
             return
         }
         self.showErrorAlert(error: authError.errorDescription!)
+    }
+    
+    func onSuccessfulLogout() {
+        self.transitionToHome()
     }
 }

@@ -18,6 +18,7 @@ enum AuthError: Error {
     case user
 }
 
+//MARK: LocalizedError
 extension AuthError: LocalizedError {
     public var errorDescription: String? {
         switch self {

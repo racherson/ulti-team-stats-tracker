@@ -78,10 +78,9 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             // Attempt to logout
             try auth.signOut()
-            delegate?.logoutSuccessful = true
+            delegate?.onSuccessfulLogout()
         } catch  {
             // Unable to logout
-            delegate?.logoutSuccessful = false
             delegate?.displayError(with: AuthError.signOut)
         }
     }

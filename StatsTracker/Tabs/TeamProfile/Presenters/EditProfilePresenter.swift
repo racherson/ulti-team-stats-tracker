@@ -35,6 +35,7 @@ class EditProfilePresenter: Presenter {
     //MARK: Private methods
     private func setDBManager() {
         guard let uid = authManager.currentUserUID else {
+            // Show error message
             self.showErrorAlert(error: Constants.Errors.userError, title: Constants.Errors.unknown)
             return
         }
@@ -43,11 +44,10 @@ class EditProfilePresenter: Presenter {
     }
     
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
-        vc.activityIndicator.stopAnimating()
-        vc.visualEffectView.alpha = 0
-        
         let alertController = UIAlertController(title: title, message:
             error, preferredStyle: .alert)
+        
+        // Dismiss and go back to Profile page
         alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default, handler: { (action: UIAlertAction!) in self.backToProfile() }))
 
         vc.present(alertController, animated: true, completion: nil)
@@ -96,6 +96,7 @@ extension EditProfilePresenter: DatabaseManagerDelegate {
             Constants.UserDataModel.imageURL: url,
             Constants.UserDataModel.teamName: viewModel.teamName
             ]
+        
         // Update team name and image url in Firestore
         dbManager.updateData(data: newData)
     }

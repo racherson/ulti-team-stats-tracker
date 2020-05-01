@@ -13,6 +13,7 @@ enum DBError: Error {
     case unknown
 }
 
+//MARK: LocalizedError
 extension DBError: LocalizedError {
     public var errorDescription: String? {
         switch self {

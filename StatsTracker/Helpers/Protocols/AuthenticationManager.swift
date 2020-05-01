@@ -24,7 +24,7 @@ protocol AuthenticationManager {
 
 //MARK: AuthManagerDelegate
 protocol AuthManagerDelegate: AnyObject {
-    var logoutSuccessful: Bool? { get set }
+    func onSuccessfulLogout()
     func displayError(with error: Error)
     func onAuthHandleChange()
     func onCreateUserCompletion(uid: String, data: [String: Any])
@@ -32,14 +32,7 @@ protocol AuthManagerDelegate: AnyObject {
 
 extension AuthManagerDelegate {
     // Defaults
-    var logoutSuccessful: Bool? {
-        get {
-            return nil
-        }
-        set {
-            logoutSuccessful = nil
-        }
-    }
+    func onSuccessfulLogout() { }
     func onAuthHandleChange() { }
     func onCreateUserCompletion(uid: String, data: [String: Any]) { }
 }
