@@ -69,4 +69,17 @@ extension SignUpPresenter: AuthManagerDelegate {
     func onAuthHandleChange() {
         transitionToTabs()
     }
+    
+    func onCreateUserCompletion(uid: String, data: [String : Any]) {
+        let dbManager = FirestoreDBManager(uid: uid)
+        dbManager.delegate = self
+        dbManager.setData(data: data)
+    }
+}
+
+//MARK: DatabaseManagerDelegate
+extension SignUpPresenter: DatabaseManagerDelegate {
+    func displayError(_ error: Error) {
+        self.displayError(with: error)
+    }
 }

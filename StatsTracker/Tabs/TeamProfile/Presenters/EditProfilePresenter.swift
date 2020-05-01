@@ -6,12 +6,12 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
-import FirebaseStorage
+import UIKit
 
 protocol EditProfilePresenterDelegate: AnyObject {
     func cancelPressed()
     func savePressed(newName: String, newImage: UIImage)
+    func backToProfile()
 }
 
 class EditProfilePresenter: Presenter {
@@ -43,11 +43,18 @@ class EditProfilePresenter: Presenter {
     }
     
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
+        vc.activityIndicator.stopAnimating()
+        vc.visualEffectView.alpha = 0
+        
         let alertController = UIAlertController(title: title, message:
             error, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
+        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default, handler: { (action: UIAlertAction!) in self.backToProfile() }))
 
         vc.present(alertController, animated: true, completion: nil)
+    }
+    
+    func backToProfile() {
+        delegate?.backToProfile()
     }
 }
 

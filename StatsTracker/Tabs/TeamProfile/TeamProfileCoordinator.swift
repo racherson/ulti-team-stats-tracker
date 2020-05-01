@@ -84,6 +84,11 @@ extension TeamProfileCoordinator: EditProfilePresenterDelegate {
         rootVC.presenter.viewModel = viewModel
         
         // Return to TeamProfileViewController
+        backToProfile()
+    }
+    
+    func backToProfile() {
+        // Return to TeamProfileViewController
         navigationController.dismiss(animated: true, completion: nil)
         navigationController.popViewController(animated: true)
     }
