@@ -503,6 +503,7 @@
 				2910EB70243FA4C100BCF721 /* Sources */,
 				2910EB71243FA4C100BCF721 /* Frameworks */,
 				2910EB72243FA4C100BCF721 /* Resources */,
+				1EEB90AA2E54C27C15A3633A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -579,6 +580,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1EEB90AA2E54C27C15A3633A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StatsTrackerTests/Pods-StatsTrackerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StatsTrackerTests/Pods-StatsTrackerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StatsTrackerTests/Pods-StatsTrackerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		54819AF6DD83C6B7A0A28D71 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -903,9 +921,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E707A5421FADCA7473E4E2D2 /* Pods-StatsTrackerTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = StatsTrackerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -925,9 +944,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B96C0337CE51DEC03AA4D93F /* Pods-StatsTrackerTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = StatsTrackerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (

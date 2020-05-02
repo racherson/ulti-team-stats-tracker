@@ -52,7 +52,7 @@ class SignUpPresenterTests: XCTestCase {
         XCTAssertEqual(1, authManager.createUserCalled)
     }
     
-    func testCancelCalled() throws {
+    func testCancelPressed() throws {
         XCTAssertEqual(0, cancelPressedBool)
         sut.cancelPressed()
         XCTAssertEqual(1, cancelPressedBool)
