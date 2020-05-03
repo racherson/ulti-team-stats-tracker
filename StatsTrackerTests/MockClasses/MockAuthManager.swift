@@ -13,7 +13,9 @@ class MockSignedInAuthManager: AuthenticationManager {
     
     //MARK: Properties
     var currentUserUID: String? = TestConstants.currentUID
-    weak var delegate: AuthManagerDelegate?
+    weak var loginDelegate: AuthManagerLoginDelegate?
+    weak var createUserDelegate: AuthManagerCreateUserDelegate?
+    weak var logoutDelegate: AuthManagerLogoutDelegate?
     
     var addAuthListenerCalled: Int = 0
     var removeAuthListenerCalled: Int = 0
@@ -40,13 +42,15 @@ class MockSignedInAuthManager: AuthenticationManager {
     
     func logout() {
         logoutCalled += 1
-        delegate?.onSuccessfulLogout()
+        logoutDelegate?.onSuccessfulLogout()
     }
 }
 
 class MockSignedOutAuthManager: AuthenticationManager {
     var currentUserUID: String? = nil
-    var delegate: AuthManagerDelegate?
+    weak var loginDelegate: AuthManagerLoginDelegate?
+    weak var createUserDelegate: AuthManagerCreateUserDelegate?
+    weak var logoutDelegate: AuthManagerLogoutDelegate?
 }
 
 //MARK: MockSignedOutAuthManager Dummy

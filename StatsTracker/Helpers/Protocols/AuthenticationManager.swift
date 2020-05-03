@@ -12,7 +12,9 @@ protocol AuthenticationManager {
     
     //MARK: Properties
     var currentUserUID: String? { get }
-    var delegate: AuthManagerDelegate? { get set }
+    var loginDelegate: AuthManagerLoginDelegate? { get set }
+    var createUserDelegate: AuthManagerCreateUserDelegate? { get set }
+    var logoutDelegate: AuthManagerLogoutDelegate? { get set }
     
     //MARK: Methods
     func addAuthListener()
@@ -22,17 +24,21 @@ protocol AuthenticationManager {
     func logout()
 }
 
-//MARK: AuthManagerDelegate
-protocol AuthManagerDelegate: AnyObject {
-    func onSuccessfulLogout()
+//MARK: AuthManagerLogoutDelegate
+protocol AuthManagerLogoutDelegate: AnyObject {
     func displayError(with error: Error)
-    func onAuthHandleChange()
-    func onCreateUserCompletion(uid: String, data: [String: Any])
+    func onSuccessfulLogout()
 }
 
-extension AuthManagerDelegate {
-    // Defaults
-    func onSuccessfulLogout() { }
-    func onAuthHandleChange() { }
-    func onCreateUserCompletion(uid: String, data: [String: Any]) { }
+//MARK: AuthManagerCreateUserDelegate
+protocol AuthManagerCreateUserDelegate: AnyObject {
+    func displayError(with error: Error)
+    func onCreateUserCompletion(uid: String, data: [String: Any])
+    func onAuthHandleChange()
+}
+
+//MARK: AuthManagerLoginDelegate
+protocol AuthManagerLoginDelegate: AnyObject {
+    func displayError(with error: Error)
+    func onAuthHandleChange()
 }

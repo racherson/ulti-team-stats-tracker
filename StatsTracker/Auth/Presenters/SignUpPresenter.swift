@@ -28,7 +28,7 @@ class SignUpPresenter: Presenter {
         self.delegate = delegate
         self.authManager = authManager
         self.dbManager = dbManager
-        self.authManager.delegate = self
+        self.authManager.createUserDelegate = self
         self.dbManager.delegate = self
     }
 }
@@ -60,8 +60,8 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
 }
 
-//MARK: AuthManagerDelegate, DatabaseManagerDelegate
-extension SignUpPresenter: AuthManagerDelegate, DatabaseManagerDelegate {
+//MARK: AuthManagerCreateUserDelegate, DatabaseManagerDelegate
+extension SignUpPresenter: AuthManagerCreateUserDelegate, DatabaseManagerDelegate {
     func displayError(with error: Error) {
         self.vc.showError(error.localizedDescription)
     }

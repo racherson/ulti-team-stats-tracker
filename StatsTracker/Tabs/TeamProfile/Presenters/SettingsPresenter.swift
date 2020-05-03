@@ -25,7 +25,7 @@ class SettingsPresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.authManager = authManager
-        self.authManager.delegate = self
+        self.authManager.logoutDelegate = self
     }
     
     func transitionToHome() {
@@ -71,8 +71,8 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     }
 }
 
-//MARK: AuthManagerDelegate
-extension SettingsPresenter: AuthManagerDelegate {
+//MARK: AuthManagerLogoutDelegate
+extension SettingsPresenter: AuthManagerLogoutDelegate {
     
     func displayError(with error: Error) {
         self.showErrorAlert(error: error.localizedDescription)

@@ -20,7 +20,7 @@ class LoginPresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.authManager = authManager
-        self.authManager.delegate = self
+        self.authManager.loginDelegate = self
     }
 }
 
@@ -50,8 +50,8 @@ extension LoginPresenter: LoginPresenterProtocol {
     }
 }
 
-//MARK: AuthManagerDelegate
-extension LoginPresenter: AuthManagerDelegate {
+//MARK: AuthManagerLoginDelegate
+extension LoginPresenter: AuthManagerLoginDelegate {
     func displayError(with error: Error) {
         self.vc.showError(error.localizedDescription)
     }

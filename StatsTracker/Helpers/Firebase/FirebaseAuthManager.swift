@@ -15,7 +15,9 @@ class FirebaseAuthManager: AuthenticationManager {
     private(set) var currentUserUID: String? = Auth.auth().currentUser?.uid
     private var auth: Auth = Auth.auth()
     private var handle: AuthStateDidChangeListenerHandle?
-    weak var delegate: AuthManagerDelegate?
+    weak var loginDelegate: AuthManagerLoginDelegate?
+    weak var createUserDelegate: AuthManagerCreateUserDelegate?
+    weak var logoutDelegate: AuthManagerLogoutDelegate?
     
     // This method creates a new user account and stores in Firestore.
     func createUser(_ teamName: String?, _ email: String?, _ password: String?) {
@@ -23,9 +25,9 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             try validateFields(teamName, email, password)
         } catch let error as AuthError {
-            delegate?.displayError(with: error)
+            createUserDelegate?.displayError(with: error)
         } catch {
-            delegate?.displayError(with: AuthError.unknown)
+            createUserDelegate?.displayError(with: AuthError.unknown)
         }
         
         // Create the user
@@ -33,7 +35,7 @@ class FirebaseAuthManager: AuthenticationManager {
             // Check for errors
             if err != nil {
                 // There was an error creating the user
-                self.delegate?.displayError(with: err!)
+                self.createUserDelegate?.displayError(with: err!)
             }
             else {
                 // User was created successfully, now store the user data (validated as not empty)
@@ -44,7 +46,7 @@ class FirebaseAuthManager: AuthenticationManager {
                     Constants.UserDataModel.imageURL: Constants.Empty.string
                 ]
                 
-                self.delegate?.onCreateUserCompletion(uid: uid, data: userData)
+                self.createUserDelegate?.onCreateUserCompletion(uid: uid, data: userData)
             }
         }
     }
@@ -55,20 +57,20 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             try validateFields(email, password)
         } catch let error as AuthError {
-            delegate?.displayError(with: error)
+            loginDelegate?.displayError(with: error)
         } catch {
-            delegate?.displayError(with: AuthError.unknown)
+            loginDelegate?.displayError(with: AuthError.unknown)
         }
 
         // Sign in the user
         auth.signIn(withEmail: email!, password: password!) { (result, err) in
             if err != nil {
                 // Coudn't sign in
-                self.delegate?.displayError(with: err!)
+                self.loginDelegate?.displayError(with: err!)
             }
             
             if result == nil {
-                self.delegate?.displayError(with: AuthError.signIn)
+                self.loginDelegate?.displayError(with: AuthError.signIn)
             }
         }
     }
@@ -78,10 +80,10 @@ class FirebaseAuthManager: AuthenticationManager {
         do {
             // Attempt to logout
             try auth.signOut()
-            delegate?.onSuccessfulLogout()
+            logoutDelegate?.onSuccessfulLogout()
         } catch  {
             // Unable to logout
-            delegate?.displayError(with: AuthError.signOut)
+            logoutDelegate?.displayError(with: AuthError.signOut)
         }
     }
     
@@ -90,7 +92,12 @@ class FirebaseAuthManager: AuthenticationManager {
         handle = auth.addStateDidChangeListener() { auth, user in
             // A user was authenticated
             if user != nil {
-                self.delegate?.onAuthHandleChange()
+                if self.createUserDelegate != nil {
+                    self.createUserDelegate?.onAuthHandleChange()
+                }
+                else if self.loginDelegate != nil {
+                    self.loginDelegate?.onAuthHandleChange()
+                }
             }
         }
     }

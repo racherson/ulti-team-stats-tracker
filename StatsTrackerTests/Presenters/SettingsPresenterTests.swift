@@ -23,7 +23,7 @@ class SettingsPresenterTests: XCTestCase {
         vc = SettingsViewController.instantiate(.team)
         let _ = vc.view
         authManager = MockSignedInAuthManager()
-        authManager.delegate = sut
+        authManager.logoutDelegate = sut
         sut = SettingsPresenter(vc: vc, delegate: self, authManager: authManager)
         super.setUp()
     }
