@@ -38,7 +38,7 @@ class SettingsPresenter: Presenter {
     
     private func showErrorAlert(error: String) {
         // Error logging out, display alert
-        let alertController = UIAlertController(title: Constants.Errors.logoutError, message:
+        let alertController = UIAlertController(title: Constants.Errors.logoutErrorTitle, message:
             error, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
 
