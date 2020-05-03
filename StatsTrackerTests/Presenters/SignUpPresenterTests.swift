@@ -14,6 +14,7 @@ class SignUpPresenterTests: XCTestCase {
     var sut: SignUpPresenter!
     var vc: SignUpViewController!
     var authManager: MockSignedInAuthManager!
+    var dbManager: MockDBManager!
     
     var cancelPressedBool: Int = 0
     var transitionCalled: Int = 0
@@ -22,8 +23,8 @@ class SignUpPresenterTests: XCTestCase {
         vc = SignUpViewController.instantiate(.auth)
         let _ = vc.view
         authManager = MockSignedInAuthManager()
-        sut = SignUpPresenter(vc: vc, delegate: self)
-        sut.authManager = authManager
+        dbManager = MockDBManager()
+        sut = SignUpPresenter(vc: vc, delegate: self, authManager: authManager, dbManager: dbManager)
         super.setUp()
     }
     
@@ -31,6 +32,7 @@ class SignUpPresenterTests: XCTestCase {
         sut = nil
         vc = nil
         authManager = nil
+        dbManager = nil
         super.tearDown()
     }
     
@@ -67,11 +69,23 @@ class SignUpPresenterTests: XCTestCase {
     func testDisplayError() throws {
         let authError = AuthError.unknown
         sut.displayError(with: authError)
-        XCTAssertEqual(vc.errorLabel.text, authError.errorDescription)
+        XCTAssertEqual(vc.errorLabel.text, authError.localizedDescription)
+        
+        let dbError = DBError.unknown
+        sut.displayError(with: dbError)
+        XCTAssertEqual(vc.errorLabel.text, dbError.localizedDescription)
         
         let unknownError = TestConstants.error
         sut.displayError(with: unknownError)
         XCTAssertEqual(vc.errorLabel.text, unknownError.localizedDescription)
+    }
+    
+    func testOnCreateUserCompletion() throws {
+        XCTAssertNil(dbManager.uid)
+        XCTAssertEqual(0, dbManager.setDataCalled)
+        sut.onCreateUserCompletion(uid: TestConstants.currentUID, data: ["": ""])
+        XCTAssertEqual(dbManager.uid, TestConstants.currentUID)
+        XCTAssertEqual(1, dbManager.setDataCalled)
     }
 }
 

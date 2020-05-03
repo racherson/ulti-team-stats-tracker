@@ -13,23 +13,18 @@ import FirebaseStorage
 class FirestoreDBManager {
     
     //MARK: Properties
-    let uid: String
-    var delegate: DatabaseManagerDelegate?
+    var uid: String?
+    weak var delegate: DatabaseManagerDelegate?
     private let root = Firestore
         .firestore()
         .collection(FirebaseKeys.CollectionPath.environment)
         .document(FirebaseKeys.CollectionPath.environment)
     
-    //MARK: Initialization
-    init(uid: String) {
-        self.uid = uid
-    }
-    
     //MARK: Private methods
     private func referenceForUserPublicData() -> DocumentReference {
         return root
             .collection(FirebaseKeys.CollectionPath.users)
-            .document(uid)
+            .document(uid!)
             .collection(FirebaseKeys.CollectionPath.publicData)
             .document(FirebaseKeys.CollectionPath.publicData)
     }
@@ -40,6 +35,11 @@ extension FirestoreDBManager: DatabaseManager {
     
     // This method adds new data to the current user's public data.
     func setData(data: [String : Any]) {
+        guard uid != nil else {
+            self.delegate?.displayError(with: DBError.document)
+            return
+        }
+        
         referenceForUserPublicData().setData(data) { (error) in
             if error != nil {
                 // Show error message
@@ -50,6 +50,11 @@ extension FirestoreDBManager: DatabaseManager {
     
     // This method retrieves the current user's public data and sends it to the delegate.
     func getData() {
+        guard uid != nil else {
+            self.delegate?.displayError(with: DBError.document)
+            return
+        }
+        
         referenceForUserPublicData().getDocument { (document, error) in
             if error != nil {
                 // Show error message
@@ -78,6 +83,11 @@ extension FirestoreDBManager: DatabaseManager {
     
     // This method updates data in the database.
     func updateData(data: [String : Any]) {
+        guard uid != nil else {
+            self.delegate?.displayError(with: DBError.document)
+            return
+        }
+        
         referenceForUserPublicData().updateData(data) { (error) in
             if error != nil {
                 // Show error message
@@ -91,6 +101,11 @@ extension FirestoreDBManager: DatabaseManager {
     
     // This method store an image in the FirebaseStorage and returns a url to the delegate.
     func storeImage(image: UIImage) {
+        guard let uid = uid else {
+            self.delegate?.displayError(with: DBError.document)
+            return
+        }
+        
         // Convert image to data to store
         guard let data = image.jpegData(compressionQuality: 1.0) else {
             self.delegate?.displayError(with: DBError.unknown)

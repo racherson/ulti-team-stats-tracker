@@ -18,24 +18,28 @@ enum AuthError: Error {
     case user
 }
 
-//MARK: LocalizedError
-extension AuthError: LocalizedError {
-    public var errorDescription: String? {
+//MARK: LocalizedError, CustomStringConvertible
+extension AuthError: LocalizedError, CustomStringConvertible {
+    public var description: String {
         switch self {
         case .emptyFields:
-            return Constants.Errors.emptyFieldsError
+            return getLocalizedString(Constants.Errors.emptyFieldsError)
         case .invalidEmail:
-            return Constants.Errors.invalidEmailError
+            return getLocalizedString(Constants.Errors.invalidEmailError)
         case .insecurePassword:
-            return Constants.Errors.insecurePasswordError
+            return getLocalizedString(Constants.Errors.insecurePasswordError)
         case .signOut:
-            return Constants.Errors.signOutError
+            return getLocalizedString(Constants.Errors.signOutError)
         case .signIn:
-            return Constants.Errors.signInError
+            return getLocalizedString(Constants.Errors.signInError)
         case .user:
-            return Constants.Errors.userError
+            return getLocalizedString(Constants.Errors.userError)
         case .unknown:
-            return Constants.Errors.unknown
+            return getLocalizedString(Constants.Errors.unknown)
         }
+    }
+    
+    func getLocalizedString(_ error: String) -> String {
+        return String.localizedStringWithFormat(NSLocalizedString("%@", comment: "Error description"), error)
     }
 }

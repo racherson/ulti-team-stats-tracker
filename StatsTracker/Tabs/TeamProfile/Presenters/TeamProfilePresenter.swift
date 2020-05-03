@@ -26,10 +26,13 @@ class TeamProfilePresenter: Presenter {
     }
     
     //MARK: Initialization
-    init(vc: TeamProfileViewController, delegate: TeamProfilePresenterDelegate?, authManager: AuthenticationManager) {
+    init(vc: TeamProfileViewController, delegate: TeamProfilePresenterDelegate?,
+         authManager: AuthenticationManager, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
         self.authManager = authManager
+        self.dbManager = dbManager
+        self.dbManager.delegate = self
         
         initializeViewModel()
     }
@@ -43,8 +46,7 @@ class TeamProfilePresenter: Presenter {
         }
         
         // Retrieve the data saved in DB for that user
-        self.dbManager = FirestoreDBManager(uid: uid)
-        dbManager.delegate = self
+        dbManager.uid = uid
         dbManager.getData()
     }
     
@@ -93,11 +95,6 @@ extension TeamProfilePresenter: DatabaseManagerDelegate {
     }
     
     func displayError(with error: Error) {
-        guard let dbError = error as? DBError else {
-            // Not an DBError specific type
-            self.showErrorAlert(error: error.localizedDescription)
-            return
-        }
-        self.showErrorAlert(error: dbError.errorDescription!)
+        self.showErrorAlert(error: error.localizedDescription)
     }
 }

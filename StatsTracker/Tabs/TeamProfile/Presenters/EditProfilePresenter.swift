@@ -24,10 +24,13 @@ class EditProfilePresenter: Presenter {
     var viewModel: TeamProfileViewModel!
     
     //MARK: Initialization
-    init(vc: EditProfileViewController, delegate: EditProfilePresenterDelegate?, authManager: AuthenticationManager) {
+    init(vc: EditProfileViewController, delegate: EditProfilePresenterDelegate?,
+         authManager: AuthenticationManager, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
         self.authManager = authManager
+        self.dbManager = dbManager
+        self.dbManager.delegate = self
         
         setDBManager()
     }
@@ -39,8 +42,7 @@ class EditProfilePresenter: Presenter {
             self.showErrorAlert(error: Constants.Errors.userError, title: Constants.Errors.unknown)
             return
         }
-        dbManager = FirestoreDBManager(uid: uid)
-        dbManager.delegate = self
+        dbManager.uid = uid
     }
     
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
@@ -83,12 +85,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
 extension EditProfilePresenter: DatabaseManagerDelegate {
     
     func displayError(with error: Error) {
-        guard let dbError = error as? DBError else {
-            // Not an DBError specific type
-            self.showErrorAlert(error: error.localizedDescription)
-            return
-        }
-        self.showErrorAlert(error: dbError.errorDescription!)
+        self.showErrorAlert(error: error.localizedDescription)
     }
     
     func storeImageURL(url: String) {

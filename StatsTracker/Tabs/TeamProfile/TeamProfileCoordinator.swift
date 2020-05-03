@@ -29,7 +29,7 @@ class TeamProfileCoordinator: Coordinator {
     func start() {
         // Create new view controller
         let vc = TeamProfileViewController.instantiate(.team)
-        vc.presenter = TeamProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
+        vc.presenter = TeamProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager(), dbManager: FirestoreDBManager())
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
@@ -47,7 +47,7 @@ extension TeamProfileCoordinator: TeamProfilePresenterDelegate {
         
         // Push settings view
         let vc = SettingsViewController.instantiate(.team)
-        vc.presenter = SettingsPresenter(vc: vc, delegate: self)
+        vc.presenter = SettingsPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
         navigationController.pushViewController(vc, animated: true)
     }
 }
@@ -61,7 +61,7 @@ extension TeamProfileCoordinator: SettingsPresenterDelegate {
     func editPressed() {
         let vc = EditProfileViewController.instantiate(.team)
         let navController = UINavigationController(rootViewController: vc)
-        let presenter = EditProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
+        let presenter = EditProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager(), dbManager: FirestoreDBManager())
         presenter.viewModel = viewModel
         vc.presenter = presenter
         navigationController.present(navController, animated: true, completion: nil)

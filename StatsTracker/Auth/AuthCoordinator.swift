@@ -38,14 +38,14 @@ extension AuthCoordinator: HomeViewControllerDelegate {
     
     func signUpPressed() {
         let vc = SignUpViewController.instantiate(.auth)
-        vc.presenter = SignUpPresenter(vc: vc, delegate: self)
+        vc.presenter = SignUpPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager(), dbManager: FirestoreDBManager())
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func loginPressed() {
         let vc = LoginViewController.instantiate(.auth)
-        vc.presenter = LoginPresenter(vc: vc, delegate: self)
+        vc.presenter = LoginPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
         navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }

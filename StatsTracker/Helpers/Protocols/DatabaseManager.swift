@@ -11,7 +11,7 @@ import UIKit
 protocol DatabaseManager {
     
     //MARK: Properties
-    var uid: String { get }
+    var uid: String? { get set }
     var delegate: DatabaseManagerDelegate? { get set }
     
     //MARK: Methods

@@ -13,7 +13,7 @@ class MockSignedInAuthManager: AuthenticationManager {
     
     //MARK: Properties
     var currentUserUID: String? = TestConstants.currentUID
-    var delegate: AuthManagerDelegate?
+    weak var delegate: AuthManagerDelegate?
     
     var addAuthListenerCalled: Int = 0
     var removeAuthListenerCalled: Int = 0

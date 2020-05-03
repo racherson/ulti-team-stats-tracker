@@ -22,8 +22,7 @@ class LoginPresenterTests: XCTestCase {
         vc = LoginViewController.instantiate(.auth)
         let _ = vc.view
         authManager = MockSignedInAuthManager()
-        sut = LoginPresenter(vc: vc, delegate: self)
-        sut.authManager = authManager
+        sut = LoginPresenter(vc: vc, delegate: self, authManager: authManager)
         super.setUp()
     }
     
@@ -67,7 +66,7 @@ class LoginPresenterTests: XCTestCase {
     func testDisplayError() throws {
         let authError = AuthError.unknown
         sut.displayError(with: authError)
-        XCTAssertEqual(vc.errorLabel.text, authError.errorDescription)
+        XCTAssertEqual(vc.errorLabel.text, authError.localizedDescription)
         
         let unknownError = TestConstants.error
         sut.displayError(with: unknownError)

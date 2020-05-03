@@ -18,13 +18,18 @@ class SignUpPresenter: Presenter {
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
     weak var vc: SignUpViewController!
-    var authManager: AuthenticationManager = FirebaseAuthManager()
+    var authManager: AuthenticationManager!
+    var dbManager: DatabaseManager!
     
     //MARK: Initialization
-    init(vc: SignUpViewController, delegate: SignUpAndLoginPresenterDelegate?) {
+    init(vc: SignUpViewController, delegate: SignUpAndLoginPresenterDelegate?,
+         authManager: AuthenticationManager, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
+        self.authManager = authManager
+        self.dbManager = dbManager
         self.authManager.delegate = self
+        self.dbManager.delegate = self
     }
 }
 
@@ -55,15 +60,10 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
 }
 
-//MARK: AuthManagerDelegate
-extension SignUpPresenter: AuthManagerDelegate {
+//MARK: AuthManagerDelegate, DatabaseManagerDelegate
+extension SignUpPresenter: AuthManagerDelegate, DatabaseManagerDelegate {
     func displayError(with error: Error) {
-        guard let authError = error as? AuthError else {
-            // Not an AuthError specific type
-            self.vc.showError(error.localizedDescription)
-            return
-        }
-        self.vc.showError(authError.errorDescription!)
+        self.vc.showError(error.localizedDescription)
     }
     
     func onAuthHandleChange() {
@@ -72,15 +72,7 @@ extension SignUpPresenter: AuthManagerDelegate {
     
     func onCreateUserCompletion(uid: String, data: [String : Any]) {
         // Store the new user data with current user uid
-        var dbManager: DatabaseManager = FirestoreDBManager(uid: uid)
-        dbManager.delegate = self
+        dbManager.uid = uid
         dbManager.setData(data: data)
-    }
-}
-
-//MARK: DatabaseManagerDelegate
-extension SignUpPresenter: DatabaseManagerDelegate {
-    func displayError(_ error: Error) {
-        self.displayError(with: error)
     }
 }

@@ -18,12 +18,13 @@ class SettingsPresenter: Presenter {
     //MARK: Properties
     weak var delegate: SettingsPresenterDelegate?
     weak var vc: SettingsViewController!
-    var authManager: AuthenticationManager = FirebaseAuthManager()
+    var authManager: AuthenticationManager!
     
     //MARK: Initialization
-    init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?) {
+    init(vc: SettingsViewController, delegate: SettingsPresenterDelegate?, authManager: AuthenticationManager) {
         self.vc = vc
         self.delegate = delegate
+        self.authManager = authManager
         self.authManager.delegate = self
     }
     
@@ -74,12 +75,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
 extension SettingsPresenter: AuthManagerDelegate {
     
     func displayError(with error: Error) {
-        guard let authError = error as? AuthError else {
-            // Not an AuthError specific type
-            self.showErrorAlert(error: error.localizedDescription)
-            return
-        }
-        self.showErrorAlert(error: authError.errorDescription!)
+        self.showErrorAlert(error: error.localizedDescription)
     }
     
     func onSuccessfulLogout() {

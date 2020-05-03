@@ -23,9 +23,8 @@ class SettingsPresenterTests: XCTestCase {
         vc = SettingsViewController.instantiate(.team)
         let _ = vc.view
         authManager = MockSignedInAuthManager()
-        sut = SettingsPresenter(vc: vc, delegate: self)
         authManager.delegate = sut
-        sut.authManager = authManager
+        sut = SettingsPresenter(vc: vc, delegate: self, authManager: authManager)
         super.setUp()
     }
     
@@ -80,8 +79,8 @@ class SettingsPresenterTests: XCTestCase {
         let authError = AuthError.unknown
         sut.displayError(with: authError)
         alertVerifier.verify(
-            title: Constants.Errors.logoutError,
-            message: authError.errorDescription,
+            title: Constants.Errors.logoutErrorTitle,
+            message: authError.localizedDescription,
             animated: true,
             actions: [
                 .default(TestConstants.Alerts.dismiss)
@@ -95,7 +94,7 @@ class SettingsPresenterTests: XCTestCase {
         let unknownError = TestConstants.error
         sut.displayError(with: unknownError)
         alertVerifier.verify(
-            title: Constants.Errors.logoutError,
+            title: Constants.Errors.logoutErrorTitle,
             message: unknownError.localizedDescription,
             animated: true,
             actions: [

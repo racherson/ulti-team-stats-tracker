@@ -13,14 +13,18 @@ enum DBError: Error {
     case unknown
 }
 
-//MARK: LocalizedError
-extension DBError: LocalizedError {
-    public var errorDescription: String? {
+//MARK: LocalizedError, CustomStringConvertible
+extension DBError: LocalizedError, CustomStringConvertible {
+    public var description: String {
         switch self {
         case .document:
-            return Constants.Errors.documentError
+            return getLocalizedString(Constants.Errors.documentError)
         case .unknown:
-            return Constants.Errors.unknown
+            return getLocalizedString(Constants.Errors.unknown)
         }
+    }
+    
+    func getLocalizedString(_ error: String) -> String {
+        return String.localizedStringWithFormat(NSLocalizedString("%@", comment: "Error description"), error)
     }
 }

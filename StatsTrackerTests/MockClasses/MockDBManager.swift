@@ -12,17 +12,13 @@ import UIKit
 class MockDBManager: DatabaseManager {
     
     //MARK: Properties
-    var uid: String
-    var delegate: DatabaseManagerDelegate?
+    var uid: String?
+    weak var delegate: DatabaseManagerDelegate?
     
     var setDataCalled: Int = 0
     var getDataCalled: Int = 0
     var updateDataCalled: Int = 0
     var storeImageDataCalled: Int = 0
-    
-    init(uid: String) {
-        self.uid = uid
-    }
     
     //MARK: Methods
     func setData(data: [String : Any]) {

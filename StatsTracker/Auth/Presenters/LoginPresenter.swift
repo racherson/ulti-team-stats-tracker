@@ -13,12 +13,13 @@ class LoginPresenter: Presenter {
     //MARK: Properties
     weak var delegate: SignUpAndLoginPresenterDelegate?
     weak var vc: LoginViewController!
-    var authManager: AuthenticationManager = FirebaseAuthManager()
+    var authManager: AuthenticationManager!
     
     //MARK: Initialization
-    init(vc: LoginViewController, delegate: SignUpAndLoginPresenterDelegate?) {
+    init(vc: LoginViewController, delegate: SignUpAndLoginPresenterDelegate?, authManager: AuthenticationManager) {
         self.vc = vc
         self.delegate = delegate
+        self.authManager = authManager
         self.authManager.delegate = self
     }
 }
@@ -52,12 +53,7 @@ extension LoginPresenter: LoginPresenterProtocol {
 //MARK: AuthManagerDelegate
 extension LoginPresenter: AuthManagerDelegate {
     func displayError(with error: Error) {
-        guard let authError = error as? AuthError else {
-            // Not an AuthError specific type
-            self.vc.showError(error.localizedDescription)
-            return
-        }
-        self.vc.showError(authError.errorDescription!)
+        self.vc.showError(error.localizedDescription)
     }
     
     func onAuthHandleChange() {
