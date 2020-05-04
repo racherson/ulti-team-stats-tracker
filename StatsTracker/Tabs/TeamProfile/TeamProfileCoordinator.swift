@@ -27,6 +27,8 @@ class TeamProfileCoordinator: Coordinator {
     }
 
     func start() {
+        setLargeTitles()
+        
         // Create new view controller
         let vc = TeamProfileViewController.instantiate(.team)
         vc.presenter = TeamProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager(), dbManager: FirestoreDBManager())
@@ -34,6 +36,7 @@ class TeamProfileCoordinator: Coordinator {
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
         rootVC = vc
+        
         navigationController.pushViewController(vc, animated: true)
     }
 }

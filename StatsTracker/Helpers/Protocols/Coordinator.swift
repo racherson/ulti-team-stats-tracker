@@ -14,4 +14,13 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
 
     func start()
+    func setLargeTitles()
+}
+
+extension Coordinator {
+    func setLargeTitles() {
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationItem.largeTitleDisplayMode = .always
+        navigationController.navigationBar.sizeToFit()
+    }
 }

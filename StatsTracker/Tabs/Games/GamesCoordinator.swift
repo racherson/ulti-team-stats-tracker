@@ -20,9 +20,15 @@ class GamesCoordinator: Coordinator {
     }
 
     func start() {
+        setLargeTitles()
+        
+        // Create new view controller
         let vc = GamesViewController.instantiate(.games)
         vc.delegate = self
+        
+        // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.gamesTitle, image: UIImage(systemName: "chart.bar"), tag: 3)
+        
         navigationController.pushViewController(vc, animated: true)
     }
 }

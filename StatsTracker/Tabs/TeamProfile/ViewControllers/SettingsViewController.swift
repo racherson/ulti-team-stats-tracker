@@ -28,6 +28,8 @@ class SettingsViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.contentInsetAdjustmentBehavior = .never
+        
         // Connect tableView to the View Controller
         tableView.delegate = self
         tableView.dataSource = self

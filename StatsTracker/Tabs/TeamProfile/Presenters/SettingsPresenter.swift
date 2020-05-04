@@ -51,7 +51,7 @@ class SettingsPresenter: Presenter {
 extension SettingsPresenter: SettingsPresenterProtocol {
     
     func onViewWillAppear() {
-        vc.title = Constants.Titles.settingsTitle
+        vc.navigationItem.title = Constants.Titles.settingsTitle
     }
 
     func editPressed() {

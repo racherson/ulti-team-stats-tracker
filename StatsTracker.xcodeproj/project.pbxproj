@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C04E24608E3B00635299 /* RosterTableViewCell.swift */; };
 		29053585245A098300A72DCF /* EditProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053584245A098300A72DCF /* EditProfilePresenterTests.swift */; };
 		29053587245A0B0B00A72DCF /* TestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053586245A0B0B00A72DCF /* TestConstants.swift */; };
 		2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB61243FA4C100BCF721 /* AppDelegate.swift */; };
@@ -88,6 +89,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2901C04E24608E3B00635299 /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
 		29053584245A098300A72DCF /* EditProfilePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenterTests.swift; sourceTree = "<group>"; };
 		29053586245A0B0B00A72DCF /* TestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConstants.swift; sourceTree = "<group>"; };
 		2910EB5E243FA4C100BCF721 /* StatsTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StatsTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +188,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2901C05024608EF000635299 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2910EB65243FA4C100BCF721 /* RosterViewController.swift */,
+				2901C04E24608E3B00635299 /* RosterTableViewCell.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2901C05124608F0100635299 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
 		2910EB55243FA4C100BCF721 = {
 			isa = PBXGroup;
 			children = (
@@ -261,9 +279,10 @@
 		2910EB9A243FC5FB00BCF721 /* Roster */ = {
 			isa = PBXGroup;
 			children = (
+				2901C05124608F0100635299 /* Presenters */,
+				2901C05024608EF000635299 /* ViewControllers */,
 				2910EB67243FA4C100BCF721 /* Roster.storyboard */,
 				2910EB87243FA56A00BCF721 /* RosterCoordinator.swift */,
-				2910EB65243FA4C100BCF721 /* RosterViewController.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -688,6 +707,7 @@
 				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
 				29458D072447AA9900EC03AB /* UserDataModel.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
+				2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */,
 				2966446A2452412C0013D902 /* Presenter.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */,

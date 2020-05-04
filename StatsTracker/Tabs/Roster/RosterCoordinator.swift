@@ -20,9 +20,15 @@ class RosterCoordinator: Coordinator {
     }
 
     func start() {
+        setLargeTitles()
+        
+        // Create new view controller
         let vc = RosterViewController.instantiate(.roster)
         vc.delegate = self
+        
+        // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)
+        
         navigationController.pushViewController(vc, animated: true)
     }
     
