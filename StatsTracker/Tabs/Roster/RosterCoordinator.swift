@@ -24,12 +24,15 @@ class RosterCoordinator: Coordinator {
         
         // Create new view controller
         let vc = RosterViewController.instantiate(.roster)
-        vc.delegate = self
+        vc.presenter = RosterPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)
         
         navigationController.pushViewController(vc, animated: true)
     }
+}
+
+extension RosterCoordinator: RosterPresenterDelegate {
     
 }

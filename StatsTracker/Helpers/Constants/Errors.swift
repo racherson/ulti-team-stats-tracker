@@ -16,6 +16,7 @@ extension Constants {
         static let invalidEmailError = "Invalid email format."
         
         static let settingCellError = "Unknown settings cell type."
+        static let rosterCellError = "Unknown roster cell type."
         static func dequeueError(_ cell: String) -> String {
             return "The dequeued cell is not an instance of " + cell
         }

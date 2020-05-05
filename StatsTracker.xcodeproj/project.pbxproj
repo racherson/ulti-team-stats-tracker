@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C04E24608E3B00635299 /* RosterTableViewCell.swift */; };
+		2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905319E2461EB2100478FF9 /* RosterPresenter.swift */; };
 		29053585245A098300A72DCF /* EditProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053584245A098300A72DCF /* EditProfilePresenterTests.swift */; };
 		29053587245A0B0B00A72DCF /* TestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053586245A0B0B00A72DCF /* TestConstants.swift */; };
 		2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB61243FA4C100BCF721 /* AppDelegate.swift */; };
@@ -90,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		2901C04E24608E3B00635299 /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
+		2905319E2461EB2100478FF9 /* RosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterPresenter.swift; sourceTree = "<group>"; };
 		29053584245A098300A72DCF /* EditProfilePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenterTests.swift; sourceTree = "<group>"; };
 		29053586245A0B0B00A72DCF /* TestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConstants.swift; sourceTree = "<group>"; };
 		2910EB5E243FA4C100BCF721 /* StatsTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StatsTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +202,7 @@
 		2901C05124608F0100635299 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				2905319E2461EB2100478FF9 /* RosterPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,
 				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
+				2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
 				295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */,
