@@ -9,7 +9,8 @@
 import Foundation
 
 protocol PlayerPresenterDelegate: AnyObject {
-    //
+    func cancelPressed()
+    func savePressed()
 }
 
 class PlayerPresenter: Presenter {
@@ -26,7 +27,15 @@ class PlayerPresenter: Presenter {
 }
 
 extension PlayerPresenter: PlayerPresenterProtocol {
+    
     func onViewWillAppear() {
-        //
+    }
+    
+    func cancelPressed() {
+        delegate?.cancelPressed()
+    }
+    
+    func savePressed() {
+        delegate?.savePressed()
     }
 }

@@ -37,9 +37,18 @@ extension RosterCoordinator: RosterPresenterDelegate {
     func addPressed() {
         let vc = PlayerViewController.instantiate(.roster)
         vc.presenter = PlayerPresenter(vc: vc, delegate: self)
-        navigationController.pushViewController(vc, animated: true)
+        let navController = UINavigationController(rootViewController: vc)
+        navigationController.present(navController, animated: true, completion: nil)
     }
 }
 
 extension RosterCoordinator: PlayerPresenterDelegate {
+    func cancelPressed() {
+        navigationController.dismiss(animated: true, completion: nil)
+    }
+    
+    func savePressed() {
+        //TODO: Save!
+        navigationController.dismiss(animated: true, completion: nil)
+    }
 }

@@ -30,6 +30,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         // Handle the text field’s user input through delegate callbacks.
         teamNameTextField.delegate = self
         teamNameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
+        
         activityIndicator.hidesWhenStopped = true
         visualEffectView.alpha = 0
         visualEffectView.layer.cornerRadius = 15

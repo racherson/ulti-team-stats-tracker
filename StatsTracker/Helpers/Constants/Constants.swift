@@ -19,8 +19,8 @@ struct Constants {
         static let logout = "Log Out"
         static let edit = "Edit Team Profile"
         static let defaultTeamName = "Team Name"
-        static let men = "  Men"
-        static let women = "  Women"
+        static let men = "Men"
+        static let women = "Women"
     }
     
     struct Alerts {

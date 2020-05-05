@@ -23,7 +23,10 @@ class RosterViewController: UIViewController, Storyboarded {
     //MARK: Properties
     var presenter: RosterPresenterProtocol!
     @IBOutlet weak var tableView: UITableView!
-    let names = ["hi", "another", "more", "blah", "pizza"]
+    let names = [
+        ["Rachel", "Corinne"],
+        ["Kenneth", "George"]
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +63,7 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return names[section].count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -82,7 +85,7 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // Configure the cell
-        cell.textLabel?.text = names[indexPath.row]
+        cell.textLabel?.text = names[indexPath.section][indexPath.row]
         return cell
     }
     
