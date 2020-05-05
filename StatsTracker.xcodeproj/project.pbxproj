@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C04E24608E3B00635299 /* RosterTableViewCell.swift */; };
 		2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905319E2461EB2100478FF9 /* RosterPresenter.swift */; };
-		290531A12461F50800478FF9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290531A02461F50800478FF9 /* PlayerViewController.swift */; };
-		290531A32461F56500478FF9 /* PlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290531A22461F56500478FF9 /* PlayerPresenter.swift */; };
+		290531A12461F50800478FF9 /* NewPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290531A02461F50800478FF9 /* NewPlayerViewController.swift */; };
+		290531A32461F56500478FF9 /* NewPlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290531A22461F56500478FF9 /* NewPlayerPresenter.swift */; };
 		29053585245A098300A72DCF /* EditProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053584245A098300A72DCF /* EditProfilePresenterTests.swift */; };
 		29053587245A0B0B00A72DCF /* TestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053586245A0B0B00A72DCF /* TestConstants.swift */; };
 		2910EB62243FA4C100BCF721 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2910EB61243FA4C100BCF721 /* AppDelegate.swift */; };
@@ -58,6 +58,8 @@
 		299D32E3245916B6009A7E37 /* PullCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32E2245916B6009A7E37 /* PullCoordinatorTests.swift */; };
 		299D32E5245916E7009A7E37 /* GamesCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32E4245916E7009A7E37 /* GamesCoordinatorTests.swift */; };
 		299D32E824591782009A7E37 /* SignUpPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32E724591782009A7E37 /* SignUpPresenterTests.swift */; };
+		29A279BE2462162E00C91FDF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A279BD2462162E00C91FDF /* PlayerViewModel.swift */; };
+		29A279C0246216A400C91FDF /* RosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A279BF246216A400C91FDF /* RosterViewModel.swift */; };
 		29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */; };
 		29AD5202243FE38F0094DCDE /* TeamProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */; };
 		29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */; };
@@ -94,8 +96,8 @@
 /* Begin PBXFileReference section */
 		2901C04E24608E3B00635299 /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
 		2905319E2461EB2100478FF9 /* RosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterPresenter.swift; sourceTree = "<group>"; };
-		290531A02461F50800478FF9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		290531A22461F56500478FF9 /* PlayerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPresenter.swift; sourceTree = "<group>"; };
+		290531A02461F50800478FF9 /* NewPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerViewController.swift; sourceTree = "<group>"; };
+		290531A22461F56500478FF9 /* NewPlayerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerPresenter.swift; sourceTree = "<group>"; };
 		29053584245A098300A72DCF /* EditProfilePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenterTests.swift; sourceTree = "<group>"; };
 		29053586245A0B0B00A72DCF /* TestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConstants.swift; sourceTree = "<group>"; };
 		2910EB5E243FA4C100BCF721 /* StatsTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StatsTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +149,8 @@
 		299D32E2245916B6009A7E37 /* PullCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullCoordinatorTests.swift; sourceTree = "<group>"; };
 		299D32E4245916E7009A7E37 /* GamesCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesCoordinatorTests.swift; sourceTree = "<group>"; };
 		299D32E724591782009A7E37 /* SignUpPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenterTests.swift; sourceTree = "<group>"; };
+		29A279BD2462162E00C91FDF /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		29A279BF246216A400C91FDF /* RosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterViewModel.swift; sourceTree = "<group>"; };
 		29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinator.swift; sourceTree = "<group>"; };
 		29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamProfile.storyboard; sourceTree = "<group>"; };
 		29AD5203243FE3C50094DCDE /* TeamProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewController.swift; sourceTree = "<group>"; };
@@ -199,7 +203,7 @@
 			children = (
 				2910EB65243FA4C100BCF721 /* RosterViewController.swift */,
 				2901C04E24608E3B00635299 /* RosterTableViewCell.swift */,
-				290531A02461F50800478FF9 /* PlayerViewController.swift */,
+				290531A02461F50800478FF9 /* NewPlayerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -208,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				2905319E2461EB2100478FF9 /* RosterPresenter.swift */,
-				290531A22461F56500478FF9 /* PlayerPresenter.swift */,
+				290531A22461F56500478FF9 /* NewPlayerPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -292,6 +296,8 @@
 				2901C05024608EF000635299 /* ViewControllers */,
 				2910EB67243FA4C100BCF721 /* Roster.storyboard */,
 				2910EB87243FA56A00BCF721 /* RosterCoordinator.swift */,
+				29A279BD2462162E00C91FDF /* PlayerViewModel.swift */,
+				29A279BF246216A400C91FDF /* RosterViewModel.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -705,16 +711,18 @@
 				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
 				2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */,
-				290531A12461F50800478FF9 /* PlayerViewController.swift in Sources */,
+				290531A12461F50800478FF9 /* NewPlayerViewController.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
 				295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */,
 				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
 				2969BC59244A2C4400E95EBA /* MainTabBarCoordinator.swift in Sources */,
 				294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */,
-				290531A32461F56500478FF9 /* PlayerPresenter.swift in Sources */,
+				290531A32461F56500478FF9 /* NewPlayerPresenter.swift in Sources */,
 				2989B7C9244906A90072FB34 /* TeamProfileViewModel.swift in Sources */,
+				29A279C0246216A400C91FDF /* RosterViewModel.swift in Sources */,
 				29C61B33245A2ED400F00987 /* DatabaseManager.swift in Sources */,
+				29A279BE2462162E00C91FDF /* PlayerViewModel.swift in Sources */,
 				293946A02443FD530021D07B /* SettingsViewController.swift in Sources */,
 				2910EB90243FB1D600BCF721 /* MainTabBarController.swift in Sources */,
 				29458D072447AA9900EC03AB /* UserDataModel.swift in Sources */,

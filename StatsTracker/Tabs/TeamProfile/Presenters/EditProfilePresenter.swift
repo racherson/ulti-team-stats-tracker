@@ -10,7 +10,7 @@ import UIKit
 
 protocol EditProfilePresenterDelegate: AnyObject {
     func cancelPressed()
-    func savePressed(newName: String, newImage: UIImage)
+    func savePressed(vm: TeamProfileViewModel)
     func backToProfile()
 }
 
@@ -72,12 +72,12 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
         delegate?.cancelPressed()
     }
     
-    func savePressed(newName: String, newImage: UIImage) {
+    func savePressed(vm: TeamProfileViewModel) {
         // Save new data for later
-        self.viewModel = TeamProfileViewModel(team: newName, image: newImage)
+        self.viewModel = vm
        
         // Store image at a url
-        dbManager.storeImage(image: newImage)
+        dbManager.storeImage(image: vm.teamImage)
     }
 }
 
@@ -103,6 +103,6 @@ extension EditProfilePresenter: DatabaseManagerDelegate {
         self.vc.activityIndicator.stopAnimating()
         self.vc.visualEffectView.alpha = 0
         
-        self.delegate?.savePressed(newName: viewModel.teamName, newImage: viewModel.teamImage)
+        self.delegate?.savePressed(vm: viewModel)
     }
 }

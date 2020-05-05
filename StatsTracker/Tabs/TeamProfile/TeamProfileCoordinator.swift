@@ -27,7 +27,7 @@ class TeamProfileCoordinator: Coordinator {
     }
 
     func start() {
-        setLargeTitles()
+        self.setLargeTitles()
         
         // Create new view controller
         let vc = TeamProfileViewController.instantiate(.team)
@@ -78,10 +78,10 @@ extension TeamProfileCoordinator: EditProfilePresenterDelegate {
         navigationController.dismiss(animated: true, completion: nil)
     }
     
-    func savePressed(newName: String, newImage: UIImage) {
+    func savePressed(vm: TeamProfileViewModel) {
         
         // Give new view model to coordinator
-        viewModel = TeamProfileViewModel(team: newName, image: newImage)
+        viewModel = vm
         
         // Give new view model to TeamProfilePresenter to update view
         rootVC.presenter.viewModel = viewModel

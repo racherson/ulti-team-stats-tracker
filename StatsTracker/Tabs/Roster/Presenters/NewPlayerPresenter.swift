@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PlayerPresenterDelegate: AnyObject {
+protocol NewPlayerPresenterDelegate: AnyObject {
     func cancelPressed()
     func savePressed(player: PlayerViewModel)
 }
@@ -16,17 +16,17 @@ protocol PlayerPresenterDelegate: AnyObject {
 class NewPlayerPresenter: Presenter {
     
     //MARK: Properties
-    weak var delegate: PlayerPresenterDelegate?
+    weak var delegate: NewPlayerPresenterDelegate?
     weak var vc: NewPlayerViewController!
     
     //MARK: Initialization
-    init(vc: NewPlayerViewController, delegate: PlayerPresenterDelegate?) {
+    init(vc: NewPlayerViewController, delegate: NewPlayerPresenterDelegate?) {
         self.vc = vc
         self.delegate = delegate
     }
 }
 
-extension NewPlayerPresenter: PlayerPresenterProtocol {
+extension NewPlayerPresenter: NewPlayerPresenterProtocol {
     
     func onViewWillAppear() {
     }

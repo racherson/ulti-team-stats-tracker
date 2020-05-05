@@ -20,7 +20,7 @@ class GamesCoordinator: Coordinator {
     }
 
     func start() {
-        setLargeTitles()
+        self.setLargeTitles()
         
         // Create new view controller
         let vc = GamesViewController.instantiate(.games)

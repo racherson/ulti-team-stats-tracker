@@ -11,7 +11,7 @@ import UIKit
 protocol EditProfilePresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func cancelPressed()
-    func savePressed(newName: String, newImage: UIImage)
+    func savePressed(vm: TeamProfileViewModel)
 }
 
 class EditProfileViewController: UIViewController, Storyboarded, UINavigationControllerDelegate {
@@ -83,7 +83,10 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         // Give presenter current text and image
         visualEffectView.alpha = 1
         activityIndicator.startAnimating()
-        presenter.savePressed(newName: teamNameTextField.text!, newImage: teamPhotoImage.image!)
+        
+        let vm = TeamProfileViewModel(team: teamNameTextField.text!, image: teamPhotoImage.image!)
+        
+        presenter.savePressed(vm: vm)
     }
     
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {

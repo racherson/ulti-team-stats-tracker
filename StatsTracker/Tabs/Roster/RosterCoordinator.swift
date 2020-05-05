@@ -13,6 +13,7 @@ class RosterCoordinator: Coordinator {
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var rootVC: RosterViewController!
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -20,7 +21,7 @@ class RosterCoordinator: Coordinator {
     }
 
     func start() {
-        setLargeTitles()
+        self.setLargeTitles()
         
         // Create new view controller
         let vc = RosterViewController.instantiate(.roster)
@@ -28,6 +29,7 @@ class RosterCoordinator: Coordinator {
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)
+        rootVC = vc
         
         navigationController.pushViewController(vc, animated: true)
     }
@@ -35,20 +37,20 @@ class RosterCoordinator: Coordinator {
 
 extension RosterCoordinator: RosterPresenterDelegate {
     func addPressed() {
-        let vc = PlayerViewController.instantiate(.roster)
-        vc.presenter = PlayerPresenter(vc: vc, delegate: self)
+        let vc = NewPlayerViewController.instantiate(.roster)
+        vc.presenter = NewPlayerPresenter(vc: vc, delegate: self)
         let navController = UINavigationController(rootViewController: vc)
         navigationController.present(navController, animated: true, completion: nil)
     }
 }
 
-extension RosterCoordinator: PlayerPresenterDelegate {
+extension RosterCoordinator: NewPlayerPresenterDelegate {
     func cancelPressed() {
         navigationController.dismiss(animated: true, completion: nil)
     }
     
-    func savePressed() {
-        //TODO: Save!
+    func savePressed(player: PlayerViewModel) {
+        rootVC.presenter.addPlayer(player)
         navigationController.dismiss(animated: true, completion: nil)
     }
 }

@@ -17,11 +17,13 @@ class RosterPresenter: Presenter {
     //MARK: Properties
     weak var delegate: RosterPresenterDelegate?
     weak var vc: RosterViewController!
+    var viewModel: RosterViewModel
     
     //MARK: Initialization
     init(vc: RosterViewController, delegate: RosterPresenterDelegate?) {
         self.vc = vc
         self.delegate = delegate
+        self.viewModel = RosterViewModel()
     }
 }
 
@@ -33,5 +35,10 @@ extension RosterPresenter: RosterPresenterProtocol {
     
     func addPressed() {
         delegate?.addPressed()
+    }
+    
+    func addPlayer(_ player: PlayerViewModel) {
+        viewModel.cellViewModels[player.gender.rawValue].append(player)
+        vc.updateWithViewModel(viewModel: viewModel)
     }
 }

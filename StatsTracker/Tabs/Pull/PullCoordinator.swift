@@ -20,7 +20,7 @@ class PullCoordinator: Coordinator {
     }
 
     func start() {
-        setLargeTitles()
+        self.setLargeTitles()
         
         // Create new view controller
         let vc = PullViewController.instantiate(.pull)

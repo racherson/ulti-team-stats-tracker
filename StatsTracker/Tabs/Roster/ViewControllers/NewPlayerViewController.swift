@@ -1,5 +1,5 @@
 //
-//  PlayerViewController.swift
+//  NewPlayerViewController.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 5/5/20.
@@ -8,20 +8,19 @@
 
 import UIKit
 
-protocol PlayerPresenterProtocol {
+protocol NewPlayerPresenterProtocol {
     func onViewWillAppear()
     func cancelPressed()
-    func savePressed()
+    func savePressed(vm: PlayerViewModel)
 }
 
-class PlayerViewController: UIViewController, Storyboarded {
+class NewPlayerViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var presenter: PlayerPresenterProtocol!
+    var presenter: NewPlayerPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpButtons()
     }
     
@@ -46,6 +45,7 @@ class PlayerViewController: UIViewController, Storyboarded {
     }
     
     @objc func savePressed() {
-        presenter.savePressed()
+        let vm = PlayerViewModel(name: "from text", gender: .women)
+        presenter.savePressed(vm: vm)
     }
 }

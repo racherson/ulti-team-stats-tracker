@@ -8,14 +8,16 @@
 
 import UIKit
 
-enum Sections: Int, CaseIterable {
+enum Gender: Int, CaseIterable {
     case women
     case men
 }
 
 protocol RosterPresenterProtocol where Self: Presenter {
+    var viewModel: RosterViewModel { get }
     func onViewWillAppear()
     func addPressed()
+    func addPlayer(_ player: PlayerViewModel)
 }
 
 class RosterViewController: UIViewController, Storyboarded {
@@ -23,10 +25,6 @@ class RosterViewController: UIViewController, Storyboarded {
     //MARK: Properties
     var presenter: RosterPresenterProtocol!
     @IBOutlet weak var tableView: UITableView!
-    let names = [
-        ["Rachel", "Corinne"],
-        ["Kenneth", "George"]
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +47,10 @@ class RosterViewController: UIViewController, Storyboarded {
         presenter.onViewWillAppear()
     }
     
+    func updateWithViewModel(viewModel: RosterViewModel) {
+        tableView.reloadData()
+    }
+    
     //MARK: Actions
     @objc func addPressed() {
         presenter.addPressed()
@@ -59,18 +61,18 @@ class RosterViewController: UIViewController, Storyboarded {
 extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Sections.allCases.count
+        return Gender.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names[section].count
+        return presenter.viewModel.cellViewModels[section].count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case Sections.women.rawValue:
+        case Gender.women.rawValue:
             return Constants.Titles.women
-        case Sections.men.rawValue:
+        case Gender.men.rawValue:
             return Constants.Titles.men
         default:
             fatalError(Constants.Errors.rosterCellError)
@@ -85,12 +87,13 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // Configure the cell
-        cell.textLabel?.text = names[indexPath.section][indexPath.row]
+        //TODO
+        cell.textLabel?.text = presenter.viewModel.cellViewModels[indexPath.section][indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: Set action on selection
+        //TODO: Go to player page
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
