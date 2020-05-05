@@ -19,7 +19,7 @@ protocol LoginPresenterProtocol where Self: Presenter {
 class LoginViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var presenter: LoginPresenter!
+    var presenter: LoginPresenterProtocol!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!

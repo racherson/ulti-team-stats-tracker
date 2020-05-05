@@ -17,7 +17,7 @@ protocol EditProfilePresenterProtocol where Self: Presenter {
 class EditProfileViewController: UIViewController, Storyboarded, UINavigationControllerDelegate {
     
     //MARK: Properties
-    var presenter: EditProfilePresenter!
+    var presenter: EditProfilePresenterProtocol!
     var saveButton: UIBarButtonItem?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!

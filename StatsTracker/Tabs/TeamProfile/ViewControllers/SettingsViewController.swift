@@ -22,7 +22,7 @@ protocol SettingsPresenterProtocol where Self: Presenter {
 class SettingsViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var presenter: SettingsPresenter!
+    var presenter: SettingsPresenterProtocol!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -43,10 +43,9 @@ class SettingsViewController: UIViewController, Storyboarded {
     }
 }
 
-
+//MARK: UITableViewDelegate, UITableViewDataSource
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

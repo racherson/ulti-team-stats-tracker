@@ -9,6 +9,7 @@
 import UIKit
 
 protocol TeamProfilePresenterProtocol where Self: Presenter {
+    var viewModel: TeamProfileViewModel? { get set }
     func onViewWillAppear()
     func settingsPressed()
 }
@@ -16,7 +17,7 @@ protocol TeamProfilePresenterProtocol where Self: Presenter {
 class TeamProfileViewController: UIViewController, Storyboarded {
 
     //MARK: Properties
-    var presenter: TeamProfilePresenter!
+    var presenter: TeamProfilePresenterProtocol!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var teamImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

@@ -24,7 +24,7 @@ class RosterCoordinator: Coordinator {
         
         // Create new view controller
         let vc = RosterViewController.instantiate(.roster)
-        vc.presenter = RosterPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
+        vc.presenter = RosterPresenter(vc: vc, delegate: self)
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)
@@ -34,5 +34,12 @@ class RosterCoordinator: Coordinator {
 }
 
 extension RosterCoordinator: RosterPresenterDelegate {
-    
+    func addPressed() {
+        let vc = PlayerViewController.instantiate(.roster)
+        vc.presenter = PlayerPresenter(vc: vc, delegate: self)
+        navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension RosterCoordinator: PlayerPresenterDelegate {
 }

@@ -19,7 +19,7 @@ protocol SignUpPresenterProtocol where Self: Presenter {
 class SignUpViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var presenter: SignUpPresenter!
+    var presenter: SignUpPresenterProtocol!
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!

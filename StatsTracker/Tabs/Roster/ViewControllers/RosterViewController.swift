@@ -13,16 +13,20 @@ enum Sections: Int, CaseIterable {
     case men
 }
 
+protocol RosterPresenterProtocol where Self: Presenter {
+    func onViewWillAppear()
+    func addPressed()
+}
+
 class RosterViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    var presenter: RosterPresenter!
+    var presenter: RosterPresenterProtocol!
     @IBOutlet weak var tableView: UITableView!
     let names = ["hi", "another", "more", "blah", "pizza"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = Constants.Titles.rosterTitle
         
         // Setup the size of the tableview
         tableView.contentInsetAdjustmentBehavior = .never
@@ -31,12 +35,26 @@ class RosterViewController: UIViewController, Storyboarded {
         // Connect tableView to the View Controller
         tableView.delegate = self
         tableView.dataSource = self
+        
+        // Add pluse button
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addPressed))
+        self.navigationItem.rightBarButtonItem  = addButton
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
+    }
+    
+    //MARK: Actions
+    @objc func addPressed() {
+        presenter.addPressed()
     }
 }
 
+// MARK: UITableViewDelegate, UITableViewDataSource
 extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return Sections.allCases.count
     }
@@ -66,5 +84,10 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         // Configure the cell
         cell.textLabel?.text = names[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //TODO: Set action on selection
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
