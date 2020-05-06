@@ -10,6 +10,7 @@ import Foundation
 
 protocol RosterPresenterDelegate: AnyObject {
     func addPressed()
+    func goToPlayerPage(viewModel: PlayerViewModel)
 }
 
 class RosterPresenter: Presenter {
@@ -40,5 +41,9 @@ extension RosterPresenter: RosterPresenterProtocol {
     func addPlayer(_ player: PlayerViewModel) {
         viewModel.cellViewModels[player.gender.rawValue].append(player)
         vc.updateWithViewModel(viewModel: viewModel)
+    }
+    
+    func goToPlayerPage(viewModel: PlayerViewModel) {
+        delegate?.goToPlayerPage(viewModel: viewModel)
     }
 }

@@ -18,6 +18,7 @@ protocol RosterPresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func addPressed()
     func addPlayer(_ player: PlayerViewModel)
+    func goToPlayerPage(viewModel: PlayerViewModel)
 }
 
 class RosterViewController: UIViewController, Storyboarded {
@@ -92,7 +93,9 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: Go to player page
+
+        let cellVM = presenter.viewModel.cellViewModels[indexPath.section][indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
+        presenter.goToPlayerPage(viewModel: cellVM)
     }
 }

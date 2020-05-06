@@ -90,5 +90,20 @@
             </objects>
             <point key="canvasLocation" x="833" y="90"/>
         </scene>
+        <!--Player Detail View Controller-->
+        <scene sceneID="EEk-DX-pxE">
+            <objects>
+                <viewController storyboardIdentifier="PlayerDetailViewController" id="fwP-o6-cgk" customClass="PlayerDetailViewController" customModule="StatsTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NZS-s4-PDt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="doH-rx-B2n"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vq5-sh-hpD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1541" y="90"/>
+        </scene>
     </scenes>
 </document>

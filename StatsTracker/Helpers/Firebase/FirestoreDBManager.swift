@@ -101,14 +101,9 @@ extension FirestoreDBManager: DatabaseManager {
     
     // This method store an image in the FirebaseStorage and returns a url to the delegate.
     func storeImage(image: UIImage) {
-        guard let uid = uid else {
-            self.delegate?.displayError(with: DBError.document)
-            return
-        }
-        
         // Convert image to data to store
-        guard let data = image.jpegData(compressionQuality: 1.0) else {
-            self.delegate?.displayError(with: DBError.unknown)
+        guard let uid = uid, let data = image.jpegData(compressionQuality: 1.0) else {
+            self.delegate?.displayError(with: DBError.document)
             return
         }
         

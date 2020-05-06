@@ -42,6 +42,12 @@ extension RosterCoordinator: RosterPresenterDelegate {
         let navController = UINavigationController(rootViewController: vc)
         navigationController.present(navController, animated: true, completion: nil)
     }
+    
+    func goToPlayerPage(viewModel: PlayerViewModel) {
+        let vc = PlayerDetailViewController.instantiate(.roster)
+        vc.presenter = PlayerDetailPresenter(vc: vc, delegate: self, viewModel: viewModel)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension RosterCoordinator: NewPlayerPresenterDelegate {
@@ -53,4 +59,7 @@ extension RosterCoordinator: NewPlayerPresenterDelegate {
         rootVC.presenter.addPlayer(player)
         navigationController.dismiss(animated: true, completion: nil)
     }
+}
+
+extension RosterCoordinator: PlayerDetailPresenterDelegate {
 }
