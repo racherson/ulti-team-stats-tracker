@@ -39,11 +39,22 @@ extension RosterPresenter: RosterPresenterProtocol {
     }
     
     func addPlayer(_ player: PlayerViewModel) {
+        // Update view model
         viewModel.cellViewModels[player.gender.rawValue].append(player)
+        
+        //TODO: Save new data to db
+        
         vc.updateWithViewModel(viewModel: viewModel)
     }
     
     func goToPlayerPage(viewModel: PlayerViewModel) {
         delegate?.goToPlayerPage(viewModel: viewModel)
+    }
+    
+    func deletePlayer(at indexPath: IndexPath) {
+        // Update view model
+        viewModel.cellViewModels[indexPath.section].remove(at: indexPath.row)
+        
+        //TODO: Save new data to db
     }
 }

@@ -19,6 +19,7 @@ protocol RosterPresenterProtocol where Self: Presenter {
     func addPressed()
     func addPlayer(_ player: PlayerViewModel)
     func goToPlayerPage(viewModel: PlayerViewModel)
+    func deletePlayer(at indexPath: IndexPath)
 }
 
 class RosterViewController: UIViewController, Storyboarded {
@@ -97,5 +98,19 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         let cellVM = presenter.viewModel.cellViewModels[indexPath.section][indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.goToPlayerPage(viewModel: cellVM)
+    }
+    
+    // Support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // Support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            presenter.deletePlayer(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
