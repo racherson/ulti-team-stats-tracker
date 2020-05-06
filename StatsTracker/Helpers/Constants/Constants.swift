@@ -21,6 +21,7 @@ struct Constants {
         static let defaultTeamName = "Team Name"
         static let men = "Men"
         static let women = "Women"
+        static let newPlayerTitle = "New Player"
     }
     
     struct Alerts {

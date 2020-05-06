@@ -87,7 +87,6 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // Configure the cell
-        //TODO
         cell.textLabel?.text = presenter.viewModel.cellViewModels[indexPath.section][indexPath.row].name
         return cell
     }

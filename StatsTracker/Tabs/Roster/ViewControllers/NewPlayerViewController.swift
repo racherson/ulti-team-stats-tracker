@@ -18,9 +18,17 @@ class NewPlayerViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: NewPlayerPresenterProtocol!
-
+    var saveButton: UIBarButtonItem?
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameTextField.delegate = self
+        nameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
+        
+        navigationItem.title = Constants.Titles.newPlayerTitle
         setUpButtons()
     }
     
@@ -35,17 +43,43 @@ class NewPlayerViewController: UIViewController, Storyboarded {
         self.navigationItem.leftBarButtonItem  = cancelButton
         
         // Add save button
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
+        saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
     //MARK: Actions
+    @objc func textFieldIsNotEmpty(sender: UITextField) {
+        sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+        
+        // Validate text field is not empty
+        guard let playerName = nameTextField.text, !playerName.isEmpty else {
+            self.saveButton!.isEnabled = false
+            return
+        }
+        // Enable save button if conditions are met
+        saveButton!.isEnabled = true
+    }
+    
     @objc func cancelPressed() {
         presenter.cancelPressed()
     }
     
     @objc func savePressed() {
-        let vm = PlayerViewModel(name: "from text", gender: .women)
+        guard let name = nameTextField.text, let gender = Gender(rawValue: genderSegmentedControl.selectedSegmentIndex) else {
+            //TODO: Display error
+            return
+        }
+        
+        let vm = PlayerViewModel(name: name, gender: gender)
         presenter.savePressed(vm: vm)
+    }
+}
+
+//MARK: UITextFieldDelegate
+extension NewPlayerViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        nameTextField.resignFirstResponder()
+        return true
     }
 }

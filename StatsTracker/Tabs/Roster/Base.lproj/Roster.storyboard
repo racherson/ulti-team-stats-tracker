@@ -54,9 +54,37 @@
                     <view key="view" contentMode="scaleToFill" id="kQN-CM-GP8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="GQ9-Nt-4rH">
+                                <rect key="frame" x="70" y="400.5" width="274" height="105"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gvk-Ty-5Uc">
+                                        <rect key="frame" x="0.0" y="0.0" width="274" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wKp-uo-68h">
+                                        <rect key="frame" x="0.0" y="74" width="274" height="32"/>
+                                        <segments>
+                                            <segment title="Woman"/>
+                                            <segment title="Man"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GQ9-Nt-4rH" firstAttribute="leading" secondItem="IEn-C5-U8s" secondAttribute="leading" constant="70" id="Rr3-QW-Cnn"/>
+                            <constraint firstItem="GQ9-Nt-4rH" firstAttribute="centerY" secondItem="IEn-C5-U8s" secondAttribute="centerY" id="inZ-Ma-ebD"/>
+                            <constraint firstItem="IEn-C5-U8s" firstAttribute="trailing" secondItem="GQ9-Nt-4rH" secondAttribute="trailing" constant="70" id="pag-lX-Noc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="IEn-C5-U8s"/>
                     </view>
+                    <connections>
+                        <outlet property="genderSegmentedControl" destination="wKp-uo-68h" id="pRw-Q2-2Az"/>
+                        <outlet property="nameTextField" destination="gvk-Ty-5Uc" id="9tc-iS-byx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nd5-mB-P35" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -71,7 +71,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
             self.saveButton!.isEnabled = false
             return
         }
-        // enable save button if conditions are met
+        // Enable save button if conditions are met
         saveButton!.isEnabled = true
     }
     
@@ -105,9 +105,8 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     }
 }
 
+//MARK: UITextFieldDelegate
 extension EditProfileViewController: UITextFieldDelegate {
-    
-    //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
         textField.resignFirstResponder()
@@ -115,9 +114,9 @@ extension EditProfileViewController: UITextFieldDelegate {
     }
 }
 
+//MARK: UIImagePickerControllerDelegate
 extension EditProfileViewController: UIImagePickerControllerDelegate {
     
-    //MARK: UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the picker if the user canceled.
         dismiss(animated: true, completion: nil)
