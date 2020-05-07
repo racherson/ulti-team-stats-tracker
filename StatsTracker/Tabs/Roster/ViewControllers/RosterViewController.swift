@@ -73,12 +73,17 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case Gender.women.rawValue:
-            return Constants.Titles.women
+            if self.tableView(tableView, numberOfRowsInSection: section) > 0 {
+                return Constants.Titles.women
+            }
         case Gender.men.rawValue:
-            return Constants.Titles.men
+            if self.tableView(tableView, numberOfRowsInSection: section) > 0 {
+                return Constants.Titles.men
+            }
         default:
-            fatalError(Constants.Errors.rosterCellError)
+            return nil
         }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

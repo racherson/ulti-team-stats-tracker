@@ -28,7 +28,6 @@ class NewPlayerViewController: UIViewController, Storyboarded {
         nameTextField.delegate = self
         nameTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
         
-        navigationItem.title = Constants.Titles.newPlayerTitle
         setUpButtons()
     }
     

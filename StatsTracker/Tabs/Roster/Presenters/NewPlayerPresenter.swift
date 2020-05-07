@@ -29,6 +29,7 @@ class NewPlayerPresenter: Presenter {
 extension NewPlayerPresenter: NewPlayerPresenterProtocol {
     
     func onViewWillAppear() {
+        vc.navigationItem.title = Constants.Titles.newPlayerTitle
     }
     
     func cancelPressed() {
