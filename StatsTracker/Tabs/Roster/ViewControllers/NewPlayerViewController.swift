@@ -70,7 +70,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
             return
         }
         
-        let vm = PlayerViewModel(name: name, gender: gender)
+        let vm = PlayerViewModel(name: name, gender: gender, model: PlayerStatModel())
         presenter.savePressed(vm: vm)
     }
 }

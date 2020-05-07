@@ -30,6 +30,7 @@
 		291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184772450BF8D007C534F /* TeamProfilePresenter.swift */; };
 		2911847A2450CA16007C534F /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184792450CA16007C534F /* SettingsPresenter.swift */; };
 		2911847C2450CD60007C534F /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2911847B2450CD60007C534F /* EditProfilePresenter.swift */; };
+		292D7B8024637DD700910A7C /* PlayerStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292D7B7F24637DD700910A7C /* PlayerStatModel.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29431EB1244776BB00B1302A /* EditProfileViewController.swift */; };
@@ -123,6 +124,7 @@
 		291184772450BF8D007C534F /* TeamProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfilePresenter.swift; sourceTree = "<group>"; };
 		291184792450CA16007C534F /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		2911847B2450CD60007C534F /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
+		292D7B7F24637DD700910A7C /* PlayerStatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatModel.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		29431EB1244776BB00B1302A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				29458D062447AA9900EC03AB /* UserDataModel.swift */,
+				292D7B7F24637DD700910A7C /* PlayerStatModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
 				2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */,
+				292D7B8024637DD700910A7C /* PlayerStatModel.swift in Sources */,
 				290531A12461F50800478FF9 /* NewPlayerViewController.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
