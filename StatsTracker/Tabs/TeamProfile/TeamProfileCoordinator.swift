@@ -18,6 +18,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var delegate: TeamProfileCoordinatorDelegate?
+    var authManager: AuthenticationManager = FirebaseAuthManager()
     var rootVC: TeamProfileViewController!
     var viewModel: TeamProfileViewModel?
 
@@ -31,7 +32,7 @@ class TeamProfileCoordinator: Coordinator {
         
         // Create new view controller
         let vc = TeamProfileViewController.instantiate(.team)
-        vc.presenter = TeamProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager(), dbManager: FirestoreDBManager())
+        vc.presenter = TeamProfilePresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.teamProfileTitle, image: UIImage(systemName: "house"), tag: 0)
@@ -50,7 +51,7 @@ extension TeamProfileCoordinator: TeamProfilePresenterDelegate {
         
         // Push settings view
         let vc = SettingsViewController.instantiate(.team)
-        vc.presenter = SettingsPresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager())
+        vc.presenter = SettingsPresenter(vc: vc, delegate: self, authManager: authManager)
         navigationController.pushViewController(vc, animated: true)
     }
 }
@@ -64,7 +65,7 @@ extension TeamProfileCoordinator: SettingsPresenterDelegate {
     func editPressed() {
         let vc = EditProfileViewController.instantiate(.team)
         let navController = UINavigationController(rootViewController: vc)
-        let presenter = EditProfilePresenter(vc: vc, delegate: self, authManager: FirebaseAuthManager(), dbManager: FirestoreDBManager())
+        let presenter = EditProfilePresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
         presenter.viewModel = viewModel
         vc.presenter = presenter
         navigationController.present(navController, animated: true, completion: nil)

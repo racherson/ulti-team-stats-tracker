@@ -19,12 +19,15 @@ class RosterPresenter: Presenter {
     weak var delegate: RosterPresenterDelegate?
     weak var vc: RosterViewController!
     var viewModel: RosterViewModel
+    var dbManager: DatabaseManager!
     
     //MARK: Initialization
-    init(vc: RosterViewController, delegate: RosterPresenterDelegate?) {
+    init(vc: RosterViewController, delegate: RosterPresenterDelegate?, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
         self.viewModel = RosterViewModel()
+        self.vc.viewModel = viewModel
+        self.dbManager = dbManager
     }
 }
 
@@ -54,6 +57,7 @@ extension RosterPresenter: RosterPresenterProtocol {
     func deletePlayer(at indexPath: IndexPath) {
         // Update view model
         viewModel.cellViewModels[indexPath.section].remove(at: indexPath.row)
+        vc.updateWithViewModel(viewModel: viewModel)
         
         //TODO: Save new data to db
     }

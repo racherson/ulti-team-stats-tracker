@@ -15,6 +15,11 @@ class FirestoreDBManager {
     //MARK: Properties
     var uid: String?
     weak var delegate: DatabaseManagerDelegate?
+    
+    init(_ uid: String? = nil) {
+        self.uid = uid
+    }
+    
     private let root = Firestore
         .firestore()
         .collection(FirebaseKeys.CollectionPath.environment)

@@ -17,7 +17,6 @@ class TeamProfilePresenter: Presenter {
     //MARK: Properties
     weak var delegate: TeamProfilePresenterDelegate?
     weak var vc: TeamProfileViewController!
-    var authManager: AuthenticationManager!
     var dbManager: DatabaseManager!
     var viewModel: TeamProfileViewModel? {
         didSet {
@@ -26,11 +25,9 @@ class TeamProfilePresenter: Presenter {
     }
     
     //MARK: Initialization
-    init(vc: TeamProfileViewController, delegate: TeamProfilePresenterDelegate?,
-         authManager: AuthenticationManager, dbManager: DatabaseManager) {
+    init(vc: TeamProfileViewController, delegate: TeamProfilePresenterDelegate?, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
-        self.authManager = authManager
         self.dbManager = dbManager
         self.dbManager.delegate = self
         
@@ -39,14 +36,6 @@ class TeamProfilePresenter: Presenter {
     
     //MARK: Private methods
     private func initializeViewModel() {
-        // Get the current user uid
-        guard let uid = authManager.currentUserUID else {
-            displayError(with: AuthError.user)
-            return
-        }
-        
-        // Retrieve the data saved in DB for that user
-        dbManager.uid = uid
         dbManager.getData()
     }
     

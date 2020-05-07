@@ -54,7 +54,8 @@ class TeamProfileCoordinatorTests: XCTestCase {
         XCTAssertEqual(0, navigationController.dismissCallCount)
         XCTAssertEqual(0, navigationController.popCallCount)
         teamProfileCoordinator.start()
-        teamProfileCoordinator.savePressed(newName: "", newImage: UIImage())
+        let vm = TeamProfileViewModel(team: "", image: UIImage())
+        teamProfileCoordinator.savePressed(vm: vm)
         XCTAssertEqual(1, navigationController.dismissCallCount)
         XCTAssertEqual(1, navigationController.popCallCount)
     }

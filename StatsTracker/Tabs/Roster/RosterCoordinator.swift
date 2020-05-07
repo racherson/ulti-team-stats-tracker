@@ -14,6 +14,7 @@ class RosterCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var rootVC: RosterViewController!
+    var authManager: AuthenticationManager = FirebaseAuthManager()
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -25,7 +26,7 @@ class RosterCoordinator: Coordinator {
         
         // Create new view controller
         let vc = RosterViewController.instantiate(.roster)
-        vc.presenter = RosterPresenter(vc: vc, delegate: self)
+        vc.presenter = RosterPresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.rosterTitle, image: UIImage(systemName: "person.3"), tag: 1)

@@ -25,7 +25,7 @@ class EditProfilePresenterTests: XCTestCase {
         vc = EditProfileViewController.instantiate(.team)
         let _ = vc.view
         authManager = MockSignedInAuthManager()
-        dbManager = MockDBManager()
+        dbManager = MockDBManager(authManager.currentUserUID)
         sut = EditProfilePresenter(vc: vc, delegate: self, authManager: authManager, dbManager: dbManager)
         super.setUp()
     }
@@ -57,7 +57,8 @@ class EditProfilePresenterTests: XCTestCase {
     func testSavePressed() throws {
         XCTAssertNil(sut.viewModel)
         XCTAssertEqual(0, dbManager.storeImageDataCalled)
-        sut.savePressed(newName: TestConstants.teamName, newImage: TestConstants.teamImage!)
+        let vm = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
+        sut.savePressed(vm: vm)
         XCTAssertEqual(sut.viewModel.teamName, TestConstants.teamName)
         XCTAssertEqual(sut.viewModel.teamImage, TestConstants.teamImage!)
         XCTAssertEqual(1, dbManager.storeImageDataCalled)
@@ -128,7 +129,7 @@ extension EditProfilePresenterTests: EditProfilePresenterDelegate {
         self.cancelPressedCount += 1
     }
     
-    func savePressed(newName: String, newImage: UIImage) {
+    func savePressed(vm: TeamProfileViewModel) {
         self.savePressedCount += 1
     }
 }

@@ -20,6 +20,10 @@ class MockDBManager: DatabaseManager {
     var updateDataCalled: Int = 0
     var storeImageDataCalled: Int = 0
     
+    init(_ uid: String? = nil) {
+        self.uid = uid
+    }
+    
     //MARK: Methods
     func setData(data: [String : Any]) {
         setDataCalled += 1

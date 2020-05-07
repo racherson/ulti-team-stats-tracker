@@ -14,18 +14,18 @@ enum Gender: Int, CaseIterable {
 }
 
 protocol RosterPresenterProtocol where Self: Presenter {
-    var viewModel: RosterViewModel { get }
     func onViewWillAppear()
     func addPressed()
     func addPlayer(_ player: PlayerViewModel)
-    func goToPlayerPage(viewModel: PlayerViewModel)
     func deletePlayer(at indexPath: IndexPath)
+    func goToPlayerPage(viewModel: PlayerViewModel)
 }
 
 class RosterViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: RosterPresenterProtocol!
+    var viewModel: RosterViewModel!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -50,6 +50,7 @@ class RosterViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(viewModel: RosterViewModel) {
+        self.viewModel = viewModel
         tableView.reloadData()
     }
     
@@ -67,7 +68,7 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.viewModel.cellViewModels[section].count
+        return viewModel.cellViewModels[section].count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -94,13 +95,13 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // Configure the cell
-        cell.textLabel?.text = presenter.viewModel.cellViewModels[indexPath.section][indexPath.row].name
+        cell.textLabel?.text = viewModel.cellViewModels[indexPath.section][indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let cellVM = presenter.viewModel.cellViewModels[indexPath.section][indexPath.row]
+        let cellVM = viewModel.cellViewModels[indexPath.section][indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.goToPlayerPage(viewModel: cellVM)
     }
@@ -115,7 +116,6 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             // Delete the row from the data source
             presenter.deletePlayer(at: indexPath)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }

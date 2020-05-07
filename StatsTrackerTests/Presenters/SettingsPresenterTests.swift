@@ -36,9 +36,9 @@ class SettingsPresenterTests: XCTestCase {
     }
     
     func testOnViewWillAppear() throws {
-        XCTAssertEqual(vc.title, nil)
+        XCTAssertEqual(vc.navigationItem.title, nil)
         sut.onViewWillAppear()
-        XCTAssertEqual(vc.title, Constants.Titles.settingsTitle)
+        XCTAssertEqual(vc.navigationItem.title, Constants.Titles.settingsTitle)
     }
     
     func testEditPressed() throws {

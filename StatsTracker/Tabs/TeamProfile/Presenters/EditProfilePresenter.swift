@@ -19,30 +19,15 @@ class EditProfilePresenter: Presenter {
     //MARK: Properties
     weak var delegate: EditProfilePresenterDelegate?
     weak var vc: EditProfileViewController!
-    let authManager: AuthenticationManager
     var dbManager: DatabaseManager!
     var viewModel: TeamProfileViewModel!
     
     //MARK: Initialization
-    init(vc: EditProfileViewController, delegate: EditProfilePresenterDelegate?,
-         authManager: AuthenticationManager, dbManager: DatabaseManager) {
+    init(vc: EditProfileViewController, delegate: EditProfilePresenterDelegate?, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
-        self.authManager = authManager
         self.dbManager = dbManager
         self.dbManager.delegate = self
-        
-        setDBManager()
-    }
-    
-    //MARK: Private methods
-    private func setDBManager() {
-        guard let uid = authManager.currentUserUID else {
-            // Show error message
-            self.showErrorAlert(error: Constants.Errors.userError, title: Constants.Errors.unknown)
-            return
-        }
-        dbManager.uid = uid
     }
     
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
