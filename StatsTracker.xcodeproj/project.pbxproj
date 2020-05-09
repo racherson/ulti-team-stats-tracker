@@ -30,7 +30,7 @@
 		291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184772450BF8D007C534F /* TeamProfilePresenter.swift */; };
 		2911847A2450CA16007C534F /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291184792450CA16007C534F /* SettingsPresenter.swift */; };
 		2911847C2450CD60007C534F /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2911847B2450CD60007C534F /* EditProfilePresenter.swift */; };
-		292D7B8024637DD700910A7C /* PlayerStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292D7B7F24637DD700910A7C /* PlayerStatModel.swift */; };
+		292D7B8024637DD700910A7C /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292D7B7F24637DD700910A7C /* PlayerModel.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29431EB1244776BB00B1302A /* EditProfileViewController.swift */; };
@@ -60,7 +60,6 @@
 		299D32E5245916E7009A7E37 /* GamesCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32E4245916E7009A7E37 /* GamesCoordinatorTests.swift */; };
 		299D32E824591782009A7E37 /* SignUpPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D32E724591782009A7E37 /* SignUpPresenterTests.swift */; };
 		29A279BE2462162E00C91FDF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A279BD2462162E00C91FDF /* PlayerViewModel.swift */; };
-		29A279C0246216A400C91FDF /* RosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A279BF246216A400C91FDF /* RosterViewModel.swift */; };
 		29A279C22462644F00C91FDF /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A279C12462644F00C91FDF /* PlayerDetailViewController.swift */; };
 		29A279C42462648400C91FDF /* PlayerDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A279C32462648400C91FDF /* PlayerDetailPresenter.swift */; };
 		29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */; };
@@ -124,7 +123,7 @@
 		291184772450BF8D007C534F /* TeamProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfilePresenter.swift; sourceTree = "<group>"; };
 		291184792450CA16007C534F /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		2911847B2450CD60007C534F /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
-		292D7B7F24637DD700910A7C /* PlayerStatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatModel.swift; sourceTree = "<group>"; };
+		292D7B7F24637DD700910A7C /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		29431EB1244776BB00B1302A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -154,7 +153,6 @@
 		299D32E4245916E7009A7E37 /* GamesCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesCoordinatorTests.swift; sourceTree = "<group>"; };
 		299D32E724591782009A7E37 /* SignUpPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenterTests.swift; sourceTree = "<group>"; };
 		29A279BD2462162E00C91FDF /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
-		29A279BF246216A400C91FDF /* RosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterViewModel.swift; sourceTree = "<group>"; };
 		29A279C12462644F00C91FDF /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewController.swift; sourceTree = "<group>"; };
 		29A279C32462648400C91FDF /* PlayerDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailPresenter.swift; sourceTree = "<group>"; };
 		29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 				2910EB67243FA4C100BCF721 /* Roster.storyboard */,
 				2910EB87243FA56A00BCF721 /* RosterCoordinator.swift */,
 				29A279BD2462162E00C91FDF /* PlayerViewModel.swift */,
-				29A279BF246216A400C91FDF /* RosterViewModel.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -314,7 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				29458D062447AA9900EC03AB /* UserDataModel.swift */,
-				292D7B7F24637DD700910A7C /* PlayerStatModel.swift */,
+				292D7B7F24637DD700910A7C /* PlayerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -720,7 +717,7 @@
 				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
 				294A874524466889003FC969 /* RootCoordinator.swift in Sources */,
 				2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */,
-				292D7B8024637DD700910A7C /* PlayerStatModel.swift in Sources */,
+				292D7B8024637DD700910A7C /* PlayerModel.swift in Sources */,
 				290531A12461F50800478FF9 /* NewPlayerViewController.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
@@ -730,7 +727,6 @@
 				294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */,
 				290531A32461F56500478FF9 /* NewPlayerPresenter.swift in Sources */,
 				2989B7C9244906A90072FB34 /* TeamProfileViewModel.swift in Sources */,
-				29A279C0246216A400C91FDF /* RosterViewModel.swift in Sources */,
 				29C61B33245A2ED400F00987 /* DatabaseManager.swift in Sources */,
 				29A279C22462644F00C91FDF /* PlayerDetailViewController.swift in Sources */,
 				29A279BE2462162E00C91FDF /* PlayerViewModel.swift in Sources */,

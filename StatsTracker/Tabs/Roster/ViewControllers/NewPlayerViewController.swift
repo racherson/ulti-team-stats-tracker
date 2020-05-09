@@ -11,7 +11,7 @@ import UIKit
 protocol NewPlayerPresenterProtocol {
     func onViewWillAppear()
     func cancelPressed()
-    func savePressed(vm: PlayerViewModel)
+    func savePressed(model: PlayerModel)
 }
 
 class NewPlayerViewController: UIViewController, Storyboarded {
@@ -69,8 +69,8 @@ class NewPlayerViewController: UIViewController, Storyboarded {
             return
         }
         
-        let vm = PlayerViewModel(name: name, gender: gender, model: PlayerStatModel())
-        presenter.savePressed(vm: vm)
+        let model = PlayerModel(name: name, gender: gender.rawValue)
+        presenter.savePressed(model: model)
     }
 }
 

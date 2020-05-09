@@ -10,7 +10,7 @@ import Foundation
 
 protocol NewPlayerPresenterDelegate: AnyObject {
     func cancelPressed()
-    func savePressed(player: PlayerViewModel)
+    func savePressed(player: PlayerModel)
 }
 
 class NewPlayerPresenter: Presenter {
@@ -36,7 +36,9 @@ extension NewPlayerPresenter: NewPlayerPresenterProtocol {
         delegate?.cancelPressed()
     }
     
-    func savePressed(vm: PlayerViewModel) {
-        delegate?.savePressed(player: vm)
+    func savePressed(model: PlayerModel) {
+        //TODO: Try to update db
+        // if error, display error, else call delegate
+        delegate?.savePressed(player: model)
     }
 }

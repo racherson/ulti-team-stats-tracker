@@ -18,17 +18,30 @@ class RosterPresenter: Presenter {
     //MARK: Properties
     weak var delegate: RosterPresenterDelegate?
     weak var vc: RosterViewController!
-    var viewModel: RosterViewModel
     var dbManager: DatabaseManager!
+    var playerModels: [[PlayerModel]]!
     
     //MARK: Initialization
     init(vc: RosterViewController, delegate: RosterPresenterDelegate?, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
-        self.viewModel = RosterViewModel()
-        self.vc.viewModel = viewModel
         self.dbManager = dbManager
         self.dbManager.delegate = self
+        
+        setGenderArrays()
+    }
+    
+    func setGenderArrays() {
+        //TODO: Get models from db
+        
+        playerModels = [
+            [], // Array of women
+            [] // Array of men
+        ]
+    }
+    
+    func getViewModel(model: PlayerModel) -> PlayerViewModel {
+        return PlayerViewModel(model: model)
     }
 }
 
@@ -42,25 +55,37 @@ extension RosterPresenter: RosterPresenterProtocol {
         delegate?.addPressed()
     }
     
-    func addPlayer(_ player: PlayerViewModel) {
-        // Update view model
-        viewModel.cellViewModels[player.gender.rawValue].append(player)
+    func addPlayer(_ player: PlayerModel) {
+        // Update player array
+        playerModels[player.gender].append(player)
         
-        //TODO: Save new data to db
-        
-        vc.updateWithViewModel(viewModel: viewModel)
+        vc.updateView()
     }
     
-    func goToPlayerPage(viewModel: PlayerViewModel) {
+    func goToPlayerPage(at indexPath: IndexPath) {
+        let model = playerModels[indexPath.section][indexPath.row]
+
+        // Create a view model with the data model
+        let viewModel = getViewModel(model: model)
+        
         delegate?.goToPlayerPage(viewModel: viewModel)
     }
     
     func deletePlayer(at indexPath: IndexPath) {
-        // Update view model
-        viewModel.cellViewModels[indexPath.section].remove(at: indexPath.row)
-        vc.updateWithViewModel(viewModel: viewModel)
-        
         //TODO: Save new data to db
+        
+        // Update player array
+        playerModels[indexPath.section].remove(at: indexPath.row)
+        
+        vc.updateView()
+    }
+    
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        return playerModels[section].count
+    }
+    
+    func getPlayerName(at indexPath: IndexPath) -> String {
+        return playerModels[indexPath.section][indexPath.row].name
     }
 }
 

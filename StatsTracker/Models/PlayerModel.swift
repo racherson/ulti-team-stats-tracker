@@ -1,5 +1,5 @@
 //
-//  PlayerStatModel.swift
+//  PlayerModel.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 5/6/20.
@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct PlayerStatModel {
+struct PlayerModel: Codable {
+    var name: String
+    var gender: Int
     var points: Int
     var games: Int
     var completions: Int
@@ -21,7 +23,25 @@ struct PlayerStatModel {
     var pulls: Int
     var callahans: Int
     
-    init() {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case gender
+        case points
+        case games
+        case completions
+        case throwaways
+        case catches
+        case drops
+        case goals
+        case assists
+        case ds
+        case pulls
+        case callahans
+    }
+    
+    init(name: String, gender: Int) {
+        self.name = name
+        self.gender = gender
         self.points = 0
         self.games = 0
         self.completions = 0

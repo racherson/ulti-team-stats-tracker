@@ -56,11 +56,10 @@ extension RosterCoordinator: NewPlayerPresenterDelegate {
         navigationController.dismiss(animated: true, completion: nil)
     }
     
-    func savePressed(player: PlayerViewModel) {
+    func savePressed(player: PlayerModel) {
         rootVC.presenter.addPlayer(player)
         navigationController.dismiss(animated: true, completion: nil)
     }
 }
 
-extension RosterCoordinator: PlayerDetailPresenterDelegate {
-}
+extension RosterCoordinator: PlayerDetailPresenterDelegate { }

@@ -16,16 +16,17 @@ enum Gender: Int, CaseIterable {
 protocol RosterPresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func addPressed()
-    func addPlayer(_ player: PlayerViewModel)
+    func addPlayer(_ player: PlayerModel)
     func deletePlayer(at indexPath: IndexPath)
-    func goToPlayerPage(viewModel: PlayerViewModel)
+    func goToPlayerPage(at indexPath: IndexPath)
+    func numberOfRowsInSection(_ section: Int) -> Int
+    func getPlayerName(at indexPath: IndexPath) -> String
 }
 
 class RosterViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: RosterPresenterProtocol!
-    var viewModel: RosterViewModel!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -49,8 +50,7 @@ class RosterViewController: UIViewController, Storyboarded {
         presenter.onViewWillAppear()
     }
     
-    func updateWithViewModel(viewModel: RosterViewModel) {
-        self.viewModel = viewModel
+    func updateView() {
         tableView.reloadData()
     }
     
@@ -68,7 +68,7 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.cellViewModels[section].count
+        return presenter.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -95,15 +95,13 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // Configure the cell
-        cell.textLabel?.text = viewModel.cellViewModels[indexPath.section][indexPath.row].name
+        cell.textLabel?.text = presenter.getPlayerName(at: indexPath)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let cellVM = viewModel.cellViewModels[indexPath.section][indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        presenter.goToPlayerPage(viewModel: cellVM)
+        presenter.goToPlayerPage(at: indexPath)
     }
     
     // Support conditional editing of the table view.

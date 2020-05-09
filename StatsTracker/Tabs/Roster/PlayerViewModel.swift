@@ -9,9 +9,15 @@
 import Foundation
 
 struct PlayerViewModel {
-    let name: String
-    let gender: Gender
-    let model: PlayerStatModel
+    let model: PlayerModel
+    
+    var name: String {
+        return model.name
+    }
+    
+    var gender: Gender {
+        return Gender(rawValue: model.gender)!
+    }
     
     var games: String {
         return String(model.games)
