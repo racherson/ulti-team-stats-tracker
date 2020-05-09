@@ -19,7 +19,7 @@ protocol RosterPresenterProtocol where Self: Presenter {
     func addPlayer(_ player: PlayerModel)
     func deletePlayer(at indexPath: IndexPath)
     func goToPlayerPage(at indexPath: IndexPath)
-    func numberOfRowsInSection(_ section: Int) -> Int
+    func numberOfPlayersInSection(_ section: Int) -> Int
     func getPlayerName(at indexPath: IndexPath) -> String
 }
 
@@ -68,7 +68,7 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRowsInSection(section)
+        return presenter.numberOfPlayersInSection(section)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

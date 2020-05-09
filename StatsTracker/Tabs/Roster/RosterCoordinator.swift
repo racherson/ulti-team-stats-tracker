@@ -36,6 +36,7 @@ class RosterCoordinator: Coordinator {
     }
 }
 
+//MARK: RosterPresenterDelegate
 extension RosterCoordinator: RosterPresenterDelegate {
     func addPressed() {
         let vc = NewPlayerViewController.instantiate(.roster)
@@ -51,6 +52,7 @@ extension RosterCoordinator: RosterPresenterDelegate {
     }
 }
 
+//MARK: NewPlayerPresenterDelegate
 extension RosterCoordinator: NewPlayerPresenterDelegate {
     func cancelPressed() {
         navigationController.dismiss(animated: true, completion: nil)
@@ -62,4 +64,5 @@ extension RosterCoordinator: NewPlayerPresenterDelegate {
     }
 }
 
+//MARK: PlayerDetailPresenterDelegate
 extension RosterCoordinator: PlayerDetailPresenterDelegate { }

@@ -26,6 +26,7 @@ class PlayerDetailPresenter: Presenter {
     }
 }
 
+//MARK: PlayerDetailPresenterProtocol
 extension PlayerDetailPresenter: PlayerDetailPresenterProtocol {
     func onViewWillAppear() {
         vc.navigationItem.title = viewModel.name

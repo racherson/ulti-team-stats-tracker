@@ -26,6 +26,7 @@ class NewPlayerPresenter: Presenter {
     }
 }
 
+//MARK: NewPlayerPresenterProtocol
 extension NewPlayerPresenter: NewPlayerPresenterProtocol {
     
     func onViewWillAppear() {
@@ -39,6 +40,7 @@ extension NewPlayerPresenter: NewPlayerPresenterProtocol {
     func savePressed(model: PlayerModel) {
         //TODO: Try to update db
         // if error, display error, else call delegate
+        
         delegate?.savePressed(player: model)
     }
 }

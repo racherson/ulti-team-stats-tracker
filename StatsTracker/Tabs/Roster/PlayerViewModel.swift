@@ -9,6 +9,8 @@
 import Foundation
 
 struct PlayerViewModel {
+    
+    //MARK: Properties
     let model: PlayerModel
     
     var name: String {
@@ -63,6 +65,7 @@ struct PlayerViewModel {
         return String(model.callahans)
     }
     
+    //MARK: Calculated Stats
     var catchingPercentage: String {
         if model.catches + model.drops > 0 {
             let percentNum = model.catches / (model.catches + model.drops)

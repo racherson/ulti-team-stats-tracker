@@ -45,10 +45,19 @@ class RosterPresenter: Presenter {
     }
 }
 
+//MARK: RosterPresenterProtocol
 extension RosterPresenter: RosterPresenterProtocol {
     
     func onViewWillAppear() {
         vc.navigationItem.title = Constants.Titles.rosterTitle
+    }
+    
+    func numberOfPlayersInSection(_ section: Int) -> Int {
+        return playerModels[section].count
+    }
+    
+    func getPlayerName(at indexPath: IndexPath) -> String {
+        return playerModels[indexPath.section][indexPath.row].name
     }
     
     func addPressed() {
@@ -72,23 +81,16 @@ extension RosterPresenter: RosterPresenterProtocol {
     }
     
     func deletePlayer(at indexPath: IndexPath) {
-        //TODO: Save new data to db
+        //TODO: Try to save new data to db
         
         // Update player array
         playerModels[indexPath.section].remove(at: indexPath.row)
         
         vc.updateView()
     }
-    
-    func numberOfRowsInSection(_ section: Int) -> Int {
-        return playerModels[section].count
-    }
-    
-    func getPlayerName(at indexPath: IndexPath) -> String {
-        return playerModels[indexPath.section][indexPath.row].name
-    }
 }
 
+//MARK: DatabaseManagerDelegate
 extension RosterPresenter: DatabaseManagerDelegate {
     func  displayError(with error: Error) {
         //TODO
