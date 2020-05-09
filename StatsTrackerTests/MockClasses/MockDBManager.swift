@@ -25,15 +25,15 @@ class MockDBManager: DatabaseManager {
     }
     
     //MARK: Methods
-    func setData(data: [String : Any]) {
+    func setData(data: [String : Any], collection: DataCollection) {
         setDataCalled += 1
     }
     
-    func getData() {
+    func getData(collection: DataCollection) {
         getDataCalled += 1
     }
     
-    func updateData(data: [String : Any]) {
+    func updateData(data: [String : Any], collection: DataCollection) {
         updateDataCalled += 1
     }
     

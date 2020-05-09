@@ -80,7 +80,7 @@ extension EditProfilePresenter: DatabaseManagerDelegate {
             ]
         
         // Update team name and image url in Firestore
-        dbManager.updateData(data: newData)
+        dbManager.updateData(data: newData, collection: .profile)
     }
     
     func newData(_ data: [String : Any]?) {

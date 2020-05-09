@@ -26,7 +26,7 @@ class EditProfilePresenterTests: XCTestCase {
         let _ = vc.view
         authManager = MockSignedInAuthManager()
         dbManager = MockDBManager(authManager.currentUserUID)
-        sut = EditProfilePresenter(vc: vc, delegate: self, authManager: authManager, dbManager: dbManager)
+        sut = EditProfilePresenter(vc: vc, delegate: self, dbManager: dbManager)
         super.setUp()
     }
     
@@ -34,6 +34,7 @@ class EditProfilePresenterTests: XCTestCase {
         sut = nil
         vc = nil
         authManager = nil
+        dbManager = nil
         super.tearDown()
     }
     

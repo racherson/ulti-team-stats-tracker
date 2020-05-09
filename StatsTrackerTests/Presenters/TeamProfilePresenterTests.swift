@@ -24,7 +24,7 @@ class TeamProfilePresenterTests: XCTestCase {
         let _ = vc.view
         authManager = MockSignedInAuthManager()
         dbManager = MockDBManager(authManager.currentUserUID)
-        sut = TeamProfilePresenter(vc: vc, delegate: self, authManager: authManager, dbManager: dbManager)
+        sut = TeamProfilePresenter(vc: vc, delegate: self, dbManager: dbManager)
         super.setUp()
     }
 

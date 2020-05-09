@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum DataCollection: Int {
+    case profile
+    case roster
+}
+
 protocol DatabaseManager {
     
     //MARK: Properties
@@ -15,9 +20,9 @@ protocol DatabaseManager {
     var delegate: DatabaseManagerDelegate? { get set }
     
     //MARK: Methods
-    func setData(data: [String: Any])
-    func getData()
-    func updateData(data: [String: Any])
+    func setData(data: [String: Any], collection: DataCollection)
+    func getData(collection: DataCollection)
+    func updateData(data: [String: Any], collection: DataCollection)
     func storeImage(image: UIImage)
 }
 

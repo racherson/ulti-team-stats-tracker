@@ -16,6 +16,7 @@ struct FirebaseKeys {
         static let publicData = "publicData"
         static let privateData = "privateData"
         static let users = "users"
+        static let roster = "roster"
         
         static let imagesFolder = "imagesFolder"
     }

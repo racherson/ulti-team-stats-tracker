@@ -36,7 +36,7 @@ class TeamProfilePresenter: Presenter {
     
     //MARK: Private methods
     private func initializeViewModel() {
-        dbManager.getData()
+        dbManager.getData(collection: .profile)
     }
     
     private func setViewModel(urlString: String, name: String) {

@@ -39,22 +39,35 @@ class FirestoreDBManager {
 extension FirestoreDBManager: DatabaseManager {
     
     // This method adds new data to the current user's public data.
-    func setData(data: [String : Any]) {
+    func setData(data: [String : Any], collection: DataCollection) {
         guard uid != nil else {
             self.delegate?.displayError(with: DBError.document)
             return
         }
         
-        referenceForUserPublicData().setData(data) { (error) in
-            if error != nil {
-                // Show error message
-                self.delegate?.displayError(with: error!)
+        switch collection {
+        case .profile:
+            referenceForUserPublicData().setData(data) { (error) in
+                if error != nil {
+                    // Show error message
+                    self.delegate?.displayError(with: error!)
+                }
+            }
+        case .roster:
+            referenceForUserPublicData()
+                .collection(FirebaseKeys.CollectionPath.roster)
+                .document(FirebaseKeys.CollectionPath.roster)
+                .setData(data) { (error) in
+                if error != nil {
+                    // Show error message
+                    self.delegate?.displayError(with: error!)
+                }
             }
         }
     }
     
     // This method retrieves the current user's public data and sends it to the delegate.
-    func getData() {
+    func getData(collection: DataCollection) {
         guard uid != nil else {
             self.delegate?.displayError(with: DBError.document)
             return
@@ -87,7 +100,7 @@ extension FirestoreDBManager: DatabaseManager {
     }
     
     // This method updates data in the database.
-    func updateData(data: [String : Any]) {
+    func updateData(data: [String : Any], collection: DataCollection) {
         guard uid != nil else {
             self.delegate?.displayError(with: DBError.document)
             return

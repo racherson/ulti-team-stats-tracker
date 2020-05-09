@@ -28,6 +28,7 @@ class RosterPresenter: Presenter {
         self.viewModel = RosterViewModel()
         self.vc.viewModel = viewModel
         self.dbManager = dbManager
+        self.dbManager.delegate = self
     }
 }
 
@@ -60,5 +61,11 @@ extension RosterPresenter: RosterPresenterProtocol {
         vc.updateWithViewModel(viewModel: viewModel)
         
         //TODO: Save new data to db
+    }
+}
+
+extension RosterPresenter: DatabaseManagerDelegate {
+    func  displayError(with error: Error) {
+        //TODO
     }
 }

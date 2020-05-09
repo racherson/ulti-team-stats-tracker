@@ -73,6 +73,6 @@ extension SignUpPresenter: AuthManagerCreateUserDelegate, DatabaseManagerDelegat
     func onCreateUserCompletion(uid: String, data: [String : Any]) {
         // Store the new user data with current user uid
         dbManager.uid = uid
-        dbManager.setData(data: data)
+        dbManager.setData(data: data, collection: .profile)
     }
 }
