@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol RosterPresenterDelegate: AnyObject {
     func addPressed()
@@ -18,7 +18,7 @@ class RosterPresenter: Presenter {
     //MARK: Properties
     weak var delegate: RosterPresenterDelegate?
     weak var vc: RosterViewController!
-    var dbManager: DatabaseManager!
+    var dbManager: DatabaseManager
     var playerModels: [[PlayerModel]]!
     
     //MARK: Initialization
@@ -31,16 +31,22 @@ class RosterPresenter: Presenter {
         setGenderArrays()
     }
     
-    func setGenderArrays() {
-        //TODO: Get models from db
-        
-        playerModels = [
-            [], // Array of women
-            [] // Array of men
-        ]
+    //MARK: Private methods
+    private func showErrorAlert(error: String) {
+        // Error logging out, display alert
+        let alertController = UIAlertController(title: Constants.Errors.documentErrorTitle, message:
+            error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
+
+        vc.present(alertController, animated: true, completion: nil)
     }
     
-    func getViewModel(model: PlayerModel) -> PlayerViewModel {
+    private func setGenderArrays() {
+        // Get models from db, delegate function sets array
+        dbManager.getData(collection: .roster)
+    }
+    
+    private func getViewModel(model: PlayerModel) -> PlayerViewModel {
         return PlayerViewModel(model: model)
     }
 }
@@ -81,7 +87,10 @@ extension RosterPresenter: RosterPresenterProtocol {
     }
     
     func deletePlayer(at indexPath: IndexPath) {
-        //TODO: Try to save new data to db
+        
+        // Delete from database
+        let modelToDelete = playerModels[indexPath.section][indexPath.row]
+        dbManager.deleteData(data: modelToDelete.dictionary, collection: .roster)
         
         // Update player array
         playerModels[indexPath.section].remove(at: indexPath.row)
@@ -92,7 +101,47 @@ extension RosterPresenter: RosterPresenterProtocol {
 
 //MARK: DatabaseManagerDelegate
 extension RosterPresenter: DatabaseManagerDelegate {
+    
     func  displayError(with error: Error) {
-        //TODO
+        // Empty model array
+        playerModels = [ [], [] ]
+        self.showErrorAlert(error: error.localizedDescription)
+    }
+    
+    func newData(_ data: [String : Any]?) {
+        guard let data = data else {
+            // Empty model array
+            playerModels = [ [], [] ]
+            self.showErrorAlert(error: Constants.Errors.documentError)
+            return
+        }
+        
+        // Pull woman and man arrays out of the data retrieved
+        guard let womenDataArray = data[FirebaseKeys.CollectionPath.women] as? [[String: Any]] else {
+            self.showErrorAlert(error: Constants.Errors.documentError)
+            return
+        }
+        guard let menDataArray = data[FirebaseKeys.CollectionPath.men] as? [[String: Any]] else {
+            self.showErrorAlert(error: Constants.Errors.documentError)
+            return
+        }
+        
+        // Initialize the new arrays of player models
+        var womenArray: [PlayerModel] = [PlayerModel]()
+        var menArray: [PlayerModel] = [PlayerModel]()
+        
+        for data in womenDataArray {
+            if let model = PlayerModel(documentData: data) {
+                womenArray.append(model)
+            }
+        }
+        
+        for data in menDataArray {
+            if let model = PlayerModel(documentData: data) {
+                menArray.append(model)
+            }
+        }
+
+        playerModels = [womenArray, menArray]
     }
 }

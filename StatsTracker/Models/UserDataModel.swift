@@ -13,6 +13,9 @@ protocol DocumentSerializable {
 }
 
 struct UserDataModel {
+    //TODO: Use this model!
+    
+    //MARK: Properties
     private(set) var teamName: String
     private(set) var email: String
     private(set) var imageURL: String
@@ -26,6 +29,7 @@ struct UserDataModel {
     }
 }
 
+//MARK: DocumentSerializable
 extension UserDataModel: DocumentSerializable {
     init?(documentData: [String : Any]) {
         let teamName = documentData[Constants.UserDataModel.teamName] as? String ?? Constants.Empty.string
@@ -35,12 +39,14 @@ extension UserDataModel: DocumentSerializable {
     }
 }
 
+//MARK: CustomDebugStringConvertible
 extension UserDataModel: CustomDebugStringConvertible {
     var debugDescription: String {
         return "UserDataModel(dictionary: \(dictionary))"
     }
 }
 
+//MARK: CustomStringConvertible
 extension UserDataModel: CustomStringConvertible {
     var description: String {
         return "UserDataModel(teamName: \(teamName))"

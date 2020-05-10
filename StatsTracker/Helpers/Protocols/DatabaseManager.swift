@@ -24,6 +24,7 @@ protocol DatabaseManager {
     func getData(collection: DataCollection)
     func updateData(data: [String: Any], collection: DataCollection)
     func storeImage(image: UIImage)
+    func deleteData(data: [String: Any], collection: DataCollection)
 }
 
 protocol DatabaseManagerDelegate: AnyObject {

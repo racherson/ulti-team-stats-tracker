@@ -40,7 +40,7 @@ class RosterCoordinator: Coordinator {
 extension RosterCoordinator: RosterPresenterDelegate {
     func addPressed() {
         let vc = NewPlayerViewController.instantiate(.roster)
-        vc.presenter = NewPlayerPresenter(vc: vc, delegate: self)
+        vc.presenter = NewPlayerPresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
         let navController = UINavigationController(rootViewController: vc)
         navigationController.present(navController, animated: true, completion: nil)
     }

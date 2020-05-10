@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol NewPlayerPresenterDelegate: AnyObject {
     func cancelPressed()
@@ -18,11 +18,25 @@ class NewPlayerPresenter: Presenter {
     //MARK: Properties
     weak var delegate: NewPlayerPresenterDelegate?
     weak var vc: NewPlayerViewController!
+    var dbManager: DatabaseManager
+    var model: PlayerModel?
     
     //MARK: Initialization
-    init(vc: NewPlayerViewController, delegate: NewPlayerPresenterDelegate?) {
+    init(vc: NewPlayerViewController, delegate: NewPlayerPresenterDelegate?, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
+        self.dbManager = dbManager
+        self.dbManager.delegate = self
+    }
+    
+    //MARK: Private methods
+    private func showErrorAlert(error: String) {
+        // Error logging out, display alert
+        let alertController = UIAlertController(title: Constants.Errors.userSavingError, message:
+            error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
+
+        vc.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -38,9 +52,25 @@ extension NewPlayerPresenter: NewPlayerPresenterProtocol {
     }
     
     func savePressed(model: PlayerModel) {
-        //TODO: Try to update db
-        // if error, display error, else call delegate
-        
-        delegate?.savePressed(player: model)
+        self.model = model
+        dbManager.setData(data: model.dictionary, collection: .roster)
+    }
+    
+    func displaySavingError() {
+        self.showErrorAlert(error: Constants.Errors.userSavingError)
+    }
+}
+
+extension NewPlayerPresenter: DatabaseManagerDelegate {
+    func displayError(with error: Error) {
+        self.showErrorAlert(error: error.localizedDescription)
+    }
+    
+    func newData(_ data: [String : Any]?) {
+        guard let model = self.model else {
+            self.showErrorAlert(error: Constants.Errors.userSavingError)
+            return
+        }
+        self.delegate?.savePressed(player: model)
     }
 }

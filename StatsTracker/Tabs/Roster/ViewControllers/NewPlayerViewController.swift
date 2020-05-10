@@ -12,6 +12,7 @@ protocol NewPlayerPresenterProtocol {
     func onViewWillAppear()
     func cancelPressed()
     func savePressed(model: PlayerModel)
+    func displaySavingError()
 }
 
 class NewPlayerViewController: UIViewController, Storyboarded {
@@ -65,11 +66,12 @@ class NewPlayerViewController: UIViewController, Storyboarded {
     
     @objc func savePressed() {
         guard let name = nameTextField.text, let gender = Gender(rawValue: genderSegmentedControl.selectedSegmentIndex) else {
-            //TODO: Display error
+            presenter.displaySavingError()
             return
         }
         
-        let model = PlayerModel(name: name, gender: gender.rawValue)
+        let newPlayerID = UUID().uuidString
+        let model = PlayerModel(name: name, gender: gender.rawValue, id: newPlayerID)
         presenter.savePressed(model: model)
     }
 }

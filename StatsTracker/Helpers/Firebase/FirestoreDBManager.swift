@@ -26,12 +26,21 @@ class FirestoreDBManager {
         .document(FirebaseKeys.CollectionPath.environment)
     
     //MARK: Private methods
-    private func referenceForUserPublicData() -> DocumentReference {
-        return root
+    private func referenceForUserPublicData(_ collection: DataCollection) -> DocumentReference {
+        let publicDataRef = root
             .collection(FirebaseKeys.CollectionPath.users)
             .document(uid!)
             .collection(FirebaseKeys.CollectionPath.publicData)
             .document(FirebaseKeys.CollectionPath.publicData)
+        
+        switch collection {
+        case .profile:
+            return publicDataRef
+        case .roster:
+            return publicDataRef
+            .collection(FirebaseKeys.CollectionPath.roster)
+            .document(FirebaseKeys.CollectionPath.roster)
+        }
     }
 }
 
@@ -47,21 +56,38 @@ extension FirestoreDBManager: DatabaseManager {
         
         switch collection {
         case .profile:
-            referenceForUserPublicData().setData(data) { (error) in
+            referenceForUserPublicData(collection).setData(data) { (error) in
                 if error != nil {
                     // Show error message
                     self.delegate?.displayError(with: error!)
                 }
             }
         case .roster:
-            referenceForUserPublicData()
-                .collection(FirebaseKeys.CollectionPath.roster)
-                .document(FirebaseKeys.CollectionPath.roster)
-                .setData(data) { (error) in
+            var genderCollection: String
+            
+            // Grab fields from data needed to store the data properly
+            guard let gender = data[Constants.PlayerModel.gender] as? Int, let id = data[Constants.PlayerModel.id] as? String else {
+                self.delegate?.displayError(with: DBError.model)
+                return
+            }
+            
+            switch gender {
+            case Gender.women.rawValue:
+                genderCollection = FirebaseKeys.CollectionPath.women
+            case Gender.men.rawValue:
+                genderCollection = FirebaseKeys.CollectionPath.men
+            default:
+                self.delegate?.displayError(with: DBError.model)
+                return
+            }
+            
+            referenceForUserPublicData(collection).collection(genderCollection).document(id).setData(data) { (error) in
                 if error != nil {
                     // Show error message
                     self.delegate?.displayError(with: error!)
+                    return
                 }
+                self.delegate?.newData(nil)
             }
         }
     }
@@ -73,13 +99,23 @@ extension FirestoreDBManager: DatabaseManager {
             return
         }
         
-        referenceForUserPublicData().getDocument { (document, error) in
+        switch collection {
+        case .profile:
+            getDataForProfile()
+        case .roster:
+            getDataForRoster()
+        }
+    }
+    
+    private func getDataForProfile() {
+        
+        referenceForUserPublicData(.profile).getDocument { (document, error) in
             if error != nil {
                 // Show error message
-                self.delegate?.displayError(with: DBError.document)
+                self.delegate?.displayError(with: error!)
                 return
             }
-            guard let document = document else {
+            guard let document = document, document.exists else {
                 // Show error message
                 self.delegate?.displayError(with: DBError.document)
                 return
@@ -99,6 +135,55 @@ extension FirestoreDBManager: DatabaseManager {
         }
     }
     
+    private func getDataForRoster() {
+        var womenArray: [[String: Any]] = [[String: Any]]()
+        var menArray: [[String: Any]] = [[String: Any]]()
+        
+        // Get all the women players
+        self.referenceForUserPublicData(.roster).collection(FirebaseKeys.CollectionPath.women).getDocuments { (snapshot, error) in
+            if error != nil {
+                // Show error message
+                self.delegate?.displayError(with: error!)
+                return
+            }
+            
+            guard let snapshot = snapshot else {
+                // Show error message
+                self.delegate?.displayError(with: DBError.document)
+                return
+            }
+            
+            for document in snapshot.documents {
+                womenArray.append(document.data())
+            }
+            
+            // Get all the men players
+            self.referenceForUserPublicData(.roster).collection(FirebaseKeys.CollectionPath.men).getDocuments { (snapshot, error) in
+                if error != nil {
+                    // Show error message
+                    self.delegate?.displayError(with: error!)
+                    return
+                }
+                
+                guard let snapshot = snapshot else {
+                    // Show error message
+                    self.delegate?.displayError(with: DBError.document)
+                    return
+                }
+                
+                for document in snapshot.documents {
+                    menArray.append(document.data())
+                }
+                
+                let newData = [
+                            FirebaseKeys.CollectionPath.women: womenArray,
+                            FirebaseKeys.CollectionPath.men: menArray
+                        ]
+                self.delegate?.newData(newData)
+            }
+        }
+    }
+    
     // This method updates data in the database.
     func updateData(data: [String : Any], collection: DataCollection) {
         guard uid != nil else {
@@ -106,14 +191,48 @@ extension FirestoreDBManager: DatabaseManager {
             return
         }
         
-        referenceForUserPublicData().updateData(data) { (error) in
+        referenceForUserPublicData(collection).updateData(data) { (error) in
             if error != nil {
                 // Show error message
                 self.delegate?.displayError(with: error!)
                 return
             }
             // Don't need to send the data back as new data to delegate
+            //TODO: Change delegate function names!
             self.delegate?.newData(nil)
+        }
+    }
+    
+    // This method deletes data from the database.
+    func deleteData(data: [String: Any], collection: DataCollection) {
+        
+        switch collection {
+        case .profile:
+            return // Not implemented
+        case .roster:
+            var genderCollection: String
+            
+            // Grab fields from data needed to store the data properly
+            guard let gender = data[Constants.PlayerModel.gender] as? Int, let id = data[Constants.PlayerModel.id] as? String else {
+                self.delegate?.displayError(with: DBError.model)
+                return
+            }
+            
+            switch gender {
+            case Gender.women.rawValue:
+                genderCollection = FirebaseKeys.CollectionPath.women
+            case Gender.men.rawValue:
+                genderCollection = FirebaseKeys.CollectionPath.men
+            default:
+                self.delegate?.displayError(with: DBError.model)
+                return
+            }
+            
+            referenceForUserPublicData(collection).collection(genderCollection).document(id).delete() { err in
+                if let err = err {
+                    self.delegate?.displayError(with: err)
+                }
+            }
         }
     }
     

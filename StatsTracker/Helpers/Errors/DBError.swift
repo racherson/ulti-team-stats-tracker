@@ -11,6 +11,7 @@ import Foundation
 enum DBError: Error {
     case document
     case unknown
+    case model
 }
 
 //MARK: LocalizedError, CustomStringConvertible
@@ -21,6 +22,8 @@ extension DBError: LocalizedError, CustomStringConvertible {
             return getLocalizedString(Constants.Errors.documentError)
         case .unknown:
             return getLocalizedString(Constants.Errors.unknown)
+        case .model:
+            return getLocalizedString(Constants.Errors.modelError)
         }
     }
     
