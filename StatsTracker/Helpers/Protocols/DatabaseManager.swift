@@ -17,24 +17,46 @@ protocol DatabaseManager {
     
     //MARK: Properties
     var uid: String? { get set }
-    var delegate: DatabaseManagerDelegate? { get set }
+    var setDataDelegate: DatabaseManagerSetDataDelegate? { get set }
+    var getDataDelegate: DatabaseManagerGetDataDelegate? { get set }
+    var deleteDataDelegate: DatabaseManagerDeleteDataDelegate? { get set }
+    var updateDataDelegate: DatabaseManagerUpdateDataDelegate? { get set }
+    var storeImageDelegate: DatabaseManagerStoreImageDelegate? { get set }
     
     //MARK: Methods
     func setData(data: [String: Any], collection: DataCollection)
     func getData(collection: DataCollection)
+    // TODO: try to remove the edit data function?
     func updateData(data: [String: Any], collection: DataCollection)
     func storeImage(image: UIImage)
     func deleteData(data: [String: Any], collection: DataCollection)
 }
 
-protocol DatabaseManagerDelegate: AnyObject {
+//MARK: DatabaseManagerSetDataDelegate
+protocol DatabaseManagerSetDataDelegate: AnyObject {
     func displayError(with error: Error)
-    func newData(_ data: [String: Any]?)
-    func storeImageURL(url: String)
+    func onSuccessfulSet()
 }
 
-extension DatabaseManagerDelegate {
-    // Defaults
-    func newData(_ data: [String: Any]?) { }
-    func storeImageURL(url: String) { }
+//MARK: DatabaseManagerGetDataDelegate
+protocol DatabaseManagerGetDataDelegate: AnyObject {
+    func displayError(with error: Error)
+    func onSuccessfulGet(_ data: [String: Any])
+}
+
+//MARK: DatabaseManagerDeleteDataDelegate
+protocol DatabaseManagerDeleteDataDelegate: AnyObject {
+    func displayError(with error: Error)
+}
+
+//MARK: DatabaseManagerUpdateDataDelegate
+protocol DatabaseManagerUpdateDataDelegate: AnyObject {
+    func displayError(with error: Error)
+    func onSuccessfulUpdate()
+}
+
+//MARK: DatabaseManagerStoreImageDelegate
+protocol DatabaseManagerStoreImageDelegate: AnyObject {
+    func displayError(with error: Error)
+    func storeImageURL(url: String)
 }

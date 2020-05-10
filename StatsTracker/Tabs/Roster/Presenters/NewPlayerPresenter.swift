@@ -26,7 +26,7 @@ class NewPlayerPresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.dbManager = dbManager
-        self.dbManager.delegate = self
+        self.dbManager.setDataDelegate = self
     }
     
     //MARK: Private methods
@@ -61,12 +61,13 @@ extension NewPlayerPresenter: NewPlayerPresenterProtocol {
     }
 }
 
-extension NewPlayerPresenter: DatabaseManagerDelegate {
+//MARK: DatabaseManagerSetDataDelegate
+extension NewPlayerPresenter: DatabaseManagerSetDataDelegate {
     func displayError(with error: Error) {
         self.showErrorAlert(error: error.localizedDescription)
     }
     
-    func newData(_ data: [String : Any]?) {
+    func onSuccessfulSet() {
         guard let model = self.model else {
             self.showErrorAlert(error: Constants.Errors.userSavingError)
             return

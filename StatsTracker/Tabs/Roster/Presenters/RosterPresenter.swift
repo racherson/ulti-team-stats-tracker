@@ -26,7 +26,7 @@ class RosterPresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.dbManager = dbManager
-        self.dbManager.delegate = self
+        self.dbManager.getDataDelegate = self
         
         setGenderArrays()
     }
@@ -99,22 +99,18 @@ extension RosterPresenter: RosterPresenterProtocol {
     }
 }
 
-//MARK: DatabaseManagerDelegate
-extension RosterPresenter: DatabaseManagerDelegate {
-    
+//MARK: DatabaseManagerGetDataDelegate
+extension RosterPresenter: DatabaseManagerGetDataDelegate {
+
     func  displayError(with error: Error) {
         // Empty model array
-        playerModels = [ [], [] ]
+        if playerModels == nil {
+            playerModels = [ [], [] ]
+        }
         self.showErrorAlert(error: error.localizedDescription)
     }
     
-    func newData(_ data: [String : Any]?) {
-        guard let data = data else {
-            // Empty model array
-            playerModels = [ [], [] ]
-            self.showErrorAlert(error: Constants.Errors.documentError)
-            return
-        }
+    func onSuccessfulGet(_ data: [String : Any]) {
         
         // Pull woman and man arrays out of the data retrieved
         guard let womenDataArray = data[FirebaseKeys.CollectionPath.women] as? [[String: Any]] else {

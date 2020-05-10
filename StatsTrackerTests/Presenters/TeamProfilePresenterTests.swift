@@ -88,9 +88,9 @@ class TeamProfilePresenterTests: XCTestCase {
         )
     }
     
-    func testNewData() throws {
+    func testOnSuccessfulGet() throws {
         // Presenter should receive an image url, but should give its VC a UIImage
-        sut.newData([
+        sut.onSuccessfulGet([
             Constants.UserDataModel.imageURL: TestConstants.empty,
             Constants.UserDataModel.teamName: TestConstants.teamName
         ])

@@ -114,7 +114,7 @@ class EditProfilePresenterTests: XCTestCase {
     func testNewData() throws {
         XCTAssertEqual(0, savePressedCount)
         sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
-        sut.newData(nil)
+        sut.onSuccessfulUpdate()
         XCTAssertFalse(vc.activityIndicator.isAnimating)
         XCTAssertEqual(1, savePressedCount)
     }

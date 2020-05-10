@@ -27,7 +27,8 @@ class EditProfilePresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.dbManager = dbManager
-        self.dbManager.delegate = self
+        self.dbManager.updateDataDelegate = self
+        self.dbManager.storeImageDelegate = self
     }
     
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
@@ -66,13 +67,23 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     }
 }
 
-//MARK: DatabaseManagerDelegate
-extension EditProfilePresenter: DatabaseManagerDelegate {
+//MARK: DatabaseManagerUpdateDataDelegate
+extension EditProfilePresenter: DatabaseManagerUpdateDataDelegate {
+    func onSuccessfulUpdate() {
+        // Hide activity indicator
+        self.vc.activityIndicator.stopAnimating()
+        self.vc.visualEffectView.alpha = 0
+        
+        self.delegate?.savePressed(vm: viewModel)
+    }
     
     func displayError(with error: Error) {
         self.showErrorAlert(error: error.localizedDescription)
     }
-    
+}
+
+//MARK: DatabaseManagerStoreImageDelegate
+extension EditProfilePresenter: DatabaseManagerStoreImageDelegate {
     func storeImageURL(url: String) {
         let newData = [
             Constants.UserDataModel.imageURL: url,
@@ -81,13 +92,5 @@ extension EditProfilePresenter: DatabaseManagerDelegate {
         
         // Update team name and image url in Firestore
         dbManager.updateData(data: newData, collection: .profile)
-    }
-    
-    func newData(_ data: [String : Any]?) {
-        // Hide activity indicator
-        self.vc.activityIndicator.stopAnimating()
-        self.vc.visualEffectView.alpha = 0
-        
-        self.delegate?.savePressed(vm: viewModel)
     }
 }

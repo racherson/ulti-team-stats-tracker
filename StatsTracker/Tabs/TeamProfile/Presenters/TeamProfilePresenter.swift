@@ -29,7 +29,7 @@ class TeamProfilePresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.dbManager = dbManager
-        self.dbManager.delegate = self
+        self.dbManager.getDataDelegate = self
         
         initializeViewModel()
     }
@@ -71,19 +71,19 @@ extension TeamProfilePresenter: TeamProfilePresenterProtocol {
     }
 }
 
-//MARK: DatabaseManagerDelegate
-extension TeamProfilePresenter: DatabaseManagerDelegate {
-    
-    func newData(_ data: [String: Any]?) {
-        // Pull url and name out of the data retrieved
-        let url = data?[Constants.UserDataModel.imageURL] as! String
-        let name = data?[Constants.UserDataModel.teamName] as! String
-        
-        // Set a new view model with the new data
-        setViewModel(urlString: url, name: name)
-    }
+//MARK: DatabaseManagerGetDataDelegate
+extension TeamProfilePresenter: DatabaseManagerGetDataDelegate {
     
     func displayError(with error: Error) {
         self.showErrorAlert(error: error.localizedDescription)
+    }
+    
+    func onSuccessfulGet(_ data: [String : Any]) {
+        // Pull url and name out of the data retrieved
+        let url = data[Constants.UserDataModel.imageURL] as! String
+        let name = data[Constants.UserDataModel.teamName] as! String
+        
+        // Set a new view model with the new data
+        setViewModel(urlString: url, name: name)
     }
 }

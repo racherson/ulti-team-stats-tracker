@@ -14,7 +14,11 @@ class FirestoreDBManager {
     
     //MARK: Properties
     var uid: String?
-    weak var delegate: DatabaseManagerDelegate?
+    weak var setDataDelegate: DatabaseManagerSetDataDelegate?
+    weak var getDataDelegate: DatabaseManagerGetDataDelegate?
+    weak var deleteDataDelegate: DatabaseManagerDeleteDataDelegate?
+    weak var updateDataDelegate: DatabaseManagerUpdateDataDelegate?
+    weak var storeImageDelegate: DatabaseManagerStoreImageDelegate?
     
     init(_ uid: String? = nil) {
         self.uid = uid
@@ -50,7 +54,7 @@ extension FirestoreDBManager: DatabaseManager {
     // This method adds new data to the current user's public data.
     func setData(data: [String : Any], collection: DataCollection) {
         guard uid != nil else {
-            self.delegate?.displayError(with: DBError.document)
+            self.setDataDelegate?.displayError(with: DBError.document)
             return
         }
         
@@ -59,7 +63,7 @@ extension FirestoreDBManager: DatabaseManager {
             referenceForUserPublicData(collection).setData(data) { (error) in
                 if error != nil {
                     // Show error message
-                    self.delegate?.displayError(with: error!)
+                    self.setDataDelegate?.displayError(with: error!)
                 }
             }
         case .roster:
@@ -67,7 +71,7 @@ extension FirestoreDBManager: DatabaseManager {
             
             // Grab fields from data needed to store the data properly
             guard let gender = data[Constants.PlayerModel.gender] as? Int, let id = data[Constants.PlayerModel.id] as? String else {
-                self.delegate?.displayError(with: DBError.model)
+                self.setDataDelegate?.displayError(with: DBError.model)
                 return
             }
             
@@ -77,17 +81,17 @@ extension FirestoreDBManager: DatabaseManager {
             case Gender.men.rawValue:
                 genderCollection = FirebaseKeys.CollectionPath.men
             default:
-                self.delegate?.displayError(with: DBError.model)
+                self.setDataDelegate?.displayError(with: DBError.model)
                 return
             }
             
             referenceForUserPublicData(collection).collection(genderCollection).document(id).setData(data) { (error) in
                 if error != nil {
                     // Show error message
-                    self.delegate?.displayError(with: error!)
+                    self.setDataDelegate?.displayError(with: error!)
                     return
                 }
-                self.delegate?.newData(nil)
+                self.setDataDelegate?.onSuccessfulSet()
             }
         }
     }
@@ -95,7 +99,7 @@ extension FirestoreDBManager: DatabaseManager {
     // This method retrieves the current user's public data and sends it to the delegate.
     func getData(collection: DataCollection) {
         guard uid != nil else {
-            self.delegate?.displayError(with: DBError.document)
+            self.getDataDelegate?.displayError(with: DBError.document)
             return
         }
         
@@ -112,12 +116,12 @@ extension FirestoreDBManager: DatabaseManager {
         referenceForUserPublicData(.profile).getDocument { (document, error) in
             if error != nil {
                 // Show error message
-                self.delegate?.displayError(with: error!)
+                self.getDataDelegate?.displayError(with: error!)
                 return
             }
             guard let document = document, document.exists else {
                 // Show error message
-                self.delegate?.displayError(with: DBError.document)
+                self.getDataDelegate?.displayError(with: DBError.document)
                 return
             }
             
@@ -131,7 +135,7 @@ extension FirestoreDBManager: DatabaseManager {
             ]
             
             // Send retrieved data to delegate
-            self.delegate?.newData(newData)
+            self.getDataDelegate?.onSuccessfulGet(newData)
         }
     }
     
@@ -143,13 +147,13 @@ extension FirestoreDBManager: DatabaseManager {
         self.referenceForUserPublicData(.roster).collection(FirebaseKeys.CollectionPath.women).getDocuments { (snapshot, error) in
             if error != nil {
                 // Show error message
-                self.delegate?.displayError(with: error!)
+                self.getDataDelegate?.displayError(with: error!)
                 return
             }
             
             guard let snapshot = snapshot else {
                 // Show error message
-                self.delegate?.displayError(with: DBError.document)
+                self.getDataDelegate?.displayError(with: DBError.document)
                 return
             }
             
@@ -161,13 +165,13 @@ extension FirestoreDBManager: DatabaseManager {
             self.referenceForUserPublicData(.roster).collection(FirebaseKeys.CollectionPath.men).getDocuments { (snapshot, error) in
                 if error != nil {
                     // Show error message
-                    self.delegate?.displayError(with: error!)
+                    self.getDataDelegate?.displayError(with: error!)
                     return
                 }
                 
                 guard let snapshot = snapshot else {
                     // Show error message
-                    self.delegate?.displayError(with: DBError.document)
+                    self.getDataDelegate?.displayError(with: DBError.document)
                     return
                 }
                 
@@ -179,7 +183,7 @@ extension FirestoreDBManager: DatabaseManager {
                             FirebaseKeys.CollectionPath.women: womenArray,
                             FirebaseKeys.CollectionPath.men: menArray
                         ]
-                self.delegate?.newData(newData)
+                self.getDataDelegate?.onSuccessfulGet(newData)
             }
         }
     }
@@ -187,19 +191,18 @@ extension FirestoreDBManager: DatabaseManager {
     // This method updates data in the database.
     func updateData(data: [String : Any], collection: DataCollection) {
         guard uid != nil else {
-            self.delegate?.displayError(with: DBError.document)
+            self.updateDataDelegate?.displayError(with: DBError.document)
             return
         }
         
         referenceForUserPublicData(collection).updateData(data) { (error) in
             if error != nil {
                 // Show error message
-                self.delegate?.displayError(with: error!)
+                self.updateDataDelegate?.displayError(with: error!)
                 return
             }
             // Don't need to send the data back as new data to delegate
-            //TODO: Change delegate function names!
-            self.delegate?.newData(nil)
+            self.updateDataDelegate?.onSuccessfulUpdate()
         }
     }
     
@@ -214,7 +217,7 @@ extension FirestoreDBManager: DatabaseManager {
             
             // Grab fields from data needed to store the data properly
             guard let gender = data[Constants.PlayerModel.gender] as? Int, let id = data[Constants.PlayerModel.id] as? String else {
-                self.delegate?.displayError(with: DBError.model)
+                self.deleteDataDelegate?.displayError(with: DBError.model)
                 return
             }
             
@@ -224,14 +227,15 @@ extension FirestoreDBManager: DatabaseManager {
             case Gender.men.rawValue:
                 genderCollection = FirebaseKeys.CollectionPath.men
             default:
-                self.delegate?.displayError(with: DBError.model)
+                self.deleteDataDelegate?.displayError(with: DBError.model)
                 return
             }
             
             referenceForUserPublicData(collection).collection(genderCollection).document(id).delete() { err in
                 if let err = err {
-                    self.delegate?.displayError(with: err)
+                    self.deleteDataDelegate?.displayError(with: err)
                 }
+                //TODO: OnSuccessfulDelete()???
             }
         }
     }
@@ -240,7 +244,7 @@ extension FirestoreDBManager: DatabaseManager {
     func storeImage(image: UIImage) {
         // Convert image to data to store
         guard let uid = uid, let data = image.jpegData(compressionQuality: 1.0) else {
-            self.delegate?.displayError(with: DBError.document)
+            self.storeImageDelegate?.displayError(with: DBError.document)
             return
         }
         
@@ -254,7 +258,7 @@ extension FirestoreDBManager: DatabaseManager {
         imageReference.putData(data, metadata: nil) { (metadata, err) in
             if let err = err {
                 // Show error message
-                self.delegate?.displayError(with: err)
+                self.storeImageDelegate?.displayError(with: err)
                 return
             }
             
@@ -262,19 +266,19 @@ extension FirestoreDBManager: DatabaseManager {
             imageReference.downloadURL { (url, err) in
                 if let err = err {
                     // Show error message
-                    self.delegate?.displayError(with: err)
+                    self.storeImageDelegate?.displayError(with: err)
                     return
                 }
                 guard let url = url else {
                     // Show error message
-                    self.delegate?.displayError(with: DBError.unknown)
+                    self.storeImageDelegate?.displayError(with: DBError.unknown)
                     return
                 }
                 
                 let urlString = url.absoluteString
                 
                 // Send image url string to delegate
-                self.delegate?.storeImageURL(url: urlString)
+                self.storeImageDelegate?.storeImageURL(url: urlString)
             }
         }
     }

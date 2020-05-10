@@ -29,7 +29,7 @@ class SignUpPresenter: Presenter {
         self.authManager = authManager
         self.dbManager = dbManager
         self.authManager.createUserDelegate = self
-        self.dbManager.delegate = self
+        self.dbManager.setDataDelegate = self
     }
 }
 
@@ -60,8 +60,9 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
 }
 
-//MARK: AuthManagerCreateUserDelegate, DatabaseManagerDelegate
-extension SignUpPresenter: AuthManagerCreateUserDelegate, DatabaseManagerDelegate {
+//MARK: AuthManagerCreateUserDelegate
+extension SignUpPresenter: AuthManagerCreateUserDelegate {
+
     func displayError(with error: Error) {
         self.vc.showError(error.localizedDescription)
     }
@@ -75,4 +76,9 @@ extension SignUpPresenter: AuthManagerCreateUserDelegate, DatabaseManagerDelegat
         dbManager.uid = uid
         dbManager.setData(data: data, collection: .profile)
     }
+}
+
+//MARK: DatabaseManagerGetDataDelegate
+extension SignUpPresenter: DatabaseManagerSetDataDelegate {
+    func onSuccessfulSet() { }
 }
