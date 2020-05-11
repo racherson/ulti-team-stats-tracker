@@ -13,7 +13,6 @@ protocol DocumentSerializable {
 }
 
 struct UserDataModel {
-    //TODO: Use this model!
     
     //MARK: Properties
     private(set) var teamName: String

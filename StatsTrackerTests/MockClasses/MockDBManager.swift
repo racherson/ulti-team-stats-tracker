@@ -16,12 +16,10 @@ class MockDBManager: DatabaseManager {
     weak var setDataDelegate: DatabaseManagerSetDataDelegate?
     weak var getDataDelegate: DatabaseManagerGetDataDelegate?
     weak var deleteDataDelegate: DatabaseManagerDeleteDataDelegate?
-    weak var updateDataDelegate: DatabaseManagerUpdateDataDelegate?
     weak var storeImageDelegate: DatabaseManagerStoreImageDelegate?
     
     var setDataCalled: Int = 0
     var getDataCalled: Int = 0
-    var updateDataCalled: Int = 0
     var deleteDataCalled: Int = 0
     var storeImageDataCalled: Int = 0
     
@@ -36,10 +34,6 @@ class MockDBManager: DatabaseManager {
     
     func getData(collection: DataCollection) {
         getDataCalled += 1
-    }
-    
-    func updateData(data: [String : Any], collection: DataCollection) {
-        updateDataCalled += 1
     }
     
     func deleteData(data: [String : Any], collection: DataCollection) {

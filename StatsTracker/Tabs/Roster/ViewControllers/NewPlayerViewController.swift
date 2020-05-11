@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol NewPlayerPresenterProtocol {
+protocol NewPlayerPresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func cancelPressed()
     func savePressed(model: PlayerModel)

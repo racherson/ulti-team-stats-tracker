@@ -11,13 +11,15 @@ import UIKit
 class TeamProfileViewModel {
     var teamName: String
     var teamImage: UIImage
+    var email: String
     
-    required init(team: String, image: UIImage) {
+    required init(team: String, email: String, image: UIImage) {
         self.teamName = team
+        self.email = email
         self.teamImage = image
     }
     
-    convenience init?(team: String, urlString: String) {
+    convenience init?(team: String, email: String, urlString: String) {
         var image: UIImage?
         let url = NSURL(string: urlString)! as URL
         
@@ -28,6 +30,10 @@ class TeamProfileViewModel {
             image = UIImage(named: Constants.Empty.image)
         }
         
-        self.init(team: team, image: image!)
+        self.init(team: team, email: email, image: image!)
+    }
+    
+    convenience init?(model: UserDataModel) {
+        self.init(team: model.teamName, email: model.email, urlString: model.imageURL)
     }
 }

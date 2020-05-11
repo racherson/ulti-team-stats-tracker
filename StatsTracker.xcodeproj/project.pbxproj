@@ -252,6 +252,7 @@
 				2910EB63243FA4C100BCF721 /* SceneDelegate.swift */,
 				29458D0A2447C4AE00EC03AB /* Models */,
 				2910EB98243FC47500BCF721 /* Helpers */,
+				294A87482446ABF0003FC969 /* Firebase */,
 				294A8741244666D9003FC969 /* Root */,
 				29D0E13F24401215008E14F3 /* Auth */,
 				2969BC5A244A4CCE00E95EBA /* MainTabBar */,
@@ -282,7 +283,6 @@
 				2973A8D9245B51EB002CD459 /* Constants */,
 				2973A8D4245B514D002CD459 /* Errors */,
 				297EB58D24536F4D008DE8C6 /* Protocols */,
-				294A87482446ABF0003FC969 /* Firebase */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

@@ -27,7 +27,7 @@ class EditProfilePresenter: Presenter {
         self.vc = vc
         self.delegate = delegate
         self.dbManager = dbManager
-        self.dbManager.updateDataDelegate = self
+        self.dbManager.setDataDelegate = self
         self.dbManager.storeImageDelegate = self
     }
     
@@ -67,9 +67,9 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     }
 }
 
-//MARK: DatabaseManagerUpdateDataDelegate
-extension EditProfilePresenter: DatabaseManagerUpdateDataDelegate {
-    func onSuccessfulUpdate() {
+//MARK: DatabaseManagerSetDataDelegate
+extension EditProfilePresenter: DatabaseManagerSetDataDelegate {
+    func onSuccessfulSet() {
         // Hide activity indicator
         self.vc.activityIndicator.stopAnimating()
         self.vc.visualEffectView.alpha = 0
@@ -85,12 +85,9 @@ extension EditProfilePresenter: DatabaseManagerUpdateDataDelegate {
 //MARK: DatabaseManagerStoreImageDelegate
 extension EditProfilePresenter: DatabaseManagerStoreImageDelegate {
     func storeImageURL(url: String) {
-        let newData = [
-            Constants.UserDataModel.imageURL: url,
-            Constants.UserDataModel.teamName: viewModel.teamName
-            ]
+        let model = UserDataModel(teamName: viewModel.teamName, email: viewModel.email, imageURL: url)
         
         // Update team name and image url in Firestore
-        dbManager.updateData(data: newData, collection: .profile)
+        dbManager.setData(data: model.dictionary, collection: .profile)
     }
 }

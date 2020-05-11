@@ -43,7 +43,7 @@ class EditProfilePresenterTests: XCTestCase {
     }
     
     func testOnViewWillAppear() throws {
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
+        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
         sut.onViewWillAppear()
         XCTAssertEqual(vc.teamNameTextField.text, TestConstants.teamName)
         XCTAssertEqual(vc.teamPhotoImage.image, TestConstants.teamImage)
@@ -58,7 +58,7 @@ class EditProfilePresenterTests: XCTestCase {
     func testSavePressed() throws {
         XCTAssertNil(sut.viewModel)
         XCTAssertEqual(0, dbManager.storeImageDataCalled)
-        let vm = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
+        let vm = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
         sut.savePressed(vm: vm)
         XCTAssertEqual(sut.viewModel.teamName, TestConstants.teamName)
         XCTAssertEqual(sut.viewModel.teamImage, TestConstants.teamImage!)
@@ -105,16 +105,16 @@ class EditProfilePresenterTests: XCTestCase {
     }
     
     func testStoreImageURL() throws {
-        XCTAssertEqual(0, dbManager.updateDataCalled)
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
+        XCTAssertEqual(0, dbManager.setDataCalled)
+        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
         sut.storeImageURL(url: TestConstants.empty)
-        XCTAssertEqual(1, dbManager.updateDataCalled)
+        XCTAssertEqual(1, dbManager.setDataCalled)
     }
     
     func testNewData() throws {
         XCTAssertEqual(0, savePressedCount)
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
-        sut.onSuccessfulUpdate()
+        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        sut.onSuccessfulSet()
         XCTAssertFalse(vc.activityIndicator.isAnimating)
         XCTAssertEqual(1, savePressedCount)
     }

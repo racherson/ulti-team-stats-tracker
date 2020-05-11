@@ -27,6 +27,7 @@ class RosterPresenter: Presenter {
         self.delegate = delegate
         self.dbManager = dbManager
         self.dbManager.getDataDelegate = self
+        self.dbManager.deleteDataDelegate = self
         
         setGenderArrays()
     }
@@ -140,4 +141,8 @@ extension RosterPresenter: DatabaseManagerGetDataDelegate {
 
         playerModels = [womenArray, menArray]
     }
+}
+
+extension RosterPresenter: DatabaseManagerDeleteDataDelegate {
+    func onSuccessfulDelete() { }
 }

@@ -35,5 +35,7 @@ struct Constants {
         static let string = ""
         static let int = 0
         static let image = "defaultPhoto"
+        static let teamName = "Team Name"
+        static let email = "default@t.com"
     }
 }

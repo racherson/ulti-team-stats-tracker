@@ -44,7 +44,7 @@ class TeamProfilePresenterTests: XCTestCase {
     func testOnViewWillAppear() throws {
         sut.onViewWillAppear()
         XCTAssertTrue(vc.activityIndicator.isAnimating)
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
+        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
         sut.onViewWillAppear()
         XCTAssertTrue(vc.activityIndicator.isHidden)
         XCTAssertEqual(vc.teamNameLabel.text, TestConstants.teamName)
@@ -53,7 +53,7 @@ class TeamProfilePresenterTests: XCTestCase {
 
     func testSettingsPressed() throws {
         XCTAssertEqual(0, settingsCalled)
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, image: TestConstants.teamImage!)
+        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
         sut.settingsPressed()
         XCTAssertEqual(1, settingsCalled)
     }

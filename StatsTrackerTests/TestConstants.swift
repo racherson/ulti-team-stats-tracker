@@ -12,6 +12,7 @@ import UIKit
 struct TestConstants {
     static let teamName = "Test"
     static let teamImage = UIImage(named: Constants.Empty.image)
+    static let email = "test@t.com"
     static let empty = ""
     static let currentUID = "12345"
     static let error = NSError(domain: "", code: 0, userInfo: nil)

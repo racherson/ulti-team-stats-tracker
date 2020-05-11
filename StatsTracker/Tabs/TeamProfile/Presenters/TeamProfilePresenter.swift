@@ -39,10 +39,6 @@ class TeamProfilePresenter: Presenter {
         dbManager.getData(collection: .profile)
     }
     
-    private func setViewModel(urlString: String, name: String) {
-        self.viewModel = TeamProfileViewModel(team: name, urlString: urlString)
-    }
-    
     private func showErrorAlert(error: String) {
         // Error logging out, display alert
         let alertController = UIAlertController(title: Constants.Errors.documentErrorTitle, message:
@@ -79,11 +75,10 @@ extension TeamProfilePresenter: DatabaseManagerGetDataDelegate {
     }
     
     func onSuccessfulGet(_ data: [String : Any]) {
-        // Pull url and name out of the data retrieved
-        let url = data[Constants.UserDataModel.imageURL] as! String
-        let name = data[Constants.UserDataModel.teamName] as! String
+        let defaultModel = UserDataModel(teamName: Constants.Empty.teamName, email: Constants.Empty.email, imageURL: Constants.Empty.string)
+        let dataModel = UserDataModel(documentData: data)
+        let model = dataModel != nil ? dataModel! : defaultModel
         
-        // Set a new view model with the new data
-        setViewModel(urlString: url, name: name)
+        self.viewModel = TeamProfileViewModel(model: model)
     }
 }

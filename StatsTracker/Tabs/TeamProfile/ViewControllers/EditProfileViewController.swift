@@ -19,6 +19,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
     //MARK: Properties
     var presenter: EditProfilePresenterProtocol!
     var saveButton: UIBarButtonItem?
+    var currentEmail: String?
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var teamPhotoImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -58,6 +59,8 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         if !isViewLoaded {
             return
         }
+        
+        self.currentEmail = vm.email
         teamNameTextField.text = vm.teamName
         teamPhotoImage.image = vm.teamImage
     }
@@ -84,8 +87,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         visualEffectView.alpha = 1
         activityIndicator.startAnimating()
         
-        let vm = TeamProfileViewModel(team: teamNameTextField.text!, image: teamPhotoImage.image!)
-        
+        let vm = TeamProfileViewModel(team: teamNameTextField.text!, email: currentEmail ?? "", image: teamPhotoImage.image!)
         presenter.savePressed(vm: vm)
     }
     

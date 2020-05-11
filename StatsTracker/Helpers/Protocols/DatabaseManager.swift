@@ -20,14 +20,11 @@ protocol DatabaseManager {
     var setDataDelegate: DatabaseManagerSetDataDelegate? { get set }
     var getDataDelegate: DatabaseManagerGetDataDelegate? { get set }
     var deleteDataDelegate: DatabaseManagerDeleteDataDelegate? { get set }
-    var updateDataDelegate: DatabaseManagerUpdateDataDelegate? { get set }
     var storeImageDelegate: DatabaseManagerStoreImageDelegate? { get set }
     
     //MARK: Methods
     func setData(data: [String: Any], collection: DataCollection)
     func getData(collection: DataCollection)
-    // TODO: try to remove the edit data function?
-    func updateData(data: [String: Any], collection: DataCollection)
     func storeImage(image: UIImage)
     func deleteData(data: [String: Any], collection: DataCollection)
 }
@@ -47,12 +44,7 @@ protocol DatabaseManagerGetDataDelegate: AnyObject {
 //MARK: DatabaseManagerDeleteDataDelegate
 protocol DatabaseManagerDeleteDataDelegate: AnyObject {
     func displayError(with error: Error)
-}
-
-//MARK: DatabaseManagerUpdateDataDelegate
-protocol DatabaseManagerUpdateDataDelegate: AnyObject {
-    func displayError(with error: Error)
-    func onSuccessfulUpdate()
+    func onSuccessfulDelete()
 }
 
 //MARK: DatabaseManagerStoreImageDelegate

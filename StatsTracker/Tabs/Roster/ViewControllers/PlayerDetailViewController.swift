@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PlayerDetailPresenterProtocol {
+protocol PlayerDetailPresenterProtocol where Self: Presenter {
     func onViewWillAppear()
 }
 
