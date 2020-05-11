@@ -14,9 +14,12 @@ class TeamProfileCoordinatorTests: XCTestCase {
     var teamProfileCoordinator: TeamProfileCoordinator!
     var navigationController: MockNavigationController!
     
+    var transitionCalledCount: Int = 0
+    
     override func setUp() {
         navigationController = MockNavigationController()
         teamProfileCoordinator = TeamProfileCoordinator(navigationController: navigationController)
+        teamProfileCoordinator.delegate = self
         super.setUp()
     }
     
@@ -28,35 +31,66 @@ class TeamProfileCoordinatorTests: XCTestCase {
     
     func testStart() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // When
         teamProfileCoordinator.start()
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is TeamProfileViewController)
+        XCTAssertTrue(navigationController.navigationBar.prefersLargeTitles)
     }
     
     func testSettingsPressed() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
-        teamProfileCoordinator.settingsPressed(vm: TeamProfileViewModel(team: "", email: "", image: UIImage()))
+        // Given
+        let vm = TeamProfileViewModel(team: "", email: "", image: UIImage())
+        // When
+        teamProfileCoordinator.settingsPressed(vm: vm)
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+    }
+    
+    func testTransitionToHome() throws {
+        XCTAssertEqual(0, transitionCalledCount)
+        // When
+        teamProfileCoordinator.transitionToHome()
+        // Then
+        XCTAssertEqual(1, transitionCalledCount)
     }
     
     func testEditPressed() throws {
         XCTAssertEqual(0, navigationController.presentCalledCount)
+        // When
         teamProfileCoordinator.editPressed()
+        // Then
         XCTAssertEqual(1, navigationController.presentCalledCount)
     }
     
     func testCancelPressed() throws {
         XCTAssertEqual(0, navigationController.dismissCallCount)
+        // When
         teamProfileCoordinator.cancelPressed()
+        // Then
         XCTAssertEqual(1, navigationController.dismissCallCount)
     }
     
     func testSavePressed() throws {
         XCTAssertEqual(0, navigationController.dismissCallCount)
         XCTAssertEqual(0, navigationController.popCallCount)
-        teamProfileCoordinator.start()
+        // Given
         let vm = TeamProfileViewModel(team: "", email: "", image: UIImage())
+        teamProfileCoordinator.start()
+        // When
         teamProfileCoordinator.savePressed(vm: vm)
+        // Then
         XCTAssertEqual(1, navigationController.dismissCallCount)
         XCTAssertEqual(1, navigationController.popCallCount)
+    }
+}
+
+//MARK: TeamProfileCoordinatorDelegate Mock
+extension TeamProfileCoordinatorTests: TeamProfileCoordinatorDelegate {
+    func transitionToHome() {
+        transitionCalledCount += 1
     }
 }

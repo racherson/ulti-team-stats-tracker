@@ -31,9 +31,10 @@ struct UserDataModel {
 //MARK: DocumentSerializable
 extension UserDataModel: DocumentSerializable {
     init?(documentData: [String : Any]) {
-        let teamName = documentData[Constants.UserDataModel.teamName] as? String ?? Constants.Empty.string
-        let email = documentData[Constants.UserDataModel.email] as? String ?? Constants.Empty.string
-        let imageURL = documentData[Constants.UserDataModel.imageURL] as? String ?? Constants.Empty.string
+        guard let teamName = documentData[Constants.UserDataModel.teamName] as? String,
+            let email = documentData[Constants.UserDataModel.email] as? String,
+            let imageURL = documentData[Constants.UserDataModel.imageURL] as? String else { return nil }
+        
         self.init(teamName: teamName, email: email, imageURL: imageURL)
     }
 }

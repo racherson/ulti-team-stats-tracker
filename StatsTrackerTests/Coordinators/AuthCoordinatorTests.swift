@@ -28,34 +28,51 @@ class AuthCoordinatorTests: XCTestCase {
     
     func testStart() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // When
         authCoordinator.start()
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is HomeViewController)
     }
 
     func testLoginPressed() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // When
         authCoordinator.loginPressed()
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is LoginViewController)
     }
     
     func testSignUpPressed() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // When
         authCoordinator.signUpPressed()
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is SignUpViewController)
     }
 
     func testCancelPressed() throws {
         XCTAssertEqual(0, navigationController.popCallCount)
+        // When
         authCoordinator.cancelPressed()
+        // Then
         XCTAssertEqual(1, navigationController.popCallCount)
     }
     
     func testTransitionToTabs() throws {
+        // Given
         let parentCoordinator = RootCoordinator(navigationController: navigationController, window: UIWindow())
         parentCoordinator.childCoordinators.append(authCoordinator)
         authCoordinator.parentCoordinator = parentCoordinator
         XCTAssertEqual(1, authCoordinator.parentCoordinator?.childCoordinators.count)
+        // When
         authCoordinator.transitionToTabs()
+        // Then
         XCTAssertEqual(0, authCoordinator.parentCoordinator?.childCoordinators.count)
     }
 }

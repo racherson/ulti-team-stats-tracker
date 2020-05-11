@@ -22,16 +22,17 @@ class LoginPresenter: Presenter {
         self.authManager = authManager
         self.authManager.loginDelegate = self
     }
+    
+    //MARK: Private methods
+    private func transitionToTabs() {
+        delegate?.transitionToTabs()
+    }
 }
 
 //MARK: LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
     func cancelPressed() {
         delegate?.cancelPressed()
-    }
-    
-    func transitionToTabs() {
-        delegate?.transitionToTabs()
     }
     
     func onViewWillAppear() {

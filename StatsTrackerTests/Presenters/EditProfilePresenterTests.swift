@@ -39,36 +39,51 @@ class EditProfilePresenterTests: XCTestCase {
     }
     
     func testSetDBManager() throws {
+        // Given sut init, then
         XCTAssertEqual(dbManager.uid, authManager.currentUserUID)
     }
     
     func testOnViewWillAppear() throws {
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        // Given
+        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        sut.viewModel = viewModel
+        // When
         sut.onViewWillAppear()
+        // Then
         XCTAssertEqual(vc.teamNameTextField.text, TestConstants.teamName)
         XCTAssertEqual(vc.teamPhotoImage.image, TestConstants.teamImage)
     }
     
     func testCancelPressed() throws {
         XCTAssertEqual(0, cancelPressedCount)
+        // When
         sut.cancelPressed()
+        // Then
         XCTAssertEqual(1, cancelPressedCount)
     }
 
     func testSavePressed() throws {
         XCTAssertNil(sut.viewModel)
         XCTAssertEqual(0, dbManager.storeImageDataCalled)
+        // Given
         let vm = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        // When
         sut.savePressed(vm: vm)
+        // Then
         XCTAssertEqual(sut.viewModel.teamName, TestConstants.teamName)
         XCTAssertEqual(sut.viewModel.teamImage, TestConstants.teamImage!)
+        XCTAssertEqual(sut.viewModel.email, TestConstants.email)
         XCTAssertEqual(1, dbManager.storeImageDataCalled)
     }
     
     func testDisplayDBError() throws {
         let alertVerifier = AlertVerifier()
+        
+        // Given
         let dbError = DBError.unknown
+        // When
         sut.displayError(with: dbError)
+        // Then
         alertVerifier.verify(
             title: Constants.Errors.userSavingError,
             message: dbError.localizedDescription,
@@ -82,8 +97,12 @@ class EditProfilePresenterTests: XCTestCase {
     
     func testDisplayUnknownError() throws {
         let alertVerifier = AlertVerifier()
+        
+        // Given
         let unknownError = TestConstants.error
+        // When
         sut.displayError(with: unknownError)
+        // Then
         alertVerifier.verify(
             title: Constants.Errors.userSavingError,
             message: unknownError.localizedDescription,
@@ -98,23 +117,40 @@ class EditProfilePresenterTests: XCTestCase {
     func testExecutingActionForDismissButton_shouldBackToProfile() throws {
         let alertVerifier = AlertVerifier()
         XCTAssertEqual(0, backToProfileCount)
-        sut.displayError(with: TestConstants.error)
         
+        // Given
+        let error = TestConstants.error
+        sut.displayError(with: error)
+        // When
         try alertVerifier.executeAction(forButton: TestConstants.Alerts.dismiss)
+        // Then
         XCTAssertEqual(1, backToProfileCount)
     }
     
     func testStoreImageURL() throws {
         XCTAssertEqual(0, dbManager.setDataCalled)
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        XCTAssertNil(dbManager.setDictionary)
+        // Given
+        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        sut.viewModel = viewModel
+        // When
         sut.storeImageURL(url: TestConstants.empty)
+        // Then
         XCTAssertEqual(1, dbManager.setDataCalled)
+        XCTAssertNotNil(dbManager.setDictionary)
+        XCTAssertEqual(TestConstants.email, dbManager.setDictionary![Constants.UserDataModel.email] as! String)
+        XCTAssertEqual(TestConstants.teamName, dbManager.setDictionary![Constants.UserDataModel.teamName] as! String)
+        XCTAssertEqual(TestConstants.empty, dbManager.setDictionary![Constants.UserDataModel.imageURL] as! String)
     }
     
-    func testNewData() throws {
+    func testOnSuccessfulSet() throws {
         XCTAssertEqual(0, savePressedCount)
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        // Given
+        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        sut.viewModel = viewModel
+        // When
         sut.onSuccessfulSet()
+        // Then
         XCTAssertFalse(vc.activityIndicator.isAnimating)
         XCTAssertEqual(1, savePressedCount)
     }

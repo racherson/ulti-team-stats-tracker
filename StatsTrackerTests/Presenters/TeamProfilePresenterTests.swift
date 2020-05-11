@@ -37,15 +37,22 @@ class TeamProfilePresenterTests: XCTestCase {
     }
     
     func testInitializeViewModel() throws {
+        // Given sut init, then
         XCTAssertEqual(dbManager.uid, authManager.currentUserUID)
         XCTAssertEqual(1, dbManager.getDataCalled)
     }
 
     func testOnViewWillAppear() throws {
+        // Given, sut view model is nil, when
         sut.onViewWillAppear()
+        // Then
         XCTAssertTrue(vc.activityIndicator.isAnimating)
+        
+        // Given
         sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        // When
         sut.onViewWillAppear()
+        // Then
         XCTAssertTrue(vc.activityIndicator.isHidden)
         XCTAssertEqual(vc.teamNameLabel.text, TestConstants.teamName)
         XCTAssertEqual(vc.teamImage.image, TestConstants.teamImage)
@@ -53,15 +60,22 @@ class TeamProfilePresenterTests: XCTestCase {
 
     func testSettingsPressed() throws {
         XCTAssertEqual(0, settingsCalled)
+        // Given
         sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        // When
         sut.settingsPressed()
+        // Then
         XCTAssertEqual(1, settingsCalled)
     }
     
     func testDisplayDBError() throws {
         let alertVerifier = AlertVerifier()
+        
+        // Given
         let dbError = DBError.unknown
+        // When
         sut.displayError(with: dbError)
+        // Then
         alertVerifier.verify(
             title: Constants.Errors.documentErrorTitle,
             message: dbError.localizedDescription,
@@ -75,8 +89,12 @@ class TeamProfilePresenterTests: XCTestCase {
     
     func testDisplayUnknownError() throws {
         let alertVerifier = AlertVerifier()
+        
+        // Given
         let unknownError = TestConstants.error
+        // When
         sut.displayError(with: unknownError)
+        // Then
         alertVerifier.verify(
             title: Constants.Errors.documentErrorTitle,
             message: unknownError.localizedDescription,
@@ -88,14 +106,30 @@ class TeamProfilePresenterTests: XCTestCase {
         )
     }
     
-    func testOnSuccessfulGet() throws {
-        // Presenter should receive an image url, but should give its VC a UIImage
-        sut.onSuccessfulGet([
+    // Presenter should receive an image url, but should give its VC a UIImage
+    func testOnSuccessfulGet_UserModelSuccess() throws {
+        // Given
+        let data = [
             Constants.UserDataModel.imageURL: TestConstants.empty,
-            Constants.UserDataModel.teamName: TestConstants.teamName
-        ])
+            Constants.UserDataModel.teamName: TestConstants.teamName,
+            Constants.UserDataModel.email: TestConstants.email
+        ]
+        // When
+        sut.onSuccessfulGet(data)
+        // Then
         XCTAssertEqual(vc.teamNameLabel.text, TestConstants.teamName)
         XCTAssertEqual(vc.teamImage.image, TestConstants.teamImage)
+        XCTAssertEqual(sut.viewModel?.email, TestConstants.email)
+    }
+    
+    func testOnSuccessfulGet_UserModelFailure() throws {
+        // Given
+        let data = [String: Any]()
+        // When
+        sut.onSuccessfulGet(data)
+        // Then
+        XCTAssertEqual(vc.teamNameLabel.text, Constants.Empty.teamName)
+        XCTAssertEqual(vc.teamImage.image, UIImage(named: Constants.Empty.image))
     }
 }
 

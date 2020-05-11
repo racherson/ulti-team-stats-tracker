@@ -31,6 +31,7 @@ class EditProfilePresenter: Presenter {
         self.dbManager.storeImageDelegate = self
     }
     
+    //MARK: Private methods
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
         let alertController = UIAlertController(title: title, message:
             error, preferredStyle: .alert)
@@ -41,7 +42,7 @@ class EditProfilePresenter: Presenter {
         vc.present(alertController, animated: true, completion: nil)
     }
     
-    func backToProfile() {
+    private func backToProfile() {
         delegate?.backToProfile()
     }
 }

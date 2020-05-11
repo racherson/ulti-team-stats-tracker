@@ -39,17 +39,15 @@ class RootCoordinator: Coordinator {
             }
         }
     }
-}
-
-extension RootCoordinator {
     
-    func setupWindow() {
+    //MARK: Private methods
+    private func setupWindow() {
         // Attach view to window
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
     }
     
-    func setupStarterChildCoordinator() {
+    private func setupStarterChildCoordinator() {
         // Select child coordinator based on login status
         if authManager.currentUserUID == nil {
             startAuthCoordinator()
@@ -58,6 +56,9 @@ extension RootCoordinator {
             startMainTabBarCoordinator()
         }
     }
+}
+
+extension RootCoordinator {
     
     func startAuthCoordinator() {
         // Start login flow

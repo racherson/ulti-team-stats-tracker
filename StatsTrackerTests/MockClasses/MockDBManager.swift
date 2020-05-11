@@ -22,6 +22,7 @@ class MockDBManager: DatabaseManager {
     var getDataCalled: Int = 0
     var deleteDataCalled: Int = 0
     var storeImageDataCalled: Int = 0
+    var setDictionary: [String: Any]?
     
     init(_ uid: String? = nil) {
         self.uid = uid
@@ -30,6 +31,7 @@ class MockDBManager: DatabaseManager {
     //MARK: Methods
     func setData(data: [String : Any], collection: DataCollection) {
         setDataCalled += 1
+        setDictionary = data
     }
     
     func getData(collection: DataCollection) {

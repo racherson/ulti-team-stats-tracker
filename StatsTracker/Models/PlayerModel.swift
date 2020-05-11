@@ -102,9 +102,10 @@ struct PlayerModel: Codable {
 //MARK: DocumentSerializable
 extension PlayerModel: DocumentSerializable {
     init?(documentData: [String : Any]) {
-        let name = documentData[Constants.PlayerModel.name] as? String ?? Constants.Empty.string
-        let gender = documentData[Constants.PlayerModel.gender] as? Int ?? Constants.Empty.int
-        let id = documentData[Constants.PlayerModel.id] as? String ?? Constants.Empty.string
+        guard let name = documentData[Constants.PlayerModel.name] as? String,
+            let gender = documentData[Constants.PlayerModel.gender] as? Int,
+            let id = documentData[Constants.PlayerModel.id] as? String else { return nil }
+        
         let points = documentData[Constants.PlayerModel.points] as? Int ?? Constants.Empty.int
         let games = documentData[Constants.PlayerModel.games] as? Int ?? Constants.Empty.int
         let completions = documentData[Constants.PlayerModel.completions] as? Int ?? Constants.Empty.int
@@ -116,6 +117,7 @@ extension PlayerModel: DocumentSerializable {
         let ds = documentData[Constants.PlayerModel.ds] as? Int ?? Constants.Empty.int
         let pulls = documentData[Constants.PlayerModel.pulls] as? Int ?? Constants.Empty.int
         let callahans = documentData[Constants.PlayerModel.callahans] as? Int ?? Constants.Empty.int
+        
         self.init(name: name, gender: gender, id: id, points: points, games: games, completions: completions, throwaways: throwaways, catches: catches, drops: drops, goals: goals, assists: assists, ds: ds, pulls: pulls, callahans: callahans)
     }
 }

@@ -80,7 +80,6 @@ extension TeamProfileCoordinator: EditProfilePresenterDelegate {
     }
     
     func savePressed(vm: TeamProfileViewModel) {
-        
         // Give new view model to coordinator
         viewModel = vm
         

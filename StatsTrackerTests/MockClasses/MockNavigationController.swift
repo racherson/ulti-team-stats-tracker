@@ -15,6 +15,7 @@ class MockNavigationController: UINavigationController {
     var pushCallCount: Int = 0
     var dismissCallCount: Int = 0
     var popCallCount: Int = 0
+    var pushedController: UIViewController?
     
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         presentCalledCount += 1
@@ -22,6 +23,7 @@ class MockNavigationController: UINavigationController {
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        pushedController = viewController
         pushCallCount += 1
     }
     

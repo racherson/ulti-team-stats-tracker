@@ -11,7 +11,6 @@ import UIKit
 protocol SignUpPresenterProtocol where Self: Presenter {
     func cancelPressed()
     func signUpPressed(name: String?, email: String?, password: String?)
-    func transitionToTabs()
     func onViewWillAppear()
     func onViewWillDisappear()
 }

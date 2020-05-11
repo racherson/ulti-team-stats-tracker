@@ -88,7 +88,6 @@ extension RosterPresenter: RosterPresenterProtocol {
     }
     
     func deletePlayer(at indexPath: IndexPath) {
-        
         // Delete from database
         let modelToDelete = playerModels[indexPath.section][indexPath.row]
         dbManager.deleteData(data: modelToDelete.dictionary, collection: .roster)
@@ -112,7 +111,6 @@ extension RosterPresenter: DatabaseManagerGetDataDelegate {
     }
     
     func onSuccessfulGet(_ data: [String : Any]) {
-        
         // Pull woman and man arrays out of the data retrieved
         guard let womenDataArray = data[FirebaseKeys.CollectionPath.women] as? [[String: Any]] else {
             self.showErrorAlert(error: Constants.Errors.documentError)

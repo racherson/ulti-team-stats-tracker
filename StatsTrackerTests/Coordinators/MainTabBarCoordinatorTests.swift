@@ -28,17 +28,22 @@ class MainTabBarCoordinatorTests: XCTestCase {
     
     func testStart() throws {
         XCTAssertEqual(0, navigationController.presentCalledCount)
+        // When
         tabBarCoordinator.start()
+        // Then
         XCTAssertEqual(1, navigationController.presentCalledCount)
         XCTAssertEqual(.fullScreen, navigationController.presentationStyle)
     }
     
     func testTransitionToHome() throws {
+        // Given
         let parentCoordinator = RootCoordinator(navigationController: navigationController, window: UIWindow())
         parentCoordinator.childCoordinators.append(tabBarCoordinator)
         tabBarCoordinator.parentCoordinator = parentCoordinator
         XCTAssertEqual(1, tabBarCoordinator.parentCoordinator?.childCoordinators.count)
+        // When
         tabBarCoordinator.transitionToHome()
+        // Then
         XCTAssertEqual(0, tabBarCoordinator.parentCoordinator?.childCoordinators.count)
     }
 }

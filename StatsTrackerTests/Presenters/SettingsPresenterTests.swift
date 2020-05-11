@@ -37,20 +37,26 @@ class SettingsPresenterTests: XCTestCase {
     
     func testOnViewWillAppear() throws {
         XCTAssertEqual(vc.navigationItem.title, nil)
+        // When
         sut.onViewWillAppear()
+        // Then
         XCTAssertEqual(vc.navigationItem.title, Constants.Titles.settingsTitle)
     }
     
     func testEditPressed() throws {
         XCTAssertEqual(0, editCalled)
+        // When
         sut.editPressed()
+        // Then
         XCTAssertEqual(1, editCalled)
     }
     
     func testLogoutPressed() throws {
         let alertVerifier = AlertVerifier()
-        sut.logoutPressed()
         
+        // When
+        sut.logoutPressed()
+        // Then
         alertVerifier.verify(
             title: Constants.Titles.logout,
             message: Constants.Alerts.logoutAlert,
@@ -67,17 +73,24 @@ class SettingsPresenterTests: XCTestCase {
         let alertVerifier = AlertVerifier()
         XCTAssertEqual(0, authManager.logoutCalled)
         XCTAssertEqual(0, transitionCalled)
-        sut.logoutPressed()
         
+        // Given
+        sut.logoutPressed()
+        // When
         try alertVerifier.executeAction(forButton: TestConstants.Alerts.confirm)
+        // Then
         XCTAssertEqual(1, authManager.logoutCalled)
         XCTAssertEqual(1, transitionCalled)
     }
     
     func testDisplayAuthError() throws {
         let alertVerifier = AlertVerifier()
+        
+        // Given
         let authError = AuthError.unknown
+        // When
         sut.displayError(with: authError)
+        // Then
         alertVerifier.verify(
             title: Constants.Errors.logoutErrorTitle,
             message: authError.localizedDescription,
@@ -91,8 +104,12 @@ class SettingsPresenterTests: XCTestCase {
     
     func testDisplayUnknownError() throws {
         let alertVerifier = AlertVerifier()
+        
+        // Given
         let unknownError = TestConstants.error
+        // When
         sut.displayError(with: unknownError)
+        // Then
         alertVerifier.verify(
             title: Constants.Errors.logoutErrorTitle,
             message: unknownError.localizedDescription,

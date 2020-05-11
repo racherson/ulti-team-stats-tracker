@@ -28,11 +28,11 @@ class SettingsPresenter: Presenter {
         self.authManager.logoutDelegate = self
     }
     
-    func transitionToHome() {
+    //MARK: Private methods
+    private func transitionToHome() {
         delegate?.transitionToHome()
     }
     
-    //MARK: Private methods
     private func logout() {
         authManager.logout()
     }

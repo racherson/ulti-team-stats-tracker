@@ -11,7 +11,6 @@ import UIKit
 protocol LoginPresenterProtocol where Self: Presenter {
     func cancelPressed()
     func loginPressed(email: String?, password: String?)
-    func transitionToTabs()
     func onViewWillAppear()
     func onViewWillDisappear()
 }

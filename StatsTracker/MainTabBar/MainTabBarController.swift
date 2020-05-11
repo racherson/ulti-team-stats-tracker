@@ -38,6 +38,7 @@ class MainTabBarController: UITabBarController {
     }
 }
 
+//MARK: TeamProfileCoordinatorDelegate
 extension MainTabBarController: TeamProfileCoordinatorDelegate {
     func transitionToHome() {
         coordinator?.transitionToHome()
