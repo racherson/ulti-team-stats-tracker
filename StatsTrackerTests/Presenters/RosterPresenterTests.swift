@@ -26,7 +26,6 @@ class RosterPresenterTests: XCTestCase {
         dbManager = MockDBManager()
         sut = RosterPresenter(vc: vc, delegate: self, dbManager: dbManager)
         vc.presenter = sut
-        sut.delegate = self
         super.setUp()
     }
     

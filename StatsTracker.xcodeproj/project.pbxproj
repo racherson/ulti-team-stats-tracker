@@ -80,6 +80,8 @@
 		29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E14024401238008E14F3 /* AuthCoordinator.swift */; };
 		29D0E1432440128B008E14F3 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D0E1422440128B008E14F3 /* Auth.storyboard */; };
 		29D0E1452440129A008E14F3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0E1442440129A008E14F3 /* HomeViewController.swift */; };
+		29D9A74E2469F130002BBAC1 /* NewPlayerPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9A74D2469F130002BBAC1 /* NewPlayerPresenterTests.swift */; };
+		29D9A7502469F653002BBAC1 /* PlayerDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9A74F2469F653002BBAC1 /* PlayerDetailPresenterTests.swift */; };
 		29E6C69C245902FC00E41586 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6C69B245902FC00E41586 /* MockNavigationController.swift */; };
 		29E6C69E2459030800E41586 /* MockAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6C69D2459030800E41586 /* MockAuthManager.swift */; };
 		29E6C6A02459074B00E41586 /* AuthCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6C69F2459074B00E41586 /* AuthCoordinatorTests.swift */; };
@@ -175,6 +177,8 @@
 		29D0E14024401238008E14F3 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		29D0E1422440128B008E14F3 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		29D0E1442440129A008E14F3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		29D9A74D2469F130002BBAC1 /* NewPlayerPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerPresenterTests.swift; sourceTree = "<group>"; };
+		29D9A74F2469F653002BBAC1 /* PlayerDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailPresenterTests.swift; sourceTree = "<group>"; };
 		29E6C69B245902FC00E41586 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
 		29E6C69D2459030800E41586 /* MockAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthManager.swift; sourceTree = "<group>"; };
 		29E6C69F2459074B00E41586 /* AuthCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorTests.swift; sourceTree = "<group>"; };
@@ -441,6 +445,8 @@
 				2985662A2459F70E00E0F77A /* SettingsPresenterTests.swift */,
 				29053584245A098300A72DCF /* EditProfilePresenterTests.swift */,
 				2990A4A72468FD1E00F5F745 /* RosterPresenterTests.swift */,
+				29D9A74D2469F130002BBAC1 /* NewPlayerPresenterTests.swift */,
+				29D9A74F2469F653002BBAC1 /* PlayerDetailPresenterTests.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -776,9 +782,11 @@
 				299D32E3245916B6009A7E37 /* PullCoordinatorTests.swift in Sources */,
 				2990A4A82468FD1E00F5F745 /* RosterPresenterTests.swift in Sources */,
 				29E6C69E2459030800E41586 /* MockAuthManager.swift in Sources */,
+				29D9A7502469F653002BBAC1 /* PlayerDetailPresenterTests.swift in Sources */,
 				299D32DD245910B4009A7E37 /* MainTabBarCoordinatorTests.swift in Sources */,
 				2985662B2459F70E00E0F77A /* SettingsPresenterTests.swift in Sources */,
 				298566292459F26200E0F77A /* TeamProfilePresenterTests.swift in Sources */,
+				29D9A74E2469F130002BBAC1 /* NewPlayerPresenterTests.swift in Sources */,
 				29053587245A0B0B00A72DCF /* TestConstants.swift in Sources */,
 				29E6C6A02459074B00E41586 /* AuthCoordinatorTests.swift in Sources */,
 				29970730245BB5880017F219 /* MockDBManager.swift in Sources */,
