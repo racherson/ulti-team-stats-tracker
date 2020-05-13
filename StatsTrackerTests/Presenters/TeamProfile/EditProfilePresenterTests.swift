@@ -50,8 +50,8 @@ class EditProfilePresenterTests: XCTestCase {
         // When
         sut.onViewWillAppear()
         // Then
-        XCTAssertEqual(vc.teamNameTextField.text, TestConstants.teamName)
-        XCTAssertEqual(vc.teamPhotoImage.image, TestConstants.teamImage)
+        XCTAssertEqual(vc.teamNameTextField.text, viewModel.teamName)
+        XCTAssertEqual(vc.teamPhotoImage.image, viewModel.teamImage)
     }
     
     func testCancelPressed() throws {
@@ -70,9 +70,9 @@ class EditProfilePresenterTests: XCTestCase {
         // When
         sut.savePressed(vm: vm)
         // Then
-        XCTAssertEqual(sut.viewModel.teamName, TestConstants.teamName)
-        XCTAssertEqual(sut.viewModel.teamImage, TestConstants.teamImage!)
-        XCTAssertEqual(sut.viewModel.email, TestConstants.email)
+        XCTAssertEqual(sut.viewModel.teamName, vm.teamName)
+        XCTAssertEqual(sut.viewModel.teamImage, vm.teamImage)
+        XCTAssertEqual(sut.viewModel.email, vm.email)
         XCTAssertEqual(1, dbManager.storeImageDataCalled)
     }
     
@@ -138,8 +138,8 @@ class EditProfilePresenterTests: XCTestCase {
         // Then
         XCTAssertEqual(1, dbManager.setDataCalled)
         XCTAssertNotNil(dbManager.setDictionary)
-        XCTAssertEqual(TestConstants.email, dbManager.setDictionary![Constants.UserDataModel.email] as! String)
-        XCTAssertEqual(TestConstants.teamName, dbManager.setDictionary![Constants.UserDataModel.teamName] as! String)
+        XCTAssertEqual(viewModel.email, dbManager.setDictionary![Constants.UserDataModel.email] as! String)
+        XCTAssertEqual(viewModel.teamName, dbManager.setDictionary![Constants.UserDataModel.teamName] as! String)
         XCTAssertEqual(TestConstants.empty, dbManager.setDictionary![Constants.UserDataModel.imageURL] as! String)
     }
     

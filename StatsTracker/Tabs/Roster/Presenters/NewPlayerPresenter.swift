@@ -55,10 +55,6 @@ extension NewPlayerPresenter: NewPlayerPresenterProtocol {
         self.model = model
         dbManager.setData(data: model.dictionary, collection: .roster)
     }
-    
-    func displaySavingError() {
-        self.showErrorAlert(error: Constants.Errors.userSavingError)
-    }
 }
 
 //MARK: DatabaseManagerSetDataDelegate

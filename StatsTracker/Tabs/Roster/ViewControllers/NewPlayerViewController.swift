@@ -12,7 +12,6 @@ protocol NewPlayerPresenterProtocol where Self: Presenter {
     func onViewWillAppear()
     func cancelPressed()
     func savePressed(model: PlayerModel)
-    func displaySavingError()
 }
 
 class NewPlayerViewController: UIViewController, Storyboarded {
@@ -52,7 +51,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
         sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
         
         // Validate text field is not empty
-        guard let playerName = nameTextField.text, !playerName.isEmpty else {
+        guard let playerName = sender.text, !playerName.isEmpty else {
             self.saveButton!.isEnabled = false
             return
         }
@@ -65,11 +64,8 @@ class NewPlayerViewController: UIViewController, Storyboarded {
     }
     
     @objc func savePressed() {
-        guard let name = nameTextField.text, let gender = Gender(rawValue: genderSegmentedControl.selectedSegmentIndex) else {
-            presenter.displaySavingError()
-            return
-        }
-        
+        let name = nameTextField.text!
+        let gender = Gender(rawValue: genderSegmentedControl.selectedSegmentIndex)!
         let newPlayerID = UUID().uuidString
         let model = PlayerModel(name: name, gender: gender.rawValue, id: newPlayerID)
         presenter.savePressed(model: model)

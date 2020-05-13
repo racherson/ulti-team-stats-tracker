@@ -49,13 +49,14 @@ class TeamProfilePresenterTests: XCTestCase {
         XCTAssertTrue(vc.activityIndicator.isAnimating)
         
         // Given
-        sut.viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        sut.viewModel = viewModel
         // When
         sut.onViewWillAppear()
         // Then
         XCTAssertTrue(vc.activityIndicator.isHidden)
-        XCTAssertEqual(vc.teamNameLabel.text, TestConstants.teamName)
-        XCTAssertEqual(vc.teamImage.image, TestConstants.teamImage)
+        XCTAssertEqual(vc.teamNameLabel.text, viewModel.teamName)
+        XCTAssertEqual(vc.teamImage.image, viewModel.teamImage)
     }
 
     func testSettingsPressed() throws {

@@ -45,6 +45,11 @@ class LoginViewController: UIViewController, Storyboarded {
         presenter.onViewWillDisappear()
     }
     
+    func showError(_ message: String) {
+        // Set label text and make label visible
+        errorLabel.text = message
+        errorLabel.alpha = 1
+    }
     
     //MARK: Actions
     @objc func cancelPressed() {
@@ -58,11 +63,5 @@ class LoginViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         presenter.loginPressed(email: email, password: password)
-    }
-    
-    func showError(_ message: String) {
-        // Set label text and make label visible
-        errorLabel.text = message
-        errorLabel.alpha = 1
     }
 }

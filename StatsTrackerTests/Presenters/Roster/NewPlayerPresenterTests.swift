@@ -54,31 +54,13 @@ class NewPlayerPresenterTests: XCTestCase {
         XCTAssertEqual(0, savePressedCount)
         XCTAssertNil(sut.model)
         // Given
-        let name = "Woman"
-        let model = PlayerModel(name: name, gender: Gender.women.rawValue, id: TestConstants.empty)
+        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty)
         // When
         sut.savePressed(model: model)
         // Then
         XCTAssertEqual(0, savePressedCount)
         XCTAssertNotNil(sut.model)
-        XCTAssertEqual(name, sut.model?.name)
-    }
-    
-    func testDisplaySavingError() throws {
-        let alertVerifier = AlertVerifier()
-        
-        // When
-        sut.displaySavingError()
-        // Then
-        alertVerifier.verify(
-            title: Constants.Errors.userSavingError,
-            message: Constants.Errors.userSavingError,
-            animated: true,
-            actions: [
-                .default(TestConstants.Alerts.dismiss)
-            ],
-            presentingViewController: vc
-        )
+        XCTAssertEqual(model.name, sut.model?.name)
     }
     
     func testDisplayDBError() throws {

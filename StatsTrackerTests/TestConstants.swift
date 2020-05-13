@@ -16,6 +16,7 @@ struct TestConstants {
     static let empty = ""
     static let currentUID = "12345"
     static let error = NSError(domain: "", code: 0, userInfo: nil)
+    static let playerName = "Name"
     
     struct Alerts {
         static let dismiss = "Dismiss"

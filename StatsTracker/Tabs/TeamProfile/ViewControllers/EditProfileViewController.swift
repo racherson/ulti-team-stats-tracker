@@ -70,7 +70,7 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
         
         // Validate text field is not empty
-        guard let teamName = teamNameTextField.text, !teamName.isEmpty else {
+        guard let teamName = sender.text, !teamName.isEmpty else {
             self.saveButton!.isEnabled = false
             return
         }
