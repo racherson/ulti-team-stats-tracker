@@ -32,6 +32,10 @@ class RosterPresenter: Presenter {
         setGenderArrays()
     }
     
+    func onViewWillAppear() {
+        vc.navigationItem.title = Constants.Titles.rosterTitle
+    }
+    
     //MARK: Private methods
     private func showErrorAlert(error: String) {
         // Error logging out, display alert
@@ -54,10 +58,6 @@ class RosterPresenter: Presenter {
 
 //MARK: RosterPresenterProtocol
 extension RosterPresenter: RosterPresenterProtocol {
-    
-    func onViewWillAppear() {
-        vc.navigationItem.title = Constants.Titles.rosterTitle
-    }
     
     func numberOfPlayersInSection(_ section: Int) -> Int {
         return playerModels[section].count

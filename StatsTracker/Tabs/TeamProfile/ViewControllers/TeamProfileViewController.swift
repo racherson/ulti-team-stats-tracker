@@ -10,7 +10,6 @@ import UIKit
 
 protocol TeamProfilePresenterProtocol where Self: Presenter {
     var viewModel: TeamProfileViewModel? { get set }
-    func onViewWillAppear()
     func settingsPressed()
 }
 

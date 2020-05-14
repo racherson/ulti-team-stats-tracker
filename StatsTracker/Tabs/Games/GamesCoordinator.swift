@@ -24,7 +24,7 @@ class GamesCoordinator: Coordinator {
         
         // Create new view controller
         let vc = GamesViewController.instantiate(.games)
-        vc.delegate = self
+        vc.presenter = GamesPresenter(vc: vc, delegate: self)
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.gamesTitle, image: UIImage(systemName: "chart.bar"), tag: 3)
@@ -32,3 +32,6 @@ class GamesCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 }
+
+//MARK: GamesPresenterDelegate
+extension GamesCoordinator: GamesPresenterDelegate { }

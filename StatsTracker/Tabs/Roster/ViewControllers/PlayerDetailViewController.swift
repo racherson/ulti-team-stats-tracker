@@ -8,9 +8,7 @@
 
 import UIKit
 
-protocol PlayerDetailPresenterProtocol where Self: Presenter {
-    func onViewWillAppear()
-}
+protocol PlayerDetailPresenterProtocol where Self: Presenter { }
 
 class PlayerDetailViewController: UIViewController, Storyboarded {
     

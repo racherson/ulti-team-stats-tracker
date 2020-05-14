@@ -34,6 +34,17 @@ class TeamProfilePresenter: Presenter {
         initializeViewModel()
     }
     
+    func onViewWillAppear() {
+        if viewModel == nil {
+            // Start loading state
+            vc.loadingState()
+        }
+        else {
+            // Give view controller new view model
+            vc.updateWithViewModel(viewModel: viewModel!)
+        }
+    }
+    
     //MARK: Private methods
     private func initializeViewModel() {
         dbManager.getData(collection: .profile)
@@ -51,17 +62,6 @@ class TeamProfilePresenter: Presenter {
 
 //MARK: TeamProfilePresenterProtocol
 extension TeamProfilePresenter: TeamProfilePresenterProtocol {
-    func onViewWillAppear() {
-        if viewModel == nil {
-            // Start loading state
-            vc.loadingState()
-        }
-        else {
-            // Give view controller new view model
-            vc.updateWithViewModel(viewModel: viewModel!)
-        }
-    }
-    
     func settingsPressed() {
         delegate?.settingsPressed(vm: viewModel!)
     }

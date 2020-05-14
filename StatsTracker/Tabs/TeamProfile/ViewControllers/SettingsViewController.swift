@@ -16,7 +16,6 @@ enum SettingCellType: Int, CaseIterable {
 protocol SettingsPresenterProtocol where Self: Presenter {
     func editPressed()
     func logoutPressed()
-    func onViewWillAppear()
 }
 
 class SettingsViewController: UIViewController, Storyboarded {

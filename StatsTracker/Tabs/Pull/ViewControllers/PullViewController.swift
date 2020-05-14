@@ -8,14 +8,19 @@
 
 import UIKit
 
+protocol PullPresenterProtocol where Self: Presenter { }
+
 class PullViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var delegate: PullCoordinator?
+    var presenter: PullPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
 }

@@ -31,6 +31,11 @@ class EditProfilePresenter: Presenter {
         self.dbManager.storeImageDelegate = self
     }
     
+    func onViewWillAppear() {
+        // Give view controller new view model
+        vc.updateWithViewModel(vm: viewModel)
+    }
+    
     //MARK: Private methods
     private func showErrorAlert(error: String, title: String = Constants.Errors.userSavingError) {
         let alertController = UIAlertController(title: title, message:
@@ -49,11 +54,6 @@ class EditProfilePresenter: Presenter {
 
 //MARK: EditProfilePresenterProtocol
 extension EditProfilePresenter: EditProfilePresenterProtocol {
-    
-    func onViewWillAppear() {
-        // Give view controller new view model
-        vc.updateWithViewModel(vm: viewModel)
-    }
     
     func cancelPressed() {
         delegate?.cancelPressed()

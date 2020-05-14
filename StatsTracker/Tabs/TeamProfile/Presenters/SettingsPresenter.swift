@@ -28,6 +28,10 @@ class SettingsPresenter: Presenter {
         self.authManager.logoutDelegate = self
     }
     
+    func onViewWillAppear() {
+        vc.navigationItem.title = Constants.Titles.settingsTitle
+    }
+    
     //MARK: Private methods
     private func transitionToHome() {
         delegate?.transitionToHome()
@@ -49,10 +53,6 @@ class SettingsPresenter: Presenter {
 
 //MARK: SettingsPresenterProtocol
 extension SettingsPresenter: SettingsPresenterProtocol {
-    
-    func onViewWillAppear() {
-        vc.navigationItem.title = Constants.Titles.settingsTitle
-    }
 
     func editPressed() {
         delegate?.editPressed()

@@ -32,6 +32,11 @@ class SignUpPresenter: Presenter {
         self.dbManager.setDataDelegate = self
     }
     
+    func onViewWillAppear() {
+        // Listener for changes in authentication
+        authManager.addAuthListener()
+    }
+    
     //MARK: Private methods
     private func transitionToTabs() {
         delegate?.transitionToTabs()
@@ -43,11 +48,6 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     
     func cancelPressed() {
         delegate?.cancelPressed()
-    }
-    
-    func onViewWillAppear() {
-        // Listener for changes in authentication
-        authManager.addAuthListener()
     }
     
     func onViewWillDisappear() {

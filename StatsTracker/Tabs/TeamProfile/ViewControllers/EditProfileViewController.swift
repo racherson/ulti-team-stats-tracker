@@ -9,7 +9,6 @@
 import UIKit
 
 protocol EditProfilePresenterProtocol where Self: Presenter {
-    func onViewWillAppear()
     func cancelPressed()
     func savePressed(vm: TeamProfileViewModel)
 }

@@ -8,14 +8,19 @@
 
 import UIKit
 
+protocol GamesPresenterProtocol where Self: Presenter { }
+
 class GamesViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
-    weak var delegate: GamesCoordinator?
+    var presenter: GamesPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
 }

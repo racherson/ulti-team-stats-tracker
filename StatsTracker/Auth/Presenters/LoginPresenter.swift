@@ -23,6 +23,11 @@ class LoginPresenter: Presenter {
         self.authManager.loginDelegate = self
     }
     
+    func onViewWillAppear() {
+        // Listener for changes in authentication
+        authManager.addAuthListener()
+    }
+    
     //MARK: Private methods
     private func transitionToTabs() {
         delegate?.transitionToTabs()
@@ -33,11 +38,6 @@ class LoginPresenter: Presenter {
 extension LoginPresenter: LoginPresenterProtocol {
     func cancelPressed() {
         delegate?.cancelPressed()
-    }
-    
-    func onViewWillAppear() {
-        // Listener for changes in authentication
-        authManager.addAuthListener()
     }
     
     func onViewWillDisappear() {

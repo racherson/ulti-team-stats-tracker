@@ -28,7 +28,12 @@ class GamesCoordinatorTests: XCTestCase {
     
     func testStart() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // When
         gamesCoordinator.start()
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is GamesViewController)
+        XCTAssertTrue(navigationController.navigationBar.prefersLargeTitles)
     }
 }

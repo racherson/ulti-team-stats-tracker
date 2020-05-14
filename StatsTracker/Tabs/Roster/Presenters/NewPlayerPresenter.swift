@@ -29,6 +29,10 @@ class NewPlayerPresenter: Presenter {
         self.dbManager.setDataDelegate = self
     }
     
+    func onViewWillAppear() {
+        vc.navigationItem.title = Constants.Titles.newPlayerTitle
+    }
+    
     //MARK: Private methods
     private func showErrorAlert(error: String) {
         // Error logging out, display alert
@@ -42,10 +46,6 @@ class NewPlayerPresenter: Presenter {
 
 //MARK: NewPlayerPresenterProtocol
 extension NewPlayerPresenter: NewPlayerPresenterProtocol {
-    
-    func onViewWillAppear() {
-        vc.navigationItem.title = Constants.Titles.newPlayerTitle
-    }
     
     func cancelPressed() {
         delegate?.cancelPressed()

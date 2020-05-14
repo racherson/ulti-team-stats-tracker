@@ -24,7 +24,7 @@ class PullCoordinator: Coordinator {
         
         // Create new view controller
         let vc = PullViewController.instantiate(.pull)
-        vc.delegate = self
+        vc.presenter = PullPresenter(vc: vc, delegate: self)
         
         // Create tab item
         vc.tabBarItem = UITabBarItem(title: Constants.Titles.pullTitle, image: UIImage(systemName: "sportscourt"), tag: 2)
@@ -32,3 +32,6 @@ class PullCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 }
+
+//MARK: PullPresenterDelegate
+extension PullCoordinator: PullPresenterDelegate { }

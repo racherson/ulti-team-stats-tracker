@@ -28,7 +28,12 @@ class PullCoordinatorTests: XCTestCase {
     
     func testStart() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // When
         pullCoordinator.start()
+        // Then
         XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is PullViewController)
+        XCTAssertTrue(navigationController.navigationBar.prefersLargeTitles)
     }
 }

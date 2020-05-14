@@ -24,12 +24,12 @@ class PlayerDetailPresenter: Presenter {
         self.delegate = delegate
         self.viewModel = viewModel
     }
-}
-
-//MARK: PlayerDetailPresenterProtocol
-extension PlayerDetailPresenter: PlayerDetailPresenterProtocol {
+    
     func onViewWillAppear() {
         vc.navigationItem.title = viewModel.name
         vc.updateWithViewModel(vm: viewModel)
     }
 }
+
+//MARK: PlayerDetailPresenterProtocol
+extension PlayerDetailPresenter: PlayerDetailPresenterProtocol { }

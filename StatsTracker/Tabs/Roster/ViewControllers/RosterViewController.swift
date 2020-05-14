@@ -14,7 +14,6 @@ enum Gender: Int, CaseIterable {
 }
 
 protocol RosterPresenterProtocol where Self: Presenter {
-    func onViewWillAppear()
     func addPressed()
     func addPlayer(_ player: PlayerModel)
     func deletePlayer(at indexPath: IndexPath)
