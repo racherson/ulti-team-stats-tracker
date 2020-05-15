@@ -308,6 +308,7 @@
 			children = (
 				29053586245A0B0B00A72DCF /* TestConstants.swift */,
 				29E6C69A245902E700E41586 /* MockClasses */,
+				29A0CDE0246DDE88003114BE /* Models */,
 				29E6C6A124590CD400E41586 /* Coordinators */,
 				299D32E62459170A009A7E37 /* Presenters */,
 				295108F1246C663E0083F7EC /* ViewControllers */,
@@ -544,6 +545,13 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		29A0CDE0246DDE88003114BE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		29A12613246DD57200581D30 /* Pull */ = {
 			isa = PBXGroup;
 			children = (
@@ -708,6 +716,7 @@
 				2910EB5B243FA4C100BCF721 /* Frameworks */,
 				2910EB5C243FA4C100BCF721 /* Resources */,
 				54819AF6DD83C6B7A0A28D71 /* [CP] Embed Pods Frameworks */,
+				29F38382246E41E200151079 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -819,6 +828,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StatsTrackerTests/Pods-StatsTrackerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		29F38382246E41E200151079 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		54819AF6DD83C6B7A0A28D71 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1134,6 +1161,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XJ59UMG942;
 				INFOPLIST_FILE = StatsTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;

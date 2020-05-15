@@ -11,6 +11,7 @@ target 'StatsTracker' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'Firebase/Crashlytics'
 
   target 'StatsTrackerTests' do
     inherit! :search_paths
