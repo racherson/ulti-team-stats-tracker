@@ -8,7 +8,9 @@
 
 import Foundation
 
-protocol PullPresenterDelegate: AnyObject { }
+protocol PullPresenterDelegate: AnyObject {
+    func startGamePressed()
+}
 
 class PullPresenter: Presenter {
     
@@ -28,4 +30,8 @@ class PullPresenter: Presenter {
 }
 
 //MARK: PullPresenterProtocol
-extension PullPresenter: PullPresenterProtocol { }
+extension PullPresenter: PullPresenterProtocol {
+    func startGamePressed() {
+        delegate?.startGamePressed()
+    }
+}

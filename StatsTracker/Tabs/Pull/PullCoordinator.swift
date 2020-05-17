@@ -34,4 +34,14 @@ class PullCoordinator: Coordinator {
 }
 
 //MARK: PullPresenterDelegate
-extension PullCoordinator: PullPresenterDelegate { }
+extension PullCoordinator: PullPresenterDelegate {
+    func startGamePressed() {
+        let vc = PlayGameViewController.instantiate(.pull)
+        vc.presenter = PlayGamePresenter(vc: vc, delegate: self)
+        vc.modalPresentationStyle = .fullScreen
+        navigationController.present(vc, animated: true, completion: nil)
+    }
+}
+
+//MARK: PlayGamePresenterDelegate
+extension PullCoordinator: PlayGamePresenterDelegate { }

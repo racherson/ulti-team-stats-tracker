@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,13 +14,103 @@
                     <view key="view" contentMode="scaleToFill" id="Tpw-Ef-OAp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Fqs-bx-lti">
+                                <rect key="frame" x="20" y="44" width="374" height="341"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="nOM-6f-BKL">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="118.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-NU-X6b">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tournament" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJ1-YQ-8gj">
+                                                <rect key="frame" x="0.0" y="35.5" width="374" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Opponent" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gWk-yQ-1gr">
+                                                <rect key="frame" x="0.0" y="84.5" width="374" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Eno-1m-mCf">
+                                        <rect key="frame" x="0.0" y="158.5" width="374" height="112.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From the Flip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5n-nG-aaG">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tvP-JU-fw9">
+                                                <rect key="frame" x="0.0" y="35.5" width="374" height="32"/>
+                                                <segments>
+                                                    <segment title="Offense"/>
+                                                    <segment title="Defense"/>
+                                                </segments>
+                                            </segmentedControl>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="221-1J-sLT">
+                                                <rect key="frame" x="0.0" y="81.5" width="374" height="32"/>
+                                                <segments>
+                                                    <segment title="Upwind"/>
+                                                    <segment title="Downwind"/>
+                                                    <segment title="Crosswind"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fu8-rl-F6K">
+                                        <rect key="frame" x="0.0" y="311" width="374" height="30"/>
+                                        <state key="normal" title="Start Game"/>
+                                        <connections>
+                                            <action selector="startGamePressed:" destination="MPO-K3-x4n" eventType="touchUpInside" id="9fL-tI-Ya8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Fu8-rl-F6K" firstAttribute="centerX" secondItem="Fqs-bx-lti" secondAttribute="centerX" id="nDA-jI-ACz"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Fqs-bx-lti" firstAttribute="top" secondItem="siD-YI-ktj" secondAttribute="top" id="SaS-ga-UBJ"/>
+                            <constraint firstItem="Fqs-bx-lti" firstAttribute="leading" secondItem="siD-YI-ktj" secondAttribute="leading" constant="20" id="Wd4-Vv-LoX"/>
+                            <constraint firstItem="siD-YI-ktj" firstAttribute="trailing" secondItem="Fqs-bx-lti" secondAttribute="trailing" constant="20" id="xMX-Xc-aqV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="siD-YI-ktj"/>
                     </view>
+                    <connections>
+                        <outlet property="offenseSegmentedControl" destination="tvP-JU-fw9" id="RFc-uw-ViZ"/>
+                        <outlet property="opponentTextField" destination="gWk-yQ-1gr" id="Rfq-Ky-Qa1"/>
+                        <outlet property="tournamentTextField" destination="VJ1-YQ-8gj" id="W1Q-x5-xN7"/>
+                        <outlet property="windSegmentedControl" destination="221-1J-sLT" id="cUD-Ss-lbk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttn-f1-eCc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="164" y="145"/>
+        </scene>
+        <!--Play Game View Controller-->
+        <scene sceneID="v8B-Y1-Ovt">
+            <objects>
+                <viewController storyboardIdentifier="PlayGameViewController" id="SAG-Am-d7V" customClass="PlayGameViewController" customModule="StatsTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mjq-Vh-lzn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="alC-Ny-ScI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5dP-fp-CAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="877" y="145"/>
         </scene>
     </scenes>
 </document>

@@ -14,6 +14,8 @@ class PullPresenterTests: XCTestCase {
     var sut: PullPresenter!
     var vc: PullViewController!
     
+    var startGameCount: Int = 0
+    
     override func setUp() {
         vc = PullViewController.instantiate(.pull)
         sut = PullPresenter(vc: vc, delegate: self)
@@ -34,7 +36,19 @@ class PullPresenterTests: XCTestCase {
         // Then
         XCTAssertEqual(vc.navigationItem.title, Constants.Titles.pullTitle)
     }
+    
+    func testStartGamePressed() throws {
+        XCTAssertEqual(0, startGameCount)
+        // When
+        sut.startGamePressed()
+        // Then
+        XCTAssertEqual(1, startGameCount)
+    }
 }
 
 //MARK: PullPresenterDelegate
-extension PullPresenterTests: PullPresenterDelegate { }
+extension PullPresenterTests: PullPresenterDelegate {
+    func startGamePressed() {
+        startGameCount += 1
+    }
+}

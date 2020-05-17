@@ -35,13 +35,27 @@ class PullViewControllerTests: XCTestCase {
         // Then
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
     }
+    
+    func testStartGamePressed() throws {
+        XCTAssertEqual(0, presenter.startGameCount)
+        // When
+        sut.startGamePressed(UIButton())
+        // Then
+        XCTAssertEqual(1, presenter.startGameCount)
+    }
 }
 
+//MARK: PullPresenterSpy
 class PullPresenterSpy: Presenter, PullPresenterProtocol {
 
     var viewWillAppearCalled: Int = 0
+    var startGameCount: Int = 0
 
     func onViewWillAppear() {
         viewWillAppearCalled += 1
+    }
+    
+    func startGamePressed() {
+        startGameCount += 1
     }
 }

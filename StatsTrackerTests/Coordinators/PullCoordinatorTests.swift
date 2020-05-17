@@ -36,4 +36,13 @@ class PullCoordinatorTests: XCTestCase {
         XCTAssertTrue(navigationController.pushedController is PullViewController)
         XCTAssertTrue(navigationController.navigationBar.prefersLargeTitles)
     }
+    
+    func testStartGamePressed() throws {
+        XCTAssertEqual(0, navigationController.presentCalledCount)
+        // When
+        pullCoordinator.startGamePressed()
+        // Then
+        XCTAssertEqual(1, navigationController.presentCalledCount)
+        XCTAssertEqual(.fullScreen, navigationController.presentationStyle)
+    }
 }
