@@ -18,7 +18,7 @@ class PlayerDetailPresenterTests: XCTestCase {
     override func setUp() {
         vc = PlayerDetailViewController.instantiate(.roster)
         let _ = vc.view
-        let model = PlayerModel(name: "Name", gender: 0, id: "")
+        let model = PlayerModel(name: "Name", gender: 0, id: "", roles: [])
         viewModel = PlayerViewModel(model: model)
         sut = PlayerDetailPresenter(vc: vc, delegate: self, viewModel: viewModel)
         super.setUp()

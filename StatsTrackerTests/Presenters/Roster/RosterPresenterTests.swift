@@ -62,9 +62,9 @@ class RosterPresenterTests: XCTestCase {
     
     func testNumberOfPlayersInSection_NonEmptySection() throws {
         // Given
-        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty),
-                                     PlayerModel(name: "Woman2", gender: Gender.women.rawValue, id: TestConstants.empty)]
-        let men: [PlayerModel] = [PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty)]
+        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: []),
+                                    PlayerModel(name: "Woman2", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        let men: [PlayerModel] = [PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])]
         // When
         sut.playerModels = [women, men]
         // Then
@@ -74,8 +74,8 @@ class RosterPresenterTests: XCTestCase {
     
     func testGetPlayerName() throws {
         // Given
-        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty)]
-        let men: [PlayerModel] = [PlayerModel(name: "Man1", gender: Gender.men.rawValue, id: TestConstants.empty)]
+        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        let men: [PlayerModel] = [PlayerModel(name: "Man1", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])]
         sut.playerModels = [women, men]
         // When
         let indexPathWoman = IndexPath(row: 0, section: Gender.women.rawValue)
@@ -96,7 +96,7 @@ class RosterPresenterTests: XCTestCase {
     func testAddPlayerWoman() throws {
         // Given
         sut.playerModels = [[],[]]
-        let player = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty)
+        let player = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
         XCTAssertEqual(0, sut.playerModels[player.gender].count)
         XCTAssertEqual(0, vc.updateViewCalled)
         // When
@@ -109,7 +109,7 @@ class RosterPresenterTests: XCTestCase {
     func testAddPlayerMan() throws {
         // Given
         sut.playerModels = [[],[]]
-        let player = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty)
+        let player = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
         XCTAssertEqual(0, sut.playerModels[player.gender].count)
         XCTAssertEqual(0, vc.updateViewCalled)
         // When
@@ -125,7 +125,7 @@ class RosterPresenterTests: XCTestCase {
         XCTAssertNil(vmGender)
         // Given
         let name = "Woman"
-        let women: [PlayerModel] = [PlayerModel(name: name, gender: Gender.women.rawValue, id: TestConstants.empty)]
+        let women: [PlayerModel] = [PlayerModel(name: name, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
         sut.playerModels = [women, []]
         // When
         let indexPath = IndexPath(row: 0, section: 0)
@@ -138,7 +138,7 @@ class RosterPresenterTests: XCTestCase {
     
     func testDeletePlayerWoman() throws {
         // Given
-        let player = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty)
+        let player = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
         sut.playerModels = [[player],[]]
         XCTAssertEqual(1, sut.playerModels[player.gender].count)
         XCTAssertEqual(0, vc.updateViewCalled)
@@ -153,7 +153,7 @@ class RosterPresenterTests: XCTestCase {
     func testDeletePlayerMan() throws {
         XCTAssertEqual(0, vc.updateViewCalled)
         // Given
-        let player = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty)
+        let player = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
         sut.playerModels = [[],[player]]
         XCTAssertEqual(1, sut.playerModels[player.gender].count)
         XCTAssertEqual(0, vc.updateViewCalled)
@@ -208,8 +208,8 @@ class RosterPresenterTests: XCTestCase {
     func testOnSuccessfulGet_PlayerModelSuccess() throws {
         // Given
         sut.playerModels = [[],[]]
-        let womanModel = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty)
-        let manModel = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty)
+        let womanModel = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
+        let manModel = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
         let data = [
             FirebaseKeys.CollectionPath.women: [womanModel.dictionary],
             FirebaseKeys.CollectionPath.men: [manModel.dictionary]

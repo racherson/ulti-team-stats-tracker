@@ -25,5 +25,6 @@ extension Constants {
         static let ds = "ds"
         static let pulls = "pulls"
         static let callahans = "callahans"
+        static let roles = "roles"
     }
 }

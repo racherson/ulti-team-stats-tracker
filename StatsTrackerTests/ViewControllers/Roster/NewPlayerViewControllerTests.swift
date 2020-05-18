@@ -73,6 +73,22 @@ class NewPlayerViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.savePressedCount)
     }
     
+    func testSavePressed_ModelCreated() throws {
+        XCTAssertNil(presenter.modelCreated)
+        // Given
+        sut.nameTextField.text = TestConstants.playerName
+        sut.genderSegmentedControl.selectedSegmentIndex = Gender.women.rawValue
+        let viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        viewModel.items[0].isSelected = true
+        sut.viewModel = viewModel
+        // When
+        sut.savePressed()
+        // Then
+        XCTAssertEqual(TestConstants.playerName, presenter.modelCreated?.name)
+        XCTAssertEqual(Gender.women.rawValue, presenter.modelCreated?.gender)
+        XCTAssertEqual([Roles.handler.rawValue], presenter.modelCreated?.roles)
+    }
+    
     func testTextFieldShouldReturn() throws {
         // Given
         let textField = UITextField()
@@ -82,6 +98,31 @@ class NewPlayerViewControllerTests: XCTestCase {
         XCTAssertFalse(textField.isFirstResponder)
         XCTAssertTrue(result)
     }
+    
+    func testDidSelectRowAt() throws {
+        // Given
+        let viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        let indexPath = IndexPath(row: 0, section: 0)
+        XCTAssertFalse(viewModel.items[indexPath.row].isSelected)
+        sut.viewModel = viewModel
+        // When
+        sut.tableView(sut.tableView, didSelectRowAt: indexPath)
+        // Then
+        XCTAssertTrue(viewModel.items[indexPath.row].isSelected)
+    }
+    
+    func testDidDeSelectRowAt() throws {
+        // Given
+        let viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        viewModel.items[0].isSelected = true
+        let indexPath = IndexPath(row: 0, section: 0)
+        XCTAssertTrue(viewModel.items[indexPath.row].isSelected)
+        sut.viewModel = viewModel
+        // When
+        sut.tableView(sut.tableView, didDeselectRowAt: indexPath)
+        // Then
+        XCTAssertFalse(viewModel.items[indexPath.row].isSelected)
+    }
 }
 
 //MARK: NewPlayerPresenterSpy
@@ -90,6 +131,7 @@ class NewPlayerPresenterSpy: Presenter, NewPlayerPresenterProtocol {
     var viewWillAppearCalled: Int = 0
     var cancelPressedCount: Int = 0
     var savePressedCount: Int = 0
+    var modelCreated: PlayerModel?
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
@@ -101,5 +143,6 @@ class NewPlayerPresenterSpy: Presenter, NewPlayerPresenterProtocol {
     
     func savePressed(model: PlayerModel) {
         savePressedCount += 1
+        modelCreated = model
     }
 }

@@ -21,6 +21,10 @@ struct PlayerViewModel {
         return Gender(rawValue: model.gender)!
     }
     
+    var roles: [Roles] {
+        return model.roles.map{ Roles(rawValue: $0)! }
+    }
+    
     var games: String {
         return String(model.games)
     }

@@ -49,7 +49,7 @@ class RosterCoordinatorTests: XCTestCase {
         XCTAssertEqual(0, navigationController.pushCallCount)
         XCTAssertNil(navigationController.pushedController)
         // Given
-        let model = PlayerModel(name: "", gender: 0, id: "")
+        let model = PlayerModel(name: "", gender: 0, id: "", roles: [])
         let viewModel = PlayerViewModel(model: model)
         // When
         rosterCoordinator.goToPlayerPage(viewModel: viewModel)
@@ -69,7 +69,7 @@ class RosterCoordinatorTests: XCTestCase {
     func testSavePressed() throws {
         XCTAssertEqual(0, navigationController.dismissCallCount)
         // Given
-        let model = PlayerModel(name: "", gender: 0, id: "")
+        let model = PlayerModel(name: "", gender: 0, id: "", roles: [])
         let vc = RosterViewController()
         let presenter = MockRosterPresenter()
         XCTAssertEqual(0, presenter.addPlayerCalled)

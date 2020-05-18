@@ -25,6 +25,7 @@ struct PlayerModel: Codable {
     private(set) var ds: Int
     private(set) var pulls: Int
     private(set) var callahans: Int
+    private(set) var roles: [Int]
     
     var dictionary: [String: Any] {
         return [
@@ -41,7 +42,8 @@ struct PlayerModel: Codable {
             Constants.PlayerModel.assists: assists,
             Constants.PlayerModel.ds: ds,
             Constants.PlayerModel.pulls: pulls,
-            Constants.PlayerModel.callahans: callahans
+            Constants.PlayerModel.callahans: callahans,
+            Constants.PlayerModel.roles: roles
         ]
     }
     
@@ -60,12 +62,14 @@ struct PlayerModel: Codable {
         case ds
         case pulls
         case callahans
+        case roles
     }
     
-    init(name: String, gender: Int, id: String) {
+    init(name: String, gender: Int, id: String, roles: [Int]) {
         self.name = name
         self.gender = gender
         self.id = id
+        self.roles = roles
         self.points = 0
         self.games = 0
         self.completions = 0
@@ -79,7 +83,7 @@ struct PlayerModel: Codable {
         self.callahans = 0
     }
     
-    init(name: String, gender: Int, id: String, points: Int, games: Int, completions: Int, throwaways: Int, catches: Int, drops: Int, goals: Int, assists: Int, ds: Int, pulls: Int, callahans: Int) {
+    init(name: String, gender: Int, id: String, points: Int, games: Int, completions: Int, throwaways: Int, catches: Int, drops: Int, goals: Int, assists: Int, ds: Int, pulls: Int, callahans: Int, roles: [Int]) {
         self.name = name
         self.gender = gender
         self.id = id
@@ -94,6 +98,7 @@ struct PlayerModel: Codable {
         self.ds = ds
         self.pulls = pulls
         self.callahans = callahans
+        self.roles = roles
     }
     
     
@@ -104,7 +109,8 @@ extension PlayerModel: DocumentSerializable {
     init?(documentData: [String : Any]) {
         guard let name = documentData[Constants.PlayerModel.name] as? String,
             let gender = documentData[Constants.PlayerModel.gender] as? Int,
-            let id = documentData[Constants.PlayerModel.id] as? String else { return nil }
+            let id = documentData[Constants.PlayerModel.id] as? String,
+            let roles = documentData[Constants.PlayerModel.roles] as? [Int] else { return nil }
         
         let points = documentData[Constants.PlayerModel.points] as? Int ?? Constants.Empty.int
         let games = documentData[Constants.PlayerModel.games] as? Int ?? Constants.Empty.int
@@ -118,7 +124,7 @@ extension PlayerModel: DocumentSerializable {
         let pulls = documentData[Constants.PlayerModel.pulls] as? Int ?? Constants.Empty.int
         let callahans = documentData[Constants.PlayerModel.callahans] as? Int ?? Constants.Empty.int
         
-        self.init(name: name, gender: gender, id: id, points: points, games: games, completions: completions, throwaways: throwaways, catches: catches, drops: drops, goals: goals, assists: assists, ds: ds, pulls: pulls, callahans: callahans)
+        self.init(name: name, gender: gender, id: id, points: points, games: games, completions: completions, throwaways: throwaways, catches: catches, drops: drops, goals: goals, assists: assists, ds: ds, pulls: pulls, callahans: callahans, roles: roles)
     }
 }
 

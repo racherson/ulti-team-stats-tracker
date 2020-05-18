@@ -38,11 +38,12 @@ class PlayerDetailViewControllerTests: XCTestCase {
     
     func testUpdateWithViewModel() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty)
+        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [0])
         let vm = PlayerViewModel(model: model)
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
+        XCTAssertEqual(sut.rolesLabel.text, Roles(rawValue: 0)?.description)
         XCTAssertEqual(sut.gamesPlayedLabel.text, vm.games)
         XCTAssertEqual(sut.pointsPlayedLabel.text, vm.points)
         XCTAssertEqual(sut.goalsLabel.text, vm.goals)
@@ -57,10 +58,29 @@ class PlayerDetailViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.pullsLabel.text, vm.pulls)
         XCTAssertEqual(sut.callahanLabel.text, vm.callahans)
     }
+    
+    func testGetRolesString_Multiple() throws {
+        // Given
+        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [0, 1])
+        let viewModel = PlayerViewModel(model: model)
+        // When
+        sut.updateWithViewModel(vm: viewModel)
+        // Then
+        XCTAssertEqual(sut.rolesLabel.text, Roles(rawValue: 0)!.description + ", " + Roles(rawValue: 1)!.description)
+    }
+    
+    func testGetRolesString_None() throws {
+        // Given
+        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
+        let viewModel = PlayerViewModel(model: model)
+        // When
+        sut.updateWithViewModel(vm: viewModel)
+        // Then
+        XCTAssertEqual(sut.rolesLabel.text, TestConstants.empty)
+    }
 }
 
 class PlayerDetailPresenterSpy: Presenter, PlayerDetailPresenterProtocol {
-    
     var viewWillAppearCalled: Int = 0
     
     func onViewWillAppear() {

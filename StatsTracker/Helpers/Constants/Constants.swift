@@ -22,6 +22,10 @@ struct Constants {
         static let men = "Men"
         static let women = "Women"
         static let newPlayerTitle = "New Player"
+        static let handler = "Handler"
+        static let cutter = "Cutter"
+        static let puller = "Puller"
+        static let roles = "Player Role(s)"
     }
     
     struct Alerts {

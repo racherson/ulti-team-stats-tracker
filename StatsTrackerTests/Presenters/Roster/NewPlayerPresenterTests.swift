@@ -54,7 +54,7 @@ class NewPlayerPresenterTests: XCTestCase {
         XCTAssertEqual(0, savePressedCount)
         XCTAssertNil(sut.model)
         // Given
-        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty)
+        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
         // When
         sut.savePressed(model: model)
         // Then
@@ -104,7 +104,7 @@ class NewPlayerPresenterTests: XCTestCase {
     func testOnSuccessfulSet_Model() throws {
         XCTAssertEqual(0, savePressedCount)
         // Given
-        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty)
+        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
         // When
         sut.model = model
         sut.onSuccessfulSet()
