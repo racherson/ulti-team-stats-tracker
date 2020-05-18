@@ -21,8 +21,10 @@ struct PlayerViewModel {
         return Gender(rawValue: model.gender)!
     }
     
-    var roles: [Roles] {
-        return model.roles.map{ Roles(rawValue: $0)! }
+    var roles: String {
+        let roles = model.roles.map{ Roles(rawValue: $0)! }
+        let rolesTitles = roles.map{ $0.description }
+        return rolesTitles.joined(separator: ", ")
     }
     
     var games: String {

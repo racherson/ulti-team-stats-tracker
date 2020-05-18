@@ -39,7 +39,7 @@ class PlayerDetailViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: PlayerViewModel) {
-        rolesLabel.text = getRolesString(viewModel: vm)
+        rolesLabel.text = vm.roles
         gamesPlayedLabel.text = vm.games
         pointsPlayedLabel.text = vm.points
         goalsLabel.text = vm.goals
@@ -53,11 +53,5 @@ class PlayerDetailViewController: UIViewController, Storyboarded {
         catchPercentLabel.text = vm.catchingPercentage
         pullsLabel.text = vm.pulls
         callahanLabel.text = vm.callahans
-    }
-    
-    //MARK: Private methods
-    private func getRolesString(viewModel: PlayerViewModel) -> String {
-        let rolesTitles = viewModel.roles.map{ $0.description }
-        return rolesTitles.joined(separator: ", ")
     }
 }

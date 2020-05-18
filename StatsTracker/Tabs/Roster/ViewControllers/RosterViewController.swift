@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum Gender: Int, CaseIterable {
-    case women
-    case men
-}
-
 protocol RosterPresenterProtocol where Self: Presenter {
     func addPressed()
     func addPlayer(_ player: PlayerModel)
