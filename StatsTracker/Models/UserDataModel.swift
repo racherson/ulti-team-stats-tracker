@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol DocumentSerializable {
-    init?(documentData: [String: Any])
-}
-
 struct UserDataModel {
     
     //MARK: Properties

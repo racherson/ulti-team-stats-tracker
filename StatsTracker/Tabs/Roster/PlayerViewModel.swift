@@ -77,9 +77,7 @@ struct PlayerViewModel {
             let percentNum = model.catches / (model.catches + model.drops)
             return String(percentNum)
         }
-        else {
-            return String(0)
-        }
+        return String(0)
     }
     
     var completionPercentage: String {
@@ -87,8 +85,6 @@ struct PlayerViewModel {
             let percentNum = model.completions / (model.completions + model.throwaways)
             return String(percentNum)
         }
-        else {
-            return String(0)
-        }
+        return String(0)
     }
 }

@@ -54,17 +54,40 @@ class RosterPresenter: Presenter {
     private func getViewModel(model: PlayerModel) -> PlayerViewModel {
         return PlayerViewModel(model: model)
     }
+    
+    private func checkValidIndexPath(_ indexPath: IndexPath) -> Bool {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        // Check if section in bounds
+        if section < 0 || section >= playerModels.count {
+            return false
+        }
+        
+        // Check if row in bounds given the section
+        if row < 0 || row >= playerModels[section].count {
+            return false
+        }
+        
+        return true
+    }
 }
 
 //MARK: RosterPresenterProtocol
 extension RosterPresenter: RosterPresenterProtocol {
     
     func numberOfPlayersInSection(_ section: Int) -> Int {
+        if section < 0 || section >= playerModels.count {
+            return Constants.Empty.int
+        }
         return playerModels[section].count
     }
     
     func getPlayerName(at indexPath: IndexPath) -> String {
-        return playerModels[indexPath.section][indexPath.row].name
+        if checkValidIndexPath(indexPath) {
+            return playerModels[indexPath.section][indexPath.row].name
+        }
+        return Constants.Empty.string
     }
     
     func addPressed() {
@@ -79,23 +102,30 @@ extension RosterPresenter: RosterPresenterProtocol {
     }
     
     func goToPlayerPage(at indexPath: IndexPath) {
-        let model = playerModels[indexPath.section][indexPath.row]
-
-        // Create a view model with the data model
-        let viewModel = getViewModel(model: model)
-        
-        delegate?.goToPlayerPage(viewModel: viewModel)
+        if checkValidIndexPath(indexPath) {
+            let model = playerModels[indexPath.section][indexPath.row]
+            
+            // Create a view model with the data model
+            let viewModel = getViewModel(model: model)
+            
+            delegate?.goToPlayerPage(viewModel: viewModel)
+        }
+        else {
+            displayError(with: CustomError.outOfBounds)
+        }
     }
     
     func deletePlayer(at indexPath: IndexPath) {
-        // Delete from database
-        let modelToDelete = playerModels[indexPath.section][indexPath.row]
-        dbManager.deleteData(data: modelToDelete.dictionary, collection: .roster)
-        
-        // Update player array
-        playerModels[indexPath.section].remove(at: indexPath.row)
-        
-        vc.updateView()
+        if checkValidIndexPath(indexPath) {
+            // Delete from database
+            let modelToDelete = playerModels[indexPath.section][indexPath.row]
+            dbManager.deleteData(data: modelToDelete.dictionary, collection: .roster)
+            
+            // Update player array
+            playerModels[indexPath.section].remove(at: indexPath.row)
+            
+            vc.updateView()
+        }
     }
 }
 

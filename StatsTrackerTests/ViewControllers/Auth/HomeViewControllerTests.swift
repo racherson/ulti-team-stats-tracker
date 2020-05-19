@@ -18,6 +18,7 @@ class HomeViewControllerTests: XCTestCase {
     
     override func setUp() {
         sut = HomeViewController.instantiate(.auth)
+        let _ = sut.view
         sut.delegate = self
         super.setUp()
     }

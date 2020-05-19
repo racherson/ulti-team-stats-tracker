@@ -51,10 +51,16 @@ extension RolesCellViewModel: UITableViewDataSource {
             fatalError(Constants.Errors.dequeueError(cellIdentifier))
         }
         
-        cell.item = items[indexPath.row]
+        let row = indexPath.row
+        
+        if row < 0 || row > items.count {
+            fatalError(Constants.Errors.oob)
+        }
+        
+        cell.item = items[row]
         
         // Select/deselect the cell
-        if items[indexPath.row].isSelected {
+        if items[row].isSelected {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         } else {
             tableView.deselectRow(at: indexPath, animated: false)

@@ -36,7 +36,7 @@ class PlayerDetailViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
     }
     
-    func testUpdateWithViewModel() throws {
+    func testUpdateWithViewModel_Empty() throws {
         // Given
         let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [0])
         let vm = PlayerViewModel(model: model)
@@ -57,6 +57,21 @@ class PlayerDetailViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.catchPercentLabel.text, vm.catchingPercentage)
         XCTAssertEqual(sut.pullsLabel.text, vm.pulls)
         XCTAssertEqual(sut.callahanLabel.text, vm.callahans)
+    }
+    
+    func testUpdateWithViewModel_NotEmpty() throws {
+        // Given
+        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, points: 0, games: 0, completions: 80, throwaways: 20, catches: 100, drops: 5, goals: 0, assists: 0, ds: 0, pulls: 0, callahans: 0, roles: [0])
+        let vm = PlayerViewModel(model: model)
+        // When
+        sut.updateWithViewModel(vm: vm)
+        // Then
+        XCTAssertEqual(sut.completionsLabel.text, vm.completions)
+        XCTAssertEqual(sut.throwawaysLabel.text, vm.throwaways)
+        XCTAssertEqual(sut.completionPercentLabel.text, vm.completionPercentage)
+        XCTAssertEqual(sut.catchesLabel.text, vm.catches)
+        XCTAssertEqual(sut.dropsLabel.text, vm.drops)
+        XCTAssertEqual(sut.catchPercentLabel.text, vm.catchingPercentage)
     }
     
     func testGetRolesString_Multiple() throws {

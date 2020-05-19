@@ -72,6 +72,21 @@ class RosterPresenterTests: XCTestCase {
         XCTAssertEqual(men.count, sut.numberOfPlayersInSection(Gender.men.rawValue))
     }
     
+    func testNumberOfPlayersInSection_OutOfBounds() throws {
+        // Given
+        let array1: [PlayerModel] = []
+        let array2: [PlayerModel] = []
+        let sectionGreaterThan = 2
+        let sectionLessThan = -1
+        // When
+        sut.playerModels = [array1, array2]
+        // Then
+        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionGreaterThan))
+        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionGreaterThan))
+        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionLessThan))
+        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionLessThan))
+    }
+    
     func testGetPlayerName() throws {
         // Given
         let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
@@ -80,10 +95,39 @@ class RosterPresenterTests: XCTestCase {
         // When
         let indexPathWoman = IndexPath(row: 0, section: Gender.women.rawValue)
         let indexPathMan = IndexPath(row: 0, section: Gender.men.rawValue)
+        let womanName = sut.getPlayerName(at: indexPathWoman)
+        let manName = sut.getPlayerName(at: indexPathMan)
         // Then
-        XCTAssertEqual("Woman1", sut.getPlayerName(at: indexPathWoman))
-        XCTAssertEqual("Man1", sut.getPlayerName(at: indexPathMan))
+        XCTAssertEqual("Woman1", womanName)
+        XCTAssertEqual("Man1", manName)
     }
+    
+    func testGetPlayerName_SectionOutOfBounds() throws {
+        // Given
+        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        let men: [PlayerModel] = [PlayerModel(name: "Man1", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])]
+        sut.playerModels = [women, men]
+        // When
+        let indexPathWoman = IndexPath(row: 0, section: -1)
+        let indexPathMan = IndexPath(row: 0, section: 2)
+        // Then
+        XCTAssertEqual(Constants.Empty.string, sut.getPlayerName(at: indexPathWoman))
+        XCTAssertEqual(Constants.Empty.string, sut.getPlayerName(at: indexPathMan))
+    }
+    
+    func testGetPlayerName_RowOutOfBounds() throws {
+        // Given
+        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        let men: [PlayerModel] = [PlayerModel(name: "Man1", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])]
+        sut.playerModels = [women, men]
+        // When
+        let indexPathWoman = IndexPath(row: -1, section: Gender.women.rawValue)
+        let indexPathMan = IndexPath(row: 2, section: Gender.men.rawValue)
+        // Then
+        XCTAssertEqual(Constants.Empty.string, sut.getPlayerName(at: indexPathWoman))
+        XCTAssertEqual(Constants.Empty.string, sut.getPlayerName(at: indexPathMan))
+    }
+    
     
     func testAddPressed() throws {
         XCTAssertEqual(0, addPressedCount)
@@ -136,6 +180,58 @@ class RosterPresenterTests: XCTestCase {
         XCTAssertEqual(Gender.women, vmGender)
     }
     
+    func testGoToPlayerPage_RowOutOfBounds() throws {
+        let alertVerifier = AlertVerifier()
+        
+        XCTAssertEqual(0, playerPageCount)
+        XCTAssertNil(vmName)
+        XCTAssertNil(vmGender)
+        // Given
+        let error = CustomError.outOfBounds
+        let name = "Woman"
+        let women: [PlayerModel] = [PlayerModel(name: name, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        sut.playerModels = [women, []]
+        // When
+        let indexPath = IndexPath(row: 1, section: 0)
+        sut.goToPlayerPage(at: indexPath)
+        // Then
+        alertVerifier.verify(
+            title: Constants.Errors.documentErrorTitle,
+            message: error.localizedDescription,
+            animated: true,
+            actions: [
+                .default(TestConstants.Alerts.dismiss)
+            ],
+            presentingViewController: vc
+        )
+    }
+    
+    func testGoToPlayerPage_SectionOutOfBounds() throws {
+        let alertVerifier = AlertVerifier()
+        
+        XCTAssertEqual(0, playerPageCount)
+        XCTAssertNil(vmName)
+        XCTAssertNil(vmGender)
+        // Given
+        let error = CustomError.outOfBounds
+        let name = "Woman"
+        let women: [PlayerModel] = [PlayerModel(name: name, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        sut.playerModels = [women, []]
+        // When
+        let indexPath = IndexPath(row: 0, section: -1)
+        sut.goToPlayerPage(at: indexPath)
+        // Then
+        alertVerifier.verify(
+            title: Constants.Errors.documentErrorTitle,
+            message: error.localizedDescription,
+            animated: true,
+            actions: [
+                .default(TestConstants.Alerts.dismiss)
+            ],
+            presentingViewController: vc
+        )
+    }
+    
     func testDeletePlayerWoman() throws {
         // Given
         let player = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
@@ -163,6 +259,34 @@ class RosterPresenterTests: XCTestCase {
         // Then
         XCTAssertEqual(0, sut.playerModels[player.gender].count)
         XCTAssertEqual(1, vc.updateViewCalled)
+    }
+    
+    func testDeletePlayer_SectionOutOfBounds() throws {
+        // Given
+        let player = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
+        sut.playerModels = [[],[player]]
+        XCTAssertEqual(1, sut.playerModels[player.gender].count)
+        XCTAssertEqual(0, vc.updateViewCalled)
+        // When
+        let indexPath = IndexPath(row: 0, section: 3)
+        sut.deletePlayer(at: indexPath)
+        // Then
+        XCTAssertEqual(1, sut.playerModels[player.gender].count)
+        XCTAssertEqual(0, vc.updateViewCalled)
+    }
+    
+    func testDeletePlayer_RowOutOfBounds() throws {
+        // Given
+        let player = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
+        sut.playerModels = [[],[player]]
+        XCTAssertEqual(1, sut.playerModels[player.gender].count)
+        XCTAssertEqual(0, vc.updateViewCalled)
+        // When
+        let indexPath = IndexPath(row: -1, section: player.gender)
+        sut.deletePlayer(at: indexPath)
+        // Then
+        XCTAssertEqual(1, sut.playerModels[player.gender].count)
+        XCTAssertEqual(0, vc.updateViewCalled)
     }
     
     func testDisplayDBError() throws {

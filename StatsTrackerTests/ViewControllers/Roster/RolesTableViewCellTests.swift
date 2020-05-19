@@ -32,4 +32,29 @@ class RolesTableViewCellTests: XCTestCase {
         // Then
         XCTAssertEqual(sut.textLabel?.text, Roles.handler.description)
     }
+    
+    func testAwake() throws {
+        // When
+        sut.awakeFromNib()
+        // Then
+        XCTAssertEqual(sut.selectionStyle, .none)
+    }
+    
+    func testSetSelected_Selected() throws {
+        // Given
+        let selected = true
+        // When
+        sut.setSelected(selected, animated: false)
+        // Then
+        XCTAssertEqual(sut.accessoryType, .checkmark)
+    }
+    
+    func testSetSelected_Deselected() throws {
+        // Given
+        let selected = false
+        // When
+        sut.setSelected(selected, animated: false)
+        // Then
+        XCTAssertEqual(sut.accessoryType, .none)
+    }
 }

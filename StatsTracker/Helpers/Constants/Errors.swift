@@ -33,6 +33,7 @@ extension Constants {
         static let documentErrorTitle = "Error retrieving data."
         static let userError = "Could not retreive user."
         static let unknown = "Something went wrong."
-        static let modelError = "Error retrieving player"
+        static let modelError = "Error retrieving player."
+        static let oob = "Index out of bounds."
     }
 }

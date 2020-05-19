@@ -100,10 +100,14 @@ extension NewPlayerViewController: UITextFieldDelegate {
 extension NewPlayerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.items[indexPath.row].isSelected = true
+        if indexPath.row >= 0 && indexPath.row < Roles.allCases.count {
+            viewModel.items[indexPath.row].isSelected = true
+        }
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        viewModel.items[indexPath.row].isSelected = false
+        if indexPath.row >= 0 && indexPath.row < Roles.allCases.count {
+            viewModel.items[indexPath.row].isSelected = false
+        }
     }
 }
