@@ -110,20 +110,6 @@ class RosterViewControllerTests: XCTestCase {
     }
 }
 
-//MARK: TableViewSpy
-class TableViewSpy: UITableView {
-    
-    var reloadDataCalled = false
-    
-    override func reloadData() {
-         reloadDataCalled = true
-    }
-    
-    override func numberOfRows(inSection section: Int) -> Int {
-        return 1
-    }
-}
-
 //MARK: RosterPresenterSpy
 class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
     
