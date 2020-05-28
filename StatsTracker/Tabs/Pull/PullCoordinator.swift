@@ -13,6 +13,7 @@ class PullCoordinator: Coordinator {
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var authManager: AuthenticationManager = FirebaseAuthManager()
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -37,9 +38,10 @@ class PullCoordinator: Coordinator {
 extension PullCoordinator: PullPresenterDelegate {
     func startGamePressed() {
         let vc = PlayGameViewController.instantiate(.pull)
-        vc.presenter = PlayGamePresenter(vc: vc, delegate: self)
-        vc.modalPresentationStyle = .fullScreen
-        navigationController.present(vc, animated: true, completion: nil)
+        vc.presenter = PlayGamePresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
+        navigationController.present(navController, animated: true, completion: nil)
     }
 }
 

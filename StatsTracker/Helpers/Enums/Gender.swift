@@ -11,4 +11,13 @@ import Foundation
 enum Gender: Int, CaseIterable {
     case women
     case men
+    
+    var description: String {
+        switch self {
+        case .women:
+            return Constants.Titles.women
+        case .men:
+            return Constants.Titles.men
+        }
+    }
 }

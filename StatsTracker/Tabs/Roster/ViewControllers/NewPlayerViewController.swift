@@ -79,10 +79,10 @@ class NewPlayerViewController: UIViewController, Storyboarded {
     
     @objc func savePressed() {
         let name = nameTextField.text!
-        let gender = Gender(rawValue: genderSegmentedControl.selectedSegmentIndex)!
+        let gender = genderSegmentedControl.selectedSegmentIndex
         let newPlayerID = UUID().uuidString
         let roles = viewModel.selectedItems.map{ $0.item.rawValue }
-        let model = PlayerModel(name: name, gender: gender.rawValue, id: newPlayerID, roles: roles)
+        let model = PlayerModel(name: name, gender: gender, id: newPlayerID, roles: roles)
         presenter.savePressed(model: model)
     }
 }

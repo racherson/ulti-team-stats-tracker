@@ -69,11 +69,11 @@ extension RosterViewController: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case Gender.women.rawValue:
             if self.tableView(tableView, numberOfRowsInSection: section) > 0 {
-                return Constants.Titles.women
+                return Gender.women.description
             }
         case Gender.men.rawValue:
             if self.tableView(tableView, numberOfRowsInSection: section) > 0 {
-                return Constants.Titles.men
+                return Gender.men.description
             }
         default:
             return nil

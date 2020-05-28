@@ -44,16 +44,6 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         presenter.onViewWillAppear()
     }
     
-    func setUpButtons() {
-        // Add cancel button
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
-        self.navigationItem.leftBarButtonItem  = cancelButton
-        
-        // Add save button
-        saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
-        self.navigationItem.rightBarButtonItem = saveButton
-    }
-    
     func updateWithViewModel(vm: TeamProfileViewModel) {
         if !isViewLoaded {
             return
@@ -62,6 +52,17 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         self.currentEmail = vm.email
         teamNameTextField.text = vm.teamName
         teamPhotoImage.image = vm.teamImage
+    }
+    
+    //MARK: Private methods
+    private func setUpButtons() {
+        // Add cancel button
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
+        self.navigationItem.leftBarButtonItem  = cancelButton
+        
+        // Add save button
+        saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
+        self.navigationItem.rightBarButtonItem = saveButton
     }
     
     //MARK: Actions

@@ -35,14 +35,89 @@ class PlayGameViewControllerTests: XCTestCase {
         // Then
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
     }
+    
+    func testUpdateView() throws {
+        // Given
+        let collectionView = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        sut.collectionView = collectionView
+        // When
+        sut.updateView()
+        // Then
+        XCTAssertTrue(collectionView.reloadDataCalled)
+    }
+    
+    func testStartPointPressed_fullLine() throws {
+        XCTAssertEqual(0, presenter.startPointCalled)
+        // Given
+        presenter.playerCount = 7
+        // When
+        sut.startPointPressed()
+        // Then
+        XCTAssertEqual(1, presenter.startPointCalled)
+    }
+    
+    func testStartPointPressed_notFullLine() throws {
+        XCTAssertEqual(0, presenter.displayAlertCalled)
+        // Given
+        presenter.playerCount = 5
+        // When
+        sut.startPointPressed()
+        // Then
+        XCTAssertEqual(1, presenter.displayAlertCalled)
+    }
+    
+    func testNumberOfRowsInSection() throws {
+        XCTAssertEqual(0, presenter.numberOfPlayersCalled)
+        // When
+        let _ = sut.collectionView(UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init()), numberOfItemsInSection: 0)
+        // Then
+        XCTAssertEqual(1, presenter.numberOfPlayersCalled)
+    }
+    
+    func testConfigureCollectionViewCell() {
+        // Given
+        let collectionView = sut.collectionView
+        // When
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = sut.collectionView(collectionView!, cellForItemAt: indexPath)
+            as! PlayerCollectionViewCell
+        // Then
+        XCTAssertEqual(.red, cell.backgroundColor)
+    }
 }
 
 //MARK: PlayGamePresenterSpy
 class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     
     var viewWillAppearCalled: Int = 0
+    var fullLineCalled: Int = 0
+    var displayAlertCalled: Int = 0
+    var startPointCalled: Int = 0
+    var startGameCalled: Int = 0
+    var playerCount: Int = 0
+    var numberOfPlayersCalled: Int = 0
+    
+    var playerModels = [[PlayerModel]]()
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
+    }
+    
+    func fullLine() -> Bool {
+        fullLineCalled += 1
+        return playerCount < 7 ? false : true
+    }
+    
+    func displayConfirmAlert() {
+        displayAlertCalled += 1
+    }
+    
+    func startPoint() {
+        startPointCalled += 1
+    }
+    
+    func numberOfPlayersInSection(_ section: Int) -> Int {
+        numberOfPlayersCalled += 1
+        return 1
     }
 }

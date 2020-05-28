@@ -71,8 +71,8 @@ class RosterViewControllerTests: XCTestCase {
         let menTitle = sut.tableView(sut.tableView, titleForHeaderInSection: Gender.men.rawValue)
         let emptyTitle = sut.tableView(sut.tableView, titleForHeaderInSection: 2)
         // Then
-        XCTAssertEqual(Constants.Titles.women, womenTitle)
-        XCTAssertEqual(Constants.Titles.men, menTitle)
+        XCTAssertEqual(Gender.women.description, womenTitle)
+        XCTAssertEqual(Gender.men.description, menTitle)
         XCTAssertNil(emptyTitle)
     }
     
