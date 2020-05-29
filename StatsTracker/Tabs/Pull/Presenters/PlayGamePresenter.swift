@@ -17,7 +17,6 @@ class PlayGamePresenter: Presenter {
     weak var vc: PlayGameViewController!
     var dbManager: DatabaseManager
     var playerModels: [[PlayerModel]]?
-    var selectedPlayers: [PlayerModel] = []
     
     //MARK: Initialization
     init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, dbManager: DatabaseManager) {
@@ -75,7 +74,11 @@ class PlayGamePresenter: Presenter {
 extension PlayGamePresenter: PlayGamePresenterProtocol {
     
     func fullLine() -> Bool {
-        return selectedPlayers.count < 7 ? false : true
+        guard let playerModels = playerModels else {
+            return false
+        }
+        // Check if selected array has 7 players
+        return playerModels[0].count < 7 ? false : true
     }
     
     func displayConfirmAlert() {
@@ -100,7 +103,6 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         guard let models = playerModels else {
             return Constants.Empty.int
         }
-        
         // Check if section is in bounds
         return section < 0 || section >= models.count ? Constants.Empty.int : models[section].count
     }
@@ -113,6 +115,24 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         }
         return Constants.Empty.string
     }
+    
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath {
+        guard let models = playerModels else {
+            fatalError("Unable to retrieve players")
+        }
+        
+        // Get player model
+        let player = models[indexPath.section][indexPath.row]
+        // Get the section to move player to, based on if they are already selected or not
+        let section = indexPath.section == 0 ? player.gender + 1 : 0
+        
+        // Add to selected array
+        playerModels![section].append(player)
+        // Remove from gender array
+        playerModels![indexPath.section].remove(at: indexPath.row)
+        
+        return IndexPath(row: playerModels![section].count - 1, section: section)
+    }
 }
 
 //MARK: DatabaseManagerGetDataDelegate
@@ -121,7 +141,7 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
     func  displayError(with error: Error) {
         // Empty model array
         if playerModels == nil {
-            playerModels = [ [], [] ]
+            playerModels = [ [], [], [] ]
         }
         self.showErrorAlert(error: error.localizedDescription)
     }
@@ -138,6 +158,7 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
         }
         
         // Initialize the new arrays of player models
+        let selectedArray: [PlayerModel] = [PlayerModel]()
         var womenArray: [PlayerModel] = [PlayerModel]()
         var menArray: [PlayerModel] = [PlayerModel]()
         
@@ -153,7 +174,7 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
             }
         }
 
-        playerModels = [womenArray, menArray]
+        playerModels = [selectedArray, womenArray, menArray]
         vc.updateView()
     }
 }

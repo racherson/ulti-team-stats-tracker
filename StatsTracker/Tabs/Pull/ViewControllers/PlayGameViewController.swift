@@ -14,6 +14,7 @@ protocol PlayGamePresenterProtocol where Self: Presenter {
     func startPoint()
     func numberOfPlayersInSection(_ section: Int) -> Int
     func getPlayerName(at indexPath: IndexPath) -> String
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath
 }
 
 class PlayGameViewController: UIViewController, Storyboarded {
@@ -66,7 +67,7 @@ class PlayGameViewController: UIViewController, Storyboarded {
 extension PlayGameViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Gender.allCases.count
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -83,9 +84,9 @@ extension PlayGameViewController: UICollectionViewDataSource, UICollectionViewDe
         
         // Configure the cell
         switch indexPath.section {
-        case Gender.women.rawValue:
+        case Gender.women.rawValue + 1:
             cell.backgroundColor = .red
-        case Gender.men.rawValue:
+        case Gender.men.rawValue + 1:
             cell.backgroundColor = .blue
         default:
             cell.backgroundColor = .gray
@@ -103,12 +104,24 @@ extension PlayGameViewController: UICollectionViewDataSource, UICollectionViewDe
                 fatalError("Invalid view type")
             }
             
-            headerView.label.text = Gender(rawValue: indexPath.section)?.description
+            if let gender = Gender(rawValue: indexPath.section - 1)?.description {
+                headerView.label.text = gender
+            }
+            else {
+                headerView.label.text = Constants.Titles.lineTitle
+            }
+            
             return headerView
             
         default:
             fatalError("Invalid element type")
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Move player to correct section
+        let newIndexPath = presenter.selectPlayer(at: indexPath)
+        collectionView.moveItem(at: indexPath, to: newIndexPath)
     }
 }
 

@@ -27,6 +27,7 @@ struct Constants {
         static let puller = "Puller"
         static let roles = "Player Role(s)"
         static let pointTitle = "Call a Line"
+        static let lineTitle = "On the Line"
     }
     
     struct Alerts {
