@@ -46,4 +46,6 @@ struct Constants {
         static let teamName = "Team Name"
         static let email = "default@t.com"
     }
+    
+    static let fullLine = 7
 }

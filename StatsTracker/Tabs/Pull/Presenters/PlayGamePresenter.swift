@@ -17,6 +17,7 @@ class PlayGamePresenter: Presenter {
     weak var vc: PlayGameViewController!
     var dbManager: DatabaseManager
     var playerModels: [[PlayerModel]]?
+    let selectedPlayerSection = 0
     
     //MARK: Initialization
     init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, dbManager: DatabaseManager) {
@@ -78,7 +79,7 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
             return false
         }
         // Check if selected array has 7 players
-        return playerModels[0].count < 7 ? false : true
+        return playerModels[selectedPlayerSection].count < Constants.fullLine ? false : true
     }
     
     func displayConfirmAlert() {
@@ -124,7 +125,7 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         // Get player model
         let player = models[indexPath.section][indexPath.row]
         // Get the section to move player to, based on if they are already selected or not
-        let section = indexPath.section == 0 ? player.gender + 1 : 0
+        let section = indexPath.section == selectedPlayerSection ? player.gender + 1 : selectedPlayerSection
         
         // Add to selected array
         playerModels![section].append(player)

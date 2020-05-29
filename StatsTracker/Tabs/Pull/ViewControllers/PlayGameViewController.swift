@@ -119,7 +119,7 @@ extension PlayGameViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Move player to correct section
+        // Get location to move item to
         let newIndexPath = presenter.selectPlayer(at: indexPath)
         collectionView.moveItem(at: indexPath, to: newIndexPath)
     }
