@@ -75,6 +75,7 @@ class PlayGameViewControllerTests: XCTestCase {
     }
     
     func testConfigureCollectionViewCell() {
+        XCTAssertEqual(0, presenter.getPlayerNameCalled)
         // Given
         let collectionView = sut.collectionView
         // When
@@ -83,6 +84,8 @@ class PlayGameViewControllerTests: XCTestCase {
             as! PlayerCollectionViewCell
         // Then
         XCTAssertEqual(.red, cell.backgroundColor)
+        XCTAssertEqual(1, presenter.getPlayerNameCalled)
+        XCTAssertEqual(TestConstants.playerName, cell.label.text)
     }
 }
 
@@ -96,6 +99,7 @@ class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     var startGameCalled: Int = 0
     var playerCount: Int = 0
     var numberOfPlayersCalled: Int = 0
+    var getPlayerNameCalled: Int = 0
     
     var playerModels = [[PlayerModel]]()
     
@@ -119,5 +123,10 @@ class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     func numberOfPlayersInSection(_ section: Int) -> Int {
         numberOfPlayersCalled += 1
         return 1
+    }
+    
+    func getPlayerName(at indexPath: IndexPath) -> String {
+        getPlayerNameCalled += 1
+        return TestConstants.playerName
     }
 }

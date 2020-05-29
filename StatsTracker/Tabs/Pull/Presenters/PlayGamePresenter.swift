@@ -17,7 +17,7 @@ class PlayGamePresenter: Presenter {
     weak var vc: PlayGameViewController!
     var dbManager: DatabaseManager
     var playerModels: [[PlayerModel]]?
-    var selectedPlayerCount: Int = 0
+    var selectedPlayers: [PlayerModel] = []
     
     //MARK: Initialization
     init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, dbManager: DatabaseManager) {
@@ -47,13 +47,35 @@ class PlayGamePresenter: Presenter {
         // Get models from db, delegate function sets array
         dbManager.getData(collection: .roster)
     }
+    
+    private func checkValidIndexPath(_ indexPath: IndexPath) -> Bool {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        guard let playerModels = playerModels else {
+            // playerModels is nil
+            return false
+        }
+        
+        // Check if section in bounds
+        if section < 0 || section >= playerModels.count {
+            return false
+        }
+        
+        // Check if row in bounds given the section
+        if row < 0 || row >= playerModels[section].count {
+            return false
+        }
+        
+        return true
+    }
 }
 
 //MARK: PlayGamePresenterProtocol
 extension PlayGamePresenter: PlayGamePresenterProtocol {
     
     func fullLine() -> Bool {
-        return selectedPlayerCount < 7 ? false : true
+        return selectedPlayers.count < 7 ? false : true
     }
     
     func displayConfirmAlert() {
@@ -78,7 +100,18 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         guard let models = playerModels else {
             return Constants.Empty.int
         }
+        
+        // Check if section is in bounds
         return section < 0 || section >= models.count ? Constants.Empty.int : models[section].count
+    }
+    
+    func getPlayerName(at indexPath: IndexPath) -> String {
+        
+        if checkValidIndexPath(indexPath) {
+            // playerModels is verified in checkValidIndexPath
+            return playerModels![indexPath.section][indexPath.row].name
+        }
+        return Constants.Empty.string
     }
 }
 

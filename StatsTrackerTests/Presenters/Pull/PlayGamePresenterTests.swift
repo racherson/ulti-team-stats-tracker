@@ -46,7 +46,9 @@ class PlayGamePresenterTests: XCTestCase {
     
     func testFullLine_True() throws {
         // Given
-        sut.selectedPlayerCount = 7
+        for _ in 1...7 {
+            sut.selectedPlayers.append(PlayerModel(name: "", gender: 0, id: "", roles: []))
+        }
         // When
         let result = sut.fullLine()
         // Then
@@ -55,7 +57,9 @@ class PlayGamePresenterTests: XCTestCase {
     
     func testFullLine_False() throws {
         // Given
-        sut.selectedPlayerCount = 5
+        for _ in 1...2 {
+            sut.selectedPlayers.append(PlayerModel(name: "", gender: 0, id: "", roles: []))
+        }
         // When
         let result = sut.fullLine()
         // Then
@@ -204,6 +208,21 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(0, sut.playerModels![Gender.women.rawValue].count)
         XCTAssertEqual(0, sut.playerModels![Gender.men.rawValue].count)
         XCTAssertEqual(1, vc.updateViewCalled)
+    }
+    
+    func testCollectionViewDisplaysAllRosterPlayers() throws {
+        // Given
+        sut.playerModels = [[PlayerModel(name: TestConstants.playerName, gender: 0, id: "", roles: [])],
+                            [PlayerModel(name: TestConstants.playerName, gender: 1, id: "", roles: [])]]
+        // Create real instance of the view controller
+        sut.vc = PlayGameViewController.instantiate(.pull)
+        let _ = sut.vc.view
+        sut.vc.presenter = sut
+        // When
+        sut.vc.updateView()
+        // Then
+        XCTAssertEqual(sut.playerModels![0].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: 0))
+        XCTAssertEqual(sut.playerModels![1].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: 1))
     }
 }
 

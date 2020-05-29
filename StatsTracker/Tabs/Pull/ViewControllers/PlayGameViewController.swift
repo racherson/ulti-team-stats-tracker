@@ -13,6 +13,7 @@ protocol PlayGamePresenterProtocol where Self: Presenter {
     func displayConfirmAlert()
     func startPoint()
     func numberOfPlayersInSection(_ section: Int) -> Int
+    func getPlayerName(at indexPath: IndexPath) -> String
 }
 
 class PlayGameViewController: UIViewController, Storyboarded {
@@ -20,6 +21,8 @@ class PlayGameViewController: UIViewController, Storyboarded {
     //MARK: Properties
     var presenter: PlayGamePresenterProtocol!
     @IBOutlet weak var collectionView: UICollectionView!
+    private let itemsPerRow: CGFloat = 4
+    private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +91,7 @@ extension PlayGameViewController: UICollectionViewDataSource, UICollectionViewDe
             cell.backgroundColor = .gray
         }
         
+        cell.label.text = presenter.getPlayerName(at: indexPath)
         return cell
     }
     
@@ -113,15 +117,11 @@ extension PlayGameViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        // Inset options
-        let inset: CGFloat = 20
-        let empty: CGFloat = 0
-        
         if collectionView.numberOfItems(inSection: section) == 0 {
             // Remove empty section
-            return UIEdgeInsets(top: empty, left: empty, bottom: empty, right: empty)
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
-        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        return sectionInsets
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -131,5 +131,18 @@ extension PlayGameViewController : UICollectionViewDelegateFlowLayout {
             return CGSize(width: 0, height: 0)
         }
         return CGSize(width: collectionView.frame.width, height: 40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
     }
 }

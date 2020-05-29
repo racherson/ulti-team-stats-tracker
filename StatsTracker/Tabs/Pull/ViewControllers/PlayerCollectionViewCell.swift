@@ -8,4 +8,8 @@
 
 import UIKit
 
-class PlayerCollectionViewCell: UICollectionViewCell { }
+class PlayerCollectionViewCell: UICollectionViewCell {
+    
+    //MARK: Properties
+    @IBOutlet weak var label: UILabel!
+}
