@@ -15,6 +15,9 @@ class PlayGamePresenterTests: XCTestCase {
     var sut: PlayGamePresenter!
     var vc: PlayGameViewControllerSpy!
     var dbManager: MockDBManager!
+    let selectedSection = 0
+    let womenSection = Gender.women.rawValue + 1
+    let menSection = Gender.men.rawValue + 1
     
     override func setUp() {
         vc = PlayGameViewControllerSpy()
@@ -46,8 +49,9 @@ class PlayGamePresenterTests: XCTestCase {
     
     func testFullLine_True() throws {
         // Given
+        sut.playerModels = [[], [], []]
         for _ in 1...7 {
-            sut.selectedPlayers.append(PlayerModel(name: "", gender: 0, id: "", roles: []))
+            sut.playerModels![selectedSection].append(PlayerModel(name: "", gender: 0, id: "", roles: []))
         }
         // When
         let result = sut.fullLine()
@@ -57,8 +61,9 @@ class PlayGamePresenterTests: XCTestCase {
     
     func testFullLine_False() throws {
         // Given
+        sut.playerModels = [[], [], []]
         for _ in 1...2 {
-            sut.selectedPlayers.append(PlayerModel(name: "", gender: 0, id: "", roles: []))
+            sut.playerModels![selectedSection].append(PlayerModel(name: "", gender: 0, id: "", roles: []))
         }
         // When
         let result = sut.fullLine()
@@ -102,8 +107,8 @@ class PlayGamePresenterTests: XCTestCase {
         // When
         sut.playerModels = nil
         // Then
-        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(Gender.women.rawValue))
-        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(Gender.men.rawValue))
+        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(womenSection))
+        XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(menSection))
     }
     
     func testNumberOfPlayersInSection_NonEmptySection() throws {
@@ -112,10 +117,11 @@ class PlayGamePresenterTests: XCTestCase {
                                     PlayerModel(name: "Woman2", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
         let men: [PlayerModel] = [PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])]
         // When
-        sut.playerModels = [women, men]
+        sut.playerModels = [[], women, men]
         // Then
-        XCTAssertEqual(women.count, sut.numberOfPlayersInSection(Gender.women.rawValue))
-        XCTAssertEqual(men.count, sut.numberOfPlayersInSection(Gender.men.rawValue))
+        XCTAssertEqual(0, sut.numberOfPlayersInSection(selectedSection))
+        XCTAssertEqual(women.count, sut.numberOfPlayersInSection(womenSection))
+        XCTAssertEqual(men.count, sut.numberOfPlayersInSection(menSection))
     }
     
     func testNumberOfPlayersInSection_OutOfBounds() throws {
@@ -125,7 +131,7 @@ class PlayGamePresenterTests: XCTestCase {
         let sectionGreaterThan = 2
         let sectionLessThan = -1
         // When
-        sut.playerModels = [array1, array2]
+        sut.playerModels = [[], array1, array2]
         // Then
         XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionGreaterThan))
         XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionGreaterThan))
@@ -176,7 +182,7 @@ class PlayGamePresenterTests: XCTestCase {
     func testOnSuccessfulGet_PlayerModelSuccess() throws {
         XCTAssertEqual(0, vc.updateViewCalled)
         // Given
-        sut.playerModels = [[],[]]
+        sut.playerModels = [[], [], []]
         let womanModel = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
         let manModel = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
         let data = [
@@ -186,17 +192,18 @@ class PlayGamePresenterTests: XCTestCase {
         // When
         sut.onSuccessfulGet(data)
         // Then
-        XCTAssertEqual(1, sut.playerModels![Gender.women.rawValue].count)
-        XCTAssertEqual(1, sut.playerModels![Gender.men.rawValue].count)
-        XCTAssertEqual(womanModel.name, sut.playerModels![Gender.women.rawValue][0].name)
-        XCTAssertEqual(manModel.name, sut.playerModels![Gender.men.rawValue][0].name)
+        XCTAssertEqual(0, sut.playerModels![selectedSection].count)
+        XCTAssertEqual(1, sut.playerModels![womenSection].count)
+        XCTAssertEqual(1, sut.playerModels![menSection].count)
+        XCTAssertEqual(womanModel.name, sut.playerModels![womenSection][0].name)
+        XCTAssertEqual(manModel.name, sut.playerModels![menSection][0].name)
         XCTAssertEqual(1, vc.updateViewCalled)
     }
     
     func testOnSuccessfulGet_PlayerModelFailure() throws {
         XCTAssertEqual(0, vc.updateViewCalled)
         // Given
-        sut.playerModels = [[],[]]
+        sut.playerModels = [[], [],[]]
         let playerDictionary = ["": ""]
         let data = [
             FirebaseKeys.CollectionPath.women: [playerDictionary],
@@ -205,14 +212,16 @@ class PlayGamePresenterTests: XCTestCase {
         // When
         sut.onSuccessfulGet(data)
         // Then
-        XCTAssertEqual(0, sut.playerModels![Gender.women.rawValue].count)
-        XCTAssertEqual(0, sut.playerModels![Gender.men.rawValue].count)
+        XCTAssertEqual(0, sut.playerModels![selectedSection].count)
+        XCTAssertEqual(0, sut.playerModels![womenSection].count)
+        XCTAssertEqual(0, sut.playerModels![menSection].count)
         XCTAssertEqual(1, vc.updateViewCalled)
     }
     
     func testCollectionViewDisplaysAllRosterPlayers() throws {
         // Given
-        sut.playerModels = [[PlayerModel(name: TestConstants.playerName, gender: 0, id: "", roles: [])],
+        sut.playerModels = [[],
+                            [PlayerModel(name: TestConstants.playerName, gender: 0, id: "", roles: [])],
                             [PlayerModel(name: TestConstants.playerName, gender: 1, id: "", roles: [])]]
         // Create real instance of the view controller
         sut.vc = PlayGameViewController.instantiate(.pull)
@@ -221,8 +230,9 @@ class PlayGamePresenterTests: XCTestCase {
         // When
         sut.vc.updateView()
         // Then
-        XCTAssertEqual(sut.playerModels![0].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: 0))
-        XCTAssertEqual(sut.playerModels![1].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: 1))
+        XCTAssertEqual(sut.playerModels![selectedSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: selectedSection))
+        XCTAssertEqual(sut.playerModels![womenSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: womenSection))
+        XCTAssertEqual(sut.playerModels![menSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: menSection))
     }
 }
 

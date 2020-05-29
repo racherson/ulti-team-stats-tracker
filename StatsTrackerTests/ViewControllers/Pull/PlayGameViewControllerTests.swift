@@ -79,7 +79,7 @@ class PlayGameViewControllerTests: XCTestCase {
         // Given
         let collectionView = sut.collectionView
         // When
-        let indexPath = IndexPath(row: 0, section: 0)
+        let indexPath = IndexPath(row: 0, section: 1)
         let cell = sut.collectionView(collectionView!, cellForItemAt: indexPath)
             as! PlayerCollectionViewCell
         // Then
@@ -96,10 +96,10 @@ class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     var fullLineCalled: Int = 0
     var displayAlertCalled: Int = 0
     var startPointCalled: Int = 0
-    var startGameCalled: Int = 0
     var playerCount: Int = 0
     var numberOfPlayersCalled: Int = 0
     var getPlayerNameCalled: Int = 0
+    var selectPlayerCalled: Int = 0
     
     var playerModels = [[PlayerModel]]()
     
@@ -128,5 +128,10 @@ class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     func getPlayerName(at indexPath: IndexPath) -> String {
         getPlayerNameCalled += 1
         return TestConstants.playerName
+    }
+    
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath {
+        selectPlayerCalled += 1
+        return indexPath
     }
 }
