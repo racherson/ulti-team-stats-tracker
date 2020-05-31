@@ -97,7 +97,9 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
     func startPoint() {
         // Give the selected players to the next step
         // Hide player selection UI
+        vc.hideCallLine()
         // Display point UI
+        vc.showPlayPoint()
     }
     
     func numberOfPlayersInSection(_ section: Int) -> Int {
@@ -117,7 +119,7 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         return Constants.Empty.string
     }
     
-    func selectPlayer(at indexPath: IndexPath) -> IndexPath {
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
         guard let models = playerModels else {
             fatalError("Unable to retrieve players")
         }
@@ -126,6 +128,11 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         let player = models[indexPath.section][indexPath.row]
         // Get the section to move player to, based on if they are already selected or not
         let section = indexPath.section == selectedPlayerSection ? player.gender + 1 : selectedPlayerSection
+        
+        // Don't select more than 7 players
+        if section == selectedPlayerSection && models[selectedPlayerSection].count >= Constants.fullLine {
+            return nil
+        }
         
         // Add to selected array
         playerModels![section].append(player)

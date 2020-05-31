@@ -51,7 +51,7 @@ class PlayGamePresenterTests: XCTestCase {
         // Given
         sut.playerModels = [[], [], []]
         for _ in 1...7 {
-            sut.playerModels![selectedSection].append(PlayerModel(name: "", gender: 0, id: "", roles: []))
+            sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
         }
         // When
         let result = sut.fullLine()
@@ -63,7 +63,7 @@ class PlayGamePresenterTests: XCTestCase {
         // Given
         sut.playerModels = [[], [], []]
         for _ in 1...2 {
-            sut.playerModels![selectedSection].append(PlayerModel(name: "", gender: 0, id: "", roles: []))
+            sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
         }
         // When
         let result = sut.fullLine()
@@ -92,15 +92,25 @@ class PlayGamePresenterTests: XCTestCase {
     func testExecutingActionForConfirmButton_shouldStartPoint() throws {
         let alertVerifier = AlertVerifier()
         
+        // Create real instance of the view controller
+        useOriginalVC()
         // Given
         sut.displayConfirmAlert()
         // When
         try alertVerifier.executeAction(forButton: TestConstants.Alerts.confirm)
         // Then
+        XCTAssertTrue(sut.vc.collectionView.isHidden)
     }
     
     func testStartPoint() throws {
-        //
+        // Given
+        XCTAssertEqual(0, vc.hideCallLineCalled)
+        XCTAssertEqual(0, vc.showPlayPointCalled)
+        // When
+        sut.startPoint()
+        // Then
+        XCTAssertEqual(1, vc.hideCallLineCalled)
+        XCTAssertEqual(1, vc.showPlayPointCalled)
     }
     
     func testNumberOfPlayersInSection_EmptyModels() throws {
@@ -137,6 +147,57 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionGreaterThan))
         XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionLessThan))
         XCTAssertEqual(Constants.Empty.int, sut.numberOfPlayersInSection(sectionLessThan))
+    }
+    
+    func testGetPlayerName() throws {
+        // Given
+        sut.playerModels = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
+        // When
+        let name = sut.getPlayerName(at: IndexPath(row: 0, section: 1))
+        // Then
+        XCTAssertEqual(TestConstants.playerName, name)
+    }
+    
+    func testGetPlayerName_OutOfBounds() throws {
+        // Given
+        sut.playerModels = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
+        // When
+        let name = sut.getPlayerName(at: IndexPath(row: 1, section: womenSection))
+        // Then
+        XCTAssertEqual(TestConstants.empty, name)
+    }
+    
+    func testSelectPlayer_Selecting() throws {
+        // Given
+        sut.playerModels = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
+        let indexPath = IndexPath(row: 0, section: womenSection)
+        // When
+        let newIndexPath = sut.selectPlayer(at: indexPath)
+        // Then
+        XCTAssertEqual(newIndexPath, IndexPath(row: 0, section: selectedSection))
+    }
+    
+    func testSelectPlayer_Deselecting() throws {
+        // Given
+        sut.playerModels = [[PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], [], []]
+        let indexPath = IndexPath(row: 0, section: selectedSection)
+        // When
+        let newIndexPath = sut.selectPlayer(at: indexPath)
+        // Then
+        XCTAssertEqual(newIndexPath, IndexPath(row: 0, section: womenSection))
+    }
+    
+    func testSelectPlayer_FullLine() throws {
+        // Given
+        sut.playerModels = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
+        for _ in 1...7 {
+            sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
+        }
+        let indexPath = IndexPath(row: 0, section: womenSection)
+        // When
+        let newIndexPath = sut.selectPlayer(at: indexPath)
+        // Then
+        XCTAssertNil(newIndexPath)
     }
     
     func testDisplayDBError() throws {
@@ -221,18 +282,24 @@ class PlayGamePresenterTests: XCTestCase {
     func testCollectionViewDisplaysAllRosterPlayers() throws {
         // Given
         sut.playerModels = [[],
-                            [PlayerModel(name: TestConstants.playerName, gender: 0, id: "", roles: [])],
-                            [PlayerModel(name: TestConstants.playerName, gender: 1, id: "", roles: [])]]
+                            [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])],
+                            [PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: [])]]
         // Create real instance of the view controller
-        sut.vc = PlayGameViewController.instantiate(.pull)
-        let _ = sut.vc.view
-        sut.vc.presenter = sut
+        useOriginalVC()
         // When
         sut.vc.updateView()
         // Then
         XCTAssertEqual(sut.playerModels![selectedSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: selectedSection))
         XCTAssertEqual(sut.playerModels![womenSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: womenSection))
         XCTAssertEqual(sut.playerModels![menSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: menSection))
+    }
+    
+    //MARK: Private methods
+    private func useOriginalVC() {
+        // Create real instance of the view controller
+        sut.vc = PlayGameViewController.instantiate(.pull)
+        let _ = sut.vc.view
+        sut.vc.presenter = sut
     }
 }
 
@@ -242,8 +309,18 @@ extension PlayGamePresenterTests: PlayGamePresenterDelegate { }
 //MARK: RosterViewControllerSpy
 class PlayGameViewControllerSpy: PlayGameViewController {
     var updateViewCalled: Int = 0
+    var hideCallLineCalled: Int = 0
+    var showPlayPointCalled: Int = 0
     
     override func updateView() {
         updateViewCalled += 1
+    }
+    
+    override func hideCallLine() {
+        hideCallLineCalled += 1
+    }
+    
+    override func showPlayPoint() {
+        showPlayPointCalled += 1
     }
 }

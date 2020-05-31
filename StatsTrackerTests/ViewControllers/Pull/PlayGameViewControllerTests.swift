@@ -87,6 +87,36 @@ class PlayGameViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.getPlayerNameCalled)
         XCTAssertEqual(TestConstants.playerName, cell.label.text)
     }
+    
+    func testShowCallLine() throws {
+        // Given
+        sut.collectionView.isHidden = true
+        XCTAssertTrue(sut.collectionView.isHidden)
+        // When
+        sut.showCallLine()
+        // Then
+        XCTAssertFalse(sut.collectionView.isHidden)
+    }
+    
+    func testHideCallLine() throws {
+        XCTAssertFalse(sut.collectionView.isHidden)
+        // When
+        sut.hideCallLine()
+        // Then
+        XCTAssertTrue(sut.collectionView.isHidden)
+    }
+    
+    func testShowPlayPoint() throws {
+        // Given
+        // When
+        // Then
+    }
+    
+    func testHidePlayPoint() throws {
+        // Given
+        // When
+        // Then
+    }
 }
 
 //MARK: PlayGamePresenterSpy
@@ -130,7 +160,7 @@ class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
         return TestConstants.playerName
     }
     
-    func selectPlayer(at indexPath: IndexPath) -> IndexPath {
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
         selectPlayerCalled += 1
         return indexPath
     }

@@ -14,7 +14,7 @@ protocol PlayGamePresenterProtocol where Self: Presenter {
     func startPoint()
     func numberOfPlayersInSection(_ section: Int) -> Int
     func getPlayerName(at indexPath: IndexPath) -> String
-    func selectPlayer(at indexPath: IndexPath) -> IndexPath
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath?
 }
 
 class PlayGameViewController: UIViewController, Storyboarded {
@@ -41,6 +41,22 @@ class PlayGameViewController: UIViewController, Storyboarded {
     
     func updateView() {
         collectionView.reloadData()
+    }
+    
+    func showCallLine() {
+        collectionView.isHidden = false
+    }
+    
+    func hideCallLine() {
+        collectionView.isHidden = true
+    }
+    
+    func showPlayPoint() {
+        
+    }
+    
+    func hidePlayPoint() {
+        
     }
     
     //MARK: Private methods
@@ -119,9 +135,10 @@ extension PlayGameViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Get location to move item to
-        let newIndexPath = presenter.selectPlayer(at: indexPath)
-        collectionView.moveItem(at: indexPath, to: newIndexPath)
+        // Get location to move item
+        if let newIndexPath = presenter.selectPlayer(at: indexPath) {
+            collectionView.moveItem(at: indexPath, to: newIndexPath)
+        }
     }
 }
 
