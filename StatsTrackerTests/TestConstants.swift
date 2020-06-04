@@ -22,5 +22,6 @@ struct TestConstants {
         static let dismiss = "Dismiss"
         static let cancel = "Cancel"
         static let confirm = "Confirm"
+        static let okay = "Okay"
     }
 }

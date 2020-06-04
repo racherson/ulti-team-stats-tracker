@@ -8,21 +8,27 @@
 
 import UIKit
 
-protocol PlayGamePresenterDelegate: AnyObject { }
+protocol PlayGamePresenterDelegate: AnyObject {
+    func endGame()
+}
 
 class PlayGamePresenter: Presenter {
     
     //MARK: Properties
     weak var delegate: PlayGamePresenterDelegate?
     weak var vc: PlayGameViewController!
+    var gameModel: GameDataModel
     var dbManager: DatabaseManager
     var playerModels: [[PlayerModel]]?
+    var currentPointWind: WindDirection!
+    var currentPointType: PointType!
     let selectedPlayerSection = 0
     
     //MARK: Initialization
-    init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, dbManager: DatabaseManager) {
+    init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, gameModel: GameDataModel, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
+        self.gameModel = gameModel
         self.dbManager = dbManager
         self.dbManager.getDataDelegate = self
         
@@ -30,7 +36,7 @@ class PlayGamePresenter: Presenter {
     }
     
     func onViewWillAppear() {
-        vc.navigationItem.title = Constants.Titles.pointTitle
+        vc.showCallLine()
     }
     
     //MARK: Private methods
@@ -69,12 +75,8 @@ class PlayGamePresenter: Presenter {
         
         return true
     }
-}
-
-//MARK: PlayGamePresenterProtocol
-extension PlayGamePresenter: PlayGamePresenterProtocol {
     
-    func fullLine() -> Bool {
+    private func fullLine() -> Bool {
         guard let playerModels = playerModels else {
             return false
         }
@@ -82,24 +84,62 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         return playerModels[selectedPlayerSection].count < Constants.fullLine ? false : true
     }
     
-    func displayConfirmAlert() {
+    private func displayConfirmAlert() {
         let confirmationAlert = UIAlertController(title: Constants.Alerts.startGameTitle, message: Constants.Alerts.startGameAlert, preferredStyle: UIAlertController.Style.alert)
         
         // Cancel action and dismiss
         confirmationAlert.addAction(UIAlertAction(title: Constants.Alerts.cancel, style: .destructive, handler: { (action: UIAlertAction!) in confirmationAlert.dismiss(animated: true, completion: nil) }))
 
         // Confirm action and start point
-        confirmationAlert.addAction(UIAlertAction(title: Constants.Alerts.confirm, style: .default, handler: { (action: UIAlertAction!) in self.startPoint() }))
+        confirmationAlert.addAction(UIAlertAction(title: Constants.Alerts.confirm, style: .default, handler: { (action: UIAlertAction!) in self.confirmedStartPoint() }))
 
         vc.present(confirmationAlert, animated: true, completion: nil)
     }
     
-    func startPoint() {
-        // Give the selected players to the next step
-        // Hide player selection UI
-        vc.hideCallLine()
-        // Display point UI
+    private func clearLine() {
+        guard let models = playerModels else {
+            fatalError("Unable to retrieve players")
+        }
+        
+        // Add players back to their gender arrays
+        for player in models[selectedPlayerSection] {
+            playerModels![player.gender + 1].append(player)
+        }
+        
+        // Remove all players from selected array
+        playerModels![selectedPlayerSection].removeAll()
+        vc.updateView()
+    }
+    
+    private func confirmedStartPoint() {
+        // TODO: Give the selected players to the next step
+        // Hide player selection UI and display point UI
         vc.showPlayPoint()
+    }
+}
+
+//MARK: PlayGamePresenterProtocol
+extension PlayGamePresenter: PlayGamePresenterProtocol {
+    
+    func startPoint() {
+        if !fullLine() {
+            displayConfirmAlert()
+        }
+        else {
+            confirmedStartPoint()
+        }
+    }
+    
+    func nextPoint(scored: Bool) {
+        // Give current point to game model
+        let point = PointDataModel(wind: currentPointWind, scored: scored, type: currentPointType)
+        gameModel.addPoint(point: point)
+        // TODO: Update wind and point type
+        
+        // Clear old line
+        clearLine()
+        // Hide play point UI and display call line UI
+        vc.showCallLine()
     }
     
     func numberOfPlayersInSection(_ section: Int) -> Int {
@@ -140,6 +180,17 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         playerModels![indexPath.section].remove(at: indexPath.row)
         
         return IndexPath(row: playerModels![section].count - 1, section: section)
+    }
+    
+    func endGame() {
+        // TODO: Save game data to Firestore
+        
+        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
+
+        // Confirm action and end game
+        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
+
+        vc.present(completionAlert, animated: true, completion: nil)
     }
 }
 

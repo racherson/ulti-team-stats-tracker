@@ -91,7 +91,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
 extension NewPlayerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
-        nameTextField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
 }

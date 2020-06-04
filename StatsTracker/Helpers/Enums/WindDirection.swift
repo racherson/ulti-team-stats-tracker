@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum WindDirection: CaseIterable {
+enum WindDirection: Int, CaseIterable {
     case upwind
     case downwind
     case crosswind

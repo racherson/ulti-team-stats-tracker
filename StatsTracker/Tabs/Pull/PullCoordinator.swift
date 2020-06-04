@@ -36,9 +36,13 @@ class PullCoordinator: Coordinator {
 
 //MARK: PullPresenterDelegate
 extension PullCoordinator: PullPresenterDelegate {
-    func startGamePressed() {
+    func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
         let vc = PlayGameViewController.instantiate(.pull)
-        vc.presenter = PlayGamePresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
+        let presenter = PlayGamePresenter(vc: vc, delegate: self, gameModel: gameModel, dbManager: FirestoreDBManager(authManager.currentUserUID))
+        presenter.currentPointWind = wind
+        presenter.currentPointType = point
+        vc.presenter = presenter
+        
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
         navigationController.present(navController, animated: true, completion: nil)
@@ -46,4 +50,8 @@ extension PullCoordinator: PullPresenterDelegate {
 }
 
 //MARK: PlayGamePresenterDelegate
-extension PullCoordinator: PlayGamePresenterDelegate { }
+extension PullCoordinator: PlayGamePresenterDelegate {
+    func endGame() {
+        navigationController.dismiss(animated: true, completion: nil)
+    }
+}

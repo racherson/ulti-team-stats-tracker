@@ -10,6 +10,6 @@ import Foundation
 
 struct PointDataModel {
     var wind: WindDirection
-    var scored: Bool
+    var scored: Bool // home team scored or not
     var type: PointType
 }

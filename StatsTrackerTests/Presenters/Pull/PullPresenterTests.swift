@@ -39,8 +39,12 @@ class PullPresenterTests: XCTestCase {
     
     func testStartGamePressed() throws {
         XCTAssertEqual(0, startGameCount)
+        // Given
+        let game = GameDataModel(tournament: TestConstants.empty, opponent: TestConstants.empty)
+        let wind = WindDirection(rawValue: 0)!
+        let point = PointType(rawValue: 0)!
         // When
-        sut.startGamePressed()
+        sut.startGamePressed(gameModel: game, wind: wind, point: point)
         // Then
         XCTAssertEqual(1, startGameCount)
     }
@@ -48,7 +52,7 @@ class PullPresenterTests: XCTestCase {
 
 //MARK: PullPresenterDelegate
 extension PullPresenterTests: PullPresenterDelegate {
-    func startGamePressed() {
+    func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
         startGameCount += 1
     }
 }

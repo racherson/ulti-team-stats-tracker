@@ -26,7 +26,8 @@ struct Constants {
         static let cutter = "Cutter"
         static let puller = "Puller"
         static let roles = "Player Role(s)"
-        static let pointTitle = "Call a Line"
+        static let pointTitle = "Play Point"
+        static let callLineTitle = "Call a Line"
         static let lineTitle = "On the Line"
     }
     
@@ -35,8 +36,11 @@ struct Constants {
         static let dismiss = "Dismiss"
         static let cancel = "Cancel"
         static let confirm = "Confirm"
+        static let okay = "Okay"
         static let startGameTitle = "Less than 7 players called"
         static let startGameAlert = "Are you sure you want to start the point without a full line?"
+        static let endGameTitle = "Congrats"
+        static let successfulRecordAlert = "Game successfully recorded."
     }
     
     struct Empty {

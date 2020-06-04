@@ -36,12 +36,36 @@ class PullViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
     }
     
+    func testTextFieldIsNotEmpty_Empty() throws {
+        // When
+        sut.textFieldIsNotEmpty(sender: UITextField())
+        // Then
+        XCTAssertFalse(sut.startGameButton.isEnabled)
+    }
+    
+    func testTextFieldIsNotEmpty_NotEmpty() throws {
+        // Given
+        sut.tournamentTextField.text = "Test"
+        sut.opponentTextField.text = "Test"
+        // When
+        sut.textFieldIsNotEmpty(sender: UITextField())
+        // Then
+        XCTAssertTrue(sut.startGameButton.isEnabled)
+    }
+    
     func testStartGamePressed() throws {
         XCTAssertEqual(0, presenter.startGameCount)
+        // Given
+        sut.tournamentTextField.text = "Test"
+        sut.opponentTextField.text = "Test"
         // When
         sut.startGamePressed(UIButton())
         // Then
         XCTAssertEqual(1, presenter.startGameCount)
+        XCTAssertEqual("", sut.tournamentTextField.text)
+        XCTAssertEqual("", sut.opponentTextField.text)
+        XCTAssertEqual(0, sut.windSegmentedControl.selectedSegmentIndex)
+        XCTAssertEqual(0, sut.offenseSegmentedControl.selectedSegmentIndex)
     }
 }
 
@@ -55,7 +79,7 @@ class PullPresenterSpy: Presenter, PullPresenterProtocol {
         viewWillAppearCalled += 1
     }
     
-    func startGamePressed() {
+    func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
         startGameCount += 1
     }
 }

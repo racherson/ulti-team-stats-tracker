@@ -46,24 +46,54 @@ class PlayGameViewControllerTests: XCTestCase {
         XCTAssertTrue(collectionView.reloadDataCalled)
     }
     
-    func testStartPointPressed_fullLine() throws {
-        XCTAssertEqual(0, presenter.startPointCalled)
+    func testShowCallLine() throws {
         // Given
-        presenter.playerCount = 7
+        sut.collectionView.isHidden = true
+        // When
+        sut.showCallLine()
+        // Then
+        XCTAssertTrue(sut.playPointButton.isHidden)
+        XCTAssertFalse(sut.collectionView.isHidden)
+        XCTAssertEqual(Constants.Titles.callLineTitle, sut.navigationItem.title)
+        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem)
+        XCTAssertNotNil(sut.navigationItem.leftBarButtonItem)
+    }
+    
+    func testShowPlayPoint() throws {
+        // Given
+        sut.collectionView.isHidden = false
+        // When
+        sut.showPlayPoint()
+        // Then
+        XCTAssertFalse(sut.playPointButton.isHidden)
+        XCTAssertTrue(sut.collectionView.isHidden)
+        XCTAssertEqual(Constants.Titles.pointTitle, sut.navigationItem.title)
+        XCTAssertNil(sut.navigationItem.rightBarButtonItem)
+        XCTAssertNil(sut.navigationItem.leftBarButtonItem)
+    }
+    
+    func testStartPointPressed() throws {
+        XCTAssertEqual(0, presenter.startPointCalled)
         // When
         sut.startPointPressed()
         // Then
         XCTAssertEqual(1, presenter.startPointCalled)
     }
     
-    func testStartPointPressed_notFullLine() throws {
-        XCTAssertEqual(0, presenter.displayAlertCalled)
-        // Given
-        presenter.playerCount = 5
+    func testEndGamePressed() throws {
+        XCTAssertEqual(0, presenter.endGameCalled)
         // When
-        sut.startPointPressed()
+        sut.endGamePressed()
         // Then
-        XCTAssertEqual(1, presenter.displayAlertCalled)
+        XCTAssertEqual(1, presenter.endGameCalled)
+    }
+    
+    func testPlayPointPressed() throws {
+        XCTAssertEqual(0, presenter.nextPointCalled)
+        // When
+        sut.playPointPressed(UIButton())
+        // Then
+        XCTAssertEqual(1, presenter.nextPointCalled)
     }
     
     func testNumberOfRowsInSection() throws {
@@ -87,63 +117,23 @@ class PlayGameViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.getPlayerNameCalled)
         XCTAssertEqual(TestConstants.playerName, cell.label.text)
     }
-    
-    func testShowCallLine() throws {
-        // Given
-        sut.collectionView.isHidden = true
-        XCTAssertTrue(sut.collectionView.isHidden)
-        // When
-        sut.showCallLine()
-        // Then
-        XCTAssertFalse(sut.collectionView.isHidden)
-    }
-    
-    func testHideCallLine() throws {
-        XCTAssertFalse(sut.collectionView.isHidden)
-        // When
-        sut.hideCallLine()
-        // Then
-        XCTAssertTrue(sut.collectionView.isHidden)
-    }
-    
-    func testShowPlayPoint() throws {
-        // Given
-        // When
-        // Then
-    }
-    
-    func testHidePlayPoint() throws {
-        // Given
-        // When
-        // Then
-    }
 }
 
 //MARK: PlayGamePresenterSpy
 class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     
     var viewWillAppearCalled: Int = 0
-    var fullLineCalled: Int = 0
-    var displayAlertCalled: Int = 0
     var startPointCalled: Int = 0
-    var playerCount: Int = 0
     var numberOfPlayersCalled: Int = 0
     var getPlayerNameCalled: Int = 0
     var selectPlayerCalled: Int = 0
+    var nextPointCalled: Int = 0
+    var endGameCalled: Int = 0
     
     var playerModels = [[PlayerModel]]()
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
-    }
-    
-    func fullLine() -> Bool {
-        fullLineCalled += 1
-        return playerCount < 7 ? false : true
-    }
-    
-    func displayConfirmAlert() {
-        displayAlertCalled += 1
     }
     
     func startPoint() {
@@ -163,5 +153,13 @@ class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
         selectPlayerCalled += 1
         return indexPath
+    }
+    
+    func nextPoint(scored: Bool) {
+        nextPointCalled += 1
+    }
+    
+    func endGame() {
+        endGameCalled += 1
     }
 }

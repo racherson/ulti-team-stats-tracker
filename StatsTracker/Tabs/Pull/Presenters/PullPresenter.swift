@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PullPresenterDelegate: AnyObject {
-    func startGamePressed()
+    func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType)
 }
 
 class PullPresenter: Presenter {
@@ -31,7 +31,7 @@ class PullPresenter: Presenter {
 
 //MARK: PullPresenterProtocol
 extension PullPresenter: PullPresenterProtocol {
-    func startGamePressed() {
-        delegate?.startGamePressed()
+    func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
+        delegate?.startGamePressed(gameModel: gameModel, wind: wind, point: point)
     }
 }

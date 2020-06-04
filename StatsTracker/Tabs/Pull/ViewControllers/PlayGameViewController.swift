@@ -9,12 +9,12 @@
 import UIKit
 
 protocol PlayGamePresenterProtocol where Self: Presenter {
-    func fullLine() -> Bool
-    func displayConfirmAlert()
     func startPoint()
     func numberOfPlayersInSection(_ section: Int) -> Int
     func getPlayerName(at indexPath: IndexPath) -> String
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
+    func nextPoint(scored: Bool)
+    func endGame()
 }
 
 class PlayGameViewController: UIViewController, Storyboarded {
@@ -22,6 +22,8 @@ class PlayGameViewController: UIViewController, Storyboarded {
     //MARK: Properties
     var presenter: PlayGamePresenterProtocol!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var playPointButton: UIButton!
+    
     private let itemsPerRow: CGFloat = 4
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     
@@ -31,7 +33,8 @@ class PlayGameViewController: UIViewController, Storyboarded {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        setUpButtons()
+        playPointButton.isHidden = true
+        setUpCallLineButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,37 +48,47 @@ class PlayGameViewController: UIViewController, Storyboarded {
     
     func showCallLine() {
         collectionView.isHidden = false
-    }
-    
-    func hideCallLine() {
-        collectionView.isHidden = true
+        playPointButton.isHidden = true
+        setUpCallLineButtons()
+        navigationItem.title = Constants.Titles.callLineTitle
     }
     
     func showPlayPoint() {
-        
-    }
-    
-    func hidePlayPoint() {
-        
+        collectionView.isHidden = true
+        playPointButton.isHidden = false
+        removeBarButtons()
+        navigationItem.title = Constants.Titles.pointTitle
     }
     
     //MARK: Private methods
-    private func setUpButtons() {
-        // Add cancel button
+    private func setUpCallLineButtons() {
+        // Add start button
         let button = UIBarButtonItem(title: "Start", style: .done, target: self, action: #selector(self.startPointPressed))
         navigationItem.rightBarButtonItem  = button
+        
+        // Add start button
+        let endGameButton = UIBarButtonItem(title: "End Game", style: .done, target: self, action: #selector(self.endGamePressed))
+        navigationItem.leftBarButtonItem  = endGameButton
+    }
+    
+    private func removeBarButtons() {
+        navigationItem.rightBarButtonItem  = nil
+        navigationItem.leftBarButtonItem  = nil
     }
     
     //MARK: Actions
     @objc func startPointPressed() {
-        // Check if the line is full
-        if !presenter.fullLine() {
-            // Display confirmation alert
-            presenter.displayConfirmAlert()
-        }
-        else {
-            presenter.startPoint()
-        }
+        presenter.startPoint()
+    }
+    
+    @objc func endGamePressed() {
+        presenter.endGame()
+    }
+    
+    @IBAction func playPointPressed(_ sender: UIButton) {
+        // TODO: Get if current point was scored by team or not
+        let scored = true
+        presenter.nextPoint(scored: scored)
     }
 }
 

@@ -39,8 +39,12 @@ class PullCoordinatorTests: XCTestCase {
     
     func testStartGamePressed() throws {
         XCTAssertEqual(0, navigationController.presentCalledCount)
+        // Given
+        let game = GameDataModel(tournament: TestConstants.empty, opponent: TestConstants.empty)
+        let wind = WindDirection(rawValue: 0)!
+        let point = PointType(rawValue: 0)!
         // When
-        pullCoordinator.startGamePressed()
+        pullCoordinator.startGamePressed(gameModel: game, wind: wind, point: point)
         // Then
         XCTAssertEqual(1, navigationController.presentCalledCount)
         XCTAssertEqual(.fullScreen, navigationController.presentationStyle)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PointType: CaseIterable {
+enum PointType: Int, CaseIterable {
     case offensive
     case defensive
 }

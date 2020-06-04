@@ -15,6 +15,7 @@ class PlayGamePresenterTests: XCTestCase {
     var sut: PlayGamePresenter!
     var vc: PlayGameViewControllerSpy!
     var dbManager: MockDBManager!
+    var gameModel: GameDataModel!
     let selectedSection = 0
     let womenSection = Gender.women.rawValue + 1
     let menSection = Gender.men.rawValue + 1
@@ -22,7 +23,8 @@ class PlayGamePresenterTests: XCTestCase {
     override func setUp() {
         vc = PlayGameViewControllerSpy()
         dbManager = MockDBManager()
-        sut = PlayGamePresenter(vc: vc, delegate: self, dbManager: dbManager)
+        gameModel = GameDataModel(tournament: TestConstants.empty, opponent: TestConstants.empty)
+        sut = PlayGamePresenter(vc: vc, delegate: self, gameModel: gameModel, dbManager: dbManager)
         vc.presenter = sut
         super.setUp()
     }
@@ -31,15 +33,16 @@ class PlayGamePresenterTests: XCTestCase {
         sut = nil
         vc = nil
         dbManager = nil
+        gameModel = nil
         super.tearDown()
     }
     
     func testOnViewWillAppear() throws {
-        XCTAssertEqual(vc.navigationItem.title, nil)
+        XCTAssertEqual(0, vc.showCallLineCalled)
         // When
         sut.onViewWillAppear()
         // Then
-        XCTAssertEqual(vc.navigationItem.title, Constants.Titles.pointTitle)
+        XCTAssertEqual(1, vc.showCallLineCalled)
     }
     
     func testFetchRoster() throws {
@@ -47,35 +50,29 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(1, dbManager.getDataCalled)
     }
     
-    func testFullLine_True() throws {
+    func testStartPoint_fullLine() throws {
+        XCTAssertEqual(0, vc.showPlayPointCalled)
         // Given
         sut.playerModels = [[], [], []]
         for _ in 1...7 {
             sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
         }
         // When
-        let result = sut.fullLine()
+        sut.startPoint()
         // Then
-        XCTAssertTrue(result)
+        XCTAssertEqual(1, vc.showPlayPointCalled)
     }
     
-    func testFullLine_False() throws {
+    func testStartPoint_notFullLine() throws {
+        let alertVerifier = AlertVerifier()
+        
         // Given
         sut.playerModels = [[], [], []]
         for _ in 1...2 {
             sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
         }
         // When
-        let result = sut.fullLine()
-        // Then
-        XCTAssertFalse(result)
-    }
-    
-    func testDisplayConfirmAlert() throws {
-        let alertVerifier = AlertVerifier()
-        
-        // When
-        sut.displayConfirmAlert()
+        sut.startPoint()
         // Then
         alertVerifier.verify(
             title: Constants.Alerts.startGameTitle,
@@ -91,26 +88,70 @@ class PlayGamePresenterTests: XCTestCase {
     
     func testExecutingActionForConfirmButton_shouldStartPoint() throws {
         let alertVerifier = AlertVerifier()
+        XCTAssertEqual(0, vc.showPlayPointCalled)
         
-        // Create real instance of the view controller
-        useOriginalVC()
         // Given
-        sut.displayConfirmAlert()
+        sut.playerModels = [[], [], []]
+        for _ in 1...2 {
+            sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
+        }
+        // When
+        sut.startPoint()
         // When
         try alertVerifier.executeAction(forButton: TestConstants.Alerts.confirm)
         // Then
-        XCTAssertTrue(sut.vc.collectionView.isHidden)
+        XCTAssertEqual(1, vc.showPlayPointCalled)
     }
     
-    func testStartPoint() throws {
+    func testNextPoint_scoredTrueUpdateModel() throws {
+        XCTAssertEqual(0, gameModel.finalScore.teamScore)
+        XCTAssertEqual(0, gameModel.finalScore.opponentScore)
+        XCTAssertEqual(0, gameModel.points.count)
         // Given
-        XCTAssertEqual(0, vc.hideCallLineCalled)
-        XCTAssertEqual(0, vc.showPlayPointCalled)
+        sut.currentPointWind = .upwind
+        sut.currentPointType = .offensive
+        sut.playerModels = [[], [], []]
         // When
-        sut.startPoint()
+        sut.nextPoint(scored: true)
         // Then
-        XCTAssertEqual(1, vc.hideCallLineCalled)
-        XCTAssertEqual(1, vc.showPlayPointCalled)
+        XCTAssertEqual(1, gameModel.finalScore.teamScore)
+        XCTAssertEqual(0, gameModel.finalScore.opponentScore)
+        XCTAssertEqual(1, gameModel.points.count)
+    }
+    
+    func testNextPoint_scoredFalseUpdateModel() throws {
+        XCTAssertEqual(0, gameModel.finalScore.teamScore)
+        XCTAssertEqual(0, gameModel.finalScore.opponentScore)
+        XCTAssertEqual(0, gameModel.points.count)
+        // Given
+        sut.currentPointWind = .downwind
+        sut.currentPointType = .defensive
+        sut.playerModels = [[], [], []]
+        // When
+        sut.nextPoint(scored: false)
+        // Then
+        XCTAssertEqual(0, gameModel.finalScore.teamScore)
+        XCTAssertEqual(1, gameModel.finalScore.opponentScore)
+        XCTAssertEqual(1, gameModel.points.count)
+    }
+    
+    func testNextPoint_updateView() throws {
+        XCTAssertEqual(0, vc.updateViewCalled)
+        XCTAssertEqual(0, vc.showCallLineCalled)
+        // Given
+        sut.playerModels = [[], [], []]
+        for _ in 1...2 {
+            sut.playerModels![selectedSection].append(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
+        }
+        sut.currentPointWind = .upwind
+        sut.currentPointType = .offensive
+        // When
+        sut.nextPoint(scored: true)
+        // Then
+        XCTAssertEqual(0, sut.playerModels![selectedSection].count)
+        XCTAssertEqual(2, sut.playerModels![1].count)
+        XCTAssertEqual(1, vc.updateViewCalled)
+        XCTAssertEqual(1, vc.showCallLineCalled)
     }
     
     func testNumberOfPlayersInSection_EmptyModels() throws {
@@ -200,6 +241,10 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertNil(newIndexPath)
     }
     
+    func testEndGame() throws {
+        // TODO
+    }
+    
     func testDisplayDBError() throws {
         let alertVerifier = AlertVerifier()
         
@@ -280,12 +325,15 @@ class PlayGamePresenterTests: XCTestCase {
     }
     
     func testCollectionViewDisplaysAllRosterPlayers() throws {
+        // TODO: Should this be used as a test in the view controller itself?
         // Given
         sut.playerModels = [[],
                             [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])],
                             [PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: [])]]
         // Create real instance of the view controller
-        useOriginalVC()
+        sut.vc = PlayGameViewController.instantiate(.pull)
+        let _ = sut.vc.view
+        sut.vc.presenter = sut
         // When
         sut.vc.updateView()
         // Then
@@ -293,34 +341,28 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(sut.playerModels![womenSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: womenSection))
         XCTAssertEqual(sut.playerModels![menSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: menSection))
     }
-    
-    //MARK: Private methods
-    private func useOriginalVC() {
-        // Create real instance of the view controller
-        sut.vc = PlayGameViewController.instantiate(.pull)
-        let _ = sut.vc.view
-        sut.vc.presenter = sut
-    }
 }
 
 //MARK: PlayGamePresenterDelegate
-extension PlayGamePresenterTests: PlayGamePresenterDelegate { }
+extension PlayGamePresenterTests: PlayGamePresenterDelegate {
+    func endGame() { }
+}
 
 //MARK: RosterViewControllerSpy
 class PlayGameViewControllerSpy: PlayGameViewController {
     var updateViewCalled: Int = 0
-    var hideCallLineCalled: Int = 0
     var showPlayPointCalled: Int = 0
+    var showCallLineCalled: Int = 0
     
     override func updateView() {
         updateViewCalled += 1
     }
     
-    override func hideCallLine() {
-        hideCallLineCalled += 1
-    }
-    
     override func showPlayPoint() {
         showPlayPointCalled += 1
+    }
+    
+    override func showCallLine() {
+        showCallLineCalled += 1
     }
 }
