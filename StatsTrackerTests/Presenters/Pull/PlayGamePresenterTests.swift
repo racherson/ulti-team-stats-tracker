@@ -20,6 +20,8 @@ class PlayGamePresenterTests: XCTestCase {
     let womenSection = Gender.women.rawValue + 1
     let menSection = Gender.men.rawValue + 1
     
+    var endGameCount: Int = 0
+    
     override func setUp() {
         vc = PlayGameViewControllerSpy()
         dbManager = MockDBManager()
@@ -242,7 +244,32 @@ class PlayGamePresenterTests: XCTestCase {
     }
     
     func testEndGame() throws {
-        // TODO
+        let alertVerifier = AlertVerifier()
+        
+        // When
+        sut.endGame()
+        // Then
+        alertVerifier.verify(
+            title: Constants.Alerts.endGameTitle,
+            message: Constants.Alerts.successfulRecordAlert,
+            animated: true,
+            actions: [
+                .default(TestConstants.Alerts.okay)
+            ],
+            presentingViewController: vc
+        )
+    }
+    
+    func testExecutingActionForConfirmButton_shouldEndGame() throws {
+        let alertVerifier = AlertVerifier()
+        XCTAssertEqual(0, endGameCount)
+        
+        // When
+        sut.endGame()
+        // When
+        try alertVerifier.executeAction(forButton: TestConstants.Alerts.okay)
+        // Then
+        XCTAssertEqual(1, endGameCount)
     }
     
     func testDisplayDBError() throws {
@@ -323,29 +350,13 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(0, sut.playerModels![menSection].count)
         XCTAssertEqual(1, vc.updateViewCalled)
     }
-    
-    func testCollectionViewDisplaysAllRosterPlayers() throws {
-        // TODO: Should this be used as a test in the view controller itself?
-        // Given
-        sut.playerModels = [[],
-                            [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])],
-                            [PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: [])]]
-        // Create real instance of the view controller
-        sut.vc = PlayGameViewController.instantiate(.pull)
-        let _ = sut.vc.view
-        sut.vc.presenter = sut
-        // When
-        sut.vc.updateView()
-        // Then
-        XCTAssertEqual(sut.playerModels![selectedSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: selectedSection))
-        XCTAssertEqual(sut.playerModels![womenSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: womenSection))
-        XCTAssertEqual(sut.playerModels![menSection].count, sut.vc.collectionView(sut.vc.collectionView, numberOfItemsInSection: menSection))
-    }
 }
 
 //MARK: PlayGamePresenterDelegate
 extension PlayGamePresenterTests: PlayGamePresenterDelegate {
-    func endGame() { }
+    func endGame() {
+        endGameCount += 1
+    }
 }
 
 //MARK: RosterViewControllerSpy

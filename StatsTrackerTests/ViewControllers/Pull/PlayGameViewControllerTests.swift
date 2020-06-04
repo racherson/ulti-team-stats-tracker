@@ -13,6 +13,9 @@ class PlayGameViewControllerTests: XCTestCase {
     
     var sut: PlayGameViewController!
     var presenter: PlayGamePresenterSpy!
+    let selectedSection = 0
+    let womenSection = Gender.women.rawValue + 1
+    let menSection = Gender.men.rawValue + 1
     
     override func setUp() {
         sut = PlayGameViewController.instantiate(.pull)
@@ -116,6 +119,19 @@ class PlayGameViewControllerTests: XCTestCase {
         XCTAssertEqual(.red, cell.backgroundColor)
         XCTAssertEqual(1, presenter.getPlayerNameCalled)
         XCTAssertEqual(TestConstants.playerName, cell.label.text)
+    }
+    
+    func testCollectionViewDisplaysAllRosterPlayers() throws {
+        // Given
+        presenter.playerModels = [[PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])],
+                                  [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])],
+                                  [PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: [])]]
+        // When
+        sut.updateView()
+        // Then
+        XCTAssertEqual(presenter.playerModels[selectedSection].count, sut.collectionView(sut.collectionView, numberOfItemsInSection: selectedSection))
+        XCTAssertEqual(presenter.playerModels[womenSection].count, sut.collectionView(sut.collectionView, numberOfItemsInSection: womenSection))
+        XCTAssertEqual(presenter.playerModels[menSection].count, sut.collectionView(sut.collectionView, numberOfItemsInSection: menSection))
     }
 }
 
