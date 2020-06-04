@@ -31,6 +31,7 @@ class PlayGamePresenter: Presenter {
         self.gameModel = gameModel
         self.dbManager = dbManager
         self.dbManager.getDataDelegate = self
+        self.dbManager.setDataDelegate = self
         
         fetchRoster()
     }
@@ -183,7 +184,18 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
     }
     
     func endGame() {
-        // TODO: Save game data to Firestore
+        guard let playerModels = playerModels else {
+            fatalError()
+        }
+        
+        // Save updated player models
+        for array in playerModels {
+            for model in array {
+                dbManager.setData(data: model.dictionary, collection: .roster)
+            }
+        }
+        
+        // TODO: Save game model
         
         let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
 
@@ -235,5 +247,11 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
 
         playerModels = [selectedArray, womenArray, menArray]
         vc.updateView()
+    }
+}
+
+extension PlayGamePresenter: DatabaseManagerSetDataDelegate {
+    func onSuccessfulSet() {
+        // TODO
     }
 }

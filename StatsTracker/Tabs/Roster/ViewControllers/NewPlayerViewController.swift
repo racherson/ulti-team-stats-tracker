@@ -62,8 +62,6 @@ class NewPlayerViewController: UIViewController, Storyboarded {
     
     //MARK: Actions
     @objc func textFieldIsNotEmpty(sender: UITextField) {
-        sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
-        
         // Validate text field is not empty
         guard let playerName = sender.text, !playerName.isEmpty else {
             self.saveButton!.isEnabled = false

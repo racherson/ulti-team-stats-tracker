@@ -40,8 +40,6 @@ class PullViewController: UIViewController, Storyboarded {
     
     //MARK: Actions
     @objc func textFieldIsNotEmpty(sender: UITextField) {
-        sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
-        
         // Validate text fields are not empty
         guard let tournament = tournamentTextField.text, !tournament.isEmpty,
             let opponent = opponentTextField.text, !opponent.isEmpty
