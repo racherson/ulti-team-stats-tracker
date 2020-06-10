@@ -11,6 +11,7 @@ import UIKit
 enum DataCollection: Int {
     case profile
     case roster
+    case games
 }
 
 protocol DatabaseManager {

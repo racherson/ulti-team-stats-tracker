@@ -25,7 +25,7 @@ class PlayGamePresenterTests: XCTestCase {
     override func setUp() {
         vc = PlayGameViewControllerSpy()
         dbManager = MockDBManager()
-        gameModel = GameDataModel(tournament: TestConstants.empty, opponent: TestConstants.empty)
+        gameModel = GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)
         sut = PlayGamePresenter(vc: vc, delegate: self, gameModel: gameModel, dbManager: dbManager)
         vc.presenter = sut
         super.setUp()
@@ -106,9 +106,9 @@ class PlayGamePresenterTests: XCTestCase {
     }
     
     func testNextPoint_scoredTrueUpdateModel() throws {
-        XCTAssertEqual(0, gameModel.finalScore.teamScore)
-        XCTAssertEqual(0, gameModel.finalScore.opponentScore)
-        XCTAssertEqual(0, gameModel.points.count)
+        XCTAssertEqual(0, sut.gameModel.finalScore.team)
+        XCTAssertEqual(0, sut.gameModel.finalScore.opponent)
+        XCTAssertEqual(0, sut.gameModel.points.count)
         // Given
         sut.currentPointWind = .upwind
         sut.currentPointType = .offensive
@@ -116,15 +116,15 @@ class PlayGamePresenterTests: XCTestCase {
         // When
         sut.nextPoint(scored: true)
         // Then
-        XCTAssertEqual(1, gameModel.finalScore.teamScore)
-        XCTAssertEqual(0, gameModel.finalScore.opponentScore)
-        XCTAssertEqual(1, gameModel.points.count)
+        XCTAssertEqual(1, sut.gameModel.finalScore.team)
+        XCTAssertEqual(0, sut.gameModel.finalScore.opponent)
+        XCTAssertEqual(1, sut.gameModel.points.count)
     }
     
     func testNextPoint_scoredFalseUpdateModel() throws {
-        XCTAssertEqual(0, gameModel.finalScore.teamScore)
-        XCTAssertEqual(0, gameModel.finalScore.opponentScore)
-        XCTAssertEqual(0, gameModel.points.count)
+        XCTAssertEqual(0, sut.gameModel.finalScore.team)
+        XCTAssertEqual(0, sut.gameModel.finalScore.opponent)
+        XCTAssertEqual(0, sut.gameModel.points.count)
         // Given
         sut.currentPointWind = .downwind
         sut.currentPointType = .defensive
@@ -132,9 +132,9 @@ class PlayGamePresenterTests: XCTestCase {
         // When
         sut.nextPoint(scored: false)
         // Then
-        XCTAssertEqual(0, gameModel.finalScore.teamScore)
-        XCTAssertEqual(1, gameModel.finalScore.opponentScore)
-        XCTAssertEqual(1, gameModel.points.count)
+        XCTAssertEqual(0, sut.gameModel.finalScore.team)
+        XCTAssertEqual(1, sut.gameModel.finalScore.opponent)
+        XCTAssertEqual(1, sut.gameModel.points.count)
     }
     
     func testNextPoint_updateView() throws {
@@ -244,32 +244,18 @@ class PlayGamePresenterTests: XCTestCase {
     }
     
     func testEndGame() throws {
-        let alertVerifier = AlertVerifier()
-        
+        XCTAssertEqual(0, dbManager.setDataCalled)
+        // Given
+        let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: []),
+                                    PlayerModel(name: "Woman2", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
+        let men: [PlayerModel] = [PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])]
+        let numPlayers = 3
+        // When
+        sut.playerModels = [[], women, men]
         // When
         sut.endGame()
         // Then
-        alertVerifier.verify(
-            title: Constants.Alerts.endGameTitle,
-            message: Constants.Alerts.successfulRecordAlert,
-            animated: true,
-            actions: [
-                .default(TestConstants.Alerts.okay)
-            ],
-            presentingViewController: vc
-        )
-    }
-    
-    func testExecutingActionForConfirmButton_shouldEndGame() throws {
-        let alertVerifier = AlertVerifier()
-        XCTAssertEqual(0, endGameCount)
-        
-        // When
-        sut.endGame()
-        // When
-        try alertVerifier.executeAction(forButton: TestConstants.Alerts.okay)
-        // Then
-        XCTAssertEqual(1, endGameCount)
+        XCTAssertEqual(numPlayers + 1, dbManager.setDataCalled)
     }
     
     func testDisplayDBError() throws {
@@ -349,6 +335,39 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(0, sut.playerModels![womenSection].count)
         XCTAssertEqual(0, sut.playerModels![menSection].count)
         XCTAssertEqual(1, vc.updateViewCalled)
+    }
+    
+    func testOnSuccessfulSet() throws {
+        let alertVerifier = AlertVerifier()
+        
+        // Given
+        sut.playerModels = [[], [], []]
+        // When
+        sut.onSuccessfulSet()
+        // Then
+        alertVerifier.verify(
+            title: Constants.Alerts.endGameTitle,
+            message: Constants.Alerts.successfulRecordAlert,
+            animated: true,
+            actions: [
+                .default(TestConstants.Alerts.okay)
+            ],
+            presentingViewController: vc
+        )
+    }
+    
+    func testExecutingActionForConfirmButton_shouldEndGame() throws {
+        let alertVerifier = AlertVerifier()
+        XCTAssertEqual(0, endGameCount)
+        
+        // Given
+        sut.playerModels = [[], [], []]
+        // When
+        sut.onSuccessfulSet()
+        // When
+        try alertVerifier.executeAction(forButton: TestConstants.Alerts.okay)
+        // Then
+        XCTAssertEqual(1, endGameCount)
     }
 }
 

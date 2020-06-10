@@ -113,9 +113,31 @@ class PlayGamePresenter: Presenter {
     }
     
     private func confirmedStartPoint() {
-        // TODO: Give the selected players to the next step
         // Hide player selection UI and display point UI
         vc.showPlayPoint()
+    }
+    
+    private func updateWind() {
+        switch currentPointWind {
+        case .upwind:
+            currentPointWind = .downwind
+        case .downwind:
+            currentPointWind = .upwind
+        case .crosswind:
+            currentPointWind = .crosswind
+        case .none:
+            return
+        }
+    }
+    
+    private func updatePointType(scored: Bool) {
+        // The team that scores pulls the next point (starts on defense)
+        if scored {
+            currentPointType = .defensive
+        }
+        else {
+            currentPointType = .offensive
+        }
     }
 }
 
@@ -133,12 +155,15 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
     
     func nextPoint(scored: Bool) {
         // Give current point to game model
-        let point = PointDataModel(wind: currentPointWind, scored: scored, type: currentPointType)
+        // TODO: fix use of wind and type enums...do we need them? or just use int
+        let point = PointDataModel(wind: currentPointWind.rawValue, scored: scored, type: currentPointType.rawValue)
         gameModel.addPoint(point: point)
-        // TODO: Update wind and point type
         
-        // Clear old line
+        // Update game state
+        updateWind()
+        updatePointType(scored: point.scored)
         clearLine()
+        
         // Hide play point UI and display call line UI
         vc.showCallLine()
     }
@@ -185,24 +210,19 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
     
     func endGame() {
         guard let playerModels = playerModels else {
+            // TODO
             fatalError()
         }
         
         // Save updated player models
         for array in playerModels {
-            for model in array {
-                dbManager.setData(data: model.dictionary, collection: .roster)
+            for player in array {
+                dbManager.setData(data: player.dictionary, collection: .roster)
             }
         }
         
-        // TODO: Save game model
-        
-        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
-
-        // Confirm action and end game
-        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
-
-        vc.present(completionAlert, animated: true, completion: nil)
+        // Save game model
+        dbManager.setData(data: gameModel.dictionary, collection: .games)
     }
 }
 
@@ -252,6 +272,11 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
 
 extension PlayGamePresenter: DatabaseManagerSetDataDelegate {
     func onSuccessfulSet() {
-        // TODO
+        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
+
+        // Confirm action and end game
+        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
+
+        vc.present(completionAlert, animated: true, completion: nil)
     }
 }

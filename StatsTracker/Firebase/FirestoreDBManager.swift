@@ -41,8 +41,12 @@ class FirestoreDBManager {
             return publicDataRef
         case .roster:
             return publicDataRef
-            .collection(FirebaseKeys.CollectionPath.roster)
-            .document(FirebaseKeys.CollectionPath.roster)
+                .collection(FirebaseKeys.CollectionPath.roster)
+                .document(FirebaseKeys.CollectionPath.roster)
+        case .games:
+            return publicDataRef
+                .collection(FirebaseKeys.CollectionPath.games)
+                .document(FirebaseKeys.CollectionPath.games)
         }
     }
 }
@@ -82,6 +86,11 @@ extension FirestoreDBManager: DatabaseManager {
             
             // Set the document reference of where to set the data
             docRef = referenceForUserPublicData(collection).collection(genderCollection).document(id)
+        case .games:
+            guard let id = data[Constants.GameModel.id] as? String else {
+                self.setDataDelegate?.displayError(with: DBError.model); return
+            }
+            docRef = referenceForUserPublicData(collection).collection(FirebaseKeys.CollectionPath.games).document(id)
         }
         
         docRef.setData(data) { (error) in
@@ -104,6 +113,8 @@ extension FirestoreDBManager: DatabaseManager {
             getDataForProfile()
         case .roster:
             getDataForRoster()
+        case .games:
+            getDataForGames()
         }
     }
     
@@ -141,7 +152,9 @@ extension FirestoreDBManager: DatabaseManager {
             }
             
             for document in snapshot.documents {
-                womenArray.append(document.data())
+                if document.exists {
+                    womenArray.append(document.data())
+                }
             }
             
             // Get all the men players
@@ -157,7 +170,9 @@ extension FirestoreDBManager: DatabaseManager {
                 }
                 
                 for document in snapshot.documents {
-                    menArray.append(document.data())
+                    if document.exists {
+                        menArray.append(document.data())
+                    }
                 }
                 
                 let newData = [
@@ -166,6 +181,36 @@ extension FirestoreDBManager: DatabaseManager {
                         ]
                 self.getDataDelegate?.onSuccessfulGet(newData)
             }
+        }
+    }
+    
+    private func getDataForGames() {
+        // Initialize game array
+        var gameArray: [[String: Any]] = [[String: Any]]()
+        
+        // Get all the women players
+        self.referenceForUserPublicData(.games).collection(FirebaseKeys.CollectionPath.games).getDocuments { (snapshot, error) in
+            if error != nil {
+                // Show error message
+                self.getDataDelegate?.displayError(with: error!); return
+            }
+            
+            guard let snapshot = snapshot else {
+                // Show error message
+                self.getDataDelegate?.displayError(with: DBError.document); return
+            }
+            
+            for document in snapshot.documents {
+                if document.exists {
+                    gameArray.append(document.data())
+                }
+            }
+            
+            let newData = [
+                FirebaseKeys.CollectionPath.games: gameArray
+            ]
+            
+            self.getDataDelegate?.onSuccessfulGet(newData)
         }
     }
     
@@ -198,6 +243,9 @@ extension FirestoreDBManager: DatabaseManager {
                 }
                 self.deleteDataDelegate?.onSuccessfulDelete()
             }
+        case .games:
+            // TODO
+            return // Not implemented
         }
     }
     

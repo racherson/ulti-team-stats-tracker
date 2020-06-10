@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901C04E24608E3B00635299 /* RosterTableViewCell.swift */; };
+		290309B724906F7C004C7E3C /* PointModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290309B624906F7C004C7E3C /* PointModelConstants.swift */; };
 		2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905319E2461EB2100478FF9 /* RosterPresenter.swift */; };
 		290531A12461F50800478FF9 /* NewPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290531A02461F50800478FF9 /* NewPlayerViewController.swift */; };
 		290531A32461F56500478FF9 /* NewPlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290531A22461F56500478FF9 /* NewPlayerPresenter.swift */; };
@@ -58,6 +59,8 @@
 		295108FE246C6F510083F7EC /* TeamProfileViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295108FD246C6F510083F7EC /* TeamProfileViewControllerTests.swift */; };
 		29510902246C73CC0083F7EC /* SettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29510901246C73CC0083F7EC /* SettingsViewControllerTests.swift */; };
 		29510904246C78010083F7EC /* EditProfileViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29510903246C78010083F7EC /* EditProfileViewControllerTests.swift */; };
+		29592CE02489C42600032763 /* GameModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29592CDF2489C42600032763 /* GameModelConstants.swift */; };
+		29592CE22489C9C600032763 /* ScoreModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29592CE12489C9C600032763 /* ScoreModelConstants.swift */; };
 		295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */; };
 		295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D80B7245128C600CD8CBF /* LoginPresenter.swift */; };
 		2966446A2452412C0013D902 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296644692452412C0013D902 /* Presenter.swift */; };
@@ -138,6 +141,7 @@
 
 /* Begin PBXFileReference section */
 		2901C04E24608E3B00635299 /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
+		290309B624906F7C004C7E3C /* PointModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointModelConstants.swift; sourceTree = "<group>"; };
 		2905319E2461EB2100478FF9 /* RosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterPresenter.swift; sourceTree = "<group>"; };
 		290531A02461F50800478FF9 /* NewPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerViewController.swift; sourceTree = "<group>"; };
 		290531A22461F56500478FF9 /* NewPlayerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerPresenter.swift; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 		295108FD246C6F510083F7EC /* TeamProfileViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileViewControllerTests.swift; sourceTree = "<group>"; };
 		29510901246C73CC0083F7EC /* SettingsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerTests.swift; sourceTree = "<group>"; };
 		29510903246C78010083F7EC /* EditProfileViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewControllerTests.swift; sourceTree = "<group>"; };
+		29592CDF2489C42600032763 /* GameModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelConstants.swift; sourceTree = "<group>"; };
+		29592CE12489C9C600032763 /* ScoreModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreModelConstants.swift; sourceTree = "<group>"; };
 		295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
 		295D80B7245128C600CD8CBF /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		296644692452412C0013D902 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
@@ -526,6 +532,9 @@
 				294A87492446ABFF003FC969 /* FirebaseKeys.swift */,
 				294AAF27245E481C006B723E /* Errors.swift */,
 				29210DF024687F2800CDBFF9 /* PlayerModelConstants.swift */,
+				29592CDF2489C42600032763 /* GameModelConstants.swift */,
+				29592CE12489C9C600032763 /* ScoreModelConstants.swift */,
+				290309B624906F7C004C7E3C /* PointModelConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -990,9 +999,11 @@
 				2910EB96243FC05F00BCF721 /* PullViewController.swift in Sources */,
 				2930B93B2471E3B5007A994E /* PlayGameViewController.swift in Sources */,
 				297B4E0B244B6FB4001233B9 /* AuthenticationManager.swift in Sources */,
+				29592CE22489C9C600032763 /* ScoreModelConstants.swift in Sources */,
 				2973A8D8245B518E002CD459 /* DBError.swift in Sources */,
 				29AD5200243FE35E0094DCDE /* TeamProfileCoordinator.swift in Sources */,
 				29CEDCCE24730D3D00F7F635 /* Gender.swift in Sources */,
+				29592CE02489C42600032763 /* GameModelConstants.swift in Sources */,
 				2930B93D2471E3F5007A994E /* PlayGamePresenter.swift in Sources */,
 				29B8B36C2440E1690068B24D /* LoginViewController.swift in Sources */,
 				291184782450BF8D007C534F /* TeamProfilePresenter.swift in Sources */,
@@ -1022,6 +1033,7 @@
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */,
 				2966446A2452412C0013D902 /* Presenter.swift in Sources */,
+				290309B724906F7C004C7E3C /* PointModelConstants.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				29A1261A246DD6C600581D30 /* PullPresenter.swift in Sources */,
 				295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */,

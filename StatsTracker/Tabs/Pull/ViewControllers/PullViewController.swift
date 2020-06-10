@@ -54,7 +54,8 @@ class PullViewController: UIViewController, Storyboarded {
     
     @IBAction func startGamePressed(_ sender: UIButton) {
         // Text fields are not empty if button is enabled
-        let model = GameDataModel(tournament: tournamentTextField.text!, opponent: opponentTextField.text!)
+        let newGameID = UUID().uuidString
+        let model = GameDataModel(id: newGameID, tournament: tournamentTextField.text!, opponent: opponentTextField.text!)
         
         // Create initial point of the game
         let wind = WindDirection(rawValue: windSegmentedControl.selectedSegmentIndex)!

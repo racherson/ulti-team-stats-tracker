@@ -8,28 +8,57 @@
 
 import Foundation
 
-class ScoreModel {
+struct ScoreModel {
     
     //MARK: Properties
-    private(set) var opponentScore: Int
-    private(set) var teamScore: Int
+    private(set) var opponent: Int
+    private(set) var team: Int
+    
+    var dictionary: [String: Any] {
+        return [
+            Constants.ScoreModel.team: team,
+            Constants.ScoreModel.opponent: opponent
+        ]
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case opponent
+        case team
+    }
     
     //MARK: Initialization
     init() {
-        self.opponentScore = 0
-        self.teamScore = 0
+        self.opponent = 0
+        self.team = 0
     }
     
     init(opponent: Int, team: Int) {
-        self.opponentScore = opponent
-        self.teamScore = team
+        self.opponent = opponent
+        self.team = team
     }
     
-    func opponentScored() {
-        self.opponentScore += 1
+    mutating func opponentScored() {
+        self.opponent += 1
     }
     
-    func teamScored() {
-        self.teamScore += 1
+    mutating func teamScored() {
+        self.team += 1
+    }
+}
+
+//MARK: DocumentSerializable
+extension ScoreModel: DocumentSerializable {
+    init?(documentData: [String : Any]) {
+        guard let opponent = documentData[Constants.ScoreModel.opponent] as? Int,
+            let team = documentData[Constants.ScoreModel.team] as? Int else { return nil }
+        
+        self.init(opponent: opponent, team: team)
+    }
+}
+
+//MARK: CustomDebugStringConvertible
+extension ScoreModel: CustomDebugStringConvertible {
+    var debugDescription: String {
+        return "ScoreModel(dictionary: \(dictionary))"
     }
 }
