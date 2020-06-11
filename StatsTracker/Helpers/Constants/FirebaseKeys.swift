@@ -20,6 +20,7 @@ struct FirebaseKeys {
         static let games = "games"
         static let women = "women"
         static let men = "men"
+        static let tournaments = "tournaments"
         
         static let imagesFolder = "imagesFolder"
     }

@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol PullCoordinatorDelegate: AnyObject {
+    func reloadGames()
+}
+
 class PullCoordinator: Coordinator {
     
     //MARK: Properties
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    weak var delegate: PullCoordinatorDelegate?
     var authManager: AuthenticationManager = FirebaseAuthManager()
 
     //MARK: Initialization
@@ -53,5 +58,6 @@ extension PullCoordinator: PullPresenterDelegate {
 extension PullCoordinator: PlayGamePresenterDelegate {
     func endGame() {
         navigationController.dismiss(animated: true, completion: nil)
+        delegate?.reloadGames()
     }
 }

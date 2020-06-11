@@ -26,6 +26,7 @@ class MainTabBarController: UITabBarController {
         
         // Set delegate for team profile (for logout flow)
         teamProfileCoordinator.delegate = self
+        pullCoordinator.delegate = self
         
         // Start all of the coordinators (for each tab)
         teamProfileCoordinator.start()
@@ -42,5 +43,13 @@ class MainTabBarController: UITabBarController {
 extension MainTabBarController: TeamProfileCoordinatorDelegate {
     func transitionToHome() {
         coordinator?.transitionToHome()
+    }
+}
+
+//MARK: PullCoordinatorDelegate
+extension MainTabBarController: PullCoordinatorDelegate {
+    func reloadGames() {
+        gamesCoordinator.reloadGames()
+        rosterCoordinator.reloadRoster()
     }
 }

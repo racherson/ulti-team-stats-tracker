@@ -22,7 +22,8 @@ class PlayGamePresenter: Presenter {
     var playerModels: [[PlayerModel]]?
     var currentPointWind: WindDirection!
     var currentPointType: PointType!
-    let selectedPlayerSection = 0
+    
+    private let selectedPlayerSection = 0
     
     //MARK: Initialization
     init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, gameModel: GameDataModel, dbManager: DatabaseManager) {
@@ -223,6 +224,13 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         
         // Save game model
         dbManager.setData(data: gameModel.dictionary, collection: .games)
+        
+        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
+
+        // Confirm action and end game
+        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
+
+        vc.present(completionAlert, animated: true, completion: nil)
     }
 }
 
@@ -270,13 +278,7 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
     }
 }
 
+//MARK: DatabaseManagerSetDataDelegate
 extension PlayGamePresenter: DatabaseManagerSetDataDelegate {
-    func onSuccessfulSet() {
-        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
-
-        // Confirm action and end game
-        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
-
-        vc.present(completionAlert, animated: true, completion: nil)
-    }
+    func onSuccessfulSet() { }
 }

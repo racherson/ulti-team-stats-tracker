@@ -37,6 +37,19 @@ class RosterCoordinatorTests: XCTestCase {
         XCTAssertTrue(navigationController.navigationBar.prefersLargeTitles)
     }
     
+    func testReloadRoster() throws {
+        // Given
+        let vc = RosterViewController()
+        let presenter = MockRosterPresenter()
+        XCTAssertEqual(0, presenter.setArraysCalled)
+        vc.presenter = presenter
+        rosterCoordinator.rootVC = vc
+        // When
+        rosterCoordinator.reloadRoster()
+        // Then
+        XCTAssertEqual(1, presenter.setArraysCalled)
+    }
+    
     func testAddPressed() throws {
         XCTAssertEqual(0, navigationController.presentCalledCount)
         // When
@@ -86,7 +99,11 @@ class RosterCoordinatorTests: XCTestCase {
 //MARK: MockRosterPresenter
 class MockRosterPresenter: RosterPresenterProtocol {
     var addPlayerCalled: Int = 0
+    var setArraysCalled: Int = 0
     
+    func setGenderArrays() {
+        setArraysCalled += 1
+    }
     func onViewWillAppear() {}
     func addPressed() {}
     func addPlayer(_ player: PlayerModel) {

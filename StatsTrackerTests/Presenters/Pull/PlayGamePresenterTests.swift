@@ -16,11 +16,11 @@ class PlayGamePresenterTests: XCTestCase {
     var vc: PlayGameViewControllerSpy!
     var dbManager: MockDBManager!
     var gameModel: GameDataModel!
-    let selectedSection = 0
-    let womenSection = Gender.women.rawValue + 1
-    let menSection = Gender.men.rawValue + 1
     
-    var endGameCount: Int = 0
+    private let selectedSection = 0
+    private let womenSection = Gender.women.rawValue + 1
+    private let menSection = Gender.men.rawValue + 1
+    private var endGameCount: Int = 0
     
     override func setUp() {
         vc = PlayGameViewControllerSpy()
@@ -244,7 +244,9 @@ class PlayGamePresenterTests: XCTestCase {
     }
     
     func testEndGame() throws {
+        let alertVerifier = AlertVerifier()
         XCTAssertEqual(0, dbManager.setDataCalled)
+        
         // Given
         let women: [PlayerModel] = [PlayerModel(name: "Woman1", gender: Gender.women.rawValue, id: TestConstants.empty, roles: []),
                                     PlayerModel(name: "Woman2", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])]
@@ -256,6 +258,16 @@ class PlayGamePresenterTests: XCTestCase {
         sut.endGame()
         // Then
         XCTAssertEqual(numPlayers + 1, dbManager.setDataCalled)
+        
+        alertVerifier.verify(
+            title: Constants.Alerts.endGameTitle,
+            message: Constants.Alerts.successfulRecordAlert,
+            animated: true,
+            actions: [
+                .default(TestConstants.Alerts.okay)
+            ],
+            presentingViewController: vc
+        )
     }
     
     func testDisplayDBError() throws {
@@ -337,25 +349,6 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(1, vc.updateViewCalled)
     }
     
-    func testOnSuccessfulSet() throws {
-        let alertVerifier = AlertVerifier()
-        
-        // Given
-        sut.playerModels = [[], [], []]
-        // When
-        sut.onSuccessfulSet()
-        // Then
-        alertVerifier.verify(
-            title: Constants.Alerts.endGameTitle,
-            message: Constants.Alerts.successfulRecordAlert,
-            animated: true,
-            actions: [
-                .default(TestConstants.Alerts.okay)
-            ],
-            presentingViewController: vc
-        )
-    }
-    
     func testExecutingActionForConfirmButton_shouldEndGame() throws {
         let alertVerifier = AlertVerifier()
         XCTAssertEqual(0, endGameCount)
@@ -363,7 +356,7 @@ class PlayGamePresenterTests: XCTestCase {
         // Given
         sut.playerModels = [[], [], []]
         // When
-        sut.onSuccessfulSet()
+        sut.endGame()
         // When
         try alertVerifier.executeAction(forButton: TestConstants.Alerts.okay)
         // Then

@@ -18,7 +18,7 @@ class TeamProfileCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var delegate: TeamProfileCoordinatorDelegate?
-    var authManager: AuthenticationManager = FirebaseAuthManager()
+    let authManager: AuthenticationManager = FirebaseAuthManager()
     var rootVC: TeamProfileViewController!
     var viewModel: TeamProfileViewModel?
 

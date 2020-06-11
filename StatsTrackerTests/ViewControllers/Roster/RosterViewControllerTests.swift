@@ -121,6 +121,8 @@ class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
     var numberOfPlayersInSectionCalled: Int = 0
     var getPlayerNameCalled: Int = 0
     
+    func setGenderArrays() { }
+    
     func onViewWillAppear() {
         viewWillAppearCalled += 1
     }

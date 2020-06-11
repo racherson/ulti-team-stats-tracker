@@ -36,4 +36,17 @@ class GamesCoordinatorTests: XCTestCase {
         XCTAssertTrue(navigationController.pushedController is GamesViewController)
         XCTAssertTrue(navigationController.navigationBar.prefersLargeTitles)
     }
+    
+    func testGoToGamePage() throws {
+        XCTAssertEqual(0, navigationController.pushCallCount)
+        XCTAssertNil(navigationController.pushedController)
+        // Given
+        let model = GameDataModel(id: "", tournament: "", opponent: "")
+        let viewModel = GameViewModel(model: model)
+        // When
+        gamesCoordinator.goToGamePage(viewModel: viewModel)
+        // Then
+        XCTAssertEqual(1, navigationController.pushCallCount)
+        XCTAssertTrue(navigationController.pushedController is GameDetailViewController)
+    }
 }

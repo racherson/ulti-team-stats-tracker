@@ -9,6 +9,7 @@
 import UIKit
 
 protocol RosterPresenterProtocol where Self: Presenter {
+    func setGenderArrays()
     func addPressed()
     func addPlayer(_ player: PlayerModel)
     func deletePlayer(at indexPath: IndexPath)

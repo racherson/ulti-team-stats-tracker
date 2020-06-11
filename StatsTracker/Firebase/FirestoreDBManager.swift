@@ -28,6 +28,7 @@ class FirestoreDBManager {
         .collection(FirebaseKeys.CollectionPath.environment)
         .document(FirebaseKeys.CollectionPath.environment)
     
+    
     //MARK: Private methods
     private func referenceForUserPublicData(_ collection: DataCollection) -> DocumentReference {
         let publicDataRef = root
@@ -70,8 +71,9 @@ extension FirestoreDBManager: DatabaseManager {
             var genderCollection: String
             
             // Grab fields from data needed to store the data properly
-            guard let gender = data[Constants.PlayerModel.gender] as? Int, let id = data[Constants.PlayerModel.id] as? String else {
-                self.setDataDelegate?.displayError(with: DBError.model); return
+            guard let gender = data[Constants.PlayerModel.gender] as? Int,
+                let id = data[Constants.PlayerModel.id] as? String else {
+                    self.setDataDelegate?.displayError(with: DBError.model); return
             }
             
             // Switch on the gender to get the correct collection
@@ -88,7 +90,7 @@ extension FirestoreDBManager: DatabaseManager {
             docRef = referenceForUserPublicData(collection).collection(genderCollection).document(id)
         case .games:
             guard let id = data[Constants.GameModel.id] as? String else {
-                self.setDataDelegate?.displayError(with: DBError.model); return
+                    self.setDataDelegate?.displayError(with: DBError.model); return
             }
             docRef = referenceForUserPublicData(collection).collection(FirebaseKeys.CollectionPath.games).document(id)
         }
@@ -179,6 +181,8 @@ extension FirestoreDBManager: DatabaseManager {
                             FirebaseKeys.CollectionPath.women: womenArray,
                             FirebaseKeys.CollectionPath.men: menArray
                         ]
+                
+                // Send retrieved data to delegate
                 self.getDataDelegate?.onSuccessfulGet(newData)
             }
         }
@@ -188,7 +192,6 @@ extension FirestoreDBManager: DatabaseManager {
         // Initialize game array
         var gameArray: [[String: Any]] = [[String: Any]]()
         
-        // Get all the women players
         self.referenceForUserPublicData(.games).collection(FirebaseKeys.CollectionPath.games).getDocuments { (snapshot, error) in
             if error != nil {
                 // Show error message
@@ -210,6 +213,7 @@ extension FirestoreDBManager: DatabaseManager {
                 FirebaseKeys.CollectionPath.games: gameArray
             ]
             
+            // Send retrieved data to delegate
             self.getDataDelegate?.onSuccessfulGet(newData)
         }
     }

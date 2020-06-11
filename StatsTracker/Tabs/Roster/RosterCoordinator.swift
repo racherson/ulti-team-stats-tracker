@@ -14,7 +14,7 @@ class RosterCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var rootVC: RosterViewController!
-    var authManager: AuthenticationManager = FirebaseAuthManager()
+    let authManager: AuthenticationManager = FirebaseAuthManager()
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -33,6 +33,10 @@ class RosterCoordinator: Coordinator {
         rootVC = vc
         
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func reloadRoster() {
+        rootVC.presenter.setGenderArrays()
     }
 }
 

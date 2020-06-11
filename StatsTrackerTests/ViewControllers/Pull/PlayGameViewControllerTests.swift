@@ -13,9 +13,10 @@ class PlayGameViewControllerTests: XCTestCase {
     
     var sut: PlayGameViewController!
     var presenter: PlayGamePresenterSpy!
-    let selectedSection = 0
-    let womenSection = Gender.women.rawValue + 1
-    let menSection = Gender.men.rawValue + 1
+    
+    private let selectedSection = 0
+    private let womenSection = Gender.women.rawValue + 1
+    private let menSection = Gender.men.rawValue + 1
     
     override func setUp() {
         sut = PlayGameViewController.instantiate(.pull)

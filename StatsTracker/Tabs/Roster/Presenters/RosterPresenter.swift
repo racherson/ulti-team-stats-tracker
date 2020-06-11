@@ -46,11 +46,6 @@ class RosterPresenter: Presenter {
         vc.present(alertController, animated: true, completion: nil)
     }
     
-    private func setGenderArrays() {
-        // Get models from db, delegate function sets array
-        dbManager.getData(collection: .roster)
-    }
-    
     private func getViewModel(model: PlayerModel) -> PlayerViewModel {
         return PlayerViewModel(model: model)
     }
@@ -75,6 +70,11 @@ class RosterPresenter: Presenter {
 
 //MARK: RosterPresenterProtocol
 extension RosterPresenter: RosterPresenterProtocol {
+    
+    func setGenderArrays() {
+        // Get models from db, delegate function sets array
+        dbManager.getData(collection: .roster)
+    }
     
     func numberOfPlayersInSection(_ section: Int) -> Int {
         if section < 0 || section >= playerModels.count {
@@ -143,12 +143,10 @@ extension RosterPresenter: DatabaseManagerGetDataDelegate {
     func onSuccessfulGet(_ data: [String : Any]) {
         // Pull woman and man arrays out of the data retrieved
         guard let womenDataArray = data[FirebaseKeys.CollectionPath.women] as? [[String: Any]] else {
-            self.showErrorAlert(error: Constants.Errors.documentError)
-            return
+            self.showErrorAlert(error: Constants.Errors.documentError); return
         }
         guard let menDataArray = data[FirebaseKeys.CollectionPath.men] as? [[String: Any]] else {
-            self.showErrorAlert(error: Constants.Errors.documentError)
-            return
+            self.showErrorAlert(error: Constants.Errors.documentError); return
         }
         
         // Initialize the new arrays of player models
@@ -168,6 +166,7 @@ extension RosterPresenter: DatabaseManagerGetDataDelegate {
         }
 
         playerModels = [womenArray, menArray]
+        vc.updateView()
     }
 }
 
