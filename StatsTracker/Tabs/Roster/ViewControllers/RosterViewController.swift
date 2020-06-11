@@ -46,7 +46,9 @@ class RosterViewController: UIViewController, Storyboarded {
     }
     
     func updateView() {
-        tableView.reloadData()
+        if tableView != nil {
+            tableView.reloadData()
+        }
     }
     
     //MARK: Actions
