@@ -13,13 +13,13 @@ import ViewControllerPresentationSpy
 class GamesPresenterTests: XCTestCase {
     
     var sut: GamesPresenter!
-    var vc: GamesViewController!
+    var vc: GamesViewControllerSpy!
     var dbManager: MockDBManager!
     
     var goToGamePageCalled: Int = 0
     
     override func setUp() {
-        vc = GamesViewController.instantiate(.games)
+        vc = GamesViewControllerSpy()
         dbManager = MockDBManager()
         sut = GamesPresenter(vc: vc, delegate: self, dbManager: dbManager)
         vc.presenter = sut
@@ -41,203 +41,20 @@ class GamesPresenterTests: XCTestCase {
         XCTAssertEqual(vc.navigationItem.title, Constants.Titles.gamesTitle)
     }
     
-    func testSetTournamentArrays() throws {
+    func testSetViewModel() throws {
         // Given sut init, then
         XCTAssertEqual(1, dbManager.getDataCalled)
-    }
-    
-    func testNumberOfTournaments() throws {
-        // Given
-        sut.tournamentModels = [[GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)]]
-        // When
-        let result = sut.numberOfTournaments()
-        // Then
-        XCTAssertEqual(1, result)
-    }
-    
-    func testNumberOfPlayersInSection_EmptySection() throws {
-        // Given
-        let array1: [GameDataModel] = []
-        let array2: [GameDataModel] = []
-        // When
-        sut.tournamentModels = [array1, array2]
-        // Then
-        XCTAssertEqual(array1.count, sut.numberOfGamesInSection(0))
-        XCTAssertEqual(array2.count, sut.numberOfGamesInSection(1))
-    }
-    
-    func testNumberOfPlayersInSection_NonEmptySection() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty), GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)]
-        // When
-        sut.tournamentModels = [tournament1, tournament2]
-        // Then
-        XCTAssertEqual(tournament1.count, sut.numberOfGamesInSection(0))
-        XCTAssertEqual(tournament2.count, sut.numberOfGamesInSection(1))
-    }
-    
-    func testNumberOfPlayersInSection_OutOfBounds() throws {
-        // Given
-        let array1: [GameDataModel] = []
-        let array2: [GameDataModel] = []
-        let sectionGreaterThan = 2
-        let sectionLessThan = -1
-        // When
-        sut.tournamentModels = [array1, array2]
-        // Then
-        XCTAssertEqual(Constants.Empty.int, sut.numberOfGamesInSection(sectionGreaterThan))
-        XCTAssertEqual(Constants.Empty.int, sut.numberOfGamesInSection(sectionGreaterThan))
-        XCTAssertEqual(Constants.Empty.int, sut.numberOfGamesInSection(sectionLessThan))
-        XCTAssertEqual(Constants.Empty.int, sut.numberOfGamesInSection(sectionLessThan))
-    }
-    
-    func testGetGameOpponent() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: "Opponent1")]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: "Opponent2")]
-        sut.tournamentModels = [tournament1, tournament2]
-        // When
-        let indexPath1 = IndexPath(row: 0, section: 0)
-        let indexPath2 = IndexPath(row: 0, section: 1)
-        let opponent1Name = sut.getGameOpponent(at: indexPath1)
-        let opponent2Name = sut.getGameOpponent(at: indexPath2)
-        // Then
-        XCTAssertEqual("Opponent1", opponent1Name)
-        XCTAssertEqual("Opponent2", opponent2Name)
-    }
-    
-    func testGetGameOpponent_SectionOutOfBounds() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: "Opponent1")]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: "Opponent2")]
-        sut.tournamentModels = [tournament1, tournament2]
-        // When
-        let indexPath1 = IndexPath(row: 0, section: -1)
-        let indexPath2 = IndexPath(row: 0, section: 2)
-        let opponent1Name = sut.getGameOpponent(at: indexPath1)
-        let opponent2Name = sut.getGameOpponent(at: indexPath2)
-        // Then
-        XCTAssertEqual(TestConstants.empty, opponent1Name)
-        XCTAssertEqual(TestConstants.empty, opponent2Name)
-    }
-    
-    func testGetGameOpponent_RowOutOfBounds() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: "Opponent1")]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: "Opponent2")]
-        sut.tournamentModels = [tournament1, tournament2]
-        // When
-        let indexPath1 = IndexPath(row: -1, section: 0)
-        let indexPath2 = IndexPath(row: 2, section: 1)
-        let opponent1Name = sut.getGameOpponent(at: indexPath1)
-        let opponent2Name = sut.getGameOpponent(at: indexPath2)
-        // Then
-        XCTAssertEqual(TestConstants.empty, opponent1Name)
-        XCTAssertEqual(TestConstants.empty, opponent2Name)
-    }
-    
-    func testGetTournament() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: "Tournament1", opponent: TestConstants.empty)]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: "Tournament2", opponent: TestConstants.empty)]
-        sut.tournamentModels = [tournament1, tournament2]
-        // When
-        let indexPath1 = IndexPath(row: 0, section: 0)
-        let indexPath2 = IndexPath(row: 0, section: 1)
-        let tourney1Name = sut.getTournament(at: indexPath1)
-        let tourney2Name = sut.getTournament(at: indexPath2)
-        // Then
-        XCTAssertEqual("Tournament1", tourney1Name)
-        XCTAssertEqual("Tournament2", tourney2Name)
-    }
-    
-    func testGetTournament_SectionOutOfBounds() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: "Tournament1", opponent: TestConstants.empty)]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: "Tournament2", opponent: TestConstants.empty)]
-        sut.tournamentModels = [tournament1, tournament2]
-        // When
-        let indexPath1 = IndexPath(row: 0, section: -1)
-        let indexPath2 = IndexPath(row: 0, section: 2)
-        let tourney1Name = sut.getGameOpponent(at: indexPath1)
-        let tourney2Name = sut.getGameOpponent(at: indexPath2)
-        // Then
-        XCTAssertEqual(TestConstants.empty, tourney1Name)
-        XCTAssertEqual(TestConstants.empty, tourney2Name)
-    }
-    
-    func testGetTournament_RowOutOfBounds() throws {
-        // Given
-        let tournament1: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: "Tournament1", opponent: TestConstants.empty)]
-        let tournament2: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: "Tournament2", opponent: TestConstants.empty)]
-        sut.tournamentModels = [tournament1, tournament2]
-        // When
-        let indexPath1 = IndexPath(row: -1, section: 0)
-        let indexPath2 = IndexPath(row: 2, section: 1)
-        let tourney1Name = sut.getGameOpponent(at: indexPath1)
-        let tourney2Name = sut.getGameOpponent(at: indexPath2)
-        // Then
-        XCTAssertEqual(TestConstants.empty, tourney1Name)
-        XCTAssertEqual(TestConstants.empty, tourney2Name)
     }
     
     func testGoToGamePage() throws {
         XCTAssertEqual(0, goToGamePageCalled)
         // Given
-        let tournament: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)]
-        sut.tournamentModels = [tournament]
+        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let viewModel = GameViewModel(model: model)
         // When
-        let indexPath = IndexPath(row: 0, section: 0)
-        sut.goToGamePage(at: indexPath)
+        sut.goToGamePage(viewModel: viewModel)
         // Then
         XCTAssertEqual(1, goToGamePageCalled)
-    }
-    
-    func testGoToPlayerPage_RowOutOfBounds() throws {
-        let alertVerifier = AlertVerifier()
-        
-        XCTAssertEqual(0, goToGamePageCalled)
-        // Given
-        let error = CustomError.outOfBounds
-        let tournament: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)]
-        sut.tournamentModels = [tournament]
-        // When
-        let indexPath = IndexPath(row: 1, section: 0)
-        sut.goToGamePage(at: indexPath)
-        // Then
-        alertVerifier.verify(
-            title: Constants.Errors.documentErrorTitle,
-            message: error.localizedDescription,
-            animated: true,
-            actions: [
-                .default(TestConstants.Alerts.dismiss)
-            ],
-            presentingViewController: vc
-        )
-    }
-    
-    func testGoToPlayerPage_SectionOutOfBounds() throws {
-        let alertVerifier = AlertVerifier()
-        
-        XCTAssertEqual(0, goToGamePageCalled)
-        // Given
-        let error = CustomError.outOfBounds
-        let tournament: [GameDataModel] = [GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)]
-        sut.tournamentModels = [tournament]
-        // When
-        let indexPath = IndexPath(row: 0, section: -1)
-        sut.goToGamePage(at: indexPath)
-        // Then
-        alertVerifier.verify(
-            title: Constants.Errors.documentErrorTitle,
-            message: error.localizedDescription,
-            animated: true,
-            actions: [
-                .default(TestConstants.Alerts.dismiss)
-            ],
-            presentingViewController: vc
-        )
     }
     
     func testDisplayDBError() throws {
@@ -261,7 +78,7 @@ class GamesPresenterTests: XCTestCase {
     
     func testDisplayUnknownError() throws {
         let alertVerifier = AlertVerifier()
-        XCTAssertNil(sut.tournamentModels)
+        XCTAssertNil(vc.viewModel)
         
         // Given
         let unknownError = TestConstants.error
@@ -277,26 +94,29 @@ class GamesPresenterTests: XCTestCase {
             ],
             presentingViewController: vc
         )
-        XCTAssertNotNil(sut.tournamentModels)
+        XCTAssertNotNil(vc.viewModel)
     }
     
     func testOnSuccessfulGet_GameDataModelSuccess() throws {
+        XCTAssertEqual(0, vc.updateViewCalled)
         // Given
-        sut.tournamentModels = []
-        let tourneyModel = GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)
+        vc.viewModel = nil
+        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
         let data = [
-            FirebaseKeys.CollectionPath.games: [tourneyModel.dictionary]
+            FirebaseKeys.CollectionPath.games: [model.dictionary]
         ]
         // When
         sut.onSuccessfulGet(data)
         // Then
-        XCTAssertEqual(1, sut.tournamentModels[0].count)
-        XCTAssertEqual(tourneyModel.tournament, sut.tournamentModels[0][0].tournament)
+        XCTAssertEqual(1, vc.updateViewCalled)
+        XCTAssertEqual(1, vc.viewModel.items[0].count)
+        XCTAssertEqual(model.opponent, vc.viewModel.items[0][0].opponent)
+        XCTAssertEqual(model.tournament, vc.viewModel.items[0][0].tournament)
     }
     
     func testOnSuccessfulGet_GameDataModelFailure() throws {
+        XCTAssertEqual(0, vc.updateViewCalled)
         // Given
-        sut.tournamentModels = [[]]
         let gameDictionary = ["": ""]
         let data = [
             FirebaseKeys.CollectionPath.games: [gameDictionary]
@@ -304,7 +124,8 @@ class GamesPresenterTests: XCTestCase {
         // When
         sut.onSuccessfulGet(data)
         // Then
-        XCTAssertEqual(0, sut.tournamentModels.count)
+        XCTAssertEqual(0, vc.viewModel.items.count)
+        XCTAssertEqual(1, vc.updateViewCalled)
     }
 }
 
@@ -315,11 +136,12 @@ extension GamesPresenterTests: GamesPresenterDelegate {
     }
 }
 
-//MARK: GamesViewController
+//MARK: GamesViewControllerSpy
 class GamesViewControllerSpy: GamesViewController {
     var updateViewCalled: Int = 0
     
-    override func updateView() {
+    override func updateWithViewModel(vm: GamesCellViewModel) {
         updateViewCalled += 1
+        viewModel = vm
     }
 }

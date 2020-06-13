@@ -36,7 +36,7 @@ class GamesCoordinator: Coordinator {
     }
     
     func reloadGames() {
-        rootVC.presenter.setTournamentArrays()
+        rootVC.presenter.setViewModel()
     }
 }
 

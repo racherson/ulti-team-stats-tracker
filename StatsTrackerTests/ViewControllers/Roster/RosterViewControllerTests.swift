@@ -27,6 +27,7 @@ class RosterViewControllerTests: XCTestCase {
     override func tearDown() {
         sut = nil
         presenter = nil
+        viewModel = nil
         super.tearDown()
     }
     
@@ -109,6 +110,6 @@ class RosterCellViewModelSpy: RosterCellViewModel {
 extension RosterViewControllerTests: RosterCellViewModelDelegate {
     func goToPlayerPage(viewModel: PlayerViewModel) { }
     func deletePlayer(_ player: PlayerModel) { }
-    func  updateView() { }
+    func updateView() { }
     func displayError(with: Error) { }
 }

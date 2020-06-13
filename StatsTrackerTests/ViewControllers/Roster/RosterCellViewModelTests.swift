@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import ViewControllerPresentationSpy
 @testable import StatsTracker
 
 class RosterCellViewModelTests: XCTestCase {
@@ -195,8 +194,8 @@ class RosterCellViewModelTests: XCTestCase {
     }
 }
 
+//MARK: RosterCellViewModelDelegate
 extension RosterCellViewModelTests: RosterCellViewModelDelegate {
-    
     func deletePlayer(_ player: PlayerModel) {
         deletePlayerCalled += 1
     }

@@ -17,7 +17,8 @@ class RosterPresenterTests: XCTestCase {
     var dbManager: MockDBManager!
     
     var addPressedCount: Int = 0
-    var playerPageCount: Int = 0
+    var goToPlayerPageCount: Int = 0
+    
     var vmName: String?
     var vmGender: Gender?
     
@@ -50,14 +51,14 @@ class RosterPresenterTests: XCTestCase {
     }
     
     func testGoToPlayerPage() throws {
-        XCTAssertEqual(0, playerPageCount)
+        XCTAssertEqual(0, goToPlayerPageCount)
         // Given
         let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         let viewModel = PlayerViewModel(model: model)
         // When
         sut.goToPlayerPage(viewModel: viewModel)
         // Then
-        XCTAssertEqual(1, playerPageCount)
+        XCTAssertEqual(1, goToPlayerPageCount)
     }
     
     func testAddPressed() throws {
@@ -160,7 +161,7 @@ extension RosterPresenterTests: RosterPresenterDelegate {
     }
     
     func goToPlayerPage(viewModel: PlayerViewModel) {
-        playerPageCount += 1
+        goToPlayerPageCount += 1
         vmName = viewModel.name
         vmGender = viewModel.gender
     }

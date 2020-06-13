@@ -9,18 +9,14 @@
 import UIKit
 
 protocol GamesPresenterProtocol where Self: Presenter {
-    func setTournamentArrays()
-    func numberOfTournaments() -> Int
-    func numberOfGamesInSection(_ section: Int) -> Int
-    func getGameOpponent(at indexPath: IndexPath) -> String
-    func getTournament(at indexPath: IndexPath) -> String
-    func goToGamePage(at indexPath: IndexPath)
+    func setViewModel()
 }
 
 class GamesViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: GamesPresenterProtocol!
+    var viewModel: GamesCellViewModel!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -32,12 +28,20 @@ class GamesViewController: UIViewController, Storyboarded {
         
         // Connect tableView to the View Controller
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = viewModel
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.onViewWillAppear()
+    }
+    
+    func updateWithViewModel(vm: GamesCellViewModel) {
+        viewModel = vm
+        if tableView != nil {
+            tableView.dataSource = vm
+        }
+        updateView()
     }
     
     func updateView() {
@@ -47,39 +51,11 @@ class GamesViewController: UIViewController, Storyboarded {
     }
 }
 
-// MARK: UITableViewDelegate, UITableViewDataSource
-extension GamesViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter.numberOfTournaments()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfGamesInSection(section)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "GamesTableViewCell"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GamesTableViewCell else {
-            fatalError(Constants.Errors.dequeueError(cellIdentifier))
-        }
-        
-        // Configure the cell
-        cell.textLabel?.text = presenter.getGameOpponent(at: indexPath)
-        return cell
-    }
+// MARK: UITableViewDelegate
+extension GamesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        presenter.goToGamePage(at: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if self.tableView(tableView, numberOfRowsInSection: section) > 0 {
-            // Get the tournament of the first cell
-            return presenter.getTournament(at: IndexPath(row: 0, section: section))
-        }
-        return nil
+        viewModel.goToGamePage(at: indexPath)
     }
 }
