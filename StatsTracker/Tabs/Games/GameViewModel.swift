@@ -25,5 +25,13 @@ struct GameViewModel {
         return String(model.finalScore.team) + "-" + String(model.finalScore.opponent)
     }
     
+    var win: Bool {
+        return model.finalScore.team > model.finalScore.opponent ? true : false
+    }
+    
     // TODO: more computed stats
+    
+    // Breaks (upwind/downwind)
+    // Break percentage
+    // Offensive efficiency
 }

@@ -41,13 +41,13 @@ class RosterCoordinatorTests: XCTestCase {
         // Given
         let vc = RosterViewController()
         let presenter = MockRosterPresenter()
-        XCTAssertEqual(0, presenter.setArraysCalled)
+        XCTAssertEqual(0, presenter.setViewModelCalled)
         vc.presenter = presenter
         rosterCoordinator.rootVC = vc
         // When
         rosterCoordinator.reloadRoster()
         // Then
-        XCTAssertEqual(1, presenter.setArraysCalled)
+        XCTAssertEqual(1, presenter.setViewModelCalled)
     }
     
     func testAddPressed() throws {
@@ -84,33 +84,33 @@ class RosterCoordinatorTests: XCTestCase {
         // Given
         let model = PlayerModel(name: "", gender: 0, id: "", roles: [])
         let vc = RosterViewController()
-        let presenter = MockRosterPresenter()
-        XCTAssertEqual(0, presenter.addPlayerCalled)
-        vc.presenter = presenter
+        vc.viewModel = RosterCellViewModelSpy(playerArray: [[], []], delegate: self)
         rosterCoordinator.rootVC = vc
         // When
         rosterCoordinator.savePressed(player: model)
         // Then
         XCTAssertEqual(1, navigationController.dismissCallCount)
-        XCTAssertEqual(1, presenter.addPlayerCalled)
     }
+}
+
+//MARK: RosterCellViewModelDelegate
+extension RosterCoordinatorTests: RosterCellViewModelDelegate {
+    func goToPlayerPage(viewModel: PlayerViewModel) { }
+    func deletePlayer(_ player: PlayerModel) { }
+    func updateView() { }
+    func displayError(with: Error) { }
 }
 
 //MARK: MockRosterPresenter
 class MockRosterPresenter: RosterPresenterProtocol {
-    var addPlayerCalled: Int = 0
-    var setArraysCalled: Int = 0
     
-    func setGenderArrays() {
-        setArraysCalled += 1
+    var setViewModelCalled: Int = 0
+    
+    func onViewWillAppear() { }
+    
+    func setViewModel() {
+        setViewModelCalled += 1
     }
-    func onViewWillAppear() {}
-    func addPressed() {}
-    func addPlayer(_ player: PlayerModel) {
-        addPlayerCalled += 1
-    }
-    func deletePlayer(at indexPath: IndexPath) {}
-    func goToPlayerPage(at indexPath: IndexPath) {}
-    func numberOfPlayersInSection(_ section: Int) -> Int { return 0 }
-    func getPlayerName(at indexPath: IndexPath) -> String { return "" }
+    
+    func addPressed() { }
 }

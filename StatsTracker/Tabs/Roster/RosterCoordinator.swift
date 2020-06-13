@@ -36,7 +36,7 @@ class RosterCoordinator: Coordinator {
     }
     
     func reloadRoster() {
-        rootVC.presenter.setGenderArrays()
+        rootVC.presenter.setViewModel()
     }
 }
 
@@ -63,7 +63,7 @@ extension RosterCoordinator: NewPlayerPresenterDelegate {
     }
     
     func savePressed(player: PlayerModel) {
-        rootVC.presenter.addPlayer(player)
+        rootVC.viewModel.addPlayer(player)
         navigationController.dismiss(animated: true, completion: nil)
     }
 }

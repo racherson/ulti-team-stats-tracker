@@ -13,11 +13,13 @@ class RosterViewControllerTests: XCTestCase {
     
     var sut: RosterViewController!
     var presenter: RosterPresenterSpy!
+    var viewModel: RosterCellViewModelSpy?
     
     override func setUp() {
         sut = RosterViewController.instantiate(.roster)
         let _ = sut.view
         presenter = RosterPresenterSpy()
+        viewModel = nil
         sut.presenter = presenter
         super.setUp()
     }
@@ -34,6 +36,16 @@ class RosterViewControllerTests: XCTestCase {
         sut.viewWillAppear(false)
         // Then
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
+    }
+    
+    func testUpdateWithViewModel() throws {
+        XCTAssertNil(sut.viewModel)
+        // Given
+        let vm = RosterCellViewModelSpy(playerArray: [[], []], delegate: self)
+        // When
+        sut.updateWithViewModel(vm: vm)
+        // Then
+        XCTAssertNotNil(sut.viewModel)
     }
     
     func testUpdateView() throws {
@@ -54,59 +66,16 @@ class RosterViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.addPressedCount)
     }
     
-    func testNumberOfRowsInSection() throws {
-        XCTAssertEqual(0, presenter.numberOfPlayersInSectionCalled)
-        // When
-        let _ = sut.tableView(UITableView(), numberOfRowsInSection: 0)
-        // Then
-        XCTAssertEqual(1, presenter.numberOfPlayersInSectionCalled)
-    }
-    
-    func testTitleForHeaderInSection() throws {
-        // Given
-        let tableView = TableViewSpy()
-        sut.tableView = tableView
-        // When
-        let womenTitle = sut.tableView(sut.tableView, titleForHeaderInSection: Gender.women.rawValue)
-        let menTitle = sut.tableView(sut.tableView, titleForHeaderInSection: Gender.men.rawValue)
-        let emptyTitle = sut.tableView(sut.tableView, titleForHeaderInSection: 2)
-        // Then
-        XCTAssertEqual(Gender.women.description, womenTitle)
-        XCTAssertEqual(Gender.men.description, menTitle)
-        XCTAssertNil(emptyTitle)
-    }
-    
-    func testConfigureTableViewCell() {
-        XCTAssertEqual(0, presenter.getPlayerNameCalled)
-        // Given
-        let tableView = sut.tableView
-        // When
-        let indexPath = IndexPath(row: 0, section: 0)
-        let cell = sut.tableView(tableView!, cellForRowAt: indexPath)
-            as! RosterTableViewCell
-        // Then
-        XCTAssertEqual(TestConstants.playerName, cell.textLabel?.text)
-        XCTAssertEqual(1, presenter.getPlayerNameCalled)
-    }
-    
     func testDidSelectRow() throws {
-        XCTAssertEqual(0, presenter.goToPlayerPageCount)
+        viewModel = RosterCellViewModelSpy(playerArray: [[], []], delegate: self)
+        sut.viewModel = viewModel
+        XCTAssertEqual(0, viewModel?.goToPlayerPageCalled)
         // Given
         let indexPath = IndexPath(row: 0, section: 0)
         // When
         sut.tableView(sut.tableView, didSelectRowAt: indexPath)
         // Then
-        XCTAssertEqual(1, presenter.goToPlayerPageCount)
-    }
-    
-    func testEditCell_Delete() throws {
-        XCTAssertEqual(0, presenter.deletePlayerCount)
-        // Given
-        let indexPath = IndexPath(row: 0, section: 0)
-        // When
-        sut.tableView(sut.tableView, commit: .delete, forRowAt: indexPath)
-        // Then
-        XCTAssertEqual(1, presenter.deletePlayerCount)
+        XCTAssertEqual(1, viewModel?.goToPlayerPageCalled)
     }
 }
 
@@ -115,13 +84,6 @@ class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
     
     var viewWillAppearCalled: Int = 0
     var addPressedCount: Int = 0
-    var addPlayerCount: Int = 0
-    var deletePlayerCount: Int = 0
-    var goToPlayerPageCount: Int = 0
-    var numberOfPlayersInSectionCalled: Int = 0
-    var getPlayerNameCalled: Int = 0
-    
-    func setGenderArrays() { }
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
@@ -131,25 +93,22 @@ class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
         addPressedCount += 1
     }
     
-    func addPlayer(_ player: PlayerModel) {
-        addPlayerCount += 1
-    }
+    func setViewModel() { }
+}
+
+//MARK: RosterCellViewModelSpy
+class RosterCellViewModelSpy: RosterCellViewModel {
+    var goToPlayerPageCalled: Int = 0
     
-    func deletePlayer(at indexPath: IndexPath) {
-        deletePlayerCount += 1
+    override func goToPlayerPage(at indexPath: IndexPath) {
+        goToPlayerPageCalled += 1
     }
-    
-    func goToPlayerPage(at indexPath: IndexPath) {
-        goToPlayerPageCount += 1
-    }
-    
-    func numberOfPlayersInSection(_ section: Int) -> Int {
-        numberOfPlayersInSectionCalled += 1
-        return 1
-    }
-    
-    func getPlayerName(at indexPath: IndexPath) -> String {
-        getPlayerNameCalled += 1
-        return TestConstants.playerName
-    }
+}
+
+//MARK: RosterCellViewModelDelegate
+extension RosterViewControllerTests: RosterCellViewModelDelegate {
+    func goToPlayerPage(viewModel: PlayerViewModel) { }
+    func deletePlayer(_ player: PlayerModel) { }
+    func  updateView() { }
+    func displayError(with: Error) { }
 }

@@ -10,6 +10,12 @@ import UIKit
 
 class RosterTableViewCell: UITableViewCell {
 
+    var item: PlayerViewModel? {
+       didSet {
+        textLabel?.text = item?.model.name
+       }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         accessoryType = .disclosureIndicator
@@ -18,5 +24,4 @@ class RosterTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }
