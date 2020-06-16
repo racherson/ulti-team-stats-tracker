@@ -332,6 +332,33 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		290927AC24994A2F001A2275 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		290927AD24994A46001A2275 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				29A279BD2462162E00C91FDF /* PlayerViewModel.swift */,
+				29E8FCE024723D5E00DA5138 /* RolesCellViewModel.swift */,
+				29547CBD2492B58800EF6FC4 /* RosterCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		290927AE24994A79001A2275 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				290973A62490885D00844F29 /* GameViewModel.swift */,
+				29AE86DC24958F0C00C02D29 /* GamesCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		2910EB55243FA4C100BCF721 = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +407,7 @@
 				29E6C6A124590CD400E41586 /* Coordinators */,
 				299D32E62459170A009A7E37 /* Presenters */,
 				295108F1246C663E0083F7EC /* ViewControllers */,
+				29E6C7D024994B3800E4501E /* ViewModels */,
 				2910EB7A243FA4C100BCF721 /* Info.plist */,
 			);
 			path = StatsTrackerTests;
@@ -412,11 +440,9 @@
 			children = (
 				2901C05124608F0100635299 /* Presenters */,
 				2901C05024608EF000635299 /* ViewControllers */,
+				290927AD24994A46001A2275 /* ViewModels */,
 				2910EB67243FA4C100BCF721 /* Roster.storyboard */,
 				2910EB87243FA56A00BCF721 /* RosterCoordinator.swift */,
-				29A279BD2462162E00C91FDF /* PlayerViewModel.swift */,
-				29E8FCE024723D5E00DA5138 /* RolesCellViewModel.swift */,
-				29547CBD2492B58800EF6FC4 /* RosterCellViewModel.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -638,7 +664,6 @@
 			children = (
 				29A1261B246DDA2D00581D30 /* GamesViewControllerTests.swift */,
 				2915A0422491D51A0072A414 /* GameDetailViewControllerTests.swift */,
-				29AE86DE2495901F00C02D29 /* GamesCellViewModelTests.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -705,9 +730,9 @@
 			children = (
 				297EB59124536FA6008DE8C6 /* Presenters */,
 				297EB59024536F90008DE8C6 /* ViewControllers */,
+				290927AC24994A2F001A2275 /* ViewModels */,
 				29AD5201243FE38F0094DCDE /* TeamProfile.storyboard */,
 				29AD51FF243FE35E0094DCDE /* TeamProfileCoordinator.swift */,
-				2989B7C8244906A90072FB34 /* TeamProfileViewModel.swift */,
 			);
 			path = TeamProfile;
 			sourceTree = "<group>";
@@ -717,10 +742,9 @@
 			children = (
 				29A1261E246DDA6E00581D30 /* Presenters */,
 				29A1261D246DDA6800581D30 /* ViewControllers */,
+				290927AE24994A79001A2275 /* ViewModels */,
 				29AD5205243FE7110094DCDE /* Games.storyboard */,
 				29AD5207243FE71D0094DCDE /* GamesCoordinator.swift */,
-				290973A62490885D00844F29 /* GameViewModel.swift */,
-				29AE86DC24958F0C00C02D29 /* GamesCellViewModel.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -732,8 +756,6 @@
 				29C29D21246C983E00CDBEBB /* NewPlayerViewControllerTests.swift */,
 				29C29D23246C9C5E00CDBEBB /* PlayerDetailViewControllerTests.swift */,
 				29CAB5CA24726A28006A1026 /* RolesTableViewCellTests.swift */,
-				294296862474B981009B0C9C /* RolesCellViewModelTests.swift */,
-				29547CBF2492CC3A00EF6FC4 /* RosterCellViewModelTests.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -784,6 +806,16 @@
 				299D32E4245916E7009A7E37 /* GamesCoordinatorTests.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		29E6C7D024994B3800E4501E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				294296862474B981009B0C9C /* RolesCellViewModelTests.swift */,
+				29547CBF2492CC3A00EF6FC4 /* RosterCellViewModelTests.swift */,
+				29AE86DE2495901F00C02D29 /* GamesCellViewModelTests.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		2A82467B46EBE53FA0A9B8B7 /* Pods */ = {
