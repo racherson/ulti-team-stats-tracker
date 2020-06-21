@@ -42,8 +42,8 @@ class PullCoordinator: Coordinator {
 //MARK: PullPresenterDelegate
 extension PullCoordinator: PullPresenterDelegate {
     func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
-        let vc = PlayGameViewController.instantiate(.pull)
-        let presenter = PlayGamePresenter(vc: vc, delegate: self, gameModel: gameModel, dbManager: FirestoreDBManager(authManager.currentUserUID))
+        let vc = CallLineViewController.instantiate(.pull)
+        let presenter = CallLinePresenter(vc: vc, delegate: self, gameModel: gameModel, dbManager: FirestoreDBManager(authManager.currentUserUID))
         presenter.currentPointWind = wind
         presenter.currentPointType = point
         vc.presenter = presenter
@@ -54,8 +54,8 @@ extension PullCoordinator: PullPresenterDelegate {
     }
 }
 
-//MARK: PlayGamePresenterDelegate
-extension PullCoordinator: PlayGamePresenterDelegate {
+//MARK: CallLinePresenterDelegate
+extension PullCoordinator: CallLinePresenterDelegate {
     func endGame() {
         navigationController.dismiss(animated: true, completion: nil)
         delegate?.reloadGames()

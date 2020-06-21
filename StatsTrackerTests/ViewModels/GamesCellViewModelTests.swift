@@ -31,6 +31,11 @@ class GamesCellViewModelTests: XCTestCase {
         super.tearDown()
     }
     
+    func testInit() throws {
+        XCTAssertEqual(1, sut.items.count)
+        XCTAssertEqual(1, sut.items[0].count)
+    }
+    
     func testGoToGamePage() throws {
         XCTAssertEqual(0, goToGamePageCalled)
         // When

@@ -109,9 +109,6 @@ class GamesPresenterTests: XCTestCase {
         sut.onSuccessfulGet(data)
         // Then
         XCTAssertEqual(1, vc.updateViewCalled)
-        XCTAssertEqual(1, vc.viewModel.items[0].count)
-        XCTAssertEqual(model.opponent, vc.viewModel.items[0][0].opponent)
-        XCTAssertEqual(model.tournament, vc.viewModel.items[0][0].tournament)
     }
     
     func testOnSuccessfulGet_GameDataModelFailure() throws {
@@ -124,7 +121,6 @@ class GamesPresenterTests: XCTestCase {
         // When
         sut.onSuccessfulGet(data)
         // Then
-        XCTAssertEqual(0, vc.viewModel.items.count)
         XCTAssertEqual(1, vc.updateViewCalled)
     }
 }
@@ -140,7 +136,7 @@ extension GamesPresenterTests: GamesPresenterDelegate {
 class GamesViewControllerSpy: GamesViewController {
     var updateViewCalled: Int = 0
     
-    override func updateWithViewModel(vm: GamesCellViewModel) {
+    override func updateWithViewModel(vm: GamesCellViewModelProtocol) {
         updateViewCalled += 1
         viewModel = vm
     }

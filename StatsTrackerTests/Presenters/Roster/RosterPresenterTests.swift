@@ -131,10 +131,6 @@ class RosterPresenterTests: XCTestCase {
         sut.onSuccessfulGet(data)
         // Then
         XCTAssertEqual(1, vc.updateViewCalled)
-        XCTAssertEqual(1, vc.viewModel.items[Gender.women.rawValue].count)
-        XCTAssertEqual(1, vc.viewModel.items[Gender.men.rawValue].count)
-        XCTAssertEqual(womanModel.name, vc.viewModel.items[Gender.women.rawValue][0].name)
-        XCTAssertEqual(manModel.name, vc.viewModel.items[Gender.men.rawValue][0].name)
     }
     
     func testOnSuccessfulGet_PlayerModelFailure() throws {
@@ -148,8 +144,6 @@ class RosterPresenterTests: XCTestCase {
         // When
         sut.onSuccessfulGet(data)
         // Then
-        XCTAssertEqual(0, vc.viewModel.items[Gender.women.rawValue].count)
-        XCTAssertEqual(0, vc.viewModel.items[Gender.men.rawValue].count)
         XCTAssertEqual(1, vc.updateViewCalled)
     }
 }
@@ -171,7 +165,7 @@ extension RosterPresenterTests: RosterPresenterDelegate {
 class RosterViewControllerSpy: RosterViewController {
     var updateViewCalled: Int = 0
     
-    override func updateWithViewModel(vm: RosterCellViewModel) {
+    override func updateWithViewModel(vm: RosterCellViewModelProtocol) {
         updateViewCalled += 1
         viewModel = vm
     }

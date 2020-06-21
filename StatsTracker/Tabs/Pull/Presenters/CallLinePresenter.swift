@@ -1,5 +1,5 @@
 //
-//  PlayGamePresenter.swift
+//  CallLinePresenter.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 5/17/20.
@@ -8,25 +8,22 @@
 
 import UIKit
 
-protocol PlayGamePresenterDelegate: AnyObject {
+protocol CallLinePresenterDelegate: AnyObject {
     func endGame()
 }
 
-class PlayGamePresenter: Presenter {
+class CallLinePresenter: Presenter {
     
     //MARK: Properties
-    weak var delegate: PlayGamePresenterDelegate?
-    weak var vc: PlayGameViewController!
+    weak var delegate: CallLinePresenterDelegate?
+    weak var vc: CallLineViewController!
     var gameModel: GameDataModel
     var dbManager: DatabaseManager
-    var playerModels: [[PlayerModel]]?
     var currentPointWind: WindDirection!
     var currentPointType: PointType!
     
-    private let selectedPlayerSection = 0
-    
     //MARK: Initialization
-    init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, gameModel: GameDataModel, dbManager: DatabaseManager) {
+    init(vc: CallLineViewController, delegate: CallLinePresenterDelegate?, gameModel: GameDataModel, dbManager: DatabaseManager) {
         self.vc = vc
         self.delegate = delegate
         self.gameModel = gameModel
@@ -34,7 +31,7 @@ class PlayGamePresenter: Presenter {
         self.dbManager.getDataDelegate = self
         self.dbManager.setDataDelegate = self
         
-        fetchRoster()
+        setViewModel()
     }
     
     func onViewWillAppear() {
@@ -51,39 +48,9 @@ class PlayGamePresenter: Presenter {
         vc.present(alertController, animated: true, completion: nil)
     }
     
-    private func fetchRoster() {
+    private func setViewModel() {
         // Get models from db, delegate function sets array
         dbManager.getData(collection: .roster)
-    }
-    
-    private func checkValidIndexPath(_ indexPath: IndexPath) -> Bool {
-        let section = indexPath.section
-        let row = indexPath.row
-        
-        guard let playerModels = playerModels else {
-            // playerModels is nil
-            return false
-        }
-        
-        // Check if section in bounds
-        if section < 0 || section >= playerModels.count {
-            return false
-        }
-        
-        // Check if row in bounds given the section
-        if row < 0 || row >= playerModels[section].count {
-            return false
-        }
-        
-        return true
-    }
-    
-    private func fullLine() -> Bool {
-        guard let playerModels = playerModels else {
-            return false
-        }
-        // Check if selected array has 7 players
-        return playerModels[selectedPlayerSection].count < Constants.fullLine ? false : true
     }
     
     private func displayConfirmAlert() {
@@ -99,18 +66,7 @@ class PlayGamePresenter: Presenter {
     }
     
     private func clearLine() {
-        guard let models = playerModels else {
-            fatalError("Unable to retrieve players")
-        }
-        
-        // Add players back to their gender arrays
-        for player in models[selectedPlayerSection] {
-            playerModels![player.gender + 1].append(player)
-        }
-        
-        // Remove all players from selected array
-        playerModels![selectedPlayerSection].removeAll()
-        vc.updateView()
+        vc.clearLine()
     }
     
     private func confirmedStartPoint() {
@@ -142,11 +98,11 @@ class PlayGamePresenter: Presenter {
     }
 }
 
-//MARK: PlayGamePresenterProtocol
-extension PlayGamePresenter: PlayGamePresenterProtocol {
+//MARK: CallLinePresenterProtocol
+extension CallLinePresenter: CallLinePresenterProtocol {
     
     func startPoint() {
-        if !fullLine() {
+        if !vc.fullLine() {
             displayConfirmAlert()
         }
         else {
@@ -168,79 +124,15 @@ extension PlayGamePresenter: PlayGamePresenterProtocol {
         // Hide play point UI and display call line UI
         vc.showCallLine()
     }
-    
-    func numberOfPlayersInSection(_ section: Int) -> Int {
-        guard let models = playerModels else {
-            return Constants.Empty.int
-        }
-        // Check if section is in bounds
-        return section < 0 || section >= models.count ? Constants.Empty.int : models[section].count
-    }
-    
-    func getPlayerName(at indexPath: IndexPath) -> String {
-        
-        if checkValidIndexPath(indexPath) {
-            // playerModels is verified in checkValidIndexPath
-            return playerModels![indexPath.section][indexPath.row].name
-        }
-        return Constants.Empty.string
-    }
-    
-    func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
-        guard let models = playerModels else {
-            fatalError("Unable to retrieve players")
-        }
-        
-        // Get player model
-        let player = models[indexPath.section][indexPath.row]
-        // Get the section to move player to, based on if they are already selected or not
-        let section = indexPath.section == selectedPlayerSection ? player.gender + 1 : selectedPlayerSection
-        
-        // Don't select more than 7 players
-        if section == selectedPlayerSection && models[selectedPlayerSection].count >= Constants.fullLine {
-            return nil
-        }
-        
-        // Add to selected array
-        playerModels![section].append(player)
-        // Remove from gender array
-        playerModels![indexPath.section].remove(at: indexPath.row)
-        
-        return IndexPath(row: playerModels![section].count - 1, section: section)
-    }
-    
-    func endGame() {
-        guard let playerModels = playerModels else {
-            // TODO
-            fatalError()
-        }
-        
-        // Save updated player models
-        for array in playerModels {
-            for player in array {
-                dbManager.setData(data: player.dictionary, collection: .roster)
-            }
-        }
-        
-        // Save game model
-        dbManager.setData(data: gameModel.dictionary, collection: .games)
-        
-        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
-
-        // Confirm action and end game
-        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
-
-        vc.present(completionAlert, animated: true, completion: nil)
-    }
 }
 
 //MARK: DatabaseManagerGetDataDelegate
-extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
+extension CallLinePresenter: DatabaseManagerGetDataDelegate {
 
     func  displayError(with error: Error) {
         // Empty model array
-        if playerModels == nil {
-            playerModels = [ [], [], [] ]
+        if vc.viewModel == nil {
+            vc.viewModel = PlayerCollectionViewCellViewModel(playerArray: [[], [], []], delegate: self)
         }
         self.showErrorAlert(error: error.localizedDescription)
     }
@@ -273,12 +165,37 @@ extension PlayGamePresenter: DatabaseManagerGetDataDelegate {
             }
         }
 
-        playerModels = [selectedArray, womenArray, menArray]
-        vc.updateView()
+        let playerModels = [selectedArray, womenArray, menArray]
+        
+        let vm = PlayerCollectionViewCellViewModel(playerArray: playerModels, delegate: self)
+        vc.updateWithViewModel(vm: vm)
     }
 }
 
 //MARK: DatabaseManagerSetDataDelegate
-extension PlayGamePresenter: DatabaseManagerSetDataDelegate {
+extension CallLinePresenter: DatabaseManagerSetDataDelegate {
     func onSuccessfulSet() { }
+}
+
+//MARK: PlayerCollectionViewCellViewModelDelegate
+extension CallLinePresenter: PlayerCollectionViewCellViewModelDelegate {
+    
+    func endGame(items: [[PlayerViewModel]]) {
+        // Save updated player models
+        for array in items {
+            for player in array {
+                dbManager.setData(data: player.model.dictionary, collection: .roster)
+            }
+        }
+        
+        // Save game model
+        dbManager.setData(data: gameModel.dictionary, collection: .games)
+        
+        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
+
+        // Confirm action and end game
+        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
+
+        vc.present(completionAlert, animated: true, completion: nil)
+    }
 }

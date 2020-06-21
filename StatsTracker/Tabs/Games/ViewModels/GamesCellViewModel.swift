@@ -25,15 +25,6 @@ class GamesCellViewModel: NSObject {
         self.delegate = delegate
     }
     
-    func goToGamePage(at indexPath: IndexPath) {
-        if checkValidIndexPath(indexPath) {
-            let viewModel = items[indexPath.section][indexPath.row]
-            
-            delegate?.goToGamePage(viewModel: viewModel)
-        }
-        delegate?.displayError(with: CustomError.outOfBounds)
-    }
-    
     //MARK: Private methods
     private func checkValidIndexPath(_ indexPath: IndexPath) -> Bool {
         let section = indexPath.section
@@ -50,6 +41,21 @@ class GamesCellViewModel: NSObject {
         }
         
         return true
+    }
+}
+
+//MARK: GamesCellViewModelProtocol
+extension GamesCellViewModel: GamesCellViewModelProtocol {
+    
+    func goToGamePage(at indexPath: IndexPath) {
+        if checkValidIndexPath(indexPath) {
+            let viewModel = items[indexPath.section][indexPath.row]
+            
+            delegate?.goToGamePage(viewModel: viewModel)
+        }
+        else {
+            delegate?.displayError(with: CustomError.outOfBounds)
+        }
     }
 }
 

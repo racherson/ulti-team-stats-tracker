@@ -26,22 +26,6 @@ class RosterCellViewModel: NSObject {
         self.delegate = delegate
     }
     
-    func addPlayer(_ player: PlayerModel) {
-        // Update player array
-        let item = PlayerViewModel(model: player)
-        items[player.gender].append(item)
-        delegate?.updateView()
-    }
-    
-    func goToPlayerPage(at indexPath: IndexPath) {
-        if checkValidIndexPath(indexPath) {
-            let viewModel = items[indexPath.section][indexPath.row]
-            
-            delegate?.goToPlayerPage(viewModel: viewModel)
-        }
-        delegate?.displayError(with: CustomError.outOfBounds)
-    }
-    
     //MARK: Private methods
     private func checkValidIndexPath(_ indexPath: IndexPath) -> Bool {
         let section = indexPath.section
@@ -58,6 +42,28 @@ class RosterCellViewModel: NSObject {
         }
         
         return true
+    }
+}
+
+//MARK: RosterCellViewModelProtocol
+extension RosterCellViewModel: RosterCellViewModelProtocol {
+    
+    func addPlayer(_ player: PlayerModel) {
+        // Update player array
+        let item = PlayerViewModel(model: player)
+        items[player.gender].append(item)
+        delegate?.updateView()
+    }
+    
+    func goToPlayerPage(at indexPath: IndexPath) {
+        if checkValidIndexPath(indexPath) {
+            let viewModel = items[indexPath.section][indexPath.row]
+            
+            delegate?.goToPlayerPage(viewModel: viewModel)
+        }
+        else {
+            delegate?.displayError(with: CustomError.outOfBounds)
+        }
     }
 }
 
