@@ -1,5 +1,5 @@
 //
-//  PlayerCollectionViewCellViewModel.swift
+//  CallLineCellViewModel.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 6/20/20.
@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol PlayerCollectionViewCellViewModelDelegate: AnyObject {
+protocol CallLineCellViewModelDelegate: AnyObject {
     func endGame(items: [[PlayerViewModel]])
 }
 
-class PlayerCollectionViewCellViewModel: NSObject {
+class CallLineCellViewModel: NSObject {
     
     //MARK: Properties
     var items = [[PlayerViewModel]]()
-    weak var delegate: PlayerCollectionViewCellViewModelDelegate?
+    weak var delegate: CallLineCellViewModelDelegate?
     
     private let selectedPlayerSection = 0
     
-    init(playerArray: [[PlayerModel]], delegate: PlayerCollectionViewCellViewModelDelegate?) {
+    init(playerArray: [[PlayerModel]], delegate: CallLineCellViewModelDelegate?) {
         self.items = playerArray.map { $0.map { PlayerViewModel(model: $0) } }
         self.delegate = delegate
     }
@@ -51,8 +51,8 @@ class PlayerCollectionViewCellViewModel: NSObject {
     }
 }
 
-//MARK: PlayerCollectionViewCellViewModelProtocol
-extension PlayerCollectionViewCellViewModel: PlayerCollectionViewCellViewModelProtocol {
+//MARK: CallLineCellViewModelProtocol
+extension CallLineCellViewModel: CallLineCellViewModelProtocol {
     
     func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
         // Get player model
@@ -94,7 +94,7 @@ extension PlayerCollectionViewCellViewModel: PlayerCollectionViewCellViewModelPr
 }
 
 //MARK: UITableViewDataSource
-extension PlayerCollectionViewCellViewModel: UICollectionViewDataSource {
+extension CallLineCellViewModel: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return items.count
@@ -106,10 +106,10 @@ extension PlayerCollectionViewCellViewModel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellIdentifier = "PlayerCollectionViewCell"
+        let cellIdentifier = "CallLineCollectionViewCell"
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-            as? PlayerCollectionViewCell else {
+            as? CallLineCollectionViewCell else {
                 fatalError(Constants.Errors.dequeueError(cellIdentifier))
         }
         
@@ -137,7 +137,7 @@ extension PlayerCollectionViewCellViewModel: UICollectionViewDataSource {
         
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView( ofKind: kind, withReuseIdentifier: "\(PlayersCollectionHeaderView.self)", for: indexPath) as? PlayersCollectionHeaderView else {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView( ofKind: kind, withReuseIdentifier: "\(CallLineCollectionHeaderView.self)", for: indexPath) as? CallLineCollectionHeaderView else {
                 fatalError("Invalid view type")
             }
             

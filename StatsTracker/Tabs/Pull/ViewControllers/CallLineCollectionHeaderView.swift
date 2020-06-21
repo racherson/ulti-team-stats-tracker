@@ -1,5 +1,5 @@
 //
-//  PlayersCollectionHeaderView.swift
+//  CallLineCollectionHeaderView.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 5/27/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayersCollectionHeaderView: UICollectionReusableView {
+class CallLineCollectionHeaderView: UICollectionReusableView {
     
     //MARK: Properties
     @IBOutlet weak var label: UILabel!

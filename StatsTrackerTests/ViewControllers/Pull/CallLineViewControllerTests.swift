@@ -13,7 +13,7 @@ class CallLineViewControllerTests: XCTestCase {
     
     var sut: CallLineViewController!
     var presenter: CallLinePresenterSpy!
-    var vm: PlayerCollectionViewCellViewModel!
+    var vm: CallLineCellViewModel!
     
     var endGameCalled: Int = 0
     
@@ -22,7 +22,7 @@ class CallLineViewControllerTests: XCTestCase {
         let _ = sut.view
         presenter = CallLinePresenterSpy()
         let player = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        vm = PlayerCollectionViewCellViewModel(playerArray: [[], [player], []], delegate: self)
+        vm = CallLineCellViewModel(playerArray: [[], [player], []], delegate: self)
         sut.viewModel = vm
         sut.presenter = presenter
         super.setUp()
@@ -47,7 +47,7 @@ class CallLineViewControllerTests: XCTestCase {
         sut.viewModel = nil
         XCTAssertNil(sut.viewModel)
         // Given
-        let vm = PlayerCollectionViewCellViewModel(playerArray: [[], [], []], delegate: self)
+        let vm = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
@@ -125,8 +125,8 @@ class CallLineViewControllerTests: XCTestCase {
     }
 }
 
-//MARK: PlayerCollectionViewCellViewModelDelegate
-extension CallLineViewControllerTests: PlayerCollectionViewCellViewModelDelegate {
+//MARK: CallLineCellViewModelDelegate
+extension CallLineViewControllerTests: CallLineCellViewModelDelegate {
     func endGame(items: [[PlayerViewModel]]) {
         endGameCalled += 1
     }

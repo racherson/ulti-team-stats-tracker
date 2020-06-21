@@ -46,8 +46,8 @@
 		2930B9432471F6AF007A994E /* RolesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930B9422471F6AF007A994E /* RolesTableViewCell.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
-		2939618C247EF43E0089A485 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939618B247EF43E0089A485 /* PlayerCollectionViewCell.swift */; };
-		2939618E247F0A3A0089A485 /* PlayersCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939618D247F0A3A0089A485 /* PlayersCollectionHeaderView.swift */; };
+		2939618C247EF43E0089A485 /* CallLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939618B247EF43E0089A485 /* CallLineCollectionViewCell.swift */; };
+		2939618E247F0A3A0089A485 /* CallLineCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939618D247F0A3A0089A485 /* CallLineCollectionHeaderView.swift */; };
 		294296872474B981009B0C9C /* RolesCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294296862474B981009B0C9C /* RolesCellViewModelTests.swift */; };
 		294296892474C1A5009B0C9C /* TableViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294296882474C1A5009B0C9C /* TableViewSpy.swift */; };
 		29431EB2244776BB00B1302A /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29431EB1244776BB00B1302A /* EditProfileViewController.swift */; };
@@ -67,10 +67,9 @@
 		29510904246C78010083F7EC /* EditProfileViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29510903246C78010083F7EC /* EditProfileViewControllerTests.swift */; };
 		29547CBE2492B58800EF6FC4 /* RosterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29547CBD2492B58800EF6FC4 /* RosterCellViewModel.swift */; };
 		29547CC02492CC3A00EF6FC4 /* RosterCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29547CBF2492CC3A00EF6FC4 /* RosterCellViewModelTests.swift */; };
-		29587F9E249EE47C00B3C1A7 /* PlayGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29587F9D249EE47C00B3C1A7 /* PlayGameViewController.swift */; };
 		29587FA0249EE52800B3C1A7 /* PlayGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29587F9F249EE52800B3C1A7 /* PlayGameTableViewCell.swift */; };
-		29587FA2249EF9F300B3C1A7 /* PlayerCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29587FA1249EF9F300B3C1A7 /* PlayerCollectionViewCellViewModel.swift */; };
-		29587FA4249F0B7C00B3C1A7 /* PlayerCollectionViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29587FA3249F0B7C00B3C1A7 /* PlayerCollectionViewCellViewModelTests.swift */; };
+		29587FA2249EF9F300B3C1A7 /* CallLineCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29587FA1249EF9F300B3C1A7 /* CallLineCellViewModel.swift */; };
+		29587FA4249F0B7C00B3C1A7 /* CallLineCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29587FA3249F0B7C00B3C1A7 /* CallLineCellViewModelTests.swift */; };
 		29592CE02489C42600032763 /* GameModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29592CDF2489C42600032763 /* GameModelConstants.swift */; };
 		29592CE22489C9C600032763 /* ScoreModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29592CE12489C9C600032763 /* ScoreModelConstants.swift */; };
 		295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */; };
@@ -197,8 +196,8 @@
 		2930B9422471F6AF007A994E /* RolesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesTableViewCell.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		2939618B247EF43E0089A485 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
-		2939618D247F0A3A0089A485 /* PlayersCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersCollectionHeaderView.swift; sourceTree = "<group>"; };
+		2939618B247EF43E0089A485 /* CallLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLineCollectionViewCell.swift; sourceTree = "<group>"; };
+		2939618D247F0A3A0089A485 /* CallLineCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLineCollectionHeaderView.swift; sourceTree = "<group>"; };
 		294296862474B981009B0C9C /* RolesCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesCellViewModelTests.swift; sourceTree = "<group>"; };
 		294296882474C1A5009B0C9C /* TableViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSpy.swift; sourceTree = "<group>"; };
 		29431EB1244776BB00B1302A /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -218,10 +217,9 @@
 		29510903246C78010083F7EC /* EditProfileViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewControllerTests.swift; sourceTree = "<group>"; };
 		29547CBD2492B58800EF6FC4 /* RosterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterCellViewModel.swift; sourceTree = "<group>"; };
 		29547CBF2492CC3A00EF6FC4 /* RosterCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterCellViewModelTests.swift; sourceTree = "<group>"; };
-		29587F9D249EE47C00B3C1A7 /* PlayGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGameViewController.swift; sourceTree = "<group>"; };
 		29587F9F249EE52800B3C1A7 /* PlayGameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGameTableViewCell.swift; sourceTree = "<group>"; };
-		29587FA1249EF9F300B3C1A7 /* PlayerCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
-		29587FA3249F0B7C00B3C1A7 /* PlayerCollectionViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCellViewModelTests.swift; sourceTree = "<group>"; };
+		29587FA1249EF9F300B3C1A7 /* CallLineCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLineCellViewModel.swift; sourceTree = "<group>"; };
+		29587FA3249F0B7C00B3C1A7 /* CallLineCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLineCellViewModelTests.swift; sourceTree = "<group>"; };
 		29592CDF2489C42600032763 /* GameModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelConstants.swift; sourceTree = "<group>"; };
 		29592CE12489C9C600032763 /* ScoreModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreModelConstants.swift; sourceTree = "<group>"; };
 		295D80B5245128BB00CD8CBF /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
@@ -563,7 +561,7 @@
 		29587FA5249F0C2900B3C1A7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				29587FA1249EF9F300B3C1A7 /* PlayerCollectionViewCellViewModel.swift */,
+				29587FA1249EF9F300B3C1A7 /* CallLineCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -698,11 +696,10 @@
 			isa = PBXGroup;
 			children = (
 				2910EB95243FC05F00BCF721 /* PullViewController.swift */,
-				29587F9D249EE47C00B3C1A7 /* PlayGameViewController.swift */,
 				29587F9F249EE52800B3C1A7 /* PlayGameTableViewCell.swift */,
 				2930B93A2471E3B5007A994E /* CallLineViewController.swift */,
-				2939618B247EF43E0089A485 /* PlayerCollectionViewCell.swift */,
-				2939618D247F0A3A0089A485 /* PlayersCollectionHeaderView.swift */,
+				2939618B247EF43E0089A485 /* CallLineCollectionViewCell.swift */,
+				2939618D247F0A3A0089A485 /* CallLineCollectionHeaderView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -833,7 +830,7 @@
 				294296862474B981009B0C9C /* RolesCellViewModelTests.swift */,
 				29547CBF2492CC3A00EF6FC4 /* RosterCellViewModelTests.swift */,
 				29AE86DE2495901F00C02D29 /* GamesCellViewModelTests.swift */,
-				29587FA3249F0B7C00B3C1A7 /* PlayerCollectionViewCellViewModelTests.swift */,
+				29587FA3249F0B7C00B3C1A7 /* CallLineCellViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1091,7 +1088,6 @@
 				290973A92490898000844F29 /* GameDetailViewController.swift in Sources */,
 				29CCF52524414921003F201A /* Constants.swift in Sources */,
 				29CCF52324414233003F201A /* SettingsTableViewCell.swift in Sources */,
-				29587F9E249EE47C00B3C1A7 /* PlayGameViewController.swift in Sources */,
 				295D80B8245128C600CD8CBF /* LoginPresenter.swift in Sources */,
 				29AD520A243FE7600094DCDE /* GamesViewController.swift in Sources */,
 				2930B9432471F6AF007A994E /* RolesTableViewCell.swift in Sources */,
@@ -1114,13 +1110,13 @@
 				290973AB249089F200844F29 /* GameDetailPresenter.swift in Sources */,
 				2966446A2452412C0013D902 /* Presenter.swift in Sources */,
 				290309B724906F7C004C7E3C /* PointModelConstants.swift in Sources */,
-				29587FA2249EF9F300B3C1A7 /* PlayerCollectionViewCellViewModel.swift in Sources */,
+				29587FA2249EF9F300B3C1A7 /* CallLineCellViewModel.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				29A1261A246DD6C600581D30 /* PullPresenter.swift in Sources */,
 				295D80B6245128BB00CD8CBF /* SignUpPresenter.swift in Sources */,
 				2910EB84243FA53000BCF721 /* Coordinator.swift in Sources */,
 				29CEDCD42473109500F7F635 /* DocumentSerializable.swift in Sources */,
-				2939618E247F0A3A0089A485 /* PlayersCollectionHeaderView.swift in Sources */,
+				2939618E247F0A3A0089A485 /* CallLineCollectionHeaderView.swift in Sources */,
 				2910EB66243FA4C100BCF721 /* RosterViewController.swift in Sources */,
 				29CEDCD6247310FB00F7F635 /* ScoreModel.swift in Sources */,
 				294AAF28245E481C006B723E /* Errors.swift in Sources */,
@@ -1147,7 +1143,7 @@
 				2910EB88243FA56A00BCF721 /* RosterCoordinator.swift in Sources */,
 				29D0E14124401238008E14F3 /* AuthCoordinator.swift in Sources */,
 				2910EB64243FA4C100BCF721 /* SceneDelegate.swift in Sources */,
-				2939618C247EF43E0089A485 /* PlayerCollectionViewCell.swift in Sources */,
+				2939618C247EF43E0089A485 /* CallLineCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,7 +1157,7 @@
 				29CAB5CB24726A28006A1026 /* RolesTableViewCellTests.swift in Sources */,
 				295108F7246C6BFC0083F7EC /* LoginViewControllerTests.swift in Sources */,
 				299D32E3245916B6009A7E37 /* PullCoordinatorTests.swift in Sources */,
-				29587FA4249F0B7C00B3C1A7 /* PlayerCollectionViewCellViewModelTests.swift in Sources */,
+				29587FA4249F0B7C00B3C1A7 /* CallLineCellViewModelTests.swift in Sources */,
 				29A12626246DDC9700581D30 /* GamesPresenterTests.swift in Sources */,
 				295108F9246C6CCD0083F7EC /* MainTabBarControllerTests.swift in Sources */,
 				29C29D24246C9C5E00CDBEBB /* PlayerDetailViewControllerTests.swift in Sources */,

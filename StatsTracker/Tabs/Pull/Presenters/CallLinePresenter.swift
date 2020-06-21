@@ -132,7 +132,7 @@ extension CallLinePresenter: DatabaseManagerGetDataDelegate {
     func  displayError(with error: Error) {
         // Empty model array
         if vc.viewModel == nil {
-            vc.viewModel = PlayerCollectionViewCellViewModel(playerArray: [[], [], []], delegate: self)
+            vc.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         }
         self.showErrorAlert(error: error.localizedDescription)
     }
@@ -167,7 +167,7 @@ extension CallLinePresenter: DatabaseManagerGetDataDelegate {
 
         let playerModels = [selectedArray, womenArray, menArray]
         
-        let vm = PlayerCollectionViewCellViewModel(playerArray: playerModels, delegate: self)
+        let vm = CallLineCellViewModel(playerArray: playerModels, delegate: self)
         vc.updateWithViewModel(vm: vm)
     }
 }
@@ -177,8 +177,8 @@ extension CallLinePresenter: DatabaseManagerSetDataDelegate {
     func onSuccessfulSet() { }
 }
 
-//MARK: PlayerCollectionViewCellViewModelDelegate
-extension CallLinePresenter: PlayerCollectionViewCellViewModelDelegate {
+//MARK: CallLineCellViewModelDelegate
+extension CallLinePresenter: CallLineCellViewModelDelegate {
     
     func endGame(items: [[PlayerViewModel]]) {
         // Save updated player models

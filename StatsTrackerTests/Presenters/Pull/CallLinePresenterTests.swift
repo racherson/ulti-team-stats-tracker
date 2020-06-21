@@ -100,7 +100,7 @@ class CallLinePresenterTests: XCTestCase {
         // Given
         sut.currentPointWind = .upwind
         sut.currentPointType = .offensive
-        sut.vc.viewModel = PlayerCollectionViewCellViewModel(playerArray: [[], [], []], delegate: self)
+        sut.vc.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         sut.nextPoint(scored: true)
         // Then
@@ -116,7 +116,7 @@ class CallLinePresenterTests: XCTestCase {
         // Given
         sut.currentPointWind = .downwind
         sut.currentPointType = .defensive
-        sut.vc.viewModel = PlayerCollectionViewCellViewModel(playerArray: [[], [], []], delegate: self)
+        sut.vc.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         sut.nextPoint(scored: false)
         // Then
@@ -131,7 +131,7 @@ class CallLinePresenterTests: XCTestCase {
         // Given
         sut.currentPointWind = .upwind
         sut.currentPointType = .offensive
-        sut.vc.viewModel = PlayerCollectionViewCellViewModel(playerArray: [[], [], []], delegate: self)
+        sut.vc.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         sut.nextPoint(scored: true)
         // Then
@@ -256,7 +256,7 @@ extension CallLinePresenterTests: CallLinePresenterDelegate {
     }
 }
 
-extension CallLinePresenterTests: PlayerCollectionViewCellViewModelDelegate {
+extension CallLinePresenterTests: CallLineCellViewModelDelegate {
     func endGame(items: [[PlayerViewModel]]) { }
 }
 

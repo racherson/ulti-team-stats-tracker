@@ -1,5 +1,5 @@
 //
-//  PlayerCollectionViewCell.swift
+//  CallLineCollectionViewCell.swift
 //  StatsTracker
 //
 //  Created by Rachel Anderson on 5/27/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerCollectionViewCell: UICollectionViewCell {
+class CallLineCollectionViewCell: UICollectionViewCell {
     
     //MARK: Properties
     @IBOutlet weak var label: UILabel!

@@ -13,7 +13,7 @@ protocol CallLinePresenterProtocol where Self: Presenter {
     func nextPoint(scored: Bool)
 }
 
-protocol PlayerCollectionViewCellViewModelProtocol: UICollectionViewDataSource {
+protocol CallLineCellViewModelProtocol: UICollectionViewDataSource {
     func clearLine()
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
     func endGame()
@@ -24,7 +24,7 @@ class CallLineViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: CallLinePresenterProtocol!
-    var viewModel: PlayerCollectionViewCellViewModelProtocol!
+    var viewModel: CallLineCellViewModelProtocol!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var playPointButton: UIButton!
     
@@ -46,7 +46,7 @@ class CallLineViewController: UIViewController, Storyboarded {
         presenter.onViewWillAppear()
     }
     
-    func updateWithViewModel(vm: PlayerCollectionViewCellViewModelProtocol) {
+    func updateWithViewModel(vm: CallLineCellViewModelProtocol) {
         viewModel = vm
         if collectionView != nil {
             collectionView.dataSource = vm

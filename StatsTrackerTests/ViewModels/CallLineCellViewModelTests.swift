@@ -1,5 +1,5 @@
 //
-//  PlayerCollectionViewCellViewModelTests.swift
+//  CallLineCellViewModelTests.swift
 //  StatsTrackerTests
 //
 //  Created by Rachel Anderson on 6/20/20.
@@ -10,9 +10,9 @@ import XCTest
 import ViewControllerPresentationSpy
 @testable import StatsTracker
 
-class PlayerCollectionViewCellViewModelTests: XCTestCase {
+class CallLineCellViewModelTests: XCTestCase {
     
-    var sut: PlayerCollectionViewCellViewModel!
+    var sut: CallLineCellViewModel!
     var vc: CallLineViewControllerSpy!
     
     private let selectedSection = 0
@@ -23,7 +23,7 @@ class PlayerCollectionViewCellViewModelTests: XCTestCase {
     override func setUp() {
         let playerArray = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
         vc = CallLineViewControllerSpy()
-        sut = PlayerCollectionViewCellViewModel(playerArray: playerArray, delegate: self)
+        sut = CallLineCellViewModel(playerArray: playerArray, delegate: self)
         super.setUp()
     }
     
@@ -139,18 +139,18 @@ class PlayerCollectionViewCellViewModelTests: XCTestCase {
     func testConfigureTableViewCell() {
         // Given
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        collectionView.register(PlayerCollectionViewCell.self, forCellWithReuseIdentifier: "PlayerCollectionViewCell")
+        collectionView.register(CallLineCollectionViewCell.self, forCellWithReuseIdentifier: "CallLineCollectionViewCell")
         // When
         let indexPath = IndexPath(row: 0, section: 1)
         let cell = sut.collectionView(collectionView, cellForItemAt: indexPath)
-            as! PlayerCollectionViewCell
+            as! CallLineCollectionViewCell
         // Then
         XCTAssertEqual(.red, cell.backgroundColor)
     }
 }
 
-//MARK: PlayerCollectionViewCellViewModelDelegate
-extension PlayerCollectionViewCellViewModelTests: PlayerCollectionViewCellViewModelDelegate {
+//MARK: CallLineCellViewModelDelegate
+extension CallLineCellViewModelTests: CallLineCellViewModelDelegate {
     func endGame(items: [[PlayerViewModel]]) {
         endGameCalled += 1
     }
