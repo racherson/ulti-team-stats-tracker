@@ -84,7 +84,7 @@ class RosterCoordinatorTests: XCTestCase {
         // Given
         let model = PlayerModel(name: "", gender: 0, id: "", roles: [])
         let vc = RosterViewController()
-        vc.viewModel = RosterCellViewModelSpy(playerArray: [[], []], delegate: self)
+        vc.viewModel = RosterCellViewModel(playerArray: [[], []], delegate: self)
         rosterCoordinator.rootVC = vc
         // When
         rosterCoordinator.savePressed(player: model)

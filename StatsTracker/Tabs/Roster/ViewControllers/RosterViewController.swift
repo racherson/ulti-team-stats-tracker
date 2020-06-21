@@ -13,11 +13,16 @@ protocol RosterPresenterProtocol where Self: Presenter {
     func addPressed()
 }
 
+protocol RosterCellViewModelProtocol: UITableViewDataSource {
+    func goToPlayerPage(at indexPath: IndexPath)
+    func addPlayer(_ player: PlayerModel)
+}
+
 class RosterViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: RosterPresenterProtocol!
-    var viewModel: RosterCellViewModel!
+    var viewModel: RosterCellViewModelProtocol!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -41,7 +46,7 @@ class RosterViewController: UIViewController, Storyboarded {
         presenter.onViewWillAppear()
     }
     
-    func updateWithViewModel(vm: RosterCellViewModel) {
+    func updateWithViewModel(vm: RosterCellViewModelProtocol) {
         viewModel = vm
         if tableView != nil {
             tableView.dataSource = vm

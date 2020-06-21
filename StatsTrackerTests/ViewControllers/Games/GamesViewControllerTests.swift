@@ -13,13 +13,13 @@ class GamesViewControllerTests: XCTestCase {
     
     var sut: GamesViewController!
     var presenter: GamesPresenterSpy!
-    var viewModel: GamesCellViewModelSpy?
+    
+    var goToGamePageCalled: Int = 0
     
     override func setUp() {
         sut = GamesViewController.instantiate(.games)
         let _ = sut.view
         presenter = GamesPresenterSpy()
-        viewModel = nil
         sut.presenter = presenter
         super.setUp()
     }
@@ -27,7 +27,6 @@ class GamesViewControllerTests: XCTestCase {
     override func tearDown() {
         sut = nil
         presenter = nil
-        viewModel = nil
         super.tearDown()
     }
     
@@ -60,15 +59,14 @@ class GamesViewControllerTests: XCTestCase {
     }
     
     func testDidSelectRow() throws {
-        viewModel = GamesCellViewModelSpy(gameArray: [], delegate: self)
-        sut.viewModel = viewModel
-        XCTAssertEqual(0, viewModel?.goToGamePageCalled)
+        XCTAssertEqual(0, goToGamePageCalled)
         // Given
         let indexPath = IndexPath(row: 0, section: 0)
+        sut.viewModel = GamesCellViewModel(gameArray: [[GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)]], delegate: self)
         // When
         sut.tableView(sut.tableView, didSelectRowAt: indexPath)
         // Then
-        XCTAssertEqual(1, viewModel?.goToGamePageCalled)
+        XCTAssertEqual(1, goToGamePageCalled)
     }
 }
 
@@ -82,18 +80,11 @@ class GamesPresenterSpy: Presenter, GamesPresenterProtocol {
     }
 }
 
-//MARK: GamesCellViewModelSpy
-class GamesCellViewModelSpy: GamesCellViewModel {
-    var goToGamePageCalled: Int = 0
-    
-    override func goToGamePage(at indexPath: IndexPath) {
-        goToGamePageCalled += 1
-    }
-}
-
 //MARK: GamesCellViewModelDelegate
 extension GamesViewControllerTests: GamesCellViewModelDelegate {
-    func goToGamePage(viewModel: GameViewModel) { }
+    func goToGamePage(viewModel: GameViewModel) {
+        goToGamePageCalled += 1
+    }
     func updateView() { }
     func displayError(with: Error) {  }
 }

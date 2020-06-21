@@ -100,9 +100,49 @@
             <point key="canvasLocation" x="164" y="145"/>
         </scene>
         <!--Play Game View Controller-->
+        <scene sceneID="rwV-ma-sRe">
+            <objects>
+                <viewController storyboardIdentifier="PlayGameViewController" id="bLV-la-c9A" customClass="PlayGameViewController" customModule="StatsTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AsW-2K-Jmx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8jL-jk-n4K">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayGameTableViewCell" rowHeight="79" id="Bxi-ol-hX0" customClass="PlayGameTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="79"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bxi-ol-hX0" id="SlK-jb-tmM">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8jL-jk-n4K" firstAttribute="leading" secondItem="XKk-TZ-6LX" secondAttribute="leading" id="FZj-Sd-qbp"/>
+                            <constraint firstItem="XKk-TZ-6LX" firstAttribute="bottom" secondItem="8jL-jk-n4K" secondAttribute="bottom" id="nST-el-eKK"/>
+                            <constraint firstItem="XKk-TZ-6LX" firstAttribute="trailing" secondItem="8jL-jk-n4K" secondAttribute="trailing" id="xnq-Mz-9co"/>
+                            <constraint firstItem="8jL-jk-n4K" firstAttribute="top" secondItem="XKk-TZ-6LX" secondAttribute="top" id="yrl-X8-bXa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XKk-TZ-6LX"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="8jL-jk-n4K" id="H50-po-z7T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xAx-bY-weP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="895.6521739130435" y="144.64285714285714"/>
+        </scene>
+        <!--Call Line View Controller-->
         <scene sceneID="v8B-Y1-Ovt">
             <objects>
-                <viewController storyboardIdentifier="PlayGameViewController" id="SAG-Am-d7V" customClass="PlayGameViewController" customModule="StatsTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CallLineViewController" id="SAG-Am-d7V" customClass="CallLineViewController" customModule="StatsTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mjq-Vh-lzn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5dP-fp-CAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876.81159420289862" y="144.64285714285714"/>
+            <point key="canvasLocation" x="1652" y="145"/>
         </scene>
     </scenes>
 </document>

@@ -32,6 +32,12 @@ class RosterCellViewModelTests: XCTestCase {
         super.tearDown()
     }
     
+    func testInit() throws {
+        XCTAssertEqual(2, sut.items.count)
+        XCTAssertEqual(1, sut.items[0].count)
+        XCTAssertEqual(0, sut.items[1].count)
+    }
+    
     func testAddPlayerWoman() throws {
         XCTAssertEqual(1, sut.items[Gender.women.rawValue].count)
         XCTAssertEqual(0, updateViewCalled)

@@ -12,11 +12,15 @@ protocol GamesPresenterProtocol where Self: Presenter {
     func setViewModel()
 }
 
+protocol GamesCellViewModelProtocol: UITableViewDataSource {
+    func goToGamePage(at indexPath: IndexPath)
+}
+
 class GamesViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: GamesPresenterProtocol!
-    var viewModel: GamesCellViewModel!
+    var viewModel: GamesCellViewModelProtocol!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -36,7 +40,7 @@ class GamesViewController: UIViewController, Storyboarded {
         presenter.onViewWillAppear()
     }
     
-    func updateWithViewModel(vm: GamesCellViewModel) {
+    func updateWithViewModel(vm: GamesCellViewModelProtocol) {
         viewModel = vm
         if tableView != nil {
             tableView.dataSource = vm

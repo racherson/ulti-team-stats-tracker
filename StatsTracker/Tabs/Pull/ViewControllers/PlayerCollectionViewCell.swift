@@ -12,4 +12,18 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     
     //MARK: Properties
     @IBOutlet weak var label: UILabel!
+    
+    var item: PlayerViewModel? {
+       didSet {
+        label?.text = item?.model.name
+        label?.adjustsFontSizeToFitWidth = true
+       }
+    }
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        // Circle
+        self.layer.cornerRadius = self.frame.size.width / 2
+    }
 }

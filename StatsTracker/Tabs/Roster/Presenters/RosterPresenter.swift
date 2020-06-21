@@ -117,6 +117,7 @@ extension RosterPresenter: DatabaseManagerGetDataDelegate {
     }
 }
 
+//MARK: DatabaseManagerDeleteDataDelegate
 extension RosterPresenter: DatabaseManagerDeleteDataDelegate {
     func onSuccessfulDelete() { }
 }

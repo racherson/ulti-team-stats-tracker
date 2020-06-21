@@ -13,13 +13,13 @@ class RosterViewControllerTests: XCTestCase {
     
     var sut: RosterViewController!
     var presenter: RosterPresenterSpy!
-    var viewModel: RosterCellViewModelSpy?
+    
+    var goToPlayerPageCalled: Int = 0
     
     override func setUp() {
         sut = RosterViewController.instantiate(.roster)
         let _ = sut.view
         presenter = RosterPresenterSpy()
-        viewModel = nil
         sut.presenter = presenter
         super.setUp()
     }
@@ -27,7 +27,6 @@ class RosterViewControllerTests: XCTestCase {
     override func tearDown() {
         sut = nil
         presenter = nil
-        viewModel = nil
         super.tearDown()
     }
     
@@ -42,7 +41,7 @@ class RosterViewControllerTests: XCTestCase {
     func testUpdateWithViewModel() throws {
         XCTAssertNil(sut.viewModel)
         // Given
-        let vm = RosterCellViewModelSpy(playerArray: [[], []], delegate: self)
+        let vm = RosterCellViewModel(playerArray: [[], []], delegate: self)
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
@@ -68,15 +67,14 @@ class RosterViewControllerTests: XCTestCase {
     }
     
     func testDidSelectRow() throws {
-        viewModel = RosterCellViewModelSpy(playerArray: [[], []], delegate: self)
-        sut.viewModel = viewModel
-        XCTAssertEqual(0, viewModel?.goToPlayerPageCalled)
+        XCTAssertEqual(0, goToPlayerPageCalled)
         // Given
         let indexPath = IndexPath(row: 0, section: 0)
+        sut.viewModel = RosterCellViewModel(playerArray: [[PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []], delegate: self)
         // When
         sut.tableView(sut.tableView, didSelectRowAt: indexPath)
         // Then
-        XCTAssertEqual(1, viewModel?.goToPlayerPageCalled)
+        XCTAssertEqual(1, goToPlayerPageCalled)
     }
 }
 
@@ -97,18 +95,11 @@ class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
     func setViewModel() { }
 }
 
-//MARK: RosterCellViewModelSpy
-class RosterCellViewModelSpy: RosterCellViewModel {
-    var goToPlayerPageCalled: Int = 0
-    
-    override func goToPlayerPage(at indexPath: IndexPath) {
-        goToPlayerPageCalled += 1
-    }
-}
-
 //MARK: RosterCellViewModelDelegate
 extension RosterViewControllerTests: RosterCellViewModelDelegate {
-    func goToPlayerPage(viewModel: PlayerViewModel) { }
+    func goToPlayerPage(viewModel: PlayerViewModel) {
+        goToPlayerPageCalled += 1
+    }
     func deletePlayer(_ player: PlayerModel) { }
     func updateView() { }
     func displayError(with: Error) { }

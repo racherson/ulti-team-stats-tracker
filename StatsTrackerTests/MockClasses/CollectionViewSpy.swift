@@ -11,8 +11,13 @@ import UIKit
 class CollectionViewSpy: UICollectionView {
     
     var reloadDataCalled = false
+    var moveItemCalled = false
     
     override func reloadData() {
          reloadDataCalled = true
+    }
+    
+    override func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+        moveItemCalled = true
     }
 }
