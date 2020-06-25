@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CallLinePresenterDelegate: AnyObject {
-    func endGame()
+    func playPoint(vm: CallLineCellViewModel)
 }
 
 class CallLinePresenter: Presenter {
@@ -17,25 +17,19 @@ class CallLinePresenter: Presenter {
     //MARK: Properties
     weak var delegate: CallLinePresenterDelegate?
     weak var vc: CallLineViewController!
-    var gameModel: GameDataModel
-    var dbManager: DatabaseManager
-    var currentPointWind: WindDirection!
-    var currentPointType: PointType!
+    weak var vm: CallLineCellViewModel!
     
     //MARK: Initialization
-    init(vc: CallLineViewController, delegate: CallLinePresenterDelegate?, gameModel: GameDataModel, dbManager: DatabaseManager) {
+    init(vc: CallLineViewController, delegate: CallLinePresenterDelegate, vm: CallLineCellViewModel) {
         self.vc = vc
         self.delegate = delegate
-        self.gameModel = gameModel
-        self.dbManager = dbManager
-        self.dbManager.getDataDelegate = self
-        self.dbManager.setDataDelegate = self
-        
-        setViewModel()
+        self.vm = vm
     }
     
     func onViewWillAppear() {
-        vc.showCallLine()
+        if vm != nil {
+            vc.updateWithViewModel(vm: vm)
+        }
     }
     
     //MARK: Private methods
@@ -46,11 +40,6 @@ class CallLinePresenter: Presenter {
         alertController.addAction(UIAlertAction(title: Constants.Alerts.dismiss, style: .default))
 
         vc.present(alertController, animated: true, completion: nil)
-    }
-    
-    private func setViewModel() {
-        // Get models from db, delegate function sets array
-        dbManager.getData(collection: .roster)
     }
     
     private func displayConfirmAlert() {
@@ -71,30 +60,7 @@ class CallLinePresenter: Presenter {
     
     private func confirmedStartPoint() {
         // Hide player selection UI and display point UI
-        vc.showPlayPoint()
-    }
-    
-    private func updateWind() {
-        switch currentPointWind {
-        case .upwind:
-            currentPointWind = .downwind
-        case .downwind:
-            currentPointWind = .upwind
-        case .crosswind:
-            currentPointWind = .crosswind
-        case .none:
-            return
-        }
-    }
-    
-    private func updatePointType(scored: Bool) {
-        // The team that scores pulls the next point (starts on defense)
-        if scored {
-            currentPointType = .defensive
-        }
-        else {
-            currentPointType = .offensive
-        }
+        delegate?.playPoint(vm: vm)
     }
 }
 
@@ -111,91 +77,17 @@ extension CallLinePresenter: CallLinePresenterProtocol {
     }
     
     func nextPoint(scored: Bool) {
-        // Give current point to game model
-        // TODO: fix use of wind and type enums...do we need them? or just use int
-        let point = PointDataModel(wind: currentPointWind.rawValue, scored: scored, type: currentPointType.rawValue)
-        gameModel.addPoint(point: point)
-        
-        // Update game state
-        updateWind()
-        updatePointType(scored: point.scored)
-        clearLine()
-        
-        // Hide play point UI and display call line UI
-        vc.showCallLine()
-    }
-}
-
-//MARK: DatabaseManagerGetDataDelegate
-extension CallLinePresenter: DatabaseManagerGetDataDelegate {
-
-    func  displayError(with error: Error) {
-        // Empty model array
-        if vc.viewModel == nil {
-            vc.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
-        }
-        self.showErrorAlert(error: error.localizedDescription)
-    }
-    
-    func onSuccessfulGet(_ data: [String : Any]) {
-        // Pull woman and man arrays out of the data retrieved
-        guard let womenDataArray = data[FirebaseKeys.CollectionPath.women] as? [[String: Any]] else {
-            self.showErrorAlert(error: Constants.Errors.documentError)
-            return
-        }
-        guard let menDataArray = data[FirebaseKeys.CollectionPath.men] as? [[String: Any]] else {
-            self.showErrorAlert(error: Constants.Errors.documentError)
-            return
-        }
-        
-        // Initialize the new arrays of player models
-        let selectedArray: [PlayerModel] = [PlayerModel]()
-        var womenArray: [PlayerModel] = [PlayerModel]()
-        var menArray: [PlayerModel] = [PlayerModel]()
-        
-        for data in womenDataArray {
-            if let model = PlayerModel(documentData: data) {
-                womenArray.append(model)
-            }
-        }
-        
-        for data in menDataArray {
-            if let model = PlayerModel(documentData: data) {
-                menArray.append(model)
-            }
-        }
-
-        let playerModels = [selectedArray, womenArray, menArray]
-        
-        let vm = CallLineCellViewModel(playerArray: playerModels, delegate: self)
-        vc.updateWithViewModel(vm: vm)
-    }
-}
-
-//MARK: DatabaseManagerSetDataDelegate
-extension CallLinePresenter: DatabaseManagerSetDataDelegate {
-    func onSuccessfulSet() { }
-}
-
-//MARK: CallLineCellViewModelDelegate
-extension CallLinePresenter: CallLineCellViewModelDelegate {
-    
-    func endGame(items: [[PlayerViewModel]]) {
-        // Save updated player models
-        for array in items {
-            for player in array {
-                dbManager.setData(data: player.model.dictionary, collection: .roster)
-            }
-        }
-        
-        // Save game model
-        dbManager.setData(data: gameModel.dictionary, collection: .games)
-        
-        let completionAlert = UIAlertController(title: Constants.Alerts.endGameTitle, message: Constants.Alerts.successfulRecordAlert, preferredStyle: UIAlertController.Style.alert)
-
-        // Confirm action and end game
-        completionAlert.addAction(UIAlertAction(title: Constants.Alerts.okay, style: .default, handler: { (action: UIAlertAction!) in self.delegate?.endGame() }))
-
-        vc.present(completionAlert, animated: true, completion: nil)
+//        // Give current point to game model
+//        // TODO: fix use of wind and type enums...do we need them? or just use int
+//        let point = PointDataModel(wind: currentPointWind.rawValue, scored: scored, type: currentPointType.rawValue)
+//        gameModel.addPoint(point: point)
+//
+//        // Update game state
+//        updateWind()
+//        updatePointType(scored: point.scored)
+//        clearLine()
+//
+//        // Hide play point UI and display call line UI
+//        vc.showCallLine()
     }
 }

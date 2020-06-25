@@ -117,6 +117,16 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bxi-ol-hX0" id="SlK-jb-tmM">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSt-QZ-nFJ">
+                                                    <rect key="frame" x="183" y="24" width="49" height="30"/>
+                                                    <state key="normal" title="Scored"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YSt-QZ-nFJ" firstAttribute="centerY" secondItem="SlK-jb-tmM" secondAttribute="centerY" id="W5g-UM-N6g"/>
+                                                <constraint firstItem="YSt-QZ-nFJ" firstAttribute="centerX" secondItem="SlK-jb-tmM" secondAttribute="centerX" id="fez-4U-ayn"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -132,7 +142,7 @@
                         <viewLayoutGuide key="safeArea" id="XKk-TZ-6LX"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="8jL-jk-n4K" id="H50-po-z7T"/>
+                        <outlet property="tableView" destination="8jL-jk-n4K" id="55n-XQ-kcJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xAx-bY-weP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -202,20 +212,11 @@
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNQ-OD-HeA">
-                                <rect key="frame" x="173" y="433" width="68" height="30"/>
-                                <state key="normal" title="Play Point"/>
-                                <connections>
-                                    <action selector="playPointPressed:" destination="SAG-Am-d7V" eventType="touchUpInside" id="g6S-YI-jFb"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="alC-Ny-ScI" firstAttribute="bottom" secondItem="JtO-YT-PIa" secondAttribute="bottom" id="6Hl-N2-LdC"/>
-                            <constraint firstItem="TNQ-OD-HeA" firstAttribute="centerX" secondItem="Mjq-Vh-lzn" secondAttribute="centerX" id="CLu-eW-TS8"/>
                             <constraint firstItem="JtO-YT-PIa" firstAttribute="leading" secondItem="alC-Ny-ScI" secondAttribute="leading" id="ToM-Bs-I5A"/>
-                            <constraint firstItem="TNQ-OD-HeA" firstAttribute="centerY" secondItem="Mjq-Vh-lzn" secondAttribute="centerY" id="WCc-pb-lKe"/>
                             <constraint firstItem="JtO-YT-PIa" firstAttribute="top" secondItem="alC-Ny-ScI" secondAttribute="top" id="WyE-79-898"/>
                             <constraint firstItem="alC-Ny-ScI" firstAttribute="trailing" secondItem="JtO-YT-PIa" secondAttribute="trailing" id="na0-cl-JyH"/>
                         </constraints>
@@ -223,7 +224,6 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="JtO-YT-PIa" id="bqj-Ws-Prp"/>
-                        <outlet property="playPointButton" destination="TNQ-OD-HeA" id="zvW-VV-liy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5dP-fp-CAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

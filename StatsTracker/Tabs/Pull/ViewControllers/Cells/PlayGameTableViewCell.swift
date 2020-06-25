@@ -9,6 +9,12 @@
 import UIKit
 
 class PlayGameTableViewCell: UITableViewCell {
+    
+    var item: PlayerViewModel? {
+       didSet {
+        textLabel?.text = item?.model.name
+       }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
