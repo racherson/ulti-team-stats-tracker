@@ -12,6 +12,7 @@ class CollectionViewSpy: UICollectionView {
     
     var reloadDataCalled = false
     var moveItemCalled = false
+    var dataSourceSet = false
     
     override func reloadData() {
          reloadDataCalled = true
@@ -19,5 +20,11 @@ class CollectionViewSpy: UICollectionView {
     
     override func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
         moveItemCalled = true
+    }
+    
+    override var dataSource: UICollectionViewDataSource? {
+        didSet {
+            dataSourceSet = true
+        }
     }
 }

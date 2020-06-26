@@ -13,6 +13,7 @@ class TableViewSpy: UITableView {
     var reloadDataCalled = false
     var selectRowCalled = false
     var deselectRowCalled = false
+    var dataSourceSet = false
     
     override func reloadData() {
          reloadDataCalled = true
@@ -28,5 +29,11 @@ class TableViewSpy: UITableView {
     
     override func deselectRow(at indexPath: IndexPath, animated: Bool) {
         deselectRowCalled = true
+    }
+    
+    override var dataSource: UITableViewDataSource? {
+        didSet {
+            dataSourceSet = true
+        }
     }
 }

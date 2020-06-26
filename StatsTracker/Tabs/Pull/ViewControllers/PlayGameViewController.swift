@@ -54,7 +54,6 @@ class PlayGameViewController: UIViewController, Storyboarded {
 extension PlayGameViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

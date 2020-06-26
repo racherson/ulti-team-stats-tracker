@@ -54,9 +54,7 @@ class PlayGamePresenter: Presenter {
 }
 
 //MARK: PlayGamePresenterProtocol
-extension PlayGamePresenter: PlayGamePresenterProtocol {
-    // TODO
-}
+extension PlayGamePresenter: PlayGamePresenterProtocol { }
 
 //MARK: DatabaseManagerGetDataDelegate
 extension PlayGamePresenter: DatabaseManagerGetDataDelegate {

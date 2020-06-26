@@ -14,8 +14,7 @@ class CallLineViewControllerTests: XCTestCase {
     var sut: CallLineViewController!
     var presenter: CallLinePresenterSpy!
     var vm: CallLineCellViewModel!
-    
-    var endGameCalled: Int = 0
+    var collectionView: CollectionViewSpy!
     
     override func setUp() {
         sut = CallLineViewController.instantiate(.pull)
@@ -23,7 +22,8 @@ class CallLineViewControllerTests: XCTestCase {
         presenter = CallLinePresenterSpy()
         let player = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         vm = CallLineCellViewModel(playerArray: [[], [player], []], delegate: self)
-        sut.viewModel = vm
+        collectionView = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        sut.collectionView = collectionView
         sut.presenter = presenter
         super.setUp()
     }
@@ -31,7 +31,6 @@ class CallLineViewControllerTests: XCTestCase {
     override func tearDown() {
         sut = nil
         presenter = nil
-        vm = nil
         super.tearDown()
     }
     
@@ -44,50 +43,15 @@ class CallLineViewControllerTests: XCTestCase {
     }
     
     func testUpdateWithViewModel() throws {
-        sut.viewModel = nil
-        XCTAssertNil(sut.viewModel)
+        XCTAssertFalse(collectionView.reloadDataCalled)
+        XCTAssertFalse(collectionView.dataSourceSet)
         // Given
         let vm = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
-        XCTAssertNotNil(sut.viewModel)
-    }
-    
-    func testUpdateView() throws {
-        // Given
-        let collectionView = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        sut.collectionView = collectionView
-        // When
-        sut.updateView()
-        // Then
         XCTAssertTrue(collectionView.reloadDataCalled)
-    }
-    
-    func testShowCallLine() throws {
-        // Given
-        sut.collectionView.isHidden = true
-        // When
-        sut.showCallLine()
-        // Then
-        XCTAssertTrue(sut.playPointButton.isHidden)
-        XCTAssertFalse(sut.collectionView.isHidden)
-        XCTAssertEqual(Constants.Titles.callLineTitle, sut.navigationItem.title)
-        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem)
-        XCTAssertNotNil(sut.navigationItem.leftBarButtonItem)
-    }
-    
-    func testShowPlayPoint() throws {
-        // Given
-        sut.collectionView.isHidden = false
-        // When
-        sut.showPlayPoint()
-        // Then
-        XCTAssertFalse(sut.playPointButton.isHidden)
-        XCTAssertTrue(sut.collectionView.isHidden)
-        XCTAssertEqual(Constants.Titles.pointTitle, sut.navigationItem.title)
-        XCTAssertNil(sut.navigationItem.rightBarButtonItem)
-        XCTAssertNil(sut.navigationItem.leftBarButtonItem)
+        XCTAssertTrue(collectionView.dataSourceSet)
     }
     
     func testStartPointPressed() throws {
@@ -99,45 +63,37 @@ class CallLineViewControllerTests: XCTestCase {
     }
     
     func testEndGamePressed() throws {
-        XCTAssertEqual(0, endGameCalled)
+        XCTAssertEqual(0, presenter.endGameCalled)
         // When
         sut.endGamePressed()
         // Then
-        XCTAssertEqual(1, endGameCalled)
-    }
-    
-    func testPlayPointPressed() throws {
-        XCTAssertEqual(0, presenter.nextPointCalled)
-        // When
-        sut.playPointPressed(UIButton())
-        // Then
-        XCTAssertEqual(1, presenter.nextPointCalled)
+        XCTAssertEqual(1, presenter.endGameCalled)
     }
     
     func testDidSelectItemAt() throws {
+        XCTAssertEqual(0, presenter.selectPlayerCalled)
         // Given
         let indexPath = IndexPath(row: 0, section: 1)
-        let collectionView = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         // When
         sut.collectionView(collectionView, didSelectItemAt: indexPath)
         // Then
         XCTAssertTrue(collectionView.moveItemCalled)
+        XCTAssertEqual(1, presenter.selectPlayerCalled)
     }
 }
 
 //MARK: CallLineCellViewModelDelegate
 extension CallLineViewControllerTests: CallLineCellViewModelDelegate {
-    func endGame(items: [[PlayerViewModel]]) {
-        endGameCalled += 1
-    }
+    func endGame(items: [[PlayerViewModel]]) { }
 }
 
 //MARK: CallLinePresenterSpy
 class CallLinePresenterSpy: Presenter, CallLinePresenterProtocol {
-    
+
     var viewWillAppearCalled: Int = 0
     var startPointCalled: Int = 0
-    var nextPointCalled: Int = 0
+    var selectPlayerCalled: Int = 0
+    var endGameCalled: Int = 0
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
@@ -147,7 +103,12 @@ class CallLinePresenterSpy: Presenter, CallLinePresenterProtocol {
         startPointCalled += 1
     }
     
-    func nextPoint(scored: Bool) {
-        nextPointCalled += 1
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
+        selectPlayerCalled += 1
+        return indexPath
+    }
+    
+    func endGame() {
+        endGameCalled += 1
     }
 }
