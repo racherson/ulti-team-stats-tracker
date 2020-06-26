@@ -111,7 +111,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayGameTableViewCell" rowHeight="79" id="Bxi-ol-hX0" customClass="PlayGameTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayGameOffenseTableViewCell" rowHeight="79" id="Bxi-ol-hX0" customClass="PlayGameOffenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bxi-ol-hX0" id="SlK-jb-tmM">
@@ -119,14 +119,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSt-QZ-nFJ">
-                                                    <rect key="frame" x="183" y="24" width="49" height="30"/>
+                                                    <rect key="frame" x="182.5" y="24.5" width="49" height="30"/>
                                                     <state key="normal" title="Scored"/>
+                                                    <connections>
+                                                        <action selector="scorePressed:" destination="Bxi-ol-hX0" eventType="touchUpInside" id="RhD-O0-3Ae"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="YSt-QZ-nFJ" firstAttribute="centerY" secondItem="SlK-jb-tmM" secondAttribute="centerY" id="W5g-UM-N6g"/>
                                                 <constraint firstItem="YSt-QZ-nFJ" firstAttribute="centerX" secondItem="SlK-jb-tmM" secondAttribute="centerX" id="fez-4U-ayn"/>
                                             </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="scoreButton" destination="YSt-QZ-nFJ" id="c2u-yd-jdp"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayGameDefenseTableViewCell" rowHeight="115" id="Htl-Kc-CdM" customClass="PlayGameDefenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="107" width="414" height="115"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Htl-Kc-CdM" id="XZf-kX-PrJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="115"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>

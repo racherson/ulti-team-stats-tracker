@@ -10,21 +10,14 @@ import UIKit
 
 protocol CallLinePresenterProtocol where Self: Presenter {
     func startPoint()
-    func nextPoint(scored: Bool)
-}
-
-protocol CallLineCellViewModelProtocol: UICollectionViewDataSource {
-    func clearLine()
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
     func endGame()
-    func fullLine() -> Bool
 }
 
 class CallLineViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: CallLinePresenterProtocol!
-    var viewModel: CallLineCellViewModelProtocol!
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let itemsPerRow: CGFloat = 4
@@ -33,9 +26,7 @@ class CallLineViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.dataSource = viewModel
         collectionView.delegate = self
-        
         setUpButtons()
     }
     
@@ -45,7 +36,6 @@ class CallLineViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: CallLineCellViewModelProtocol) {
-        viewModel = vm
         if collectionView != nil {
             collectionView.dataSource = vm
         }
@@ -56,15 +46,6 @@ class CallLineViewController: UIViewController, Storyboarded {
         if collectionView != nil {
             collectionView.reloadData()
         }
-    }
-    
-    func fullLine() -> Bool {
-        return viewModel.fullLine()
-    }
-    
-    func clearLine() {
-        viewModel.clearLine()
-        updateView()
     }
     
     //MARK: Private methods
@@ -84,7 +65,7 @@ class CallLineViewController: UIViewController, Storyboarded {
     }
     
     @objc func endGamePressed() {
-        viewModel.endGame()
+        presenter.endGame()
     }
 }
 
@@ -93,7 +74,7 @@ extension CallLineViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Get location to move item
-        if let newIndexPath = viewModel.selectPlayer(at: indexPath) {
+        if let newIndexPath = presenter.selectPlayer(at: indexPath) {
             collectionView.moveItem(at: indexPath, to: newIndexPath)
         }
     }

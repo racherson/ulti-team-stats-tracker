@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol PlayGameCellViewModelDelegate: AnyObject { }
+protocol PlayGameCellViewModelDelegate: AnyObject {
+    func nextPoint(scored: Bool)
+}
 
 class PlayGameCellViewModel: NSObject {
     
@@ -50,9 +52,7 @@ class PlayGameCellViewModel: NSObject {
 }
 
 //MARK: PlayGameCellViewModelProtocol
-extension PlayGameCellViewModel: PlayGameCellViewModelProtocol {
-    // TODO
-}
+extension PlayGameCellViewModel: PlayGameCellViewModelProtocol { }
 
 //MARK: UITableViewDataSource
 extension PlayGameCellViewModel: UITableViewDataSource {
@@ -67,21 +67,29 @@ extension PlayGameCellViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "PlayGameTableViewCell"
+        let cellIdentifier = "PlayGameOffenseTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-            as? PlayGameTableViewCell else {
+            as? PlayGameOffenseTableViewCell else {
                 fatalError(Constants.Errors.dequeueError(cellIdentifier))
         }
         
         // Configure the cell
         if checkValidIndexPath(indexPath) {
             cell.item = items[indexPath.section][indexPath.row]
-
+            cell.delegate = self
             return cell
         }
         else {
             fatalError(Constants.Errors.oob)
         }
+    }
+}
+
+//MARK: PlayGameOffenseCellDelegate
+extension PlayGameCellViewModel: PlayGameOffenseCellDelegate {
+    func scorePressed() {
+        // We scored on offense
+        delegate?.nextPoint(scored: true)
     }
 }

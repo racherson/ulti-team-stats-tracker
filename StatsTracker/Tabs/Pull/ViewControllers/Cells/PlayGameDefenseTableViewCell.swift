@@ -1,14 +1,19 @@
 //
-//  PlayGameOffenseTableViewCell.swift
+//  PlayGameDefenseTableViewCell.swift
 //  StatsTracker
 //
-//  Created by Rachel Anderson on 6/20/20.
+//  Created by Rachel Anderson on 6/25/20.
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
 import UIKit
 
-class PlayGameOffenseTableViewCell: UITableViewCell {
+protocol PlayGameDefenseCellDelegate: AnyObject { }
+
+class PlayGameDefenseTableViewCell: UITableViewCell {
+
+    //MARK: Properties
+    weak var delegate: PlayGameDefenseCellDelegate?
     
     var item: PlayerViewModel? {
        didSet {
@@ -23,5 +28,4 @@ class PlayGameOffenseTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }

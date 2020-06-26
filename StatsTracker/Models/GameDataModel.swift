@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GameDataModel {
+class GameDataModel: DocumentSerializable {
     
     //MARK: Properties
     private(set) var id: String
@@ -52,7 +52,17 @@ struct GameDataModel {
         self.points = points.compactMap { PointDataModel(documentData: $0) }
     }
     
-    mutating func addPoint(point: PointDataModel) {
+    required convenience init?(documentData: [String : Any]) {
+        guard let id = documentData[Constants.GameModel.id] as? String,
+            let tournament = documentData[Constants.GameModel.tournament] as? String,
+            let opponent = documentData[Constants.GameModel.opponent] as? String,
+            let finalScore = documentData[Constants.GameModel.finalScore] as? [String: Any],
+            let points = documentData[Constants.GameModel.points] as? [[String: Any]] else { return nil }
+        
+        self.init(id: id, tournament: tournament, opponent: opponent, finalScore: finalScore, points: points)
+    }
+    
+    func addPoint(point: PointDataModel) {
         // Add point
         self.points.append(point)
         
@@ -63,20 +73,6 @@ struct GameDataModel {
         else {
             self.finalScore.opponentScored()
         }
-    }
-}
-
-
-//MARK: DocumentSerializable
-extension GameDataModel: DocumentSerializable {
-    init?(documentData: [String : Any]) {
-        guard let id = documentData[Constants.GameModel.id] as? String,
-            let tournament = documentData[Constants.GameModel.tournament] as? String,
-            let opponent = documentData[Constants.GameModel.opponent] as? String,
-            let finalScore = documentData[Constants.GameModel.finalScore] as? [String: Any],
-            let points = documentData[Constants.GameModel.points] as? [[String: Any]] else { return nil }
-        
-        self.init(id: id, tournament: tournament, opponent: opponent, finalScore: finalScore, points: points)
     }
 }
 

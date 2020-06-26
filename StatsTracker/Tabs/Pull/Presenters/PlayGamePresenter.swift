@@ -20,8 +20,6 @@ class PlayGamePresenter: Presenter {
     weak var vc: PlayGameViewController!
     var gameModel: GameDataModel
     var dbManager: DatabaseManager
-    var currentPointWind: WindDirection!
-    var currentPointType: PointType!
     
     //MARK: Initialization
     init(vc: PlayGameViewController, delegate: PlayGamePresenterDelegate?, gameModel: GameDataModel, dbManager: DatabaseManager) {
@@ -52,24 +50,6 @@ class PlayGamePresenter: Presenter {
     private func setViewModel() {
         // Get models from db, delegate function sets array
         dbManager.getData(collection: .roster)
-    }
-    
-    private func updateWind() {
-        switch currentPointWind {
-        case .upwind:
-            currentPointWind = .downwind
-        case .downwind:
-            currentPointWind = .upwind
-        case .crosswind:
-            currentPointWind = .crosswind
-        case .none:
-            return
-        }
-    }
-    
-    private func updatePointType(scored: Bool) {
-        // The team that scores pulls the next point (starts on defense)
-        currentPointType = scored ? .defensive : .offensive
     }
 }
 

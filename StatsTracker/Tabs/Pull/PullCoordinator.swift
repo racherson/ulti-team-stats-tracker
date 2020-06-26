@@ -22,6 +22,11 @@ class PullCoordinator: Coordinator {
     weak var delegate: PullCoordinatorDelegate?
     var authManager: AuthenticationManager = FirebaseAuthManager()
     
+    var viewModel: CallLineCellViewModel!
+    var gameModel: GameDataModel!
+    var currentPointWind: WindDirection!
+    var currentPointType: PointType!
+    
     private let selectedPlayerSection = 0
 
     //MARK: Initialization
@@ -47,16 +52,42 @@ class PullCoordinator: Coordinator {
         navigationController.dismiss(animated: true, completion: nil)
         delegate?.reloadGames()
     }
+    
+    private func updateGameState(scored: Bool) {
+        updateWind()
+        updatePointType(scored: scored)
+        viewModel.clearLine()
+    }
+    
+    private func updateWind() {
+        switch currentPointWind {
+        case .upwind:
+            currentPointWind = .downwind
+        case .downwind:
+            currentPointWind = .upwind
+        case .crosswind:
+            currentPointWind = .crosswind
+        case .none:
+            return
+        }
+    }
+    
+    private func updatePointType(scored: Bool) {
+        // The team that scores pulls the next point (starts on defense)
+        currentPointType = scored ? .defensive : .offensive
+    }
 }
 
 //MARK: PullPresenterDelegate
 extension PullCoordinator: PullPresenterDelegate {
     func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
+        self.currentPointWind = wind
+        self.currentPointType = point
+        self.gameModel = gameModel
         
         let vc = PlayGameViewController.instantiate(.pull)
         let presenter = PlayGamePresenter(vc: vc, delegate: self, gameModel: gameModel, dbManager: FirestoreDBManager(authManager.currentUserUID))
-        presenter.currentPointWind = wind
-        presenter.currentPointType = point
+        
         vc.presenter = presenter
         
         pullNavigationController = UINavigationController(rootViewController: vc)
@@ -68,11 +99,12 @@ extension PullCoordinator: PullPresenterDelegate {
 //MARK: PlayGamePresenterDelegate
 extension PullCoordinator: PlayGamePresenterDelegate {
     func startPoint(vm: CallLineCellViewModel) {
+        viewModel = vm
         
         let vc = CallLineViewController.instantiate(.pull)
-        let presenter = CallLinePresenter(vc: vc, delegate: self, vm: vm)
+        let presenter = CallLinePresenter(vc: vc, delegate: self, vm: viewModel)
         vc.presenter = presenter
-        vc.viewModel = vm
+        vc.updateWithViewModel(vm: viewModel)
         
         lineNavigationController = UINavigationController(rootViewController: vc)
         lineNavigationController!.modalPresentationStyle = .fullScreen
@@ -93,7 +125,7 @@ extension PullCoordinator: PlayGamePresenterDelegate {
 extension PullCoordinator: CallLinePresenterDelegate {
     func playPoint(vm: CallLineCellViewModel) {
         guard let vc = pullNavigationController?.viewControllers[0] as? PlayGameViewController else {
-            fatalError("NOOOO")
+            fatalError(Constants.Errors.viewControllerError("PlayGameViewController"))
         }
         
         let selectedPlayers = vm.items[selectedPlayerSection]
@@ -106,4 +138,13 @@ extension PullCoordinator: CallLinePresenterDelegate {
 }
 
 //MARK: PlayGameCellViewModelDelegate
-extension PullCoordinator: PlayGameCellViewModelDelegate { }
+extension PullCoordinator: PlayGameCellViewModelDelegate {
+    func nextPoint(scored: Bool) {
+        
+        let point = PointDataModel(wind: currentPointWind.rawValue, scored: scored, type: currentPointType.rawValue)
+        gameModel.addPoint(point: point)
+        
+        updateGameState(scored: scored)
+        startPoint(vm: viewModel)
+    }
+}

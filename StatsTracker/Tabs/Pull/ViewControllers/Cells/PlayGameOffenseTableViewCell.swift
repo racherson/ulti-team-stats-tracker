@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol PlayGameOffenseCellDelegate: AnyObject {
+    func scorePressed()
+}
+
 class PlayGameOffenseTableViewCell: UITableViewCell {
+    
+    //MARK: Properties
+    weak var delegate: PlayGameOffenseCellDelegate?
+    @IBOutlet weak var scoreButton: UIButton!
     
     var item: PlayerViewModel? {
        didSet {
@@ -23,5 +31,10 @@ class PlayGameOffenseTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
+    //MARK: Actions
+    @IBAction func scorePressed(_ sender: Any) {
+        item?.model.addGoal()
+        delegate?.scorePressed()
+    }
 }

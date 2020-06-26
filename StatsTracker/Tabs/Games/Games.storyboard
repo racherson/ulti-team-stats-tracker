@@ -54,9 +54,35 @@
                     <view key="view" contentMode="scaleToFill" id="qEg-gc-5uk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tournament" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tb4-KE-rTy">
+                                <rect key="frame" x="20" y="44" width="374" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rld-ca-Ucv">
+                                <rect key="frame" x="20" y="88" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="tb4-KE-rTy" firstAttribute="top" secondItem="wtw-mT-V4X" secondAttribute="top" id="7vl-wB-Y9n"/>
+                            <constraint firstItem="wtw-mT-V4X" firstAttribute="trailing" secondItem="Rld-ca-Ucv" secondAttribute="trailing" constant="20" id="THj-09-fg3"/>
+                            <constraint firstItem="Rld-ca-Ucv" firstAttribute="top" secondItem="tb4-KE-rTy" secondAttribute="bottom" constant="20" id="aOg-XM-QS6"/>
+                            <constraint firstItem="Rld-ca-Ucv" firstAttribute="leading" secondItem="wtw-mT-V4X" secondAttribute="leading" constant="20" id="gpq-Dk-kS8"/>
+                            <constraint firstItem="tb4-KE-rTy" firstAttribute="leading" secondItem="wtw-mT-V4X" secondAttribute="leading" constant="20" id="kNz-vQ-Ldl"/>
+                            <constraint firstItem="wtw-mT-V4X" firstAttribute="trailing" secondItem="tb4-KE-rTy" secondAttribute="trailing" constant="20" id="xcf-KV-fQL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="wtw-mT-V4X"/>
                     </view>
+                    <connections>
+                        <outlet property="scoreLabel" destination="Rld-ca-Ucv" id="Sjf-F1-cPy"/>
+                        <outlet property="tournamentLabel" destination="tb4-KE-rTy" id="0eD-fY-2rg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oGq-Xq-kvw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
