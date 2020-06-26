@@ -10,23 +10,15 @@ import UIKit
 
 protocol CallLinePresenterProtocol where Self: Presenter {
     func startPoint()
-    func nextPoint(scored: Bool)
-}
-
-protocol CallLineCellViewModelProtocol: UICollectionViewDataSource {
-    func clearLine()
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
     func endGame()
-    func fullLine() -> Bool
 }
 
 class CallLineViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: CallLinePresenterProtocol!
-    var viewModel: CallLineCellViewModelProtocol!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var playPointButton: UIButton!
     
     private let itemsPerRow: CGFloat = 4
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
@@ -34,11 +26,8 @@ class CallLineViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.dataSource = viewModel
         collectionView.delegate = self
-        
-        playPointButton.isHidden = true
-        setUpCallLineButtons()
+        setUpButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,44 +36,20 @@ class CallLineViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: CallLineCellViewModelProtocol) {
-        viewModel = vm
         if collectionView != nil {
             collectionView.dataSource = vm
         }
         updateView()
     }
-    
+
     func updateView() {
         if collectionView != nil {
             collectionView.reloadData()
         }
     }
     
-    func fullLine() -> Bool {
-        return viewModel.fullLine()
-    }
-    
-    func clearLine() {
-        viewModel.clearLine()
-        updateView()
-    }
-    
-    func showCallLine() {
-        collectionView.isHidden = false
-        playPointButton.isHidden = true
-        setUpCallLineButtons()
-        navigationItem.title = Constants.Titles.callLineTitle
-    }
-    
-    func showPlayPoint() {
-        collectionView.isHidden = true
-        playPointButton.isHidden = false
-        removeBarButtons()
-        navigationItem.title = Constants.Titles.pointTitle
-    }
-    
     //MARK: Private methods
-    private func setUpCallLineButtons() {
+    private func setUpButtons() {
         // Add start button
         let button = UIBarButtonItem(title: "Start", style: .done, target: self, action: #selector(self.startPointPressed))
         navigationItem.rightBarButtonItem  = button
@@ -94,24 +59,13 @@ class CallLineViewController: UIViewController, Storyboarded {
         navigationItem.leftBarButtonItem  = endGameButton
     }
     
-    private func removeBarButtons() {
-        navigationItem.rightBarButtonItem  = nil
-        navigationItem.leftBarButtonItem  = nil
-    }
-    
     //MARK: Actions
     @objc func startPointPressed() {
         presenter.startPoint()
     }
     
     @objc func endGamePressed() {
-        viewModel.endGame()
-    }
-    
-    @IBAction func playPointPressed(_ sender: UIButton) {
-        // TODO: Get if current point was scored by team or not
-        let scored = true
-        presenter.nextPoint(scored: scored)
+        presenter.endGame()
     }
 }
 
@@ -120,7 +74,7 @@ extension CallLineViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Get location to move item
-        if let newIndexPath = viewModel.selectPlayer(at: indexPath) {
+        if let newIndexPath = presenter.selectPlayer(at: indexPath) {
             collectionView.moveItem(at: indexPath, to: newIndexPath)
         }
     }

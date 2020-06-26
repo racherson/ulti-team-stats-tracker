@@ -13,23 +13,21 @@ import ViewControllerPresentationSpy
 class CallLineCellViewModelTests: XCTestCase {
     
     var sut: CallLineCellViewModel!
-    var vc: CallLineViewControllerSpy!
     
     private let selectedSection = 0
     private let womenSection = Gender.women.rawValue + 1
     private let menSection = Gender.men.rawValue + 1
-    var endGameCalled: Int = 0
+    
+    private var endGameCalled: Int = 0
     
     override func setUp() {
         let playerArray = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
-        vc = CallLineViewControllerSpy()
         sut = CallLineCellViewModel(playerArray: playerArray, delegate: self)
         super.setUp()
     }
     
     override func tearDown() {
         sut = nil
-        vc = nil
         super.tearDown()
     }
     
@@ -136,7 +134,7 @@ class CallLineCellViewModelTests: XCTestCase {
         XCTAssertEqual(Constants.Empty.int, sut.collectionView(UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init()), numberOfItemsInSection: sectionLessThan))
     }
     
-    func testConfigureTableViewCell() {
+    func testConfigureCollectionViewCell() {
         // Given
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collectionView.register(CallLineCollectionViewCell.self, forCellWithReuseIdentifier: "CallLineCollectionViewCell")

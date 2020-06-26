@@ -88,3 +88,9 @@ struct PlayerViewModel {
         return String(0)
     }
 }
+
+extension PlayerViewModel {
+    func addGoal() {
+        model.addGoal()
+    }
+}

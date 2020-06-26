@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PlayerModel: Codable {
+class PlayerModel: Codable, DocumentSerializable {
     
     //MARK: Properties
     private(set) var id: String
@@ -101,12 +101,7 @@ struct PlayerModel: Codable {
         self.roles = roles
     }
     
-    
-}
-
-//MARK: DocumentSerializable
-extension PlayerModel: DocumentSerializable {
-    init?(documentData: [String : Any]) {
+    required convenience init?(documentData: [String : Any]) {
         guard let name = documentData[Constants.PlayerModel.name] as? String,
             let gender = documentData[Constants.PlayerModel.gender] as? Int,
             let id = documentData[Constants.PlayerModel.id] as? String,
@@ -125,6 +120,54 @@ extension PlayerModel: DocumentSerializable {
         let callahans = documentData[Constants.PlayerModel.callahans] as? Int ?? Constants.Empty.int
         
         self.init(name: name, gender: gender, id: id, points: points, games: games, completions: completions, throwaways: throwaways, catches: catches, drops: drops, goals: goals, assists: assists, ds: ds, pulls: pulls, callahans: callahans, roles: roles)
+    }
+}
+
+//MARK: Add Stats
+extension PlayerModel {
+    
+    func addPoint() {
+        self.points += 1
+    }
+    
+    func addGame() {
+        self.games += 1
+    }
+    
+    func addCompletion() {
+        self.completions += 1
+    }
+    
+    func addThrowaway() {
+        self.throwaways += 1
+    }
+    
+    func addCatch() {
+        self.catches += 1
+    }
+    
+    func addDrop() {
+        self.drops += 1
+    }
+    
+    func addGoal() {
+        self.goals += 1
+    }
+    
+    func addAssist() {
+        self.assists += 1
+    }
+    
+    func addD() {
+        self.ds += 1
+    }
+    
+    func addPull() {
+        self.pulls += 1
+    }
+    
+    func addCallahan() {
+        self.callahans += 1
     }
 }
 

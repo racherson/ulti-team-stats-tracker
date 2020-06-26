@@ -54,7 +54,7 @@ class CallLineCellViewModel: NSObject {
 //MARK: CallLineCellViewModelProtocol
 extension CallLineCellViewModel: CallLineCellViewModelProtocol {
     
-    func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
+    @objc func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
         // Get player model
         let player = items[indexPath.section][indexPath.row]
         // Get the section to move player to, based on if they are already selected or not
@@ -73,11 +73,11 @@ extension CallLineCellViewModel: CallLineCellViewModelProtocol {
         return IndexPath(row: items[section].count - 1, section: section)
     }
     
-    func endGame() {
+    @objc func endGame() {
         delegate?.endGame(items: items)
     }
     
-    func fullLine() -> Bool {
+    @objc func fullLine() -> Bool {
         // Check if selected array has 7 players
         return items[selectedPlayerSection].count < Constants.fullLine ? false : true
     }
