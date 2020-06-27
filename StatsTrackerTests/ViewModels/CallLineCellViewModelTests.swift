@@ -119,6 +119,22 @@ class CallLineCellViewModelTests: XCTestCase {
         XCTAssertEqual(1, sut.items[2].count)
     }
     
+    func testAddPointsToPlayers() throws {
+        // Given
+        let womanVM = PlayerViewModel(model: PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
+        let manVM = PlayerViewModel(model: PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: []))
+        sut.items = [[womanVM, manVM], [], []]
+        // When
+        sut.addPointsToPlayers()
+        // Then
+        XCTAssertTrue(womanVM.enteredGame)
+        XCTAssertTrue(manVM.enteredGame)
+        XCTAssertEqual(1, womanVM.model.points)
+        XCTAssertEqual(1, manVM.model.points)
+        XCTAssertEqual(1, womanVM.model.games)
+        XCTAssertEqual(1, manVM.model.games)
+    }
+    
     func testNumberOfPlayersInSection_NonEmptySection() throws {
         XCTAssertEqual(0, sut.collectionView(UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init()), numberOfItemsInSection: selectedSection))
         XCTAssertEqual(1, sut.collectionView(UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init()), numberOfItemsInSection: womenSection))

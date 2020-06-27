@@ -9,10 +9,11 @@
 import UIKit
 
 protocol CallLinePresenterDelegate: AnyObject {
-    func playPoint(vm: CallLineCellViewModel)
+    func playPoint(vm: CallLineCellViewModelProtocol)
 }
 
 protocol CallLineCellViewModelProtocol: UICollectionViewDataSource {
+    var items: [[PlayerViewModel]] { get set }
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
     func endGame()
     func fullLine() -> Bool
@@ -24,10 +25,10 @@ class CallLinePresenter: Presenter {
     //MARK: Properties
     weak var delegate: CallLinePresenterDelegate?
     weak var vc: CallLineViewController!
-    weak var vm: CallLineCellViewModel!
+    weak var vm: CallLineCellViewModelProtocol!
     
     //MARK: Initialization
-    init(vc: CallLineViewController, delegate: CallLinePresenterDelegate, vm: CallLineCellViewModel) {
+    init(vc: CallLineViewController, delegate: CallLinePresenterDelegate, vm: CallLineCellViewModelProtocol) {
         self.vc = vc
         self.delegate = delegate
         self.vm = vm

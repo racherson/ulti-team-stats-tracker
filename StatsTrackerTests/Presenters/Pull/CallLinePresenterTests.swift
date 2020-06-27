@@ -20,8 +20,7 @@ class CallLinePresenterTests: XCTestCase {
     
     override func setUp() {
         vc = CallLineViewControllerSpy()
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        vm = CallLineCellViewModelSpy(playerArray: [[], [model], []], delegate: self)
+        vm = CallLineCellViewModelSpy()
         sut = CallLinePresenter(vc: vc, delegate: self, vm: vm)
         vc.presenter = sut
         super.setUp()
@@ -74,6 +73,7 @@ class CallLinePresenterTests: XCTestCase {
     func testExecutingActionForConfirmButton_shouldStartPoint() throws {
         let alertVerifier = AlertVerifier()
         XCTAssertEqual(0, playPointCalled)
+        XCTAssertEqual(0, vm.addPointsCalled)
         
         // Given
         vm.fullLineBool = false
@@ -83,6 +83,7 @@ class CallLinePresenterTests: XCTestCase {
         try alertVerifier.executeAction(forButton: TestConstants.Alerts.confirm)
         // Then
         XCTAssertEqual(1, playPointCalled)
+        XCTAssertEqual(1, vm.addPointsCalled)
     }
     
     func testSelectPlayer() throws {
@@ -106,7 +107,7 @@ class CallLinePresenterTests: XCTestCase {
 
 //MARK: CallLinePresenterDelegate
 extension CallLinePresenterTests: CallLinePresenterDelegate {
-    func playPoint(vm: CallLineCellViewModel) {
+    func playPoint(vm: CallLineCellViewModelProtocol) {
         playPointCalled += 1
     }
 }
@@ -127,24 +128,38 @@ class CallLineViewControllerSpy: CallLineViewController {
 }
 
 //MARK: CallLineCellViewModelSpy
-class CallLineCellViewModelSpy: CallLineCellViewModel {
+class CallLineCellViewModelSpy: NSObject, CallLineCellViewModelProtocol {
+    var items: [[PlayerViewModel]] = []
     
     var fullLineBool = false
     var fullLineCalled: Int = 0
     var selectPlayerCalled: Int = 0
     var endGameCalled: Int = 0
+    var addPointsCalled: Int = 0
     
-    override func fullLine() -> Bool {
+    func fullLine() -> Bool {
         fullLineCalled += 1
         return fullLineBool
     }
     
-    override func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
+    func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
         selectPlayerCalled += 1
         return indexPath
     }
     
-    override func endGame() {
+    func endGame() {
         endGameCalled += 1
+    }
+    
+    func addPointsToPlayers() {
+        addPointsCalled += 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
     }
 }

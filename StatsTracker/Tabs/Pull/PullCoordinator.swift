@@ -123,7 +123,7 @@ extension PullCoordinator: PlayGamePresenterDelegate {
 
 //MARK: CallLinePresenterDelegate
 extension PullCoordinator: CallLinePresenterDelegate {
-    func playPoint(vm: CallLineCellViewModel) {
+    func playPoint(vm: CallLineCellViewModelProtocol) {
         guard let vc = pullNavigationController?.topViewController as? PlayGameViewController else {
             fatalError(Constants.Errors.viewControllerError("PlayGameViewController"))
         }
