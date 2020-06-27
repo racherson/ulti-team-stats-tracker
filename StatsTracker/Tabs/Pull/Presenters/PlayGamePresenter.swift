@@ -116,7 +116,6 @@ extension PlayGamePresenter: CallLineCellViewModelDelegate {
         
         // Save game model
         dbManager.setData(data: gameModel.dictionary, collection: .games)
-        
         delegate?.endGame()
     }
 }

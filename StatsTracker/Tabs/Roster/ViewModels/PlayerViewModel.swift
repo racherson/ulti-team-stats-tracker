@@ -8,10 +8,16 @@
 
 import Foundation
 
-struct PlayerViewModel {
+class PlayerViewModel {
     
     //MARK: Properties
     let model: PlayerModel
+    var enteredGame: Bool = false
+    
+    //MARK: Initialization
+    init(model: PlayerModel) {
+        self.model = model
+    }
     
     var name: String {
         return model.name
@@ -89,8 +95,51 @@ struct PlayerViewModel {
     }
 }
 
+//MARK: Add Stats
 extension PlayerViewModel {
+    
+    func addGame() {
+        model.addGame()
+        enteredGame = true
+    }
+    
+    func addPoint() {
+        model.addPoint()
+    }
+    
     func addGoal() {
         model.addGoal()
+    }
+    
+    func addAssist() {
+        model.addAssist()
+    }
+    
+    func addCatch() {
+        model.addCatch()
+    }
+    
+    func addDrop() {
+        model.addDrop()
+    }
+    
+    func addCompletion() {
+        model.addCompletion()
+    }
+    
+    func addThrowaway() {
+        model.addThrowaway()
+    }
+    
+    func addD() {
+        model.addD()
+    }
+    
+    func addPull() {
+        model.addPull()
+    }
+    
+    func addCallahan() {
+        model.addCallahan()
     }
 }

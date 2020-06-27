@@ -16,6 +16,7 @@ protocol CallLineCellViewModelProtocol: UICollectionViewDataSource {
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
     func endGame()
     func fullLine() -> Bool
+    func addPointsToPlayers()
 }
 
 class CallLinePresenter: Presenter {
@@ -61,6 +62,8 @@ class CallLinePresenter: Presenter {
     }
     
     private func confirmedStartPoint() {
+        // Give players stat of playing a point
+        vm.addPointsToPlayers()
         // Hide player selection UI and display point UI
         delegate?.playPoint(vm: vm)
     }
