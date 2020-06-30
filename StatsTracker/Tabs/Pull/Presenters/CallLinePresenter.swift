@@ -9,15 +9,16 @@
 import UIKit
 
 protocol CallLinePresenterDelegate: AnyObject {
-    func playPoint(vm: CallLineCellViewModelProtocol)
+    func playPoint()
 }
 
 protocol CallLineCellViewModelProtocol: UICollectionViewDataSource {
-    var items: [[PlayerViewModel]] { get set }
+    var selectedPlayers: [PlayerViewModel] { get }
     func selectPlayer(at indexPath: IndexPath) -> IndexPath?
     func endGame()
     func fullLine() -> Bool
     func addPointsToPlayers()
+    func clearLine()
 }
 
 class CallLinePresenter: Presenter {
@@ -66,7 +67,7 @@ class CallLinePresenter: Presenter {
         // Give players stat of playing a point
         vm.addPointsToPlayers()
         // Hide player selection UI and display point UI
-        delegate?.playPoint(vm: vm)
+        delegate?.playPoint()
     }
 }
 

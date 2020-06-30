@@ -19,7 +19,11 @@ class CallLineCellViewModel: NSObject, CallLineCellViewModelProtocol {
     weak var delegate: CallLineCellViewModelDelegate?
     
     private let selectedPlayerSection = 0
+    var selectedPlayers: [PlayerViewModel] {
+        return items[selectedPlayerSection]
+    }
     
+    //MARK: Initialization
     init(playerArray: [[PlayerModel]], delegate: CallLineCellViewModelDelegate?) {
         self.items = playerArray.map { $0.map { PlayerViewModel(model: $0) } }
         self.delegate = delegate
@@ -32,7 +36,7 @@ class CallLineCellViewModel: NSObject, CallLineCellViewModelProtocol {
         let section = indexPath.section == selectedPlayerSection ? player.gender.rawValue + 1 : selectedPlayerSection
         
         // Don't select more than 7 players
-        if section == selectedPlayerSection && items[selectedPlayerSection].count >= Constants.fullLine {
+        if section == selectedPlayerSection && selectedPlayers.count >= Constants.fullLine {
             return nil
         }
         
@@ -50,12 +54,12 @@ class CallLineCellViewModel: NSObject, CallLineCellViewModelProtocol {
     
     func fullLine() -> Bool {
         // Check if selected array has 7 players
-        return items[selectedPlayerSection].count < Constants.fullLine ? false : true
+        return selectedPlayers.count < Constants.fullLine ? false : true
     }
     
     func clearLine() {
         // Add players back to their gender arrays
-        for player in items[selectedPlayerSection] {
+        for player in selectedPlayers {
             items[player.gender.rawValue + 1].append(player)
         }
         
@@ -64,10 +68,11 @@ class CallLineCellViewModel: NSObject, CallLineCellViewModelProtocol {
     }
     
     func addPointsToPlayers() {
-        for player in items[selectedPlayerSection] {
+        for player in selectedPlayers {
             // If this is a player's first point, add a game stat
             if !player.enteredGame {
                 player.addGame()
+                player.enteredGame = true
             }
             // Add a point stat to player
             player.addPoint()
@@ -99,52 +104,6 @@ class CallLineCellViewModel: NSObject, CallLineCellViewModelProtocol {
         return Constants.Empty.string
     }
 }
-
-////MARK: CallLineCellViewModelProtocol
-//extension CallLineCellViewModel: CallLineCellViewModelProtocol {
-//
-//    @objc func selectPlayer(at indexPath: IndexPath) -> IndexPath? {
-//        // Get player model
-//        let player = items[indexPath.section][indexPath.row]
-//        // Get the section to move player to, based on if they are already selected or not
-//        let section = indexPath.section == selectedPlayerSection ? player.gender.rawValue + 1 : selectedPlayerSection
-//
-//        // Don't select more than 7 players
-//        if section == selectedPlayerSection && items[selectedPlayerSection].count >= Constants.fullLine {
-//            return nil
-//        }
-//
-//        // Add to selected array
-//        items[section].append(player)
-//        // Remove from gender array
-//        items[indexPath.section].remove(at: indexPath.row)
-//
-//        return IndexPath(row: items[section].count - 1, section: section)
-//    }
-//
-//    @objc func endGame() {
-//        delegate?.endGame(items: items)
-//    }
-//
-//    @objc func fullLine() -> Bool {
-//        // Check if selected array has 7 players
-//        return items[selectedPlayerSection].count < Constants.fullLine ? false : true
-//    }
-//
-//    func clearLine() {
-//        // Add players back to their gender arrays
-//        for player in items[selectedPlayerSection] {
-//            items[player.gender.rawValue + 1].append(player)
-//        }
-//
-//        // Remove all players from selected array
-//        items[selectedPlayerSection].removeAll()
-//    }
-//
-//    func addPointsToPlayers() {
-//
-//    }
-//}
 
 //MARK: UITableViewDataSource
 extension CallLineCellViewModel: UICollectionViewDataSource {

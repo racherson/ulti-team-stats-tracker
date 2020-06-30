@@ -13,10 +13,12 @@ class PlayGameViewControllerTests: XCTestCase {
     
     var sut: PlayGameViewController!
     var presenter: PlayGamePresenterSpy!
-    var vm: PlayGameCellViewModel!
+    var vm: PlayGameOffenseCellViewModel!
     var tableView: TableViewSpy!
     
     private var nextPointCalled: Int = 0
+    private var flipPointCalled: Int = 0
+    private var reloadVCCalled: Int = 0
     
     override func setUp() {
         sut = PlayGameViewController.instantiate(.pull)
@@ -24,7 +26,7 @@ class PlayGameViewControllerTests: XCTestCase {
         presenter = PlayGamePresenterSpy()
         let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         let player = PlayerViewModel(model: model)
-        vm = PlayGameCellViewModel(playerArray: [[], [player], []], delegate: self)
+        vm = PlayGameOffenseCellViewModel(playerArray: [[], [player], []], delegate: self)
         tableView = TableViewSpy()
         sut.tableView = tableView
         sut.presenter = presenter
@@ -49,7 +51,7 @@ class PlayGameViewControllerTests: XCTestCase {
         XCTAssertFalse(tableView.reloadDataCalled)
         XCTAssertFalse(tableView.dataSourceSet)
         // Given
-        let vm = PlayGameCellViewModel(playerArray: [[], [], []], delegate: self)
+        let vm = PlayGameOffenseCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
@@ -58,10 +60,18 @@ class PlayGameViewControllerTests: XCTestCase {
     }
 }
 
-//MARK: PlayGameCellViewModelDelegate
-extension PlayGameViewControllerTests: PlayGameCellViewModelDelegate {
+//MARK: PlayGameOffenseCellViewModelDelegate
+extension PlayGameViewControllerTests: PlayGameOffenseCellViewModelDelegate {
     func nextPoint(scored: Bool) {
         nextPointCalled += 1
+    }
+    
+    func flipPointType() {
+        flipPointCalled += 1
+    }
+    
+    func reloadVC() {
+        reloadVCCalled += 1
     }
 }
 

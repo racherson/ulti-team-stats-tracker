@@ -34,7 +34,7 @@ class PullCoordinatorTests: XCTestCase {
         pullCoordinator.lineNavigationController = lineNavigationController
         pullCoordinator.pullNavigationController = pullNavigationController
         pullCoordinator.gameModel = gameModel
-        pullCoordinator.viewModel = viewModel
+        pullCoordinator.lineViewModel = viewModel
         pullCoordinator.delegate = self
         super.setUp()
     }
@@ -74,8 +74,8 @@ class PullCoordinatorTests: XCTestCase {
     }
     
     func testStartPoint() throws {
-        pullCoordinator.viewModel = nil
-        XCTAssertNil(pullCoordinator.viewModel)
+        pullCoordinator.lineViewModel = nil
+        XCTAssertNil(pullCoordinator.lineViewModel)
         XCTAssertEqual(0, lineNavigationController.presentCalledCount)
         // Given
         let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
@@ -83,7 +83,7 @@ class PullCoordinatorTests: XCTestCase {
         // When
         pullCoordinator.startPoint(vm: vm)
         // Then
-        XCTAssertNotNil(pullCoordinator.viewModel)
+        XCTAssertNotNil(pullCoordinator.lineViewModel)
         XCTAssertEqual(1, pullNavigationController.presentCalledCount)
         XCTAssertEqual(.fullScreen, pullNavigationController.presentationStyle)
     }
@@ -95,7 +95,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .upwind
         pullCoordinator.currentPointType = .offensive
-        pullCoordinator.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         pullCoordinator.nextPoint(scored: true)
         // Then
@@ -111,7 +111,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .downwind
         pullCoordinator.currentPointType = .defensive
-        pullCoordinator.viewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         pullCoordinator.nextPoint(scored: false)
         // Then

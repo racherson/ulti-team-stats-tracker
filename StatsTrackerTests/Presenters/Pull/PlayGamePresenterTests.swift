@@ -128,7 +128,7 @@ class PlayGamePresenterTests: XCTestCase {
 //MARK: PlayGamePresenterDelegate
 extension PlayGamePresenterTests: PlayGamePresenterDelegate {
     
-    func startPoint(vm: CallLineCellViewModel) {
+    func startPoint(vm: CallLineCellViewModelProtocol) {
         startPointCalled += 1
     }
     

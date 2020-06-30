@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PlayGamePresenterDelegate: AnyObject {
-    func startPoint(vm: CallLineCellViewModel)
+    func startPoint(vm: CallLineCellViewModelProtocol)
     func endGame()
 }
 

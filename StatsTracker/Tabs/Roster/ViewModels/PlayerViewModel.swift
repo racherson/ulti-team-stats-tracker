@@ -100,7 +100,6 @@ extension PlayerViewModel {
     
     func addGame() {
         model.addGame()
-        enteredGame = true
     }
     
     func addPoint() {
@@ -108,6 +107,7 @@ extension PlayerViewModel {
     }
     
     func addGoal() {
+        model.addCatch()
         model.addGoal()
     }
     
@@ -140,6 +140,7 @@ extension PlayerViewModel {
     }
     
     func addCallahan() {
+        model.addCatch()
         model.addCallahan()
     }
 }

@@ -107,7 +107,7 @@ class CallLinePresenterTests: XCTestCase {
 
 //MARK: CallLinePresenterDelegate
 extension CallLinePresenterTests: CallLinePresenterDelegate {
-    func playPoint(vm: CallLineCellViewModelProtocol) {
+    func playPoint() {
         playPointCalled += 1
     }
 }
@@ -129,13 +129,14 @@ class CallLineViewControllerSpy: CallLineViewController {
 
 //MARK: CallLineCellViewModelSpy
 class CallLineCellViewModelSpy: NSObject, CallLineCellViewModelProtocol {
-    var items: [[PlayerViewModel]] = []
+    var selectedPlayers: [PlayerViewModel] = []
     
     var fullLineBool = false
     var fullLineCalled: Int = 0
     var selectPlayerCalled: Int = 0
     var endGameCalled: Int = 0
     var addPointsCalled: Int = 0
+    var clearLineCalled: Int = 0
     
     func fullLine() -> Bool {
         fullLineCalled += 1
@@ -153,6 +154,10 @@ class CallLineCellViewModelSpy: NSObject, CallLineCellViewModelProtocol {
     
     func addPointsToPlayers() {
         addPointsCalled += 1
+    }
+    
+    func clearLine() {
+        clearLineCalled += 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

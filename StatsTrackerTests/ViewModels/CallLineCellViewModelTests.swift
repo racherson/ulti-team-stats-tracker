@@ -156,8 +156,7 @@ class CallLineCellViewModelTests: XCTestCase {
         collectionView.register(CallLineCollectionViewCell.self, forCellWithReuseIdentifier: "CallLineCollectionViewCell")
         // When
         let indexPath = IndexPath(row: 0, section: 1)
-        let cell = sut.collectionView(collectionView, cellForItemAt: indexPath)
-            as! CallLineCollectionViewCell
+        let cell = sut.collectionView(collectionView, cellForItemAt: indexPath) as! CallLineCollectionViewCell
         // Then
         XCTAssertEqual(.red, cell.backgroundColor)
     }

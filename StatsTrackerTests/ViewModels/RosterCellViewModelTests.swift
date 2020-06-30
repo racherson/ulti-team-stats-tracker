@@ -138,8 +138,7 @@ class RosterCellViewModelTests: XCTestCase {
         tableView.register(RosterTableViewCell.self, forCellReuseIdentifier: "RosterTableViewCell")
         // When
         let indexPath = IndexPath(row: 0, section: 0)
-        let cell = sut.tableView(tableView, cellForRowAt: indexPath)
-            as! RosterTableViewCell
+        let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! RosterTableViewCell
         // Then
         XCTAssertEqual(TestConstants.playerName, cell.textLabel?.text)
     }

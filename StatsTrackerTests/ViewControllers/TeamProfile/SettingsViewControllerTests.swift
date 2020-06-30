@@ -41,8 +41,7 @@ class SettingsViewControllerTests: XCTestCase {
         let tableView = sut.tableView
         // When
         let indexPath = IndexPath(row: 0, section: 0)
-        let cell = sut.tableView(tableView!, cellForRowAt: indexPath)
-         as! SettingsTableViewCell
+        let cell = sut.tableView(tableView!, cellForRowAt: indexPath) as! SettingsTableViewCell
         // Then
         XCTAssertEqual(cell.cellLabel.text, Constants.Titles.logout)
     }

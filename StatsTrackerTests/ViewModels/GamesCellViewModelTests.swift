@@ -109,8 +109,7 @@ class GamesCellViewModelTests: XCTestCase {
         tableView.register(GamesTableViewCell.self, forCellReuseIdentifier: "GamesTableViewCell")
         // When
         let indexPath = IndexPath(row: 0, section: 0)
-        let cell = sut.tableView(tableView, cellForRowAt: indexPath)
-            as! GamesTableViewCell
+        let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! GamesTableViewCell
         // Then
         XCTAssertEqual(TestConstants.teamName, cell.textLabel?.text)
     }

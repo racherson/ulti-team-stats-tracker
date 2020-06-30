@@ -63,7 +63,7 @@ class PlayGameOffenseCellViewModelTests: XCTestCase {
         let indexPath = IndexPath(row: 0, section: 1)
         let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! NoDiscTableViewCell
         // Then
-        XCTAssertEqual(TestConstants.playerName, cell.nameLabel?.text)
+        XCTAssertEqual(sut, cell.delegate)
     }
     
     func testScorePressed() throws {

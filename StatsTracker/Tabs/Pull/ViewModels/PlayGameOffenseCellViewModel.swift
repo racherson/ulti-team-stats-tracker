@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol PlayGameCellViewModelDelegate: AnyObject {
+protocol PlayGameOffenseCellViewModelDelegate: AnyObject {
     func nextPoint(scored: Bool)
     func reloadVC()
+    func flipPointType()
 }
 
 class PlayGameOffenseCellViewModel: NSObject {
     
     //MARK: Properties
     var items = [[PlayerViewModel]]()
-    weak var delegate: PlayGameCellViewModelDelegate?
+    weak var delegate: PlayGameOffenseCellViewModelDelegate?
     var hasDiscIndex: IndexPath?
     
-    private let selectedPlayerSection = 0
-    
-    init(playerArray: [[PlayerViewModel]], delegate: PlayGameCellViewModelDelegate?) {
+    //MARK: Initialization
+    init(playerArray: [[PlayerViewModel]], delegate: PlayGameOffenseCellViewModelDelegate?) {
         self.items = playerArray
         self.delegate = delegate
     }
@@ -69,7 +69,6 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentItem = items[indexPath.section][indexPath.row]
         
         // All shared properities would belong to this class
         var cell: PlayGameOffenseTableViewCell
@@ -89,7 +88,7 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
         
         // Configure the cell, properties that both subclasses share can be set here
         if checkValidIndexPath(indexPath) {
-            cell.item = currentItem
+            cell.item = items[indexPath.section][indexPath.row]
             cell.index = indexPath
             return cell
         }
@@ -114,7 +113,7 @@ extension PlayGameOffenseCellViewModel: NoDiscCellDelegate {
     
     func dropDisc() {
         hasDiscIndex = nil
-        delegate?.reloadVC()
+        delegate?.flipPointType()
     }
 }
 
@@ -122,6 +121,6 @@ extension PlayGameOffenseCellViewModel: NoDiscCellDelegate {
 extension PlayGameOffenseCellViewModel: HasDiscCellDelegate {
     func turnover() {
         hasDiscIndex = nil
-        delegate?.reloadVC()
+        delegate?.flipPointType()
     }
 }
