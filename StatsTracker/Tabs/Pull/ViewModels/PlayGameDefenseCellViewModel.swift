@@ -11,6 +11,7 @@ import UIKit
 protocol PlayGameDefenseCellViewModelDelegate: AnyObject {
     func nextPoint(scored: Bool)
     func flipPointType()
+    func reloadVC()
 }
 
 class PlayGameDefenseCellViewModel: NSObject {
@@ -18,6 +19,7 @@ class PlayGameDefenseCellViewModel: NSObject {
     //MARK: Properties
     var items = [[PlayerViewModel]]()
     weak var delegate: PlayGameDefenseCellViewModelDelegate?
+    var pulled: Bool = false
     
     //MARK: Initialization
     init(playerArray: [[PlayerViewModel]], delegate: PlayGameDefenseCellViewModelDelegate?) {
@@ -67,17 +69,26 @@ extension PlayGameDefenseCellViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "PlayGameDefenseTableViewCell"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PlayGameDefenseTableViewCell else {
-            fatalError(Constants.Errors.dequeueError(cellIdentifier))
+        // All shared properities would belong to this class
+        var cell: PlayGameDefenseTableViewCell
+        
+        if !pulled {
+            cell = tableView.dequeueReusableCell(withIdentifier: "PullDefenseTableViewCell", for: indexPath) as! PullDefenseTableViewCell
+            if let cell = cell as? PullDefenseTableViewCell {
+                cell.delegate = self
+            }
+        }
+        else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "DefenseTableViewCell", for: indexPath) as! DefenseTableViewCell
+            if let cell = cell as? DefenseTableViewCell {
+                cell.delegate = self
+            }
         }
         
         // Configure the cell, properties that both subclasses share can be set here
         if checkValidIndexPath(indexPath) {
             cell.item = items[indexPath.section][indexPath.row]
-            cell.delegate = self
-            cell.index = indexPath
             return cell
         }
         else {
@@ -86,8 +97,8 @@ extension PlayGameDefenseCellViewModel: UITableViewDataSource {
     }
 }
 
-//MARK: PlayGameDefenseCellDelegate
-extension PlayGameDefenseCellViewModel: PlayGameDefenseCellDelegate {
+//MARK: DefenseCellDelegate
+extension PlayGameDefenseCellViewModel: DefenseCellDelegate {
     func dPressed() {
         delegate?.flipPointType()
     }
@@ -95,5 +106,12 @@ extension PlayGameDefenseCellViewModel: PlayGameDefenseCellDelegate {
     func callahanPressed() {
         // We scored on defense
         delegate?.nextPoint(scored: true)
+    }
+}
+
+extension PlayGameDefenseCellViewModel: PullDefenseCellDelegate {
+    func pull() {
+        pulled = true
+        delegate?.reloadVC()
     }
 }

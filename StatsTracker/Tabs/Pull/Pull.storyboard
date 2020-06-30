@@ -209,7 +209,7 @@
                                             <outlet property="nameLabel" destination="V2z-ug-KTd" id="fff-hi-9zy"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayGameDefenseTableViewCell" rowHeight="80" id="Htl-Kc-CdM" customClass="PlayGameDefenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefenseTableViewCell" rowHeight="80" id="Htl-Kc-CdM" customClass="DefenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="188" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Htl-Kc-CdM" id="XZf-kX-PrJ">
@@ -256,6 +256,48 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="xd6-om-3Sz" id="CSW-3C-TP8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PullDefenseTableViewCell" rowHeight="80" id="m49-pG-0fu" customClass="PullDefenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="268" width="414" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m49-pG-0fu" id="vpz-k9-PeK">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4YU-L7-lLB">
+                                                    <rect key="frame" x="20" y="20" width="374" height="40"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fe-1x-UaZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="40"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="mZz-T6-x6Z">
+                                                            <rect key="frame" x="344" y="0.0" width="30" height="40"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnb-Qt-YPx">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                                                                    <state key="normal" title="Pull"/>
+                                                                    <connections>
+                                                                        <action selector="pullPressed:" destination="m49-pG-0fu" eventType="touchUpInside" id="tFe-1t-FhJ"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="4YU-L7-lLB" secondAttribute="bottom" constant="20" id="GNX-4s-6ZF"/>
+                                                <constraint firstAttribute="trailing" secondItem="4YU-L7-lLB" secondAttribute="trailing" constant="20" id="P4v-qe-5o6"/>
+                                                <constraint firstItem="4YU-L7-lLB" firstAttribute="top" secondItem="vpz-k9-PeK" secondAttribute="top" constant="20" id="mHF-lB-4nf"/>
+                                                <constraint firstItem="4YU-L7-lLB" firstAttribute="leading" secondItem="vpz-k9-PeK" secondAttribute="leading" constant="20" id="zyy-Zy-HDt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="7Fe-1x-UaZ" id="Uj0-Wx-lL3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
