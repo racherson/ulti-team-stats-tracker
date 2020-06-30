@@ -19,12 +19,13 @@ class PlayGameDefenseCellViewModel: NSObject {
     //MARK: Properties
     var items = [[PlayerViewModel]]()
     weak var delegate: PlayGameDefenseCellViewModelDelegate?
-    var pulled: Bool = false
+    var pulled: Bool
     
     //MARK: Initialization
-    init(playerArray: [[PlayerViewModel]], delegate: PlayGameDefenseCellViewModelDelegate?) {
+    init(playerArray: [[PlayerViewModel]], delegate: PlayGameDefenseCellViewModelDelegate?, pulled: Bool) {
         self.items = playerArray
         self.delegate = delegate
+        self.pulled = pulled
     }
     
     //MARK: Private methods

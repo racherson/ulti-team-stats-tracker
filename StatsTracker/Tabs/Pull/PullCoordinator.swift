@@ -86,7 +86,7 @@ class PullCoordinator: Coordinator {
         }
     }
     
-    private func updatePlayPointViewModel() {
+    private func updatePlayPointViewModel(pulled: Bool) {
         guard let vc = pullNavigationController?.topViewController as? PlayGameViewController else {
             fatalError(Constants.Errors.viewControllerError("PlayGameViewController"))
         }
@@ -98,7 +98,7 @@ class PullCoordinator: Coordinator {
         case .offensive:
             playGameVM = PlayGameOffenseCellViewModel(playerArray: [selectedPlayers], delegate: self)
         case .defensive:
-            playGameVM = PlayGameDefenseCellViewModel(playerArray: [selectedPlayers], delegate: self)
+            playGameVM = PlayGameDefenseCellViewModel(playerArray: [selectedPlayers], delegate: self, pulled: pulled)
         case .none:
             return
         }
@@ -162,7 +162,7 @@ extension PullCoordinator: PlayGamePresenterDelegate {
 extension PullCoordinator: CallLinePresenterDelegate {
     func playPoint() {
         // Get correct view model based on current point type
-        updatePlayPointViewModel()
+        updatePlayPointViewModel(pulled: false)
         
         // Dismiss the lineNavigationController, end up at PlayGameViewController
         pullNavigationController?.dismiss(animated: true, completion: nil)
@@ -189,6 +189,6 @@ extension PullCoordinator: PlayGameOffenseCellViewModelDelegate, PlayGameDefense
     
     func flipPointType() {
         updateMidPointType()
-        updatePlayPointViewModel()
+        updatePlayPointViewModel(pulled: true)
     }
 }
