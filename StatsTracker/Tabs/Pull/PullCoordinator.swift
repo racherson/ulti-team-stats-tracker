@@ -19,9 +19,9 @@ class PullCoordinator: Coordinator {
     var navigationController: UINavigationController
     var pullNavigationController: UINavigationController?
     var lineNavigationController: UINavigationController?
+    
     weak var delegate: PullCoordinatorDelegate?
     var authManager: AuthenticationManager = FirebaseAuthManager()
-    
     var lineViewModel: CallLineCellViewModelProtocol!
     var gameModel: GameDataModel!
     var currentPointWind: WindDirection!

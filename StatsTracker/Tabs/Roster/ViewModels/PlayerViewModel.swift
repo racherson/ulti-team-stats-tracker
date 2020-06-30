@@ -140,7 +140,7 @@ extension PlayerViewModel {
     }
     
     func addCallahan() {
-        model.addCatch()
+        model.addGoal()
         model.addCallahan()
     }
 }

@@ -109,6 +109,7 @@ extension PlayGameDefenseCellViewModel: DefenseCellDelegate {
     }
 }
 
+//MARK: PullDefenseCellDelegate
 extension PlayGameDefenseCellViewModel: PullDefenseCellDelegate {
     func pull() {
         pulled = true

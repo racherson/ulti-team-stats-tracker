@@ -101,12 +101,19 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
 //MARK: NoDiscCellDelegate
 extension PlayGameOffenseCellViewModel: NoDiscCellDelegate {
     func scorePressed() {
+        if let indexPath = hasDiscIndex  {
+            items[indexPath.section][indexPath.row].addAssist()
+        }
         hasDiscIndex = nil
         // We scored on offense
         delegate?.nextPoint(scored: true)
     }
     
     func catchDisc(_ index: IndexPath) {
+        if let indexPath = hasDiscIndex {
+            // Disc was thrown by a teammate
+            items[indexPath.section][indexPath.row].addCompletion()
+        }
         hasDiscIndex = index
         delegate?.reloadVC()
     }

@@ -35,8 +35,7 @@ class PlayGamePresenter: Presenter {
         setViewModel()
     }
     
-    func onViewWillAppear() {
-    }
+    func onViewWillAppear() { }
     
     //MARK: Private methods
     private func showErrorAlert(error: String) {
