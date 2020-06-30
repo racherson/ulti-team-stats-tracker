@@ -184,20 +184,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EGv-FN-grh">
-                                                            <rect key="frame" x="122" y="0.0" width="252" height="40"/>
+                                                            <rect key="frame" x="296" y="0.0" width="78" height="40"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpJ-7J-u9G">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="116" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="78" height="40"/>
                                                                     <state key="normal" title="Throwaway"/>
                                                                     <connections>
                                                                         <action selector="throwawayPressed:" destination="pSm-lD-RpU" eventType="touchUpInside" id="GGh-OA-mQW"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INz-kS-vTn">
-                                                                    <rect key="frame" x="136" y="0.0" width="116" height="40"/>
-                                                                    <state key="normal" title="Defense Blocked"/>
-                                                                    <connections>
-                                                                        <action selector="dPressed:" destination="pSm-lD-RpU" eventType="touchUpInside" id="9F3-kC-kO3"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>

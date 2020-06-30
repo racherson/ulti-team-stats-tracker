@@ -79,8 +79,18 @@ extension PlayGameViewControllerTests: PlayGameOffenseCellViewModelDelegate {
 class PlayGamePresenterSpy: Presenter, PlayGamePresenterProtocol {
     
     var viewWillAppearCalled: Int = 0
+    var defenseCalled: Int = 0
+    var opponentScoreCalled: Int = 0
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
+    }
+    
+    func defensePressed() {
+        defenseCalled += 1
+    }
+    
+    func opponentScorePressed() {
+        opponentScoreCalled += 1
     }
 }

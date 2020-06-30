@@ -19,6 +19,8 @@ class PlayGamePresenterTests: XCTestCase {
     
     private var startPointCalled: Int = 0
     private var endGameCalled: Int = 0
+    private var defenseCalled: Int = 0
+    private var opponentScoreCalled: Int = 0
     
     override func setUp() {
         vc = PlayGameViewController.instantiate(.pull)
@@ -134,5 +136,13 @@ extension PlayGamePresenterTests: PlayGamePresenterDelegate {
     
     func endGame() {
         endGameCalled += 1
+    }
+    
+    func defensePressed() {
+        defenseCalled += 1
+    }
+    
+    func opponentScorePressed() {
+        opponentScoreCalled += 1
     }
 }

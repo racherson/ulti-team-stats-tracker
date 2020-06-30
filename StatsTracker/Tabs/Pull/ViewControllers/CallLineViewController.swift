@@ -54,7 +54,7 @@ class CallLineViewController: UIViewController, Storyboarded {
         let button = UIBarButtonItem(title: "Start", style: .done, target: self, action: #selector(self.startPointPressed))
         navigationItem.rightBarButtonItem  = button
         
-        // Add start button
+        // Add end game button
         let endGameButton = UIBarButtonItem(title: "End Game", style: .done, target: self, action: #selector(self.endGamePressed))
         navigationItem.leftBarButtonItem  = endGameButton
     }

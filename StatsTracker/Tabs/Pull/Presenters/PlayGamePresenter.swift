@@ -11,6 +11,8 @@ import UIKit
 protocol PlayGamePresenterDelegate: AnyObject {
     func startPoint(vm: CallLineCellViewModelProtocol)
     func endGame()
+    func defensePressed()
+    func opponentScorePressed()
 }
 
 class PlayGamePresenter: Presenter {
@@ -34,7 +36,6 @@ class PlayGamePresenter: Presenter {
     }
     
     func onViewWillAppear() {
-        vc.navigationItem.title = Constants.Titles.pointTitle
     }
     
     //MARK: Private methods
@@ -54,7 +55,15 @@ class PlayGamePresenter: Presenter {
 }
 
 //MARK: PlayGamePresenterProtocol
-extension PlayGamePresenter: PlayGamePresenterProtocol { }
+extension PlayGamePresenter: PlayGamePresenterProtocol {
+    func defensePressed() {
+        delegate?.defensePressed()
+    }
+    
+    func opponentScorePressed() {
+        delegate?.opponentScorePressed()
+    }
+}
 
 //MARK: DatabaseManagerGetDataDelegate
 extension PlayGamePresenter: DatabaseManagerGetDataDelegate {

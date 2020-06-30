@@ -148,6 +148,14 @@ extension PullCoordinator: PlayGamePresenterDelegate {
         
         lineNavigationController?.topViewController?.present(completionAlert, animated: true, completion: nil)
     }
+    
+    func defensePressed() {
+        flipPointType()
+    }
+    
+    func opponentScorePressed() {
+        nextPoint(scored: false)
+    }
 }
 
 //MARK: CallLinePresenterDelegate

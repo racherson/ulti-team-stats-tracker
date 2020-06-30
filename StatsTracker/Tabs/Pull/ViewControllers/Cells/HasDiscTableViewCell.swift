@@ -37,8 +37,4 @@ class HasDiscTableViewCell: PlayGameOffenseTableViewCell {
         item?.addThrowaway()
         delegate?.turnover()
     }
-    
-    @IBAction func dPressed(_ sender: UIButton) {
-        delegate?.turnover()
-    }
 }

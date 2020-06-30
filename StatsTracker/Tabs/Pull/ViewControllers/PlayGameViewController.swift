@@ -8,7 +8,10 @@
 
 import UIKit
 
-protocol PlayGamePresenterProtocol where Self: Presenter { }
+protocol PlayGamePresenterProtocol where Self: Presenter {
+    func defensePressed()
+    func opponentScorePressed()
+}
 
 protocol PlayGameCellViewModelProtocol: UITableViewDataSource { }
 
@@ -40,6 +43,17 @@ class PlayGameViewController: UIViewController, Storyboarded {
         if tableView != nil {
             tableView.dataSource = vm
         }
+        
+        // Setup bar buttons based on point type
+        if let _ = vm as? PlayGameOffenseCellViewModel {
+            setUpOffenseButton()
+        }
+        else {
+            if let _ = vm as? PlayGameDefenseCellViewModel {
+                setUpDefenseButton()
+            }
+        }
+        
         updateView()
     }
     
@@ -47,6 +61,28 @@ class PlayGameViewController: UIViewController, Storyboarded {
         if tableView != nil {
             tableView.reloadData()
         }
+    }
+    
+    //MARK: Private methods
+    private func setUpOffenseButton() {
+        // Add start button
+        let button = UIBarButtonItem(title: "Defensive Block", style: .done, target: self, action: #selector(self.defensePressed))
+        navigationItem.rightBarButtonItem  = button
+    }
+    
+    private func setUpDefenseButton() {
+        // Add start button
+        let button = UIBarButtonItem(title: "Opponent Scored", style: .done, target: self, action: #selector(self.opponentScorePressed))
+        navigationItem.rightBarButtonItem  = button
+    }
+    
+    //MARK: Actions
+    @objc func defensePressed() {
+        presenter.defensePressed()
+    }
+    
+    @objc func opponentScorePressed() {
+        presenter.opponentScorePressed()
     }
 }
 
