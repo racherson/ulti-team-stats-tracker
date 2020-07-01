@@ -59,6 +59,7 @@
 		294A874524466889003FC969 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A874424466889003FC969 /* RootCoordinator.swift */; };
 		294A874A2446ABFF003FC969 /* FirebaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294A87492446ABFF003FC969 /* FirebaseKeys.swift */; };
 		294AAF28245E481C006B723E /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294AAF27245E481C006B723E /* Errors.swift */; };
+		294FA02A24AD4AF20054B21E /* PickUpDiscTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294FA02924AD4AF20054B21E /* PickUpDiscTableViewCell.swift */; };
 		295108F3246C66DD0083F7EC /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295108F2246C66DD0083F7EC /* HomeViewControllerTests.swift */; };
 		295108F5246C687D0083F7EC /* SignUpViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295108F4246C687D0083F7EC /* SignUpViewControllerTests.swift */; };
 		295108F7246C6BFC0083F7EC /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295108F6246C6BFC0083F7EC /* LoginViewControllerTests.swift */; };
@@ -221,6 +222,7 @@
 		294A874424466889003FC969 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		294A87492446ABFF003FC969 /* FirebaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseKeys.swift; sourceTree = "<group>"; };
 		294AAF27245E481C006B723E /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		294FA02924AD4AF20054B21E /* PickUpDiscTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUpDiscTableViewCell.swift; sourceTree = "<group>"; };
 		295108F2246C66DD0083F7EC /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		295108F4246C687D0083F7EC /* SignUpViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewControllerTests.swift; sourceTree = "<group>"; };
 		295108F6246C6BFC0083F7EC /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 				29EA1B8824AAE44900C6308C /* PlayGameDefenseTableViewCell.swift */,
 				29587F9F249EE52800B3C1A7 /* NoDiscTableViewCell.swift */,
 				298B64F424A70562000A5311 /* HasDiscTableViewCell.swift */,
+				294FA02924AD4AF20054B21E /* PickUpDiscTableViewCell.swift */,
 				299270F424A554250029A0C0 /* DefenseTableViewCell.swift */,
 				29EA1B8624AAE1A400C6308C /* PullDefenseTableViewCell.swift */,
 				2939618B247EF43E0089A485 /* CallLineCollectionViewCell.swift */,
@@ -1136,6 +1139,7 @@
 				29A12620246DDAAA00581D30 /* GamesPresenter.swift in Sources */,
 				2905319F2461EB2100478FF9 /* RosterPresenter.swift in Sources */,
 				29EA1B8724AAE1A400C6308C /* PullDefenseTableViewCell.swift in Sources */,
+				294FA02A24AD4AF20054B21E /* PickUpDiscTableViewCell.swift in Sources */,
 				292D7B8024637DD700910A7C /* PlayerModel.swift in Sources */,
 				299270F524A554250029A0C0 /* DefenseTableViewCell.swift in Sources */,
 				290531A12461F50800478FF9 /* NewPlayerViewController.swift in Sources */,

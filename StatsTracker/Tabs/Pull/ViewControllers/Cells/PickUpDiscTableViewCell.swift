@@ -1,23 +1,22 @@
 //
-//  NoDiscTableViewCell.swift
+//  PickUpDiscTableViewCell.swift
 //  StatsTracker
 //
-//  Created by Rachel Anderson on 6/20/20.
+//  Created by Rachel Anderson on 7/1/20.
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
 import UIKit
 
-protocol NoDiscCellDelegate: NSObject {
-    func scorePressed()
+protocol PickUpDiscCellDelegate: NSObject {
     func catchDisc(_ index: IndexPath)
-    func dropDisc()
+    func pickUpPressed(_ index: IndexPath)
 }
 
-class NoDiscTableViewCell: PlayGameOffenseTableViewCell {
+class PickUpDiscTableViewCell: PlayGameOffenseTableViewCell {
     
     //MARK: Properties
-    weak var delegate: NoDiscCellDelegate?
+    weak var delegate: PickUpDiscCellDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     
     override var item: PlayerViewModel? {
@@ -40,13 +39,7 @@ class NoDiscTableViewCell: PlayGameOffenseTableViewCell {
         delegate?.catchDisc(index)
     }
     
-    @IBAction func dropPressed(_ sender: UIButton) {
-        item?.addDrop()
-        delegate?.dropDisc()
-    }
-    
-    @IBAction func scorePressed(_ sender: UIButton) {
-        item?.addGoal()
-        delegate?.scorePressed()
+    @IBAction func pickUpPressed(_ sender: UIButton) {
+        delegate?.pickUpPressed(index)
     }
 }

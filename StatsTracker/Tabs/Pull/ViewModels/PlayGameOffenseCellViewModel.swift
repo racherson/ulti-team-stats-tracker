@@ -20,6 +20,7 @@ class PlayGameOffenseCellViewModel: NSObject {
     var items = [[PlayerViewModel]]()
     weak var delegate: PlayGameOffenseCellViewModelDelegate?
     var hasDiscIndex: IndexPath?
+    var pickedUp: Bool = false
     
     //MARK: Initialization
     init(playerArray: [[PlayerViewModel]], delegate: PlayGameOffenseCellViewModelDelegate?) {
@@ -73,16 +74,24 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
         // All shared properities would belong to this class
         var cell: PlayGameOffenseTableViewCell
         
-        if indexPath == hasDiscIndex {
-            cell = tableView.dequeueReusableCell(withIdentifier: "HasDiscTableViewCell", for: indexPath) as! HasDiscTableViewCell
-            if let cell = cell as? HasDiscTableViewCell {
+        if !pickedUp {
+            cell = tableView.dequeueReusableCell(withIdentifier: "PickUpDiscTableViewCell", for: indexPath) as! PickUpDiscTableViewCell
+            if let cell = cell as? PickUpDiscTableViewCell {
                 cell.delegate = self
             }
         }
         else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "NoDiscTableViewCell", for: indexPath) as! NoDiscTableViewCell
-            if let cell = cell as? NoDiscTableViewCell {
-                cell.delegate = self
+            if indexPath == hasDiscIndex {
+                cell = tableView.dequeueReusableCell(withIdentifier: "HasDiscTableViewCell", for: indexPath) as! HasDiscTableViewCell
+                if let cell = cell as? HasDiscTableViewCell {
+                    cell.delegate = self
+                }
+            }
+            else {
+                cell = tableView.dequeueReusableCell(withIdentifier: "NoDiscTableViewCell", for: indexPath) as! NoDiscTableViewCell
+                if let cell = cell as? NoDiscTableViewCell {
+                    cell.delegate = self
+                }
             }
         }
         
@@ -98,8 +107,8 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
     }
 }
 
-//MARK: NoDiscCellDelegate
-extension PlayGameOffenseCellViewModel: NoDiscCellDelegate {
+//MARK: NoDiscCellDelegate, PickUpDiscCellDelegate
+extension PlayGameOffenseCellViewModel: NoDiscCellDelegate, PickUpDiscCellDelegate {
     func scorePressed() {
         if let indexPath = hasDiscIndex  {
             items[indexPath.section][indexPath.row].addAssist()
@@ -115,12 +124,19 @@ extension PlayGameOffenseCellViewModel: NoDiscCellDelegate {
             items[indexPath.section][indexPath.row].addCompletion()
         }
         hasDiscIndex = index
+        pickedUp = true
         delegate?.reloadVC()
     }
     
     func dropDisc() {
         hasDiscIndex = nil
         delegate?.flipPointType()
+    }
+    
+    func pickUpPressed(_ index: IndexPath) {
+        hasDiscIndex = index
+        pickedUp = true
+        delegate?.reloadVC()
     }
 }
 

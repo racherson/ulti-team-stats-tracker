@@ -248,7 +248,6 @@ extension FirestoreDBManager: DatabaseManager {
                 self.deleteDataDelegate?.onSuccessfulDelete()
             }
         case .games:
-            // TODO
             return // Not implemented
         }
     }

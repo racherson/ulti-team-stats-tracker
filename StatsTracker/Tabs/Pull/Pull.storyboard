@@ -167,8 +167,57 @@
                                             <outlet property="nameLabel" destination="PPv-6O-Z6t" id="UiR-N5-EWb"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HasDiscTableViewCell" rowHeight="80" id="pSm-lD-RpU" customClass="HasDiscTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PickUpDiscTableViewCell" rowHeight="80" id="N53-S4-CsB" customClass="PickUpDiscTableViewCell" customModule="StatsTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="108" width="414" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N53-S4-CsB" id="BDZ-WE-e1O">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ZsF-Go-Mjx">
+                                                    <rect key="frame" x="20" y="20" width="374" height="40"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jn-9w-mgv">
+                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="40"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MYr-HQ-KW5">
+                                                            <rect key="frame" x="248" y="0.0" width="126" height="40"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loY-Fw-vF0">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="53" height="40"/>
+                                                                    <state key="normal" title="Catch"/>
+                                                                    <connections>
+                                                                        <action selector="catchPressed:" destination="N53-S4-CsB" eventType="touchUpInside" id="PsX-z5-IAs"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6e-lH-kM7">
+                                                                    <rect key="frame" x="73" y="0.0" width="53" height="40"/>
+                                                                    <state key="normal" title="Pick Up"/>
+                                                                    <connections>
+                                                                        <action selector="pickUpPressed:" destination="N53-S4-CsB" eventType="touchUpInside" id="DTn-TE-Sgc"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ZsF-Go-Mjx" secondAttribute="trailing" constant="20" id="Kir-MI-ajA"/>
+                                                <constraint firstAttribute="bottom" secondItem="ZsF-Go-Mjx" secondAttribute="bottom" constant="20" id="QAD-JS-Gbm"/>
+                                                <constraint firstItem="ZsF-Go-Mjx" firstAttribute="leading" secondItem="BDZ-WE-e1O" secondAttribute="leading" constant="20" id="UD0-3k-hX3"/>
+                                                <constraint firstItem="ZsF-Go-Mjx" firstAttribute="top" secondItem="BDZ-WE-e1O" secondAttribute="top" constant="20" id="W9R-hP-a8h"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="9jn-9w-mgv" id="9Ac-y9-J2M"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HasDiscTableViewCell" rowHeight="80" id="pSm-lD-RpU" customClass="HasDiscTableViewCell" customModule="StatsTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="188" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pSm-lD-RpU" id="ILu-Le-ciW">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -210,7 +259,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefenseTableViewCell" rowHeight="80" id="Htl-Kc-CdM" customClass="DefenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="188" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="268" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Htl-Kc-CdM" id="XZf-kX-PrJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -259,7 +308,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PullDefenseTableViewCell" rowHeight="80" id="m49-pG-0fu" customClass="PullDefenseTableViewCell" customModule="StatsTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="268" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="348" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m49-pG-0fu" id="vpz-k9-PeK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>

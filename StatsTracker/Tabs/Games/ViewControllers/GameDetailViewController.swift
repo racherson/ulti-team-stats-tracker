@@ -27,7 +27,6 @@ class GameDetailViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: GameViewModel) {
-        // TODO
         tournamentLabel.text = vm.tournament
         scoreLabel.text = vm.finalScore
     }

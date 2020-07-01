@@ -28,10 +28,14 @@ struct GameViewModel {
     var win: Bool {
         return model.finalScore.team > model.finalScore.opponent ? true : false
     }
+
+    var breaks: Int {
+        // Scored defensive points
+        return model.points.filter { $0.type == PointType.defensive.rawValue && $0.scored }.count
+    }
     
     // TODO: more computed stats
-    
-    // Breaks (upwind/downwind)
-    // Break percentage
-    // Offensive efficiency
+    // Offensive efficiency: offensive points scored / offensive points played
+    // Conversion rate?: goals / possessions
+    // Game leader of goals and assists?
 }
