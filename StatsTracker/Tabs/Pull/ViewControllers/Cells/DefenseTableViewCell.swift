@@ -24,14 +24,6 @@ class DefenseTableViewCell: PlayGameDefenseTableViewCell {
         nameLabel?.text = item?.name
        }
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     //MARK: Actions
     @IBAction func dPressed(_ sender: UIButton) {

@@ -16,6 +16,7 @@ class PullCoordinatorTests: XCTestCase {
     var navigationController: MockNavigationController!
     var lineNavigationController: MockNavigationController!
     var pullNavigationController: MockNavigationController!
+    var vc: PlayGameViewController!
     var gameModel: GameDataModel!
     var viewModel: CallLineCellViewModel!
     
@@ -25,8 +26,7 @@ class PullCoordinatorTests: XCTestCase {
     override func setUp() {
         navigationController = MockNavigationController()
         pullCoordinator = PullCoordinator(navigationController: navigationController)
-        let vc = PlayGameViewController.instantiate(.pull)
-        vc.loadViewIfNeeded()
+        vc = PlayGameViewController.instantiate(.pull)
         lineNavigationController = MockNavigationController(rootViewController: vc)
         pullNavigationController = MockNavigationController(rootViewController: vc)
         gameModel = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
@@ -71,12 +71,13 @@ class PullCoordinatorTests: XCTestCase {
         // Then
         XCTAssertEqual(1, navigationController.presentCalledCount)
         XCTAssertEqual(.fullScreen, navigationController.presentationStyle)
+        XCTAssertTrue(pullNavigationController.topViewController is PlayGameViewController)
     }
     
     func testStartPoint() throws {
         pullCoordinator.lineViewModel = nil
         XCTAssertNil(pullCoordinator.lineViewModel)
-        XCTAssertEqual(0, lineNavigationController.presentCalledCount)
+        XCTAssertEqual(0, pullNavigationController.presentCalledCount)
         // Given
         let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         let vm = CallLineCellViewModel(playerArray: [[], [model], []], delegate: self)
@@ -86,6 +87,64 @@ class PullCoordinatorTests: XCTestCase {
         XCTAssertNotNil(pullCoordinator.lineViewModel)
         XCTAssertEqual(1, pullNavigationController.presentCalledCount)
         XCTAssertEqual(.fullScreen, pullNavigationController.presentationStyle)
+    }
+    
+    func testEndGame() throws {
+        let alertVerifier = AlertVerifier()
+        
+        // When
+        lineNavigationController.pushViewController(vc, animated: false)
+        pullCoordinator.endGame()
+        // Then
+        XCTAssertNotNil(lineNavigationController.topViewController)
+        alertVerifier.verify(
+            title: Constants.Alerts.endGameTitle,
+            message: Constants.Alerts.successfulRecordAlert,
+            animated: true,
+            actions: [
+                .default(Constants.Alerts.okay)
+            ],
+            presentingViewController: lineNavigationController.topViewController
+        )
+    }
+    
+    func testExecutingActionForOkayButton_shouldEndGame() throws {
+        let alertVerifier = AlertVerifier()
+        XCTAssertEqual(0, navigationController.dismissCallCount)
+        XCTAssertEqual(0, reloadGamesCalled)
+        
+        // When
+        lineNavigationController.pushViewController(vc, animated: false)
+        pullCoordinator.endGame()
+        // When
+        try alertVerifier.executeAction(forButton: Constants.Alerts.okay)
+        // Then
+        XCTAssertEqual(1, navigationController.dismissCallCount)
+        XCTAssertEqual(1, reloadGamesCalled)
+    }
+    
+    func testPlayPoint_offense() throws {
+        XCTAssertEqual(0, pullNavigationController.dismissCallCount)
+        // Given
+        pullCoordinator.currentPointWind = .upwind
+        pullCoordinator.currentPointType = .offensive
+        pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        // When
+        pullCoordinator.playPoint()
+        // Then
+        XCTAssertTrue(vc.viewModel is PlayGameOffenseCellViewModel)
+        XCTAssertEqual(1, pullNavigationController.dismissCallCount)
+    }
+    
+    func testPlayPoint_defense() throws {
+        // Given
+        pullCoordinator.currentPointWind = .downwind
+        pullCoordinator.currentPointType = .defensive
+        pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        // When
+        pullCoordinator.playPoint()
+        // Then
+        XCTAssertTrue(vc.viewModel is PlayGameDefenseCellViewModel)
     }
     
     func testNextPoint_scoredTrueUpdateModel() throws {
@@ -180,6 +239,27 @@ class PullCoordinatorTests: XCTestCase {
         // Then
         XCTAssertEqual(1, pullNavigationController.presentCalledCount)
         XCTAssertEqual(.fullScreen, pullNavigationController.presentationStyle)
+    }
+    
+    func testFlipPointType_offense() throws {
+        // Given
+        pullCoordinator.currentPointType = .offensive
+        // When
+        pullCoordinator.flipPointType()
+        // Then
+        XCTAssertEqual(.defensive, pullCoordinator.currentPointType)
+        XCTAssertTrue(vc.viewModel is PlayGameDefenseCellViewModel)
+        
+    }
+    
+    func testFlipPointType_defense() throws {
+        // Given
+        pullCoordinator.currentPointType = .defensive
+        // When
+        pullCoordinator.flipPointType()
+        // Then
+        XCTAssertEqual(.offensive, pullCoordinator.currentPointType)
+        XCTAssertTrue(vc.viewModel is PlayGameOffenseCellViewModel)
     }
 }
 

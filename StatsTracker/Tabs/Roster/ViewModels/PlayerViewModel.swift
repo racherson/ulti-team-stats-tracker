@@ -93,11 +93,8 @@ class PlayerViewModel {
         }
         return String(0)
     }
-}
 
-//MARK: Add Stats
-extension PlayerViewModel {
-    
+    //MARK: Add Stats
     func addGame() {
         model.addGame()
     }

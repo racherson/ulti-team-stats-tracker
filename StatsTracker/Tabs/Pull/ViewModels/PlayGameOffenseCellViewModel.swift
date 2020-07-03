@@ -80,18 +80,16 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
                 cell.delegate = self
             }
         }
-        else {
-            if indexPath == hasDiscIndex {
-                cell = tableView.dequeueReusableCell(withIdentifier: "HasDiscTableViewCell", for: indexPath) as! HasDiscTableViewCell
-                if let cell = cell as? HasDiscTableViewCell {
-                    cell.delegate = self
-                }
+        else if indexPath == hasDiscIndex {
+            cell = tableView.dequeueReusableCell(withIdentifier: "HasDiscTableViewCell", for: indexPath) as! HasDiscTableViewCell
+            if let cell = cell as? HasDiscTableViewCell {
+                cell.delegate = self
             }
-            else {
-                cell = tableView.dequeueReusableCell(withIdentifier: "NoDiscTableViewCell", for: indexPath) as! NoDiscTableViewCell
-                if let cell = cell as? NoDiscTableViewCell {
-                    cell.delegate = self
-                }
+        }
+        else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "NoDiscTableViewCell", for: indexPath) as! NoDiscTableViewCell
+            if let cell = cell as? NoDiscTableViewCell {
+                cell.delegate = self
             }
         }
         

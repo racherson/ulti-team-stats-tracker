@@ -58,6 +58,22 @@ class PlayGameViewControllerTests: XCTestCase {
         XCTAssertTrue(tableView.reloadDataCalled)
         XCTAssertTrue(tableView.dataSourceSet)
     }
+    
+    func testDefensePressed() throws {
+        XCTAssertEqual(0, presenter.defenseCalled)
+        // When
+        sut.defensePressed()
+        // Then
+        XCTAssertEqual(1, presenter.defenseCalled)
+    }
+    
+    func testOpponentScorePressed() throws {
+        XCTAssertEqual(0, presenter.opponentScoreCalled)
+        // When
+        sut.opponentScorePressed()
+        // Then
+        XCTAssertEqual(1, presenter.opponentScoreCalled)
+    }
 }
 
 //MARK: PlayGameOffenseCellViewModelDelegate

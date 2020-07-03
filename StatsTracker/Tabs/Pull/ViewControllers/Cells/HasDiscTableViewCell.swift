@@ -20,16 +20,8 @@ class HasDiscTableViewCell: PlayGameOffenseTableViewCell {
     
     override var item: PlayerViewModel? {
        didSet {
-        nameLabel.text = item?.name
+        nameLabel?.text = item?.name
        }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
     //MARK: Actions

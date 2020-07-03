@@ -13,11 +13,7 @@ class SettingsTableViewCell: UITableViewCell {
     //MARK: Properties
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+
     func setup(type: Int) {
         switch type {
         case SettingCellType.logout.rawValue:
@@ -29,9 +25,5 @@ class SettingsTableViewCell: UITableViewCell {
         default:
             fatalError(Constants.Errors.settingCellError)
         }
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }

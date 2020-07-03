@@ -12,12 +12,4 @@ class PlayGameDefenseTableViewCell: UITableViewCell {
 
     //MARK: Properties
     var item: PlayerViewModel?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 }
