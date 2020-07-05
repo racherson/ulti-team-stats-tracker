@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ScoreModel {
+class ScoreModel: DocumentSerializable {
     
     //MARK: Properties
     private(set) var opponent: Int
@@ -37,22 +37,19 @@ struct ScoreModel {
         self.team = team
     }
     
-    mutating func opponentScored() {
-        self.opponent += 1
-    }
-    
-    mutating func teamScored() {
-        self.team += 1
-    }
-}
-
-//MARK: DocumentSerializable
-extension ScoreModel: DocumentSerializable {
-    init?(documentData: [String : Any]) {
+    required convenience init?(documentData: [String : Any]) {
         guard let opponent = documentData[Constants.ScoreModel.opponent] as? Int,
             let team = documentData[Constants.ScoreModel.team] as? Int else { return nil }
         
         self.init(opponent: opponent, team: team)
+    }
+    
+    func opponentScored() {
+        self.opponent += 1
+    }
+    
+    func teamScored() {
+        self.team += 1
     }
 }
 
