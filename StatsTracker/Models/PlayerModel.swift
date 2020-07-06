@@ -16,10 +16,10 @@ class PlayerModel: Codable, DocumentSerializable {
     private(set) var gender: Int
     private(set) var points: Int
     private(set) var games: Int
-    private(set) var completions: Int
-    private(set) var throwaways: Int
-    private(set) var catches: Int
-    private(set) var drops: Int
+    private(set) var completions: Double
+    private(set) var throwaways: Double
+    private(set) var catches: Double
+    private(set) var drops: Double
     private(set) var goals: Int
     private(set) var assists: Int
     private(set) var ds: Int
@@ -83,7 +83,7 @@ class PlayerModel: Codable, DocumentSerializable {
         self.callahans = 0
     }
     
-    init(name: String, gender: Int, id: String, points: Int, games: Int, completions: Int, throwaways: Int, catches: Int, drops: Int, goals: Int, assists: Int, ds: Int, pulls: Int, callahans: Int, roles: [Int]) {
+    init(name: String, gender: Int, id: String, points: Int, games: Int, completions: Double, throwaways: Double, catches: Double, drops: Double, goals: Int, assists: Int, ds: Int, pulls: Int, callahans: Int, roles: [Int]) {
         self.name = name
         self.gender = gender
         self.id = id
@@ -109,10 +109,10 @@ class PlayerModel: Codable, DocumentSerializable {
         
         let points = documentData[Constants.PlayerModel.points] as? Int ?? Constants.Empty.int
         let games = documentData[Constants.PlayerModel.games] as? Int ?? Constants.Empty.int
-        let completions = documentData[Constants.PlayerModel.completions] as? Int ?? Constants.Empty.int
-        let throwaways = documentData[Constants.PlayerModel.throwaways] as? Int ?? Constants.Empty.int
-        let catches = documentData[Constants.PlayerModel.catches] as? Int ?? Constants.Empty.int
-        let drops = documentData[Constants.PlayerModel.drops] as? Int ?? Constants.Empty.int
+        let completions = documentData[Constants.PlayerModel.completions] as? Double ?? Constants.Empty.double
+        let throwaways = documentData[Constants.PlayerModel.throwaways] as? Double ?? Constants.Empty.double
+        let catches = documentData[Constants.PlayerModel.catches] as? Double ?? Constants.Empty.double
+        let drops = documentData[Constants.PlayerModel.drops] as? Double ?? Constants.Empty.double
         let goals = documentData[Constants.PlayerModel.goals] as? Int ?? Constants.Empty.int
         let assists = documentData[Constants.PlayerModel.assists] as? Int ?? Constants.Empty.int
         let ds = documentData[Constants.PlayerModel.ds] as? Int ?? Constants.Empty.int

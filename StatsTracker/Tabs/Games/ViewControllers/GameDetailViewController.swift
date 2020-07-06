@@ -16,6 +16,9 @@ class GameDetailViewController: UIViewController, Storyboarded {
     var presenter: GameDetailPresenterProtocol!
     @IBOutlet weak var tournamentLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var breaksLabel: UILabel!
+    @IBOutlet weak var breaksAgainstLabel: UILabel!
+    @IBOutlet weak var offensiveEfficiencyLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,5 +32,8 @@ class GameDetailViewController: UIViewController, Storyboarded {
     func updateWithViewModel(vm: GameViewModel) {
         tournamentLabel.text = vm.tournament
         scoreLabel.text = vm.finalScore
+        breaksLabel.text = vm.breaksFor
+        breaksAgainstLabel.text = vm.breaksAgainst
+        offensiveEfficiencyLabel.text = vm.offensiveEfficiency
     }
 }

@@ -42,19 +42,19 @@ class PlayerViewModel {
     }
     
     var completions: String {
-        return String(model.completions)
+        return String(Int(model.completions))
     }
     
     var throwaways: String {
-        return String(model.throwaways)
+        return String(Int(model.throwaways))
     }
     
     var catches: String {
-        return String(model.catches)
+        return String(Int(model.catches))
     }
     
     var drops: String {
-        return String(model.drops)
+        return String(Int(model.drops))
     }
     
     var goals: String {
@@ -80,16 +80,16 @@ class PlayerViewModel {
     //MARK: Calculated Stats
     var catchingPercentage: String {
         if model.catches + model.drops > 0 {
-            let percentNum = model.catches / (model.catches + model.drops)
-            return String(percentNum)
+            let percentNum: Double = (model.catches / (model.catches + model.drops)) * 100
+            return String(percentNum.rounded())
         }
         return String(0)
     }
     
     var completionPercentage: String {
         if model.completions + model.throwaways > 0 {
-            let percentNum = model.completions / (model.completions + model.throwaways)
-            return String(percentNum)
+            let percentNum: Double = (model.completions / (model.completions + model.throwaways)) * 100
+            return String(percentNum.rounded())
         }
         return String(0)
     }
@@ -137,7 +137,7 @@ class PlayerViewModel {
     }
     
     func addCallahan() {
-        model.addGoal()
+        addGoal()
         model.addCallahan()
     }
 }

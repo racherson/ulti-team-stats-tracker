@@ -46,6 +46,7 @@ struct Constants {
     struct Empty {
         static let string = ""
         static let int = 0
+        static let double: Double = 0.0
         static let image = "defaultPhoto"
         static let teamName = "Team Name"
         static let email = "default@t.com"
