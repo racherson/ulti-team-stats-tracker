@@ -44,6 +44,7 @@ class PullCoordinatorTests: XCTestCase {
         navigationController = nil
         lineNavigationController = nil
         pullNavigationController = nil
+        vc = nil
         gameModel = nil
         viewModel = nil
         super.tearDown()
@@ -154,6 +155,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .upwind
         pullCoordinator.currentPointType = .offensive
+        pullCoordinator.startPointType = .offensive
         pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         pullCoordinator.nextPoint(scored: true)
@@ -170,6 +172,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .downwind
         pullCoordinator.currentPointType = .defensive
+        pullCoordinator.startPointType = .defensive
         pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
         // When
         pullCoordinator.nextPoint(scored: false)
@@ -183,6 +186,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .upwind
         pullCoordinator.currentPointType = .offensive
+        pullCoordinator.startPointType = .offensive
         // When
         pullCoordinator.nextPoint(scored: true)
         // Then
@@ -193,6 +197,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .downwind
         pullCoordinator.currentPointType = .defensive
+        pullCoordinator.startPointType = .defensive
         // When
         pullCoordinator.nextPoint(scored: true)
         // Then
@@ -203,6 +208,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointWind = .crosswind
         pullCoordinator.currentPointType = .offensive
+        pullCoordinator.startPointType = .offensive
         // When
         pullCoordinator.nextPoint(scored: true)
         // Then
@@ -213,20 +219,24 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointType = .defensive
         pullCoordinator.currentPointWind = .downwind
+        pullCoordinator.startPointType = .defensive
         // When
         pullCoordinator.nextPoint(scored: false)
         // Then
         XCTAssertEqual(.offensive, pullCoordinator.currentPointType)
+        XCTAssertEqual(.offensive, pullCoordinator.startPointType)
     }
     
     func testNextPoint_updatePoint_defense() throws {
         // Given
         pullCoordinator.currentPointType = .defensive
         pullCoordinator.currentPointWind = .downwind
+        pullCoordinator.startPointType = .defensive
         // When
         pullCoordinator.nextPoint(scored: true)
         // Then
         XCTAssertEqual(.defensive, pullCoordinator.currentPointType)
+        XCTAssertEqual(.defensive, pullCoordinator.startPointType)
     }
     
     func testNextPoint_startPoint() throws {
@@ -234,6 +244,7 @@ class PullCoordinatorTests: XCTestCase {
         // Given
         pullCoordinator.currentPointType = .defensive
         pullCoordinator.currentPointWind = .downwind
+        pullCoordinator.startPointType = .defensive
         // When
         pullCoordinator.nextPoint(scored: true)
         // Then
@@ -243,23 +254,83 @@ class PullCoordinatorTests: XCTestCase {
     
     func testFlipPointType_offense() throws {
         // Given
+        pullCoordinator.startPointType = .defensive
         pullCoordinator.currentPointType = .offensive
         // When
         pullCoordinator.flipPointType()
         // Then
         XCTAssertEqual(.defensive, pullCoordinator.currentPointType)
+        XCTAssertEqual(.defensive, pullCoordinator.startPointType)
         XCTAssertTrue(vc.viewModel is PlayGameDefenseCellViewModel)
-        
     }
     
     func testFlipPointType_defense() throws {
         // Given
+        pullCoordinator.startPointType = .defensive
         pullCoordinator.currentPointType = .defensive
         // When
         pullCoordinator.flipPointType()
         // Then
         XCTAssertEqual(.offensive, pullCoordinator.currentPointType)
+        XCTAssertEqual(.defensive, pullCoordinator.startPointType)
         XCTAssertTrue(vc.viewModel is PlayGameOffenseCellViewModel)
+    }
+    
+    func testDefensePressed_offense() throws {
+        // Given
+        pullCoordinator.startPointType = .defensive
+        pullCoordinator.currentPointType = .offensive
+        // When
+        pullCoordinator.defensePressed()
+        // Then
+        XCTAssertEqual(.defensive, pullCoordinator.currentPointType)
+        XCTAssertEqual(.defensive, pullCoordinator.startPointType)
+        XCTAssertTrue(vc.viewModel is PlayGameDefenseCellViewModel)
+    }
+    
+    func testDefensePressed_defense() throws {
+        // Given
+        pullCoordinator.startPointType = .defensive
+        pullCoordinator.currentPointType = .defensive
+        // When
+        pullCoordinator.defensePressed()
+        // Then
+        XCTAssertEqual(.defensive, pullCoordinator.currentPointType)
+        XCTAssertEqual(.defensive, pullCoordinator.startPointType)
+    }
+    
+    func testOpponentScorePressed_offense() throws {
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.team)
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.opponent)
+        XCTAssertEqual(0, pullCoordinator.gameModel.points.count)
+        // Given
+        pullCoordinator.currentPointWind = .upwind
+        pullCoordinator.currentPointType = .offensive
+        pullCoordinator.startPointType = .defensive
+        pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        // When
+        pullCoordinator.opponentScorePressed()
+        // Then
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.team)
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.opponent)
+        XCTAssertEqual(0, pullCoordinator.gameModel.points.count)
+    }
+    
+    func testOpponentScorePressed_defense() throws {
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.team)
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.opponent)
+        XCTAssertEqual(0, pullCoordinator.gameModel.points.count)
+        // Given
+        pullCoordinator.currentPointWind = .downwind
+        pullCoordinator.currentPointType = .defensive
+        pullCoordinator.startPointType = .defensive
+        pullCoordinator.lineViewModel = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        // When
+        pullCoordinator.opponentScorePressed()
+        // Then
+        XCTAssertEqual(0, pullCoordinator.gameModel.finalScore.team)
+        XCTAssertEqual(1, pullCoordinator.gameModel.finalScore.opponent)
+        XCTAssertEqual(1, pullCoordinator.gameModel.points.count)
     }
 }
 

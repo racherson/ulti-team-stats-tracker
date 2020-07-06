@@ -25,7 +25,8 @@ class PullCoordinator: Coordinator {
     var lineViewModel: CallLineCellViewModelProtocol!
     var gameModel: GameDataModel!
     var currentPointWind: WindDirection!
-    var currentPointType: PointType!
+    var startPointType: PointType! // Point type, how the point starts
+    var currentPointType: PointType! // Team currently has disc or not within the point
 
     //MARK: Initialization
     init(navigationController: UINavigationController) {
@@ -72,7 +73,8 @@ class PullCoordinator: Coordinator {
     
     private func updateNextPointType(scored: Bool) {
         // The team that scores pulls the next point (starts on defense)
-        currentPointType = scored ? .defensive : .offensive
+        startPointType = scored ? .defensive : .offensive
+        currentPointType = startPointType
     }
     
     private func updateMidPointType() {
@@ -111,6 +113,7 @@ class PullCoordinator: Coordinator {
 extension PullCoordinator: PullPresenterDelegate {
     func startGamePressed(gameModel: GameDataModel, wind: WindDirection, point: PointType) {
         self.currentPointWind = wind
+        self.startPointType = point
         self.currentPointType = point
         self.gameModel = gameModel
         
@@ -150,11 +153,15 @@ extension PullCoordinator: PlayGamePresenterDelegate {
     }
     
     func defensePressed() {
-        flipPointType()
+        if currentPointType == .offensive {
+            flipPointType()
+        }
     }
     
     func opponentScorePressed() {
-        nextPoint(scored: false)
+        if currentPointType == .defensive {
+            nextPoint(scored: false)
+        }
     }
 }
 
@@ -173,7 +180,7 @@ extension PullCoordinator: CallLinePresenterDelegate {
 extension PullCoordinator: PlayGameOffenseCellViewModelDelegate, PlayGameDefenseCellViewModelDelegate {
     func nextPoint(scored: Bool) {
         
-        let point = PointDataModel(wind: currentPointWind.rawValue, scored: scored, type: currentPointType.rawValue)
+        let point = PointDataModel(wind: currentPointWind.rawValue, scored: scored, type: startPointType.rawValue)
         gameModel.addPoint(point: point)
         
         updateGameState(scored: scored)

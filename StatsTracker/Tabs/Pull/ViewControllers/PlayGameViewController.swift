@@ -48,7 +48,7 @@ class PlayGameViewController: UIViewController, Storyboarded {
         if let _ = vm as? PlayGameOffenseCellViewModel {
             setUpOffenseButton()
         }
-        else if let _ = vm as? PlayGameOffenseCellViewModel {
+        else if let _ = vm as? PlayGameDefenseCellViewModel {
             setUpDefenseButton()
         }
         
