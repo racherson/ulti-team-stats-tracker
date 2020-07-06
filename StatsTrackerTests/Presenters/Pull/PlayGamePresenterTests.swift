@@ -86,8 +86,8 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(0, startPointCalled)
         // Given
         vc.viewModel = nil
-        let womanModel = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
-        let manModel = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
+        let womanModel = Instance.getPlayerModel(.women)
+        let manModel = Instance.getPlayerModel(.men)
         let data = [
             FirebaseKeys.CollectionPath.women: [womanModel.dictionary],
             FirebaseKeys.CollectionPath.men: [manModel.dictionary]
@@ -116,8 +116,7 @@ class PlayGamePresenterTests: XCTestCase {
         XCTAssertEqual(0, endGameCalled)
         XCTAssertEqual(0, dbManager.setDataCalled)
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        let items = [[], [PlayerViewModel(model: model)], []]
+        let items = [[], [Instance.ViewModel.player()], []]
         let numPlayers = 1
         // When
         sut.endGame(items: items)

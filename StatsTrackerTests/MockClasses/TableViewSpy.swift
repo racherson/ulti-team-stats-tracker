@@ -16,7 +16,7 @@ class TableViewSpy: UITableView {
     var dataSourceSet = false
     
     override func reloadData() {
-         reloadDataCalled = true
+        reloadDataCalled = true
     }
     
     override func numberOfRows(inSection section: Int) -> Int {

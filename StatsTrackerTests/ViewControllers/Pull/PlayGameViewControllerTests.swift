@@ -24,8 +24,7 @@ class PlayGameViewControllerTests: XCTestCase {
         sut = PlayGameViewController.instantiate(.pull)
         let _ = sut.view
         presenter = PlayGamePresenterSpy()
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        let player = PlayerViewModel(model: model)
+        let player = Instance.ViewModel.player()
         vm = PlayGameOffenseCellViewModel(playerArray: [[], [player], []], delegate: self)
         tableView = TableViewSpy()
         sut.tableView = tableView
@@ -36,6 +35,8 @@ class PlayGameViewControllerTests: XCTestCase {
     override func tearDown() {
         sut = nil
         presenter = nil
+        vm = nil
+        tableView = nil
         super.tearDown()
     }
     

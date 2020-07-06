@@ -14,7 +14,7 @@ class GamesViewControllerTests: XCTestCase {
     var sut: GamesViewController!
     var presenter: GamesPresenterSpy!
     
-    var goToGamePageCalled: Int = 0
+    private var goToGamePageCalled: Int = 0
     
     override func setUp() {
         sut = GamesViewController.instantiate(.games)
@@ -62,7 +62,7 @@ class GamesViewControllerTests: XCTestCase {
         XCTAssertEqual(0, goToGamePageCalled)
         // Given
         let indexPath = IndexPath(row: 0, section: 0)
-        sut.viewModel = GamesCellViewModel(gameArray: [[GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)]], delegate: self)
+        sut.viewModel = GamesCellViewModel(gameArray: [[Instance.getGameDataModel()]], delegate: self)
         // When
         sut.tableView(sut.tableView, didSelectRowAt: indexPath)
         // Then

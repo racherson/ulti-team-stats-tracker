@@ -16,11 +16,11 @@ class RosterPresenterTests: XCTestCase {
     var vc: RosterViewControllerSpy!
     var dbManager: MockDBManager!
     
-    var addPressedCount: Int = 0
-    var goToPlayerPageCount: Int = 0
+    private var addPressedCount: Int = 0
+    private var goToPlayerPageCount: Int = 0
     
-    var vmName: String?
-    var vmGender: Gender?
+    private var vmName: String?
+    private var vmGender: Gender?
     
     override func setUp() {
         vc = RosterViewControllerSpy()
@@ -53,8 +53,7 @@ class RosterPresenterTests: XCTestCase {
     func testGoToPlayerPage() throws {
         XCTAssertEqual(0, goToPlayerPageCount)
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        let viewModel = PlayerViewModel(model: model)
+        let viewModel = Instance.ViewModel.player()
         // When
         sut.goToPlayerPage(viewModel: viewModel)
         // Then
@@ -72,7 +71,7 @@ class RosterPresenterTests: XCTestCase {
     func testDeletePlayer() throws {
         XCTAssertEqual(0, dbManager.deleteDataCalled)
         // When
-        sut.deletePlayer(PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
+        sut.deletePlayer(Instance.getPlayerModel())
         // Then
         XCTAssertEqual(1, dbManager.deleteDataCalled)
     }
@@ -121,8 +120,8 @@ class RosterPresenterTests: XCTestCase {
         XCTAssertEqual(0, vc.updateViewCalled)
         // Given
         vc.viewModel = nil
-        let womanModel = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
-        let manModel = PlayerModel(name: "Man", gender: Gender.men.rawValue, id: TestConstants.empty, roles: [])
+        let womanModel = Instance.getPlayerModel(.women)
+        let manModel = Instance.getPlayerModel(.men)
         let data = [
             FirebaseKeys.CollectionPath.women: [womanModel.dictionary],
             FirebaseKeys.CollectionPath.men: [manModel.dictionary]

@@ -13,8 +13,8 @@ class HomeViewControllerTests: XCTestCase {
     
     var sut: HomeViewController!
     
-    var signUpPressedCount: Int = 0
-    var loginPressedCount: Int = 0
+    private var signUpPressedCount: Int = 0
+    private var loginPressedCount: Int = 0
     
     override func setUp() {
         sut = HomeViewController.instantiate(.auth)

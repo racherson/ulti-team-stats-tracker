@@ -16,8 +16,8 @@ class SignUpPresenterTests: XCTestCase {
     var authManager: MockSignedInAuthManager!
     var dbManager: MockDBManager!
     
-    var cancelPressedBool: Int = 0
-    var transitionCalled: Int = 0
+    private var cancelPressedBool: Int = 0
+    private var transitionCalled: Int = 0
     
     override func setUp() {
         vc = SignUpViewController.instantiate(.auth)
@@ -55,7 +55,7 @@ class SignUpPresenterTests: XCTestCase {
     func testSignUpPressed() throws {
         XCTAssertEqual(0, authManager.createUserCalled)
         // When
-        sut.signUpPressed(name: "", email: "", password: "")
+        sut.signUpPressed(name: TestConstants.playerName, email: TestConstants.email, password: TestConstants.empty)
         // Then
         XCTAssertEqual(1, authManager.createUserCalled)
     }
@@ -113,7 +113,7 @@ class SignUpPresenterTests: XCTestCase {
     }
 }
 
-//MARK: SignUpAndLoginPresenterDelegate Mock
+//MARK: SignUpAndLoginPresenterDelegate
 extension SignUpPresenterTests: SignUpAndLoginPresenterDelegate {
     func cancelPressed() {
         self.cancelPressedBool += 1

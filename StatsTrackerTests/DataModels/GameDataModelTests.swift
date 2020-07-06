@@ -26,7 +26,7 @@ class GameDataModelTests: XCTestCase {
     
     func testIntroInit() throws {
         // When
-        let sut = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let sut = Instance.getGameDataModel()
         // Then
         XCTAssertEqual(TestConstants.empty, sut.id)
         XCTAssertEqual(TestConstants.tournamentName, sut.tournament)
@@ -52,7 +52,6 @@ class GameDataModelTests: XCTestCase {
         ]
         // When
         let sut = GameDataModel(documentData: data)
-        // Then
         // Then
         XCTAssertEqual(TestConstants.empty, sut!.id)
         XCTAssertEqual(TestConstants.tournamentName, sut!.tournament)
@@ -81,7 +80,7 @@ class GameDataModelTests: XCTestCase {
     
     func testDictionary() throws {
         // When
-        let sut = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let sut = Instance.getGameDataModel()
         let id = sut.dictionary[Constants.GameModel.id] as? String
         let tournament = sut.dictionary[Constants.GameModel.tournament] as? String
         let opponent = sut.dictionary[Constants.GameModel.opponent] as? String
@@ -99,7 +98,7 @@ class GameDataModelTests: XCTestCase {
     
     func testAddPoint_scored() throws {
         // Given
-        let sut = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let sut = Instance.getGameDataModel()
         XCTAssertEqual(0, sut.points.count)
         // When
         sut.addPoint(point: PointDataModel(wind: 0, scored: true, type: 0))
@@ -111,7 +110,7 @@ class GameDataModelTests: XCTestCase {
     
     func testAddPoint_notScored() throws {
         // Given
-        let sut = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let sut = Instance.getGameDataModel()
         XCTAssertEqual(0, sut.points.count)
         // When
         sut.addPoint(point: PointDataModel(wind: 0, scored: false, type: 0))

@@ -15,8 +15,8 @@ class LoginPresenterTests: XCTestCase {
     var vc: LoginViewController!
     var authManager: MockSignedInAuthManager!
     
-    var cancelPressedCount: Int = 0
-    var transitionCalled: Int = 0
+    private var cancelPressedCount: Int = 0
+    private var transitionCalled: Int = 0
     
     override func setUp() {
         vc = LoginViewController.instantiate(.auth)
@@ -52,7 +52,7 @@ class LoginPresenterTests: XCTestCase {
     func testLoginPressed() throws {
         XCTAssertEqual(0, authManager.signInCalled)
         // When
-        sut.loginPressed(email: "", password: "")
+        sut.loginPressed(email: TestConstants.email, password: TestConstants.empty)
         // Then
         XCTAssertEqual(1, authManager.signInCalled)
     }
@@ -90,7 +90,7 @@ class LoginPresenterTests: XCTestCase {
     }
 }
 
-//MARK: SignUpAndLoginPresenterDelegate Mock
+//MARK: SignUpAndLoginPresenterDelegate
 extension LoginPresenterTests: SignUpAndLoginPresenterDelegate {
     func cancelPressed() {
         self.cancelPressedCount += 1

@@ -16,8 +16,8 @@ class SettingsPresenterTests: XCTestCase {
     var vc: SettingsViewController!
     var authManager: MockSignedInAuthManager!
     
-    var transitionCalled: Int = 0
-    var editCalled: Int = 0
+    private var transitionCalled: Int = 0
+    private var editCalled: Int = 0
     
     override func setUp() {
         vc = SettingsViewController.instantiate(.team)
@@ -122,7 +122,7 @@ class SettingsPresenterTests: XCTestCase {
     }
 }
 
-//MARK: SettingsPresenterDelegate Mock
+//MARK: SettingsPresenterDelegate
 extension SettingsPresenterTests: SettingsPresenterDelegate {
     func transitionToHome() {
         self.transitionCalled += 1

@@ -29,6 +29,7 @@ class CallLinePresenterTests: XCTestCase {
     override func tearDown() {
         sut = nil
         vc = nil
+        vm = nil
         super.tearDown()
     }
     

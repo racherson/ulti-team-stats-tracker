@@ -14,13 +14,13 @@ class RosterCellViewModelTests: XCTestCase {
     var sut: RosterCellViewModel!
     var vc: RosterViewControllerSpy!
     
-    var goToPlayerPageCalled: Int = 0
-    var deletePlayerCalled: Int = 0
-    var updateViewCalled: Int = 0
-    var displayErrorCalled: Int = 0
+    private var goToPlayerPageCalled: Int = 0
+    private var deletePlayerCalled: Int = 0
+    private var updateViewCalled: Int = 0
+    private var displayErrorCalled: Int = 0
     
     override func setUp() {
-        let playerArray = [[PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
+        let playerArray = [[Instance.getPlayerModel()], []]
         vc = RosterViewControllerSpy()
         sut = RosterCellViewModel(playerArray: playerArray, delegate: self)
         super.setUp()
@@ -42,7 +42,7 @@ class RosterCellViewModelTests: XCTestCase {
         XCTAssertEqual(1, sut.items[Gender.women.rawValue].count)
         XCTAssertEqual(0, updateViewCalled)
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let model = Instance.getPlayerModel(.women)
         // When
         sut.addPlayer(model)
         // Then
@@ -54,7 +54,7 @@ class RosterCellViewModelTests: XCTestCase {
         XCTAssertEqual(0, sut.items[Gender.men.rawValue].count)
         XCTAssertEqual(0, updateViewCalled)
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: [])
+        let model = Instance.getPlayerModel(.men)
         // When
         sut.addPlayer(model)
         // Then

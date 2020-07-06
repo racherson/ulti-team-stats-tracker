@@ -17,7 +17,7 @@ class TeamProfilePresenterTests: XCTestCase {
     var authManager: MockSignedInAuthManager!
     var dbManager: MockDBManager!
 
-    var settingsCalled: Int = 0
+    private var settingsCalled: Int = 0
 
     override func setUp() {
         vc = TeamProfileViewController.instantiate(.team)
@@ -134,7 +134,7 @@ class TeamProfilePresenterTests: XCTestCase {
     }
 }
 
-//MARK: TeamProfilePresenterDelegate Mock
+//MARK: TeamProfilePresenterDelegate
 extension TeamProfilePresenterTests: TeamProfilePresenterDelegate {
     func settingsPressed(vm: TeamProfileViewModel) {
         self.settingsCalled += 1

@@ -14,7 +14,7 @@ class PullPresenterTests: XCTestCase {
     var sut: PullPresenter!
     var vc: PullViewController!
     
-    var startGameCount: Int = 0
+    private var startGameCount: Int = 0
     
     override func setUp() {
         vc = PullViewController.instantiate(.pull)
@@ -40,7 +40,7 @@ class PullPresenterTests: XCTestCase {
     func testStartGamePressed() throws {
         XCTAssertEqual(0, startGameCount)
         // Given
-        let game = GameDataModel(id: TestConstants.empty, tournament: TestConstants.empty, opponent: TestConstants.empty)
+        let game = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
         let wind = WindDirection(rawValue: 0)!
         let point = PointType(rawValue: 0)!
         // When

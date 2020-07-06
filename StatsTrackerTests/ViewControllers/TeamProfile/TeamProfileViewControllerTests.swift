@@ -38,7 +38,7 @@ class TeamProfileViewControllerTests: XCTestCase {
     
     func testUpdateWithViewModel_NotAnimating() throws {
         // Given
-        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        let viewModel = Instance.ViewModel.teamProfile()
         // When
         sut.updateWithViewModel(viewModel: viewModel)
         // Then
@@ -49,7 +49,7 @@ class TeamProfileViewControllerTests: XCTestCase {
     func testUpdateWithViewModel_Animating() throws {
         // Given
         sut.activityIndicator.startAnimating()
-        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        let viewModel = Instance.ViewModel.teamProfile()
         // When
         sut.updateWithViewModel(viewModel: viewModel)
         // Then

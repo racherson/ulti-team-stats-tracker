@@ -21,7 +21,7 @@ class CallLineCellViewModelTests: XCTestCase {
     private var endGameCalled: Int = 0
     
     override func setUp() {
-        let playerArray = [[], [PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []]
+        let playerArray = [[], [Instance.getPlayerModel()], []]
         sut = CallLineCellViewModel(playerArray: playerArray, delegate: self)
         super.setUp()
     }
@@ -40,8 +40,7 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testSelectPlayer_Selecting() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        sut.items = [[], [PlayerViewModel(model: model)], []]
+        sut.items = [[], [Instance.ViewModel.player()], []]
         let indexPath = IndexPath(row: 0, section: womenSection)
         // When
         let newIndexPath = sut.selectPlayer(at: indexPath)
@@ -51,8 +50,7 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testSelectPlayer_Deselecting() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        sut.items = [[PlayerViewModel(model: model)], [], []]
+        sut.items = [[Instance.ViewModel.player()], [], []]
         let indexPath = IndexPath(row: 0, section: selectedSection)
         // When
         let newIndexPath = sut.selectPlayer(at: indexPath)
@@ -62,10 +60,9 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testSelectPlayer_FullLine() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        sut.items = [[], [PlayerViewModel(model: model)], []]
+        sut.items = [[], [Instance.ViewModel.player()], []]
         for _ in 1...7 {
-            sut.items[selectedSection].append(PlayerViewModel(model: model))
+            sut.items[selectedSection].append(Instance.ViewModel.player())
         }
         let indexPath = IndexPath(row: 0, section: womenSection)
         // When
@@ -84,9 +81,8 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testFullLine_full() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         for _ in 1...7 {
-            sut.items[selectedSection].append(PlayerViewModel(model: model))
+            sut.items[selectedSection].append(Instance.ViewModel.player())
         }
         // When
         let result = sut.fullLine()
@@ -96,9 +92,8 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testFullLine_notFull() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         for _ in 1...2 {
-            sut.items[selectedSection].append(PlayerViewModel(model: model))
+            sut.items[selectedSection].append(Instance.ViewModel.player())
         }
         // When
         let result = sut.fullLine()
@@ -108,8 +103,8 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testClearLine() throws {
         // Given
-        let womanModel = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        let manModel = PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: [])
+        let womanModel = Instance.getPlayerModel(.women)
+        let manModel = Instance.getPlayerModel(.men)
         sut.items = [[PlayerViewModel(model: womanModel), PlayerViewModel(model: manModel)], [], []]
         // When
         sut.clearLine()
@@ -121,8 +116,8 @@ class CallLineCellViewModelTests: XCTestCase {
     
     func testAddPointsToPlayers() throws {
         // Given
-        let womanVM = PlayerViewModel(model: PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))
-        let manVM = PlayerViewModel(model: PlayerModel(name: TestConstants.playerName, gender: 1, id: TestConstants.empty, roles: []))
+        let womanVM = PlayerViewModel(model: Instance.getPlayerModel(.women))
+        let manVM = PlayerViewModel(model: Instance.getPlayerModel(.men))
         sut.items = [[womanVM, manVM], [], []]
         // When
         sut.addPointsToPlayers()

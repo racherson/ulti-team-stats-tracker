@@ -14,12 +14,12 @@ class GamesCellViewModelTests: XCTestCase {
     var sut: GamesCellViewModel!
     var vc: GamesViewControllerSpy!
     
-    var goToGamePageCalled: Int = 0
-    var updateViewCalled: Int = 0
-    var displayErrorCalled: Int = 0
+    private var goToGamePageCalled: Int = 0
+    private var updateViewCalled: Int = 0
+    private var displayErrorCalled: Int = 0
     
     override func setUp() {
-        let gameArray = [[GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)]]
+        let gameArray = [[Instance.getGameDataModel()]]
         vc = GamesViewControllerSpy()
         sut = GamesCellViewModel(gameArray: gameArray, delegate: self)
         super.setUp()

@@ -16,7 +16,7 @@ class GameDetailPresenterTests: XCTestCase {
     
     override func setUp() {
         vc = GameDetailViewControllerSpy()
-        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let model = Instance.getGameDataModel()
         viewModel = GameViewModel(model: model)
         sut = GameDetailPresenter(vc: vc, delegate: self, viewModel: viewModel)
         vc.presenter = sut

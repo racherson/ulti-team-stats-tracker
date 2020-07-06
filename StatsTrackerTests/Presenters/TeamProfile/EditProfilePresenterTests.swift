@@ -17,9 +17,9 @@ class EditProfilePresenterTests: XCTestCase {
     var authManager: MockSignedInAuthManager!
     var dbManager: MockDBManager!
     
-    var cancelPressedCount: Int = 0
-    var savePressedCount: Int = 0
-    var backToProfileCount: Int = 0
+    private var cancelPressedCount: Int = 0
+    private var savePressedCount: Int = 0
+    private var backToProfileCount: Int = 0
     
     override func setUp() {
         vc = EditProfileViewController.instantiate(.team)
@@ -45,13 +45,12 @@ class EditProfilePresenterTests: XCTestCase {
     
     func testOnViewWillAppear() throws {
         // Given
-        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
-        sut.viewModel = viewModel
+        sut.viewModel = Instance.ViewModel.teamProfile()
         // When
         sut.onViewWillAppear()
         // Then
-        XCTAssertEqual(vc.teamNameTextField.text, viewModel.teamName)
-        XCTAssertEqual(vc.teamPhotoImage.image, viewModel.teamImage)
+        XCTAssertEqual(vc.teamNameTextField.text, sut.viewModel.teamName)
+        XCTAssertEqual(vc.teamPhotoImage.image, sut.viewModel.teamImage)
     }
     
     func testCancelPressed() throws {
@@ -66,7 +65,7 @@ class EditProfilePresenterTests: XCTestCase {
         XCTAssertNil(sut.viewModel)
         XCTAssertEqual(0, dbManager.storeImageDataCalled)
         // Given
-        let vm = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        let vm = Instance.ViewModel.teamProfile()
         // When
         sut.savePressed(vm: vm)
         // Then
@@ -131,23 +130,21 @@ class EditProfilePresenterTests: XCTestCase {
         XCTAssertEqual(0, dbManager.setDataCalled)
         XCTAssertNil(dbManager.setDictionary)
         // Given
-        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
-        sut.viewModel = viewModel
+        sut.viewModel = Instance.ViewModel.teamProfile()
         // When
         sut.storeImageURL(url: TestConstants.empty)
         // Then
         XCTAssertEqual(1, dbManager.setDataCalled)
         XCTAssertNotNil(dbManager.setDictionary)
-        XCTAssertEqual(viewModel.email, dbManager.setDictionary![Constants.UserDataModel.email] as! String)
-        XCTAssertEqual(viewModel.teamName, dbManager.setDictionary![Constants.UserDataModel.teamName] as! String)
+        XCTAssertEqual(sut.viewModel.email, dbManager.setDictionary![Constants.UserDataModel.email] as! String)
+        XCTAssertEqual(sut.viewModel.teamName, dbManager.setDictionary![Constants.UserDataModel.teamName] as! String)
         XCTAssertEqual(TestConstants.empty, dbManager.setDictionary![Constants.UserDataModel.imageURL] as! String)
     }
     
     func testOnSuccessfulSet() throws {
         XCTAssertEqual(0, savePressedCount)
         // Given
-        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
-        sut.viewModel = viewModel
+        sut.viewModel = Instance.ViewModel.teamProfile()
         // When
         sut.onSuccessfulSet()
         // Then
@@ -156,7 +153,7 @@ class EditProfilePresenterTests: XCTestCase {
     }
 }
 
-//MARK: EditProfilePresenterDelegate Mock
+//MARK: EditProfilePresenterDelegate
 extension EditProfilePresenterTests: EditProfilePresenterDelegate {
     func backToProfile() {
         self.backToProfileCount += 1

@@ -16,7 +16,7 @@ class GamesPresenterTests: XCTestCase {
     var vc: GamesViewControllerSpy!
     var dbManager: MockDBManager!
     
-    var goToGamePageCalled: Int = 0
+    private var goToGamePageCalled: Int = 0
     
     override func setUp() {
         vc = GamesViewControllerSpy()
@@ -49,7 +49,7 @@ class GamesPresenterTests: XCTestCase {
     func testGoToGamePage() throws {
         XCTAssertEqual(0, goToGamePageCalled)
         // Given
-        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let model = Instance.getGameDataModel()
         let viewModel = GameViewModel(model: model)
         // When
         sut.goToGamePage(viewModel: viewModel)
@@ -101,7 +101,7 @@ class GamesPresenterTests: XCTestCase {
         XCTAssertEqual(0, vc.updateViewCalled)
         // Given
         vc.viewModel = nil
-        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
+        let model = Instance.getGameDataModel()
         let data = [
             FirebaseKeys.CollectionPath.games: [model.dictionary]
         ]

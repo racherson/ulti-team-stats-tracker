@@ -40,7 +40,7 @@ class EditProfileViewControllerTests: XCTestCase {
     func testUpdateWithViewModel() throws {
         XCTAssertNil(sut.currentEmail)
         // Given
-        let viewModel = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: TestConstants.teamImage!)
+        let viewModel = Instance.ViewModel.teamProfile()
         // When
         sut.updateWithViewModel(vm: viewModel)
         // Then
@@ -61,7 +61,7 @@ class EditProfileViewControllerTests: XCTestCase {
     func testTextFieldIsNotEmpty_NotEmpty() throws {
         // Given
         let textField = UITextField()
-        textField.text = "Test"
+        textField.text = TestConstants.test
         // When
         sut.textFieldIsNotEmpty(sender: textField)
         // Then

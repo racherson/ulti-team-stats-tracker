@@ -13,7 +13,7 @@ class UserDataModelTests: XCTestCase {
     
     func testRequiredInit() throws {
         // When
-        let sut = UserDataModel(teamName: TestConstants.teamName, email: TestConstants.email, imageURL: TestConstants.empty)
+        let sut = Instance.getUserDataModel()
         // Then
         XCTAssertEqual(TestConstants.teamName, sut.teamName)
         XCTAssertEqual(TestConstants.email, sut.email)
@@ -49,7 +49,7 @@ class UserDataModelTests: XCTestCase {
     
     func testDictionary() throws {
         // When
-        let sut = UserDataModel(teamName: TestConstants.teamName, email: TestConstants.email, imageURL: TestConstants.empty)
+        let sut = Instance.getUserDataModel()
         let name = sut.dictionary[Constants.UserDataModel.teamName] as! String
         let email = sut.dictionary[Constants.UserDataModel.email] as! String
         let url = sut.dictionary[Constants.UserDataModel.imageURL] as! String

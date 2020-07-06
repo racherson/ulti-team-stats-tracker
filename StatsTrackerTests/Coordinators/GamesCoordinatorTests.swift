@@ -41,7 +41,7 @@ class GamesCoordinatorTests: XCTestCase {
         XCTAssertEqual(0, navigationController.pushCallCount)
         XCTAssertNil(navigationController.pushedController)
         // Given
-        let model = GameDataModel(id: "", tournament: "", opponent: "")
+        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName)
         let viewModel = GameViewModel(model: model)
         // When
         gamesCoordinator.goToGamePage(viewModel: viewModel)

@@ -18,8 +18,7 @@ class PlayerDetailPresenterTests: XCTestCase {
     override func setUp() {
         vc = PlayerDetailViewController.instantiate(.roster)
         let _ = vc.view
-        let model = PlayerModel(name: "Name", gender: 0, id: "", roles: [])
-        viewModel = PlayerViewModel(model: model)
+        viewModel = Instance.ViewModel.player()
         sut = PlayerDetailPresenter(vc: vc, delegate: self, viewModel: viewModel)
         super.setUp()
     }
@@ -53,4 +52,5 @@ class PlayerDetailPresenterTests: XCTestCase {
     }
 }
 
+//MARK: PlayerDetailPresenterDelegate
 extension PlayerDetailPresenterTests: PlayerDetailPresenterDelegate { }

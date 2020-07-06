@@ -22,7 +22,7 @@ class PlayGameDefenseCellViewModelTests: XCTestCase {
     private var flipPointCalled: Int = 0
     
     override func setUp() {
-        let playerArray = [[], [PlayerViewModel(model: PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))], []]
+        let playerArray = [[], [Instance.ViewModel.player()], []]
         sut = PlayGameDefenseCellViewModel(playerArray: playerArray, delegate: self, pulled: false)
         super.setUp()
     }

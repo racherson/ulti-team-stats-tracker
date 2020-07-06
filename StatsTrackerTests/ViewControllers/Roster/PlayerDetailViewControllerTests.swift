@@ -86,8 +86,7 @@ class PlayerDetailViewControllerTests: XCTestCase {
     
     func testGetRolesString_None() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
-        let viewModel = PlayerViewModel(model: model)
+        let viewModel = Instance.ViewModel.player()
         // When
         sut.updateWithViewModel(vm: viewModel)
         // Then
@@ -95,6 +94,7 @@ class PlayerDetailViewControllerTests: XCTestCase {
     }
 }
 
+//MARK: PlayerDetailPresenterSpy
 class PlayerDetailPresenterSpy: Presenter, PlayerDetailPresenterProtocol {
     var viewWillAppearCalled: Int = 0
     

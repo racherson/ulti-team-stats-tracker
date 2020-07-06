@@ -13,7 +13,7 @@ class ScoreModelTests: XCTestCase {
     
     func testRequiredInit() throws {
         // When
-        let sut = ScoreModel(opponent: 0, team: 0)
+        let sut = Instance.getScoreModel()
         // Then
         XCTAssertEqual(0, sut.opponent)
         XCTAssertEqual(0, sut.team)
@@ -46,7 +46,7 @@ class ScoreModelTests: XCTestCase {
     
     func testDictionary() throws {
         // When
-        let sut = ScoreModel(opponent: 0, team: 0)
+        let sut = Instance.getScoreModel()
         let opponent = sut.dictionary[Constants.ScoreModel.opponent] as! Int
         let team = sut.dictionary[Constants.ScoreModel.team] as! Int
         // Then
@@ -56,7 +56,7 @@ class ScoreModelTests: XCTestCase {
     
     func testOpponentScored() throws {
         // Given
-        let sut = ScoreModel(opponent: 0, team: 0)
+        let sut = Instance.getScoreModel()
         // When
         sut.opponentScored()
         // Then
@@ -66,7 +66,7 @@ class ScoreModelTests: XCTestCase {
     
     func testTeamScored() throws {
         // Given
-        let sut = ScoreModel(opponent: 0, team: 0)
+        let sut = Instance.getScoreModel()
         // When
         sut.teamScored()
         // Then

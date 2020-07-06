@@ -45,6 +45,7 @@ class GameDetailViewControllerTests: XCTestCase {
     }
 }
 
+//MARK: GameDetailPresenterSpy
 class GameDetailPresenterSpy: Presenter, GameDetailPresenterProtocol {
     var viewWillAppearCalled: Int = 0
     

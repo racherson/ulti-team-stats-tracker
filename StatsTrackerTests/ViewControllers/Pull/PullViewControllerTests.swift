@@ -45,8 +45,8 @@ class PullViewControllerTests: XCTestCase {
     
     func testTextFieldIsNotEmpty_NotEmpty() throws {
         // Given
-        sut.tournamentTextField.text = "Test"
-        sut.opponentTextField.text = "Test"
+        sut.tournamentTextField.text = TestConstants.test
+        sut.opponentTextField.text = TestConstants.test
         // When
         sut.textFieldIsNotEmpty(sender: UITextField())
         // Then
@@ -56,8 +56,8 @@ class PullViewControllerTests: XCTestCase {
     func testStartGamePressed() throws {
         XCTAssertEqual(0, presenter.startGameCount)
         // Given
-        sut.tournamentTextField.text = "Test"
-        sut.opponentTextField.text = "Test"
+        sut.tournamentTextField.text = TestConstants.test
+        sut.opponentTextField.text = TestConstants.test
         // When
         sut.startGamePressed(UIButton())
         // Then

@@ -45,6 +45,7 @@
 		2930B93F2471E829007A994E /* CallLinePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930B93E2471E829007A994E /* CallLinePresenterTests.swift */; };
 		2930B9412471E8D0007A994E /* CallLineViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930B9402471E8D0007A994E /* CallLineViewControllerTests.swift */; };
 		2930B9432471F6AF007A994E /* RolesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930B9422471F6AF007A994E /* RolesTableViewCell.swift */; };
+		2933979724B3BE7400E3840D /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2933979624B3BE7400E3840D /* Instance.swift */; };
 		2939469C2443E64F0021D07B /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */; };
 		293946A02443FD530021D07B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939469F2443FD530021D07B /* SettingsViewController.swift */; };
 		2939618C247EF43E0089A485 /* CallLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939618B247EF43E0089A485 /* CallLineCollectionViewCell.swift */; };
@@ -219,6 +220,7 @@
 		2930B93E2471E829007A994E /* CallLinePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLinePresenterTests.swift; sourceTree = "<group>"; };
 		2930B9402471E8D0007A994E /* CallLineViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLineViewControllerTests.swift; sourceTree = "<group>"; };
 		2930B9422471F6AF007A994E /* RolesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesTableViewCell.swift; sourceTree = "<group>"; };
+		2933979624B3BE7400E3840D /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		2939469B2443E64F0021D07B /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		2939469F2443FD530021D07B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2939618B247EF43E0089A485 /* CallLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				29053586245A0B0B00A72DCF /* TestConstants.swift */,
+				2933979624B3BE7400E3840D /* Instance.swift */,
 				29E6C69A245902E700E41586 /* MockClasses */,
 				29B2315924B282B6004AFAC8 /* DataModels */,
 				29E6C6A124590CD400E41586 /* Coordinators */,
@@ -1294,6 +1297,7 @@
 				29C29D22246C983E00CDBEBB /* NewPlayerViewControllerTests.swift in Sources */,
 				29B2315B24B282DA004AFAC8 /* UserDataModelTests.swift in Sources */,
 				29E6C69C245902FC00E41586 /* MockNavigationController.swift in Sources */,
+				2933979724B3BE7400E3840D /* Instance.swift in Sources */,
 				299D32DF2459122B009A7E37 /* TeamProfileCoordinatorTests.swift in Sources */,
 				2930B9412471E8D0007A994E /* CallLineViewControllerTests.swift in Sources */,
 				29B2315D24B28552004AFAC8 /* PlayerModelTests.swift in Sources */,

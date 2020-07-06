@@ -13,7 +13,7 @@ class MainTabBarControllerTests: XCTestCase {
     
     var sut: MainTabBarController!
     
-    var transitionCalled: Int = 0
+    private var transitionCalled: Int = 0
     
     override func setUp() {
         sut = MainTabBarController()

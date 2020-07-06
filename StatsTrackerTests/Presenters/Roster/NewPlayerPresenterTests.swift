@@ -11,13 +11,13 @@ import ViewControllerPresentationSpy
 @testable import StatsTracker
 
 class NewPlayerPresenterTests: XCTestCase {
-
+    
     var sut: NewPlayerPresenter!
     var vc: NewPlayerViewController!
     var dbManager: MockDBManager!
     
-    var cancelPressedCount: Int = 0
-    var savePressedCount: Int = 0
+    private var cancelPressedCount: Int = 0
+    private var savePressedCount: Int = 0
     
     override func setUp() {
         vc = NewPlayerViewController.instantiate(.roster)
@@ -54,7 +54,7 @@ class NewPlayerPresenterTests: XCTestCase {
         XCTAssertEqual(0, savePressedCount)
         XCTAssertNil(sut.model)
         // Given
-        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
+        let model = Instance.getPlayerModel()
         // When
         sut.savePressed(model: model)
         // Then
@@ -104,7 +104,7 @@ class NewPlayerPresenterTests: XCTestCase {
     func testOnSuccessfulSet_Model() throws {
         XCTAssertEqual(0, savePressedCount)
         // Given
-        let model = PlayerModel(name: "Woman", gender: Gender.women.rawValue, id: TestConstants.empty, roles: [])
+        let model = Instance.getPlayerModel()
         // When
         sut.model = model
         sut.onSuccessfulSet()
@@ -130,6 +130,7 @@ class NewPlayerPresenterTests: XCTestCase {
     }
 }
 
+//MARK: NewPlayerPresenterDelegate
 extension NewPlayerPresenterTests: NewPlayerPresenterDelegate {
     func cancelPressed() {
         cancelPressedCount += 1

@@ -19,8 +19,7 @@ class PickUpDiscTableViewCellTests: XCTestCase {
     
     override func setUp() {
         sut = PickUpDiscTableViewCell()
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        item = PlayerViewModelSpy(model: model)
+        item = PlayerViewModelSpy(model: Instance.getPlayerModel())
         sut.item = item
         sut.delegate = self
         super.setUp()

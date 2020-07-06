@@ -10,7 +10,7 @@ import XCTest
 @testable import StatsTracker
 
 class RosterCoordinatorTests: XCTestCase {
-
+    
     var rosterCoordinator: RosterCoordinator!
     var navigationController: MockNavigationController!
     
@@ -40,7 +40,7 @@ class RosterCoordinatorTests: XCTestCase {
     func testReloadRoster() throws {
         // Given
         let vc = RosterViewController()
-        let presenter = MockRosterPresenter()
+        let presenter = RosterPresenterSpy()
         XCTAssertEqual(0, presenter.setViewModelCalled)
         vc.presenter = presenter
         rosterCoordinator.rootVC = vc
@@ -62,8 +62,7 @@ class RosterCoordinatorTests: XCTestCase {
         XCTAssertEqual(0, navigationController.pushCallCount)
         XCTAssertNil(navigationController.pushedController)
         // Given
-        let model = PlayerModel(name: "", gender: 0, id: "", roles: [])
-        let viewModel = PlayerViewModel(model: model)
+        let viewModel = Instance.ViewModel.player()
         // When
         rosterCoordinator.goToPlayerPage(viewModel: viewModel)
         // Then
@@ -82,7 +81,7 @@ class RosterCoordinatorTests: XCTestCase {
     func testSavePressed() throws {
         XCTAssertEqual(0, navigationController.dismissCallCount)
         // Given
-        let model = PlayerModel(name: "", gender: 0, id: "", roles: [])
+        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
         let vc = RosterViewController()
         vc.viewModel = RosterCellViewModel(playerArray: [[], []], delegate: self)
         rosterCoordinator.rootVC = vc
@@ -99,18 +98,4 @@ extension RosterCoordinatorTests: RosterCellViewModelDelegate {
     func deletePlayer(_ player: PlayerModel) { }
     func updateView() { }
     func displayError(with: Error) { }
-}
-
-//MARK: MockRosterPresenter
-class MockRosterPresenter: RosterPresenterProtocol {
-    
-    var setViewModelCalled: Int = 0
-    
-    func onViewWillAppear() { }
-    
-    func setViewModel() {
-        setViewModelCalled += 1
-    }
-    
-    func addPressed() { }
 }

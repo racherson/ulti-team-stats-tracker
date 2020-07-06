@@ -14,8 +14,7 @@ class RolesCellViewModelTests: XCTestCase {
     var sut: RolesCellViewModel!
     
     override func setUp() {
-        let roles = [Roles(rawValue: 0)!]
-        sut = RolesCellViewModel(roleArray: roles)
+        sut = RolesCellViewModel()
         super.setUp()
     }
     

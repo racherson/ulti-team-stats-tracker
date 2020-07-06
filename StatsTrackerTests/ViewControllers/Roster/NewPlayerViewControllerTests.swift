@@ -48,7 +48,7 @@ class NewPlayerViewControllerTests: XCTestCase {
     func testTextFieldIsNotEmpty_NotEmpty() throws {
         // Given
         let textField = UITextField()
-        textField.text = "Test"
+        textField.text = TestConstants.test
         // When
         sut.textFieldIsNotEmpty(sender: textField)
         // Then
@@ -78,7 +78,7 @@ class NewPlayerViewControllerTests: XCTestCase {
         // Given
         sut.nameTextField.text = TestConstants.playerName
         sut.genderSegmentedControl.selectedSegmentIndex = Gender.women.rawValue
-        let viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        let viewModel = RolesCellViewModel()
         viewModel.items[0].isSelected = true
         sut.viewModel = viewModel
         // When
@@ -101,7 +101,7 @@ class NewPlayerViewControllerTests: XCTestCase {
     
     func testDidSelectRowAt() throws {
         // Given
-        let viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        let viewModel = RolesCellViewModel()
         let indexPath = IndexPath(row: 0, section: 0)
         XCTAssertFalse(viewModel.items[indexPath.row].isSelected)
         sut.viewModel = viewModel
@@ -113,7 +113,7 @@ class NewPlayerViewControllerTests: XCTestCase {
     
     func testDidDeSelectRowAt() throws {
         // Given
-        let viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        let viewModel = RolesCellViewModel()
         viewModel.items[0].isSelected = true
         let indexPath = IndexPath(row: 0, section: 0)
         XCTAssertTrue(viewModel.items[indexPath.row].isSelected)

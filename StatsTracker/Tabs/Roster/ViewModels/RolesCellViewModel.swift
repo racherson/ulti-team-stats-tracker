@@ -20,7 +20,8 @@ class RolesCellViewModelItem {
 class RolesCellViewModel: NSObject {
     var items = [RolesCellViewModelItem]()
     
-    init(roleArray: [Roles]) {
+    override init() {
+        let roleArray = Roles.allCases
         items = roleArray.map { RolesCellViewModelItem(item: $0) }
     }
     

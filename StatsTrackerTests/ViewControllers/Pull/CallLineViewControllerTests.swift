@@ -20,7 +20,7 @@ class CallLineViewControllerTests: XCTestCase {
         sut = CallLineViewController.instantiate(.pull)
         let _ = sut.view
         presenter = CallLinePresenterSpy()
-        let player = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let player = Instance.getPlayerModel()
         vm = CallLineCellViewModel(playerArray: [[], [player], []], delegate: self)
         collectionView = CollectionViewSpy(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         sut.collectionView = collectionView
@@ -31,6 +31,8 @@ class CallLineViewControllerTests: XCTestCase {
     override func tearDown() {
         sut = nil
         presenter = nil
+        vm = nil
+        collectionView = nil
         super.tearDown()
     }
     
@@ -46,7 +48,7 @@ class CallLineViewControllerTests: XCTestCase {
         XCTAssertFalse(collectionView.reloadDataCalled)
         XCTAssertFalse(collectionView.dataSourceSet)
         // Given
-        let vm = CallLineCellViewModel(playerArray: [[], [], []], delegate: self)
+        let vm = Instance.ViewModel.callLineEmpty(delegate: self)
         // When
         sut.updateWithViewModel(vm: vm)
         // Then

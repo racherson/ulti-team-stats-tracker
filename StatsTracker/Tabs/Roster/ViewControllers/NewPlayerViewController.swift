@@ -27,7 +27,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         
         // Initialize view model for tableView data source
-        viewModel = RolesCellViewModel(roleArray: Roles.allCases)
+        viewModel = RolesCellViewModel()
         
         // Setup the size of the tableView
         tableView.contentInsetAdjustmentBehavior = .never

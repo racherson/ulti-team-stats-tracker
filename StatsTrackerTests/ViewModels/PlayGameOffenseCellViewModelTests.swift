@@ -22,7 +22,7 @@ class PlayGameOffenseCellViewModelTests: XCTestCase {
     private var flipPointCalled: Int = 0
     
     override func setUp() {
-        let playerArray = [[], [PlayerViewModel(model: PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: []))], []]
+        let playerArray = [[], [Instance.ViewModel.player()], []]
         sut = PlayGameOffenseCellViewModel(playerArray: playerArray, delegate: self)
         super.setUp()
     }
@@ -96,8 +96,7 @@ class PlayGameOffenseCellViewModelTests: XCTestCase {
     func testScorePressed_hasDisc() throws {
         XCTAssertEqual(0, nextPointCalled)
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        let item = PlayerViewModelSpy(model: model)
+        let item = PlayerViewModelSpy(model: Instance.getPlayerModel())
         sut.items[1][0] = item
         // When
         sut.hasDiscIndex = IndexPath(row: 0, section: 1)
@@ -111,8 +110,7 @@ class PlayGameOffenseCellViewModelTests: XCTestCase {
     func testScorePressed_noDisc() throws {
         XCTAssertEqual(0, nextPointCalled)
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
-        let item = PlayerViewModelSpy(model: model)
+        let item = PlayerViewModelSpy(model: Instance.getPlayerModel())
         sut.items[1][0] = item
         // When
         sut.hasDiscIndex = nil

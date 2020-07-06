@@ -34,7 +34,7 @@ class PlayerModelTests: XCTestCase {
     
     func testIntroInit() throws {
         // When
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         // Then
         XCTAssertEqual(TestConstants.playerName, sut.name)
         XCTAssertEqual(0, sut.gender)
@@ -95,7 +95,7 @@ class PlayerModelTests: XCTestCase {
     
     func testDictionary() throws {
         // When
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         let name = sut.dictionary[Constants.PlayerModel.name] as? String
         let gender = sut.dictionary[Constants.PlayerModel.gender] as? Int
         let id = sut.dictionary[Constants.PlayerModel.id] as? String
@@ -107,7 +107,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddPoint() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.points)
         // When
         sut.addPoint()
@@ -117,7 +117,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddGame() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.games)
         // When
         sut.addGame()
@@ -127,7 +127,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddCompletion() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.completions)
         // When
         sut.addCompletion()
@@ -137,7 +137,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddThrowaway() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.throwaways)
         // When
         sut.addThrowaway()
@@ -147,7 +147,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddCatch() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.catches)
         // When
         sut.addCatch()
@@ -157,7 +157,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddDrop() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.drops)
         // When
         sut.addDrop()
@@ -167,7 +167,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddGoal() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.goals)
         // When
         sut.addGoal()
@@ -177,7 +177,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddAssist() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.assists)
         // When
         sut.addAssist()
@@ -187,7 +187,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddD() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.ds)
         // When
         sut.addD()
@@ -197,7 +197,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddPull() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.pulls)
         // When
         sut.addPull()
@@ -207,7 +207,7 @@ class PlayerModelTests: XCTestCase {
     
     func testAddCallahan() throws {
         // Given
-        let sut = PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])
+        let sut = Instance.getPlayerModel()
         XCTAssertEqual(0, sut.callahans)
         // When
         sut.addCallahan()

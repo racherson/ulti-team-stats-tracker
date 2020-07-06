@@ -46,13 +46,11 @@ class LoginViewControllerTests: XCTestCase {
     
     func testShowError() throws {
         XCTAssertEqual(0, sut.errorLabel.alpha)
-        // Given
-        let message = "Error"
         // When
-        sut.showError(message)
+        sut.showError(Constants.Errors.oob)
         // Then
         XCTAssertEqual(1, sut.errorLabel.alpha)
-        XCTAssertEqual(message, sut.errorLabel.text)
+        XCTAssertEqual(Constants.Errors.oob, sut.errorLabel.text)
     }
     
     func testCancelPressed() throws {

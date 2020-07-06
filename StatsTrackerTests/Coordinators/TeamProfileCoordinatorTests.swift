@@ -14,7 +14,7 @@ class TeamProfileCoordinatorTests: XCTestCase {
     var teamProfileCoordinator: TeamProfileCoordinator!
     var navigationController: MockNavigationController!
     
-    var transitionCalledCount: Int = 0
+    private var transitionCalledCount: Int = 0
     
     override func setUp() {
         navigationController = MockNavigationController()
@@ -43,7 +43,7 @@ class TeamProfileCoordinatorTests: XCTestCase {
     func testSettingsPressed() throws {
         XCTAssertEqual(0, navigationController.pushCallCount)
         // Given
-        let vm = TeamProfileViewModel(team: "", email: "", image: UIImage())
+        let vm = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: UIImage())
         // When
         teamProfileCoordinator.settingsPressed(vm: vm)
         // Then
@@ -78,7 +78,7 @@ class TeamProfileCoordinatorTests: XCTestCase {
         XCTAssertEqual(0, navigationController.dismissCallCount)
         XCTAssertEqual(0, navigationController.popCallCount)
         // Given
-        let vm = TeamProfileViewModel(team: "", email: "", image: UIImage())
+        let vm = TeamProfileViewModel(team: TestConstants.teamName, email: TestConstants.email, image: UIImage())
         teamProfileCoordinator.start()
         // When
         teamProfileCoordinator.savePressed(vm: vm)
@@ -88,7 +88,7 @@ class TeamProfileCoordinatorTests: XCTestCase {
     }
 }
 
-//MARK: TeamProfileCoordinatorDelegate Mock
+//MARK: TeamProfileCoordinatorDelegate
 extension TeamProfileCoordinatorTests: TeamProfileCoordinatorDelegate {
     func transitionToHome() {
         transitionCalledCount += 1

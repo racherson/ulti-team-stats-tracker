@@ -14,7 +14,7 @@ class RosterViewControllerTests: XCTestCase {
     var sut: RosterViewController!
     var presenter: RosterPresenterSpy!
     
-    var goToPlayerPageCalled: Int = 0
+    private var goToPlayerPageCalled: Int = 0
     
     override func setUp() {
         sut = RosterViewController.instantiate(.roster)
@@ -70,7 +70,7 @@ class RosterViewControllerTests: XCTestCase {
         XCTAssertEqual(0, goToPlayerPageCalled)
         // Given
         let indexPath = IndexPath(row: 0, section: 0)
-        sut.viewModel = RosterCellViewModel(playerArray: [[PlayerModel(name: TestConstants.playerName, gender: 0, id: TestConstants.empty, roles: [])], []], delegate: self)
+        sut.viewModel = RosterCellViewModel(playerArray: [[Instance.getPlayerModel()], []], delegate: self)
         // When
         sut.tableView(sut.tableView, didSelectRowAt: indexPath)
         // Then
@@ -83,6 +83,7 @@ class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
     
     var viewWillAppearCalled: Int = 0
     var addPressedCount: Int = 0
+    var setViewModelCalled: Int = 0
     
     func onViewWillAppear() {
         viewWillAppearCalled += 1
@@ -92,7 +93,9 @@ class RosterPresenterSpy: Presenter, RosterPresenterProtocol {
         addPressedCount += 1
     }
     
-    func setViewModel() { }
+    func setViewModel() {
+        setViewModelCalled += 1
+    }
 }
 
 //MARK: RosterCellViewModelDelegate
