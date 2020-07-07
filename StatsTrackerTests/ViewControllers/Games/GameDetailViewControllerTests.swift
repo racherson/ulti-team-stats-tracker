@@ -37,11 +37,30 @@ class GameDetailViewControllerTests: XCTestCase {
     }
     
     func testUpdateWithViewModel_Empty() throws {
-        // TODO
+        // Given
+        let vm = GameViewModel(model: Instance.getGameDataModel())
+        // When
+        sut.updateWithViewModel(vm: vm)
+        // Then
+        XCTAssertEqual(sut.tournamentLabel.text, TestConstants.tournamentName)
+        XCTAssertEqual(sut.scoreLabel.text, vm.finalScore)
+        XCTAssertEqual(sut.breaksLabel.text, vm.breaksFor)
+        XCTAssertEqual(sut.breaksAgainstLabel.text, vm.breaksAgainst)
+        XCTAssertEqual(sut.offensiveEfficiencyLabel.text, vm.offensiveEfficiency)
     }
     
     func testUpdateWithViewModel_NotEmpty() throws {
-        // TODO
+        // Given
+        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName, finalScore: [Constants.ScoreModel.team: 15, Constants.ScoreModel.opponent: 10], points: [])
+        let vm = GameViewModel(model: model)
+        // When
+        sut.updateWithViewModel(vm: vm)
+        // Then
+        XCTAssertEqual(sut.tournamentLabel.text, TestConstants.tournamentName)
+        XCTAssertEqual(sut.scoreLabel.text, vm.finalScore)
+        XCTAssertEqual(sut.breaksLabel.text, vm.breaksFor)
+        XCTAssertEqual(sut.breaksAgainstLabel.text, vm.breaksAgainst)
+        XCTAssertEqual(sut.offensiveEfficiencyLabel.text, vm.offensiveEfficiency)
     }
 }
 
