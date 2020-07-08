@@ -1,6 +1,7 @@
 # Ultimate Stats Tracker
 iOS app to track Ultimate Frisbee game statistics a team
-By Rachel Anderson
+
+  By Rachel Anderson
 
 ## Setup
 Build and run the code in Xcode
