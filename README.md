@@ -1,4 +1,4 @@
-# Ultimate Stats Tracker
+# Ultimate Team Stats Tracker
 iOS app to track Ultimate Frisbee game statistics a team
 
 By Rachel Anderson
