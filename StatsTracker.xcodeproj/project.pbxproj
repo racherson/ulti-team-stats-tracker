@@ -15,6 +15,8 @@
 		29053585245A098300A72DCF /* EditProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053584245A098300A72DCF /* EditProfilePresenterTests.swift */; };
 		29053587245A0B0B00A72DCF /* TestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29053586245A0B0B00A72DCF /* TestConstants.swift */; };
 		2905AF0D24A7BA2F006BC09D /* PlayGameOffenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905AF0C24A7BA2F006BC09D /* PlayGameOffenseTableViewCell.swift */; };
+		2906389524B8EC180031FAE6 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2906389424B8EC180031FAE6 /* Font.swift */; };
+		2906389924B96C880031FAE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2906389824B96C880031FAE6 /* Color.swift */; };
 		290973A52490845E00844F29 /* GamesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290973A42490845E00844F29 /* GamesTableViewCell.swift */; };
 		290973A72490885D00844F29 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290973A62490885D00844F29 /* GameViewModel.swift */; };
 		290973A92490898000844F29 /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290973A82490898000844F29 /* GameDetailViewController.swift */; };
@@ -188,6 +190,8 @@
 		29053584245A098300A72DCF /* EditProfilePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenterTests.swift; sourceTree = "<group>"; };
 		29053586245A0B0B00A72DCF /* TestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConstants.swift; sourceTree = "<group>"; };
 		2905AF0C24A7BA2F006BC09D /* PlayGameOffenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGameOffenseTableViewCell.swift; sourceTree = "<group>"; };
+		2906389424B8EC180031FAE6 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		2906389824B96C880031FAE6 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		290973A42490845E00844F29 /* GamesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesTableViewCell.swift; sourceTree = "<group>"; };
 		290973A62490885D00844F29 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		290973A82490898000844F29 /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
@@ -391,6 +395,15 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		2906389324B8EBF20031FAE6 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				2906389424B8EC180031FAE6 /* Font.swift */,
+				2906389824B96C880031FAE6 /* Color.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
 		290927AC24994A2F001A2275 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +493,7 @@
 				29CEDCCA24730CEE00F7F635 /* Enums */,
 				2973A8D9245B51EB002CD459 /* Constants */,
 				2973A8D4245B514D002CD459 /* Errors */,
+				2906389324B8EBF20031FAE6 /* Design */,
 				297EB58D24536F4D008DE8C6 /* Protocols */,
 			);
 			path = Helpers;
@@ -1218,11 +1232,13 @@
 				29458D072447AA9900EC03AB /* UserDataModel.swift in Sources */,
 				29B8B36A2440E13E0068B24D /* SignUpViewController.swift in Sources */,
 				290973A72490885D00844F29 /* GameViewModel.swift in Sources */,
+				2906389524B8EC180031FAE6 /* Font.swift in Sources */,
 				2901C04F24608E3B00635299 /* RosterTableViewCell.swift in Sources */,
 				290973AB249089F200844F29 /* GameDetailPresenter.swift in Sources */,
 				2966446A2452412C0013D902 /* Presenter.swift in Sources */,
 				290309B724906F7C004C7E3C /* PointModelConstants.swift in Sources */,
 				29587FA2249EF9F300B3C1A7 /* CallLineCellViewModel.swift in Sources */,
+				2906389924B96C880031FAE6 /* Color.swift in Sources */,
 				29AD5204243FE3C50094DCDE /* TeamProfileViewController.swift in Sources */,
 				29A1261A246DD6C600581D30 /* PullPresenter.swift in Sources */,
 				29D99EE924A033E500414C81 /* PlayGamePresenter.swift in Sources */,

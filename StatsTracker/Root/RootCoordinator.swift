@@ -44,6 +44,7 @@ class RootCoordinator: Coordinator {
     private func setupWindow() {
         // Attach view to window
         self.window.rootViewController = navigationController
+        self.window.tintColor = Color.teal
         self.window.makeKeyAndVisible()
     }
     

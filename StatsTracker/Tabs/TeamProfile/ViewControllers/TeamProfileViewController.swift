@@ -14,7 +14,7 @@ protocol TeamProfilePresenterProtocol where Self: Presenter {
 }
 
 class TeamProfileViewController: UIViewController, Storyboarded {
-
+    
     //MARK: Properties
     var presenter: TeamProfilePresenterProtocol!
     @IBOutlet weak var teamNameLabel: UILabel!
@@ -28,6 +28,8 @@ class TeamProfileViewController: UIViewController, Storyboarded {
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(self.settingsPressed))
         self.navigationItem.rightBarButtonItem  = settingsButton
         activityIndicator.hidesWhenStopped = true
+        self.view.backgroundColor = Color.seafoam
+        self.teamImage.layer.cornerRadius = 50
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +49,8 @@ class TeamProfileViewController: UIViewController, Storyboarded {
             teamImage.alpha = 1
         }
         
-        teamNameLabel.text = viewModel.teamName
+        let mutableAttributedString = NSMutableAttributedString(string: viewModel.teamName, attributes: Font.profileTitle())
+        teamNameLabel.attributedText = mutableAttributedString
         teamImage.image = viewModel.teamImage
     }
     

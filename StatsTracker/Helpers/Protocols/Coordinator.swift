@@ -22,5 +22,6 @@ extension Coordinator {
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationItem.largeTitleDisplayMode = .always
         navigationController.navigationBar.sizeToFit()
+        navigationController.navigationBar.largeTitleTextAttributes = Font.largeTitle()
     }
 }
