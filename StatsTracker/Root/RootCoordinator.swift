@@ -17,7 +17,7 @@ class RootCoordinator: Coordinator {
     var authManager: AuthenticationManager = FirebaseAuthManager()
 
     //MARK: Initialization
-    init(navigationController: UINavigationController = UINavigationController(), window: UIWindow) {
+    init(navigationController: UINavigationController = NavigationController(), window: UIWindow) {
         
         navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController = navigationController
@@ -44,7 +44,12 @@ class RootCoordinator: Coordinator {
     private func setupWindow() {
         // Attach view to window
         self.window.rootViewController = navigationController
-        self.window.tintColor = Color.teal
+        self.window.tintColor = AppStyle.accentColor
+        
+        UILabel.appearance().substituteFontName = "AvenirNext"
+        UITextView.appearance().substituteFontName = "AvenirNext"
+        UITextField.appearance().substituteFontName = "AvenirNext"
+        
         self.window.makeKeyAndVisible()
     }
     
@@ -63,7 +68,7 @@ extension RootCoordinator {
     
     func startAuthCoordinator() {
         // Start login flow
-        let childNavController = UINavigationController()
+        let childNavController = NavigationController()
         childNavController.modalPresentationStyle = .fullScreen
         let child = AuthCoordinator(navigationController: childNavController)
         child.delegate = self

@@ -26,8 +26,7 @@ class PlayGameViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         
         // Setup the size of the tableview
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.setUp()
         
         tableView.dataSource = viewModel
         tableView.delegate = self

@@ -18,28 +18,24 @@ enum AuthError: Error {
     case user
 }
 
-//MARK: LocalizedError, CustomStringConvertible
-extension AuthError: LocalizedError, CustomStringConvertible {
-    public var description: String {
+//MARK: LocalizedError
+extension AuthError: LocalizedError {
+    public var errorDescription: String? {
         switch self {
         case .emptyFields:
-            return getLocalizedString(Constants.Errors.emptyFieldsError)
+            return NSLocalizedString(Constants.Errors.emptyFieldsError, comment: "Empty Fields Error")
         case .invalidEmail:
-            return getLocalizedString(Constants.Errors.invalidEmailError)
+            return NSLocalizedString(Constants.Errors.invalidEmailError, comment: "Invalid Email Error")
         case .insecurePassword:
-            return getLocalizedString(Constants.Errors.insecurePasswordError)
+            return NSLocalizedString(Constants.Errors.insecurePasswordError, comment: "Insecure Password Error")
         case .signOut:
-            return getLocalizedString(Constants.Errors.signOutError)
+            return NSLocalizedString(Constants.Errors.signOutError, comment: "Sign Out Error")
         case .signIn:
-            return getLocalizedString(Constants.Errors.signInError)
+            return NSLocalizedString(Constants.Errors.signInError, comment: "Sign In Error")
         case .user:
-            return getLocalizedString(Constants.Errors.userError)
+            return NSLocalizedString(Constants.Errors.userError, comment: "User Error")
         case .unknown:
-            return getLocalizedString(Constants.Errors.unknown)
+            return NSLocalizedString(Constants.Errors.unknown, comment: "Unknown Error")
         }
-    }
-    
-    func getLocalizedString(_ error: String) -> String {
-        return String.localizedStringWithFormat(NSLocalizedString("%@", comment: "Error description"), error)
     }
 }

@@ -51,8 +51,8 @@ class CallLineViewController: UIViewController, Storyboarded {
     //MARK: Private methods
     private func setUpButtons() {
         // Add start button
-        let button = UIBarButtonItem(title: "Start", style: .done, target: self, action: #selector(self.startPointPressed))
-        navigationItem.rightBarButtonItem  = button
+        let startButton = UIBarButtonItem(title: "Start", style: .done, target: self, action: #selector(self.startPointPressed))
+        navigationItem.rightBarButtonItem  = startButton
         
         // Add end game button
         let endGameButton = UIBarButtonItem(title: "End Game", style: .done, target: self, action: #selector(self.endGamePressed))

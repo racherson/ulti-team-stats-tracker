@@ -30,8 +30,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
         viewModel = RolesCellViewModel()
         
         // Setup the size of the tableView
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.setUp()
         
         // Connect tableView to the View Controller and View Model
         tableView.delegate = self

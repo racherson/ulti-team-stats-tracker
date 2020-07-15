@@ -35,6 +35,8 @@ class EditProfileViewController: UIViewController, Storyboarded, UINavigationCon
         visualEffectView.alpha = 0
         visualEffectView.layer.cornerRadius = 15
         
+        Color.setGradient(view: view)
+        
         // Add bar button items to navigation
         setUpButtons()
     }

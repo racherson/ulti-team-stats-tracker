@@ -22,6 +22,7 @@ class GameDetailViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Color.setGradient(view: view)
     }
     
     override func viewWillAppear(_ animated: Bool) {

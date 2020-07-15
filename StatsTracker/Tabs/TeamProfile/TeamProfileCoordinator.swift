@@ -64,7 +64,7 @@ extension TeamProfileCoordinator: SettingsPresenterDelegate {
     
     func editPressed() {
         let vc = EditProfileViewController.instantiate(.team)
-        let navController = UINavigationController(rootViewController: vc)
+        let navController = NavigationController(rootViewController: vc)
         let presenter = EditProfilePresenter(vc: vc, delegate: self, dbManager: FirestoreDBManager(authManager.currentUserUID))
         presenter.viewModel = viewModel
         vc.presenter = presenter

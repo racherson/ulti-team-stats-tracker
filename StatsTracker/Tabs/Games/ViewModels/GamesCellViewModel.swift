@@ -82,7 +82,7 @@ extension GamesCellViewModel: UITableViewDataSource {
         
         if checkValidIndexPath(indexPath) {
             cell.item = items[indexPath.section][indexPath.row]
-            
+            cell.setUp()
             return cell
         }
         else {

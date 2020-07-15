@@ -97,6 +97,7 @@ extension PlayGameOffenseCellViewModel: UITableViewDataSource {
         if checkValidIndexPath(indexPath) {
             cell.item = items[indexPath.section][indexPath.row]
             cell.index = indexPath
+            cell.setUp()
             return cell
         }
         else {

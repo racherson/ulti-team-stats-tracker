@@ -12,16 +12,12 @@ enum CustomError: Error {
     case outOfBounds
 }
 
-//MARK: LocalizedError, CustomStringConvertible
-extension CustomError: LocalizedError, CustomStringConvertible {
-    public var description: String {
+//MARK: LocalizedError
+extension CustomError: LocalizedError {
+    public var errorDescription: String? {
         switch self {
         case .outOfBounds:
-            return getLocalizedString(Constants.Errors.oob)
+            return NSLocalizedString(Constants.Errors.oob, comment: "Out of Bounds Error")
         }
-    }
-    
-    func getLocalizedString(_ error: String) -> String {
-        return String.localizedStringWithFormat(NSLocalizedString("%@", comment: "Error description"), error)
     }
 }

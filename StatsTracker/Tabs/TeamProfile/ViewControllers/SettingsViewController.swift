@@ -28,8 +28,7 @@ class SettingsViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         
         // Setup the size of the tableview
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.setUp()
         
         // Connect tableView to the View Controller
         tableView.delegate = self

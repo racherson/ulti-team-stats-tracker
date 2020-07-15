@@ -64,12 +64,8 @@ class FirebaseAuthManager: AuthenticationManager {
 
         // Sign in the user
         auth.signIn(withEmail: email!, password: password!) { (result, err) in
-            if err != nil {
+            if err != nil || result == nil {
                 // Coudn't sign in
-                self.loginDelegate?.displayError(with: err!)
-            }
-            
-            if result == nil {
                 self.loginDelegate?.displayError(with: AuthError.signIn)
             }
         }

@@ -90,6 +90,7 @@ extension PlayGameDefenseCellViewModel: UITableViewDataSource {
         // Configure the cell, properties that both subclasses share can be set here
         if checkValidIndexPath(indexPath) {
             cell.item = items[indexPath.section][indexPath.row]
+            cell.setUp()
             return cell
         }
         else {

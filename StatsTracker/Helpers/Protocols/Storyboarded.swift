@@ -26,16 +26,22 @@ enum StoryboardType: String {
 
 extension Storyboarded where Self: UIViewController {
     static func instantiate(_ board: StoryboardType) -> Self {
-        // this pulls out "StatsTracker.MyViewController"
+        
+        // Pull out "StatsTracker.MyViewController"
         let fullName = NSStringFromClass(self)
 
-        // this splits by the dot and uses everything after, giving "MyViewController"
+        // Split by the dot and use everything after, giving "MyViewController"
         let className = fullName.components(separatedBy: ".")[1]
 
-        // load correct storyboard
+        // Load correct storyboard
         let storyboard = UIStoryboard(name: board.rawValue, bundle: Bundle.main)
 
-        // instantiate a view controller with that identifier, and force cast as the type that was requested
-        return storyboard.instantiateViewController(withIdentifier: className) as! Self
+        // Instantiate a view controller with that identifier, and force cast as the type that was requested
+        let vc = storyboard.instantiateViewController(withIdentifier: className) as! Self
+        
+        // Set background color
+        vc.view.backgroundColor = AppStyle.topGradientColor
+        
+        return vc
     }
 }

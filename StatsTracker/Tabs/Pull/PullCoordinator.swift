@@ -122,7 +122,7 @@ extension PullCoordinator: PullPresenterDelegate {
         
         vc.presenter = presenter
         
-        pullNavigationController = UINavigationController(rootViewController: vc)
+        pullNavigationController = NavigationController(rootViewController: vc)
         pullNavigationController?.modalPresentationStyle = .fullScreen
         navigationController.present(pullNavigationController!, animated: true, completion: nil)
     }
@@ -138,7 +138,7 @@ extension PullCoordinator: PlayGamePresenterDelegate {
         vc.presenter = presenter
         vc.updateWithViewModel(vm: lineViewModel)
         
-        lineNavigationController = UINavigationController(rootViewController: vc)
+        lineNavigationController = NavigationController(rootViewController: vc)
         lineNavigationController!.modalPresentationStyle = .fullScreen
         pullNavigationController!.present(lineNavigationController!, animated: true, completion: nil)
     }

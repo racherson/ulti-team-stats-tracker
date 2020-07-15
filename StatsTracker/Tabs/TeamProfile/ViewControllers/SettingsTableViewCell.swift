@@ -25,5 +25,8 @@ class SettingsTableViewCell: UITableViewCell {
         default:
             fatalError(Constants.Errors.settingCellError)
         }
+        
+        let mutableAttributedString = NSMutableAttributedString(string: cellLabel.text!, attributes: Font.tableView)
+        cellLabel.attributedText = mutableAttributedString
     }
 }

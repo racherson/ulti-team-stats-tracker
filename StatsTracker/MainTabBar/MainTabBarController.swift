@@ -15,10 +15,10 @@ protocol MainTabBarControllerDelegate: AnyObject {
 class MainTabBarController: UITabBarController {
     
     //MARK: Properties
-    let teamProfileCoordinator = TeamProfileCoordinator(navigationController: UINavigationController())
-    let rosterCoordinator = RosterCoordinator(navigationController: UINavigationController())
-    let pullCoordinator = PullCoordinator(navigationController: UINavigationController())
-    let gamesCoordinator = GamesCoordinator(navigationController: UINavigationController())
+    let teamProfileCoordinator = TeamProfileCoordinator(navigationController: NavigationController())
+    let rosterCoordinator = RosterCoordinator(navigationController: NavigationController())
+    let pullCoordinator = PullCoordinator(navigationController: NavigationController())
+    let gamesCoordinator = GamesCoordinator(navigationController: NavigationController())
     weak var coordinator: MainTabBarControllerDelegate?
 
     override func viewDidLoad() {

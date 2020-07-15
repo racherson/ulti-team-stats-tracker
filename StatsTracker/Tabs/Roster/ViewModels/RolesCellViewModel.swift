@@ -67,6 +67,7 @@ extension RolesCellViewModel: UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: false)
         }
         
+        cell.setUp()
         return cell
     }
 }
