@@ -25,9 +25,18 @@ class LoginViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginButton.isEnabled = false
+        Color.setGradient(view: view)
 
         // Hide error label
         errorLabel.alpha = 0
+        errorLabel.textColor = .red
+        
+        // Handle the text field’s user input through delegate callbacks.
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        emailTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
+        passwordTextField.addTarget(self, action: #selector(textFieldIsNotEmpty), for: .allEditingEvents)
         
         // Add cancel button
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelPressed))
@@ -51,6 +60,18 @@ class LoginViewController: UIViewController, Storyboarded {
     }
     
     //MARK: Actions
+    @objc func textFieldIsNotEmpty(sender: UITextField) {
+        // Validate text fields are not empty
+        guard let email = emailTextField.text, !email.isEmpty,
+            let password = passwordTextField.text, !password.isEmpty
+            else {
+                loginButton.isEnabled = false; return
+        }
+        
+        // Enable sign up button if conditions are met
+        loginButton.isEnabled = true
+    }
+    
     @objc func cancelPressed() {
         presenter.cancelPressed()
     }
@@ -62,5 +83,22 @@ class LoginViewController: UIViewController, Storyboarded {
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         presenter.loginPressed(email: email, password: password)
+    }
+}
+
+//MARK: UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        }
+        
+        // Hide the keyboard and login
+        if textField == passwordTextField {
+            textField.resignFirstResponder()
+            loginPressed(loginButton)
+        }
+        
+        return true
     }
 }

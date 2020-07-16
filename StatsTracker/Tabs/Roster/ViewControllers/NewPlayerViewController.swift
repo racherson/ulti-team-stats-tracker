@@ -25,6 +25,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveButton?.isEnabled = false
         
         // Initialize view model for tableView data source
         viewModel = RolesCellViewModel()
@@ -56,6 +57,7 @@ class NewPlayerViewController: UIViewController, Storyboarded {
         
         // Add save button
         saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.savePressed))
+        saveButton?.isEnabled = false
         self.navigationItem.rightBarButtonItem = saveButton
     }
     

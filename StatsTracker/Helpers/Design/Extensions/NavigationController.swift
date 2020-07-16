@@ -17,6 +17,6 @@ class NavigationController: UINavigationController {
         self.navigationBar.titleTextAttributes = Font.smallTitle
         
         // Set font for navigation bar buttons
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: Font.barButtonItem], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes(Font.barButtonItem, for: .normal)
     }
 }

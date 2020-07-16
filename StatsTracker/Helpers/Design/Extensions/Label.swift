@@ -81,4 +81,13 @@ extension UITextField {
             self.font = UIFont(name: fontName, size: self.font?.pointSize ?? 17)
         }
     }
+    
+    @objc var substituteTextColor : UIColor {
+        get {
+            return self.textColor ?? AppStyle.accentColor
+        }
+        set {
+            self.textColor = newValue
+        }
+    }
 }

@@ -17,6 +17,7 @@ struct AppStyle {
     
     struct Font {
         
+        static let family = "AvenirNext"
         static let bold = "AvenirNext-Bold"
         static let medium = "AvenirNext-Medium"
         static let regular = "AvenirNext-Regular"

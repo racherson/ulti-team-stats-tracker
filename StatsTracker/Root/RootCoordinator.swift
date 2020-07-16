@@ -46,9 +46,11 @@ class RootCoordinator: Coordinator {
         self.window.rootViewController = navigationController
         self.window.tintColor = AppStyle.accentColor
         
-        UILabel.appearance().substituteFontName = "AvenirNext"
-        UITextView.appearance().substituteFontName = "AvenirNext"
-        UITextField.appearance().substituteFontName = "AvenirNext"
+        UILabel.appearance().substituteFontName = AppStyle.Font.family
+        UILabel.appearance().textColor = AppStyle.accentColor
+        UITextView.appearance().substituteFontName = AppStyle.Font.family
+        UITextField.appearance().substituteFontName = AppStyle.Font.family
+        UITextField.appearance().substituteTextColor = AppStyle.accentColor
         
         self.window.makeKeyAndVisible()
     }

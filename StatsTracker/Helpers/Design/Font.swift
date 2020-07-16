@@ -45,11 +45,17 @@ struct Font {
         ]
     }
     
-    static var segmentedControl: UIFont {
-        return UIFont(name: AppStyle.Font.regular, size: 16.0)!
+    static var segmentedControl: [NSAttributedString.Key: Any] {
+        return [
+            NSAttributedString.Key.foregroundColor: AppStyle.accentColor,
+            NSAttributedString.Key.font: UIFont(name: AppStyle.Font.regular, size: 16)!
+        ]
     }
     
-    static var barButtonItem: UIFont {
-        return UIFont(name: AppStyle.Font.medium, size: 17.0)!
+    static var barButtonItem: [NSAttributedString.Key: Any] {
+        return [
+            NSAttributedString.Key.foregroundColor: AppStyle.accentColor,
+            NSAttributedString.Key.font: UIFont(name: AppStyle.Font.medium, size: 17)!
+        ]
     }
 }

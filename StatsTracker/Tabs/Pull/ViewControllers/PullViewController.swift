@@ -45,8 +45,7 @@ class PullViewController: UIViewController, Storyboarded {
         guard let tournament = tournamentTextField.text, !tournament.isEmpty,
             let opponent = opponentTextField.text, !opponent.isEmpty
             else {
-                startGameButton.isEnabled = false
-                return
+                startGameButton.isEnabled = false; return
         }
         
         // Enable start game button if conditions are met
@@ -78,8 +77,14 @@ class PullViewController: UIViewController, Storyboarded {
 //MARK: UITextFieldDelegate
 extension PullViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == tournamentTextField {
+            opponentTextField.becomeFirstResponder()
+        }
+        
         // Hide the keyboard.
-        textField.resignFirstResponder()
+        if textField == opponentTextField {
+            textField.resignFirstResponder()
+        }
         return true
     }
 }
