@@ -31,13 +31,6 @@ struct Font {
         ]
     }
     
-    static var subTitle: [NSAttributedString.Key: Any] {
-        return [
-            NSAttributedString.Key.foregroundColor: AppStyle.accentColor,
-            NSAttributedString.Key.font: UIFont(name: AppStyle.Font.bold, size: 17)!
-        ]
-    }
-    
     static var tableView: [NSAttributedString.Key: Any] {
         return [
             NSAttributedString.Key.foregroundColor: AppStyle.accentColor,

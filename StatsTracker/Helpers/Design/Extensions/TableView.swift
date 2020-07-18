@@ -11,9 +11,12 @@ import UIKit
 //MARK: UITableView
 extension UITableView {
     func setUp() {
+        // Set tableview footer
         contentInsetAdjustmentBehavior = .never
         tableFooterView = UIView(frame: .zero)
-        Color.setGradient(view: self, true)
+        
+        // Set background gradient
+        Color.setGradient(view: self)
     }
 }
 
@@ -24,6 +27,7 @@ extension UITableViewCell {
             return
         }
         
+        // Set tableview cell font
         let mutableAttributedString = NSMutableAttributedString(string: text, attributes: Font.tableView)
         textLabel.attributedText = mutableAttributedString
     }

@@ -27,6 +27,7 @@ class SignUpViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         signUpButton.isEnabled = false
+        signUpButton.setUp()
         Color.setGradient(view: view)
 
         // Hide error label

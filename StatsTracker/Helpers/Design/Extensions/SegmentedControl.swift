@@ -12,6 +12,8 @@ import UIKit
 extension UISegmentedControl {
     open override func awakeFromNib() {
         super.awakeFromNib()
+        
+        // Change segmented control font
         setTitleTextAttributes(Font.segmentedControl, for: .normal)
     }
 }

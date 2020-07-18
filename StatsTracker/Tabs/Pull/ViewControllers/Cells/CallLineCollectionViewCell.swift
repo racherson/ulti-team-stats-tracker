@@ -17,6 +17,7 @@ class CallLineCollectionViewCell: UICollectionViewCell {
        didSet {
         label?.text = item?.model.name
         label?.adjustsFontSizeToFitWidth = true
+        label?.textColor = .white
        }
     }
 

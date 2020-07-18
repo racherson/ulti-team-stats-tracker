@@ -25,6 +25,7 @@ class PullViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         startGameButton.isEnabled = false
+        startGameButton.setUp()
         Color.setGradient(view: view)
         
         // Handle the text field’s user input through delegate callbacks.

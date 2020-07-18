@@ -108,7 +108,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8jL-jk-n4K">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoDiscTableViewCell" rowHeight="80" id="Bxi-ol-hX0" customClass="NoDiscTableViewCell" customModule="StatsTracker" customModuleProvider="target">
@@ -355,7 +355,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8jL-jk-n4K" firstAttribute="leading" secondItem="XKk-TZ-6LX" secondAttribute="leading" id="FZj-Sd-qbp"/>
-                            <constraint firstItem="XKk-TZ-6LX" firstAttribute="bottom" secondItem="8jL-jk-n4K" secondAttribute="bottom" id="nST-el-eKK"/>
+                            <constraint firstAttribute="bottom" secondItem="8jL-jk-n4K" secondAttribute="bottom" id="nST-el-eKK"/>
                             <constraint firstItem="XKk-TZ-6LX" firstAttribute="trailing" secondItem="8jL-jk-n4K" secondAttribute="trailing" id="xnq-Mz-9co"/>
                             <constraint firstItem="8jL-jk-n4K" firstAttribute="top" secondItem="XKk-TZ-6LX" secondAttribute="top" id="yrl-X8-bXa"/>
                         </constraints>
@@ -378,7 +378,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JtO-YT-PIa">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="20" minimumInteritemSpacing="20" id="sUe-Fi-Ar8">
                                     <size key="itemSize" width="128" height="128"/>
@@ -435,7 +435,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="alC-Ny-ScI" firstAttribute="bottom" secondItem="JtO-YT-PIa" secondAttribute="bottom" id="6Hl-N2-LdC"/>
+                            <constraint firstAttribute="bottom" secondItem="JtO-YT-PIa" secondAttribute="bottom" id="6Hl-N2-LdC"/>
                             <constraint firstItem="JtO-YT-PIa" firstAttribute="leading" secondItem="alC-Ny-ScI" secondAttribute="leading" id="ToM-Bs-I5A"/>
                             <constraint firstItem="JtO-YT-PIa" firstAttribute="top" secondItem="alC-Ny-ScI" secondAttribute="top" id="WyE-79-898"/>
                             <constraint firstItem="alC-Ny-ScI" firstAttribute="trailing" secondItem="JtO-YT-PIa" secondAttribute="trailing" id="na0-cl-JyH"/>

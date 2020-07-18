@@ -22,6 +22,10 @@ class HomeViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup buttons
+        signUpButton.setUp()
+        loginButton.setUp()
     }
     
     //MARK: Actions

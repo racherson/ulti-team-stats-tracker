@@ -15,6 +15,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grass" translatesAutoresizingMaskIntoConstraints="NO" id="7zA-aa-DjY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rLd-92-MFU">
                                 <rect key="frame" x="40" y="702" width="334" height="120"/>
                                 <subviews>
@@ -43,8 +46,12 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="7zA-aa-DjY" firstAttribute="leading" secondItem="98V-xQ-zoc" secondAttribute="leading" id="8EY-bJ-X75"/>
                             <constraint firstItem="rLd-92-MFU" firstAttribute="leading" secondItem="YhE-RM-9M2" secondAttribute="leading" constant="40" id="9oh-WF-1Or"/>
+                            <constraint firstItem="7zA-aa-DjY" firstAttribute="top" secondItem="98V-xQ-zoc" secondAttribute="top" id="GaI-8E-TbA"/>
+                            <constraint firstAttribute="trailing" secondItem="7zA-aa-DjY" secondAttribute="trailing" id="OYM-n9-7B8"/>
                             <constraint firstItem="YhE-RM-9M2" firstAttribute="trailing" secondItem="rLd-92-MFU" secondAttribute="trailing" constant="40" id="SrG-ew-K4A"/>
+                            <constraint firstAttribute="bottom" secondItem="7zA-aa-DjY" secondAttribute="bottom" id="pI3-Qo-571"/>
                             <constraint firstItem="YhE-RM-9M2" firstAttribute="bottom" secondItem="rLd-92-MFU" secondAttribute="bottom" constant="40" id="xFB-2f-K8p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YhE-RM-9M2"/>
@@ -193,4 +200,7 @@
             <point key="canvasLocation" x="1689.8550724637682" y="-179.46428571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="grass" width="400" height="710"/>
+    </resources>
 </document>

@@ -10,6 +10,7 @@ import UIKit
 
 //MARK: UILabel
 extension UILabel {
+    // Change label font
     @objc var substituteFontName : String {
         get {
             return self.font.fontName
@@ -35,6 +36,7 @@ extension UILabel {
 
 //MARK: UITextView
 extension UITextView {
+    // Change text view font
     @objc var substituteFontName : String {
         get {
             return self.font?.fontName ?? ""
@@ -60,6 +62,7 @@ extension UITextView {
 
 //MARK: UITextField
 extension UITextField {
+    // Change text field font
     @objc var substituteFontName : String {
         get {
             return self.font?.fontName ?? ""
@@ -82,6 +85,7 @@ extension UITextField {
         }
     }
     
+    // Change text field font color
     @objc var substituteTextColor : UIColor {
         get {
             return self.textColor ?? AppStyle.accentColor

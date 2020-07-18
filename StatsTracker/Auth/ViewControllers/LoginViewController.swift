@@ -26,6 +26,7 @@ class LoginViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.isEnabled = false
+        loginButton.setUp()
         Color.setGradient(view: view)
 
         // Hide error label
