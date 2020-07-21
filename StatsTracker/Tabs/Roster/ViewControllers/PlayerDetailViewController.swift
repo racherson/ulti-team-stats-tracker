@@ -2,7 +2,7 @@
 //  PlayerDetailViewController.swift
 //  StatsTracker
 //
-//  Created by Rachel Anderson on 5/5/20.
+//  Created by Rachel Anderson on 7/21/20.
 //  Copyright © 2020 Rachel Anderson. All rights reserved.
 //
 
@@ -14,24 +14,18 @@ class PlayerDetailViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: PlayerDetailPresenterProtocol!
-    @IBOutlet weak var rolesLabel: UILabel!
-    @IBOutlet weak var gamesPlayedLabel: UILabel!
-    @IBOutlet weak var pointsPlayedLabel: UILabel!
-    @IBOutlet weak var goalsLabel: UILabel!
-    @IBOutlet weak var assistsLabel: UILabel!
-    @IBOutlet weak var dLabel: UILabel!
-    @IBOutlet weak var completionsLabel: UILabel!
-    @IBOutlet weak var throwawaysLabel: UILabel!
-    @IBOutlet weak var completionPercentLabel: UILabel!
-    @IBOutlet weak var catchesLabel: UILabel!
-    @IBOutlet weak var dropsLabel: UILabel!
-    @IBOutlet weak var catchPercentLabel: UILabel!
-    @IBOutlet weak var pullsLabel: UILabel!
-    @IBOutlet weak var callahanLabel: UILabel!
+    var vm: PlayerViewModel?
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Color.setGradient(view: view)
+        
+        // Setup the size of the tableview
+        tableView.setUp()
+        
+        // Connect tableView to the View Controller
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,19 +34,35 @@ class PlayerDetailViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: PlayerViewModel) {
-        rolesLabel.text = vm.roles
-        gamesPlayedLabel.text = vm.games
-        pointsPlayedLabel.text = vm.points
-        goalsLabel.text = vm.goals
-        assistsLabel.text = vm.assists
-        dLabel.text = vm.ds
-        completionsLabel.text = vm.completions
-        throwawaysLabel.text = vm.throwaways
-        completionPercentLabel.text = vm.completionPercentage
-        catchesLabel.text = vm.catches
-        dropsLabel.text = vm.drops
-        catchPercentLabel.text = vm.catchingPercentage
-        pullsLabel.text = vm.pulls
-        callahanLabel.text = vm.callahans
+        self.vm = vm
+        tableView.reloadData()
+    }
+}
+
+//MARK: UITableViewDelegate, UITableViewDataSource
+extension PlayerDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return PlayerDetailCellType.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? vm?.roles : nil
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "PlayerDetailTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PlayerDetailTableViewCell else {
+            fatalError(Constants.Errors.dequeueError(cellIdentifier))
+        }
+        
+        // Configure the cell
+        cell.setup(type: indexPath.row, vm: self.vm!)
+        return cell
     }
 }

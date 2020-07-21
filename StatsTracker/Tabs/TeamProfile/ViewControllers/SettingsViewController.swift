@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum SettingCellType: Int, CaseIterable {
-    case logout
-    case edit
-}
-
 protocol SettingsPresenterProtocol where Self: Presenter {
     func editPressed()
     func logoutPressed()
