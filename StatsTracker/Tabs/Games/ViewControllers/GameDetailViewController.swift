@@ -14,15 +14,18 @@ class GameDetailViewController: UIViewController, Storyboarded {
     
     //MARK: Properties
     var presenter: GameDetailPresenterProtocol!
-    @IBOutlet weak var tournamentLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var breaksLabel: UILabel!
-    @IBOutlet weak var breaksAgainstLabel: UILabel!
-    @IBOutlet weak var offensiveEfficiencyLabel: UILabel!
+    var vm: GameViewModel?
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Color.setGradient(view: view)
+        
+        // Setup the size of the tableview
+        tableView.setUp()
+        
+        // Connect tableView to the View Controller
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,10 +34,36 @@ class GameDetailViewController: UIViewController, Storyboarded {
     }
     
     func updateWithViewModel(vm: GameViewModel) {
-        tournamentLabel.text = vm.tournament
-        scoreLabel.text = vm.finalScore
-        breaksLabel.text = vm.breaksFor
-        breaksAgainstLabel.text = vm.breaksAgainst
-        offensiveEfficiencyLabel.text = vm.offensiveEfficiency
+        self.vm = vm
+        tableView.reloadData()
     }
 }
+
+//MARK: UITableViewDelegate, UITableViewDataSource
+extension GameDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return GameDetailCellType.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? vm?.tournament : nil
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "GameDetailTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GameDetailTableViewCell else {
+            fatalError(Constants.Errors.dequeueError(cellIdentifier))
+        }
+        
+        // Configure the cell
+        cell.setup(type: indexPath.row, vm: self.vm!)
+        return cell
+    }
+}
+

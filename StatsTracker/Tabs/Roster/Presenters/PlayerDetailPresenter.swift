@@ -8,8 +8,7 @@
 
 import Foundation
 
-protocol PlayerDetailPresenterDelegate: AnyObject {
-}
+protocol PlayerDetailPresenterDelegate: AnyObject { }
 
 class PlayerDetailPresenter: Presenter {
     
