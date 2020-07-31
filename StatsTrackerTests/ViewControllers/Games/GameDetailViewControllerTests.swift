@@ -36,31 +36,57 @@ class GameDetailViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
     }
     
-    func testUpdateWithViewModel_Empty() throws {
+    func testUpdateWithViewModel() throws {
         // Given
         let vm = GameViewModel(model: Instance.getGameDataModel())
+        let tableView = TableViewSpy()
+        sut.tableView = tableView
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
-        XCTAssertEqual(sut.tournamentLabel.text, TestConstants.tournamentName)
-        XCTAssertEqual(sut.scoreLabel.text, vm.finalScore)
-        XCTAssertEqual(sut.breaksLabel.text, vm.breaksFor)
-        XCTAssertEqual(sut.breaksAgainstLabel.text, vm.breaksAgainst)
-        XCTAssertEqual(sut.offensiveEfficiencyLabel.text, vm.offensiveEfficiency)
+        XCTAssertTrue(tableView.reloadDataCalled)
     }
     
-    func testUpdateWithViewModel_NotEmpty() throws {
+    func testTitleForHeaderInSection_0() throws {
         // Given
-        let model = GameDataModel(id: TestConstants.empty, tournament: TestConstants.tournamentName, opponent: TestConstants.teamName, finalScore: [Constants.ScoreModel.team: 15, Constants.ScoreModel.opponent: 10], points: [])
-        let vm = GameViewModel(model: model)
+        let section = 0
         // When
-        sut.updateWithViewModel(vm: vm)
+        let title = sut.tableView(UITableView(), titleForHeaderInSection: section)
         // Then
-        XCTAssertEqual(sut.tournamentLabel.text, TestConstants.tournamentName)
-        XCTAssertEqual(sut.scoreLabel.text, vm.finalScore)
-        XCTAssertEqual(sut.breaksLabel.text, vm.breaksFor)
-        XCTAssertEqual(sut.breaksAgainstLabel.text, vm.breaksAgainst)
-        XCTAssertEqual(sut.offensiveEfficiencyLabel.text, vm.offensiveEfficiency)
+        XCTAssertEqual(title, sut.vm?.tournament)
+    }
+    
+    func testTitleForHeaderInSection_1() throws {
+        // Given
+        let section = 1
+        // When
+        let title = sut.tableView(UITableView(), titleForHeaderInSection: section)
+        // Then
+        XCTAssertNil(title)
+    }
+    
+    func testConfigureTableViewCell_score() {
+        // Given
+        let tableView = UITableView()
+        tableView.register(GameDetailTableViewCell.self, forCellReuseIdentifier: "GameDetailTableViewCell")
+        sut.vm = Instance.ViewModel.game()
+        // When
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! GameDetailTableViewCell
+        // Then
+        XCTAssertEqual(GameDetailCellType.score.description, cell.textLabel?.text)
+    }
+    
+    func testConfigureTableViewCell_offensiveEfficiency() {
+        // Given
+        let tableView = UITableView()
+        tableView.register(GameDetailTableViewCell.self, forCellReuseIdentifier: "GameDetailTableViewCell")
+        sut.vm = Instance.ViewModel.game()
+        // When
+        let indexPath = IndexPath(row: 3, section: 0)
+        let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! GameDetailTableViewCell
+        // Then
+        XCTAssertEqual(GameDetailCellType.offensiveEfficiency.description, cell.textLabel?.text)
     }
 }
 

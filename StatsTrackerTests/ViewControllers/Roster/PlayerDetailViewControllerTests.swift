@@ -36,61 +36,58 @@ class PlayerDetailViewControllerTests: XCTestCase {
         XCTAssertEqual(1, presenter.viewWillAppearCalled)
     }
     
-    func testUpdateWithViewModel_Empty() throws {
+    func testUpdateWithViewModel() throws {
         // Given
         let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [0])
         let vm = PlayerViewModel(model: model)
+        let tableView = TableViewSpy()
+        sut.tableView = tableView
         // When
         sut.updateWithViewModel(vm: vm)
         // Then
-        XCTAssertEqual(sut.rolesLabel.text, Roles(rawValue: 0)?.description)
-        XCTAssertEqual(sut.gamesPlayedLabel.text, vm.games)
-        XCTAssertEqual(sut.pointsPlayedLabel.text, vm.points)
-        XCTAssertEqual(sut.goalsLabel.text, vm.goals)
-        XCTAssertEqual(sut.assistsLabel.text, vm.assists)
-        XCTAssertEqual(sut.dLabel.text, vm.ds)
-        XCTAssertEqual(sut.completionsLabel.text, vm.completions)
-        XCTAssertEqual(sut.throwawaysLabel.text, vm.throwaways)
-        XCTAssertEqual(sut.completionPercentLabel.text, vm.completionPercentage)
-        XCTAssertEqual(sut.catchesLabel.text, vm.catches)
-        XCTAssertEqual(sut.dropsLabel.text, vm.drops)
-        XCTAssertEqual(sut.catchPercentLabel.text, vm.catchingPercentage)
-        XCTAssertEqual(sut.pullsLabel.text, vm.pulls)
-        XCTAssertEqual(sut.callahanLabel.text, vm.callahans)
+        XCTAssertTrue(tableView.reloadDataCalled)
     }
     
-    func testUpdateWithViewModel_NotEmpty() throws {
+    func testTitleForHeaderInSection_0() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, points: 0, games: 0, completions: 80, throwaways: 20, catches: 100, drops: 5, goals: 0, assists: 0, ds: 0, pulls: 0, callahans: 0, roles: [0])
-        let vm = PlayerViewModel(model: model)
+        let section = 0
         // When
-        sut.updateWithViewModel(vm: vm)
+        let title = sut.tableView(UITableView(), titleForHeaderInSection: section)
         // Then
-        XCTAssertEqual(sut.completionsLabel.text, vm.completions)
-        XCTAssertEqual(sut.throwawaysLabel.text, vm.throwaways)
-        XCTAssertEqual(sut.completionPercentLabel.text, vm.completionPercentage)
-        XCTAssertEqual(sut.catchesLabel.text, vm.catches)
-        XCTAssertEqual(sut.dropsLabel.text, vm.drops)
-        XCTAssertEqual(sut.catchPercentLabel.text, vm.catchingPercentage)
+        XCTAssertEqual(title, sut.vm?.roles)
     }
     
-    func testGetRolesString_Multiple() throws {
+    func testTitleForHeaderInSection_1() throws {
         // Given
-        let model = PlayerModel(name: TestConstants.playerName, gender: Gender.women.rawValue, id: TestConstants.empty, roles: [0, 1])
-        let viewModel = PlayerViewModel(model: model)
+        let section = 1
         // When
-        sut.updateWithViewModel(vm: viewModel)
+        let title = sut.tableView(UITableView(), titleForHeaderInSection: section)
         // Then
-        XCTAssertEqual(sut.rolesLabel.text, Roles(rawValue: 0)!.description + ", " + Roles(rawValue: 1)!.description)
+        XCTAssertNil(title)
     }
     
-    func testGetRolesString_None() throws {
+    func testConfigureTableViewCell_games() {
         // Given
-        let viewModel = Instance.ViewModel.player()
+        let tableView = UITableView()
+        tableView.register(PlayerDetailTableViewCell.self, forCellReuseIdentifier: "PlayerDetailTableViewCell")
+        sut.vm = Instance.ViewModel.player()
         // When
-        sut.updateWithViewModel(vm: viewModel)
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! PlayerDetailTableViewCell
         // Then
-        XCTAssertEqual(sut.rolesLabel.text, TestConstants.empty)
+        XCTAssertEqual(PlayerDetailCellType.games.description, cell.textLabel?.text)
+    }
+    
+    func testConfigureTableViewCell_completions() {
+        // Given
+        let tableView = UITableView()
+        tableView.register(PlayerDetailTableViewCell.self, forCellReuseIdentifier: "PlayerDetailTableViewCell")
+        sut.vm = Instance.ViewModel.player()
+        // When
+        let indexPath = IndexPath(row: 5, section: 0)
+        let cell = sut.tableView(tableView, cellForRowAt: indexPath) as! PlayerDetailTableViewCell
+        // Then
+        XCTAssertEqual(PlayerDetailCellType.completions.description, cell.textLabel?.text)
     }
 }
 

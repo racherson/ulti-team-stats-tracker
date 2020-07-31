@@ -40,5 +40,9 @@ struct Instance {
         static func player() -> PlayerViewModel {
             return PlayerViewModel(model: Instance.getPlayerModel())
         }
+        
+        static func game() -> GameViewModel {
+            return GameViewModel(model: Instance.getGameDataModel())
+        }
     }
 }

@@ -36,19 +36,6 @@ class PlayerDetailPresenterTests: XCTestCase {
         sut.onViewWillAppear()
         // Then
         XCTAssertEqual(viewModel.name, vc.navigationItem.title)
-        XCTAssertEqual(viewModel.games, vc.gamesPlayedLabel.text)
-        XCTAssertEqual(viewModel.points, vc.pointsPlayedLabel.text)
-        XCTAssertEqual(viewModel.goals, vc.goalsLabel.text)
-        XCTAssertEqual(viewModel.assists, vc.assistsLabel.text)
-        XCTAssertEqual(viewModel.ds, vc.dLabel.text)
-        XCTAssertEqual(viewModel.completions, vc.completionsLabel.text)
-        XCTAssertEqual(viewModel.throwaways, vc.throwawaysLabel.text)
-        XCTAssertEqual(viewModel.completionPercentage, vc.completionPercentLabel.text)
-        XCTAssertEqual(viewModel.catches, vc.catchesLabel.text)
-        XCTAssertEqual(viewModel.drops, vc.dropsLabel.text)
-        XCTAssertEqual(viewModel.catchingPercentage, vc.catchPercentLabel.text)
-        XCTAssertEqual(viewModel.pulls, vc.pullsLabel.text)
-        XCTAssertEqual(viewModel.callahans, vc.callahanLabel.text)
     }
 }
 
